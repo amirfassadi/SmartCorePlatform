@@ -1,4 +1,4 @@
-# 047_SmartCore_Architecture_Layer_Model.md
+# 048_SmartCore_Architecture& Taxonomy_Layer_Model.md
 
 Version: 1.0
 

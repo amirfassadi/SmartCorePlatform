@@ -1,4 +1,4 @@
-# 056_SmartCore_Tenancy_and_Ownership_Model.md
+# 057_SmartCore_Tenancy_and_Ownership_Model.md
 
 Version: 1.0
 
@@ -31,7 +31,7 @@ This document does **not** define:
 
 * Semantic constructs
 * Rule Engine implementation
-* Permission Engine implementation
+* Policy Engine implementation
 * Authentication protocols
 * Runtime architecture
 * Platform taxonomy

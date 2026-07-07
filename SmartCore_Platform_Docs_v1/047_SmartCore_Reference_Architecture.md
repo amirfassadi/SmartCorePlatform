@@ -1,4 +1,4 @@
-# 046_SmartCore_Platform_Architecture.md
+# 047_SmartCore_Reference_Architecture.md
 
 Version: 1.0
 
@@ -89,7 +89,7 @@ Examples include:
 * Event Engine
 * Workflow Engine
 * Automation Engine
-* Permission Engine
+* Policy Engine
 * Query Engine
 
 Core Engines execute semantic models.
