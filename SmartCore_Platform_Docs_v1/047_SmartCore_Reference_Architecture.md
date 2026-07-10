@@ -18,7 +18,7 @@ While SFMM defines the semantic language used to describe reality, this document
 
 ## Scope
 
-This document defines the Reference Architecture View of SmartCore. It does not redefine SFMM semantics. It does not replace the canonical Architecture Layer Taxonomy View in [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It depends on [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md).
+This document defines the Reference Architecture View of SmartCore. It does not redefine SFMM semantics. It does not replace the canonical Architecture Layer Taxonomy View in [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md).
 
 Where this document uses taxonomy terminology, it adopts the terminology established by the Architecture Layer Taxonomy View in [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It is complementary to the semantic view, the execution boundary view, and the architecture layer taxonomy view.
 
@@ -102,7 +102,7 @@ They do not define business concepts.
 
 Capability Platforms provide reusable functional capabilities that can be shared across many domains and solutions.
 
-This document uses the term Platform Capability to refer to an architectural capability provided by a platform. This is distinct from Semantic Capability, which is defined in [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md).
+This document uses the term Platform Capability to refer to an architectural capability provided by a platform. This is distinct from Semantic Capability, which is defined in [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md).
 
 Examples include:
 

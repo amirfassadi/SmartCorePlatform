@@ -6,20 +6,20 @@ Normalize the remaining implementation-architecture ambiguities in the targeted 
 
 ## Modified Files
 
-- [SmartCore_Platform_Docs_v1/059_SmartCore_Codebase_Architecture.md](SmartCore_Platform_Docs_v1/059_SmartCore_Codebase_Architecture.md)
-- [SmartCore_Platform_Docs_v1/061_SmartCore_Core_Engine_Boundaries.md](SmartCore_Platform_Docs_v1/061_SmartCore_Core_Engine_Boundaries.md)
-- [SmartCore_Platform_Docs_v1/062_SmartCore_Module_Interaction_Model.md](SmartCore_Platform_Docs_v1/062_SmartCore_Module_Interaction_Model.md)
+- [SmartCore_Platform_Docs_v1/060_SmartCore_Codebase_Architecture.md](SmartCore_Platform_Docs_v1/060_SmartCore_Codebase_Architecture.md)
+- [SmartCore_Platform_Docs_v1/062_SmartCore_Core_Engine_Boundaries.md](SmartCore_Platform_Docs_v1/062_SmartCore_Core_Engine_Boundaries.md)
+- [SmartCore_Platform_Docs_v1/063_SmartCore_Module_Interaction_Model.md](SmartCore_Platform_Docs_v1/063_SmartCore_Module_Interaction_Model.md)
 
 ## Exact Changes Performed
 
-### 059_SmartCore_Codebase_Architecture.md
+### 060_SmartCore_Codebase_Architecture.md
 
 - Replaced the Shared Kernel examples that referenced generic domain events with generic event abstractions only.
 - Clarified that the Shared Kernel contains event interfaces, base classes, metadata, and contracts.
 - Explicitly stated that domain-specific events such as PersonRegistered, DeviceAdded, and InvoiceCreated belong to the owning Capability Platform rather than the Shared Kernel.
 - Replaced the earlier Authorization Engine example with Policy Engine to keep the terminology aligned with the agreed engine model.
 
-### 061_SmartCore_Core_Engine_Boundaries.md
+### 062_SmartCore_Core_Engine_Boundaries.md
 
 - Replaced Authorization Engine with Policy Engine throughout the document.
 - Replaced the core engine table with the requested generic engine responsibilities.
@@ -28,7 +28,7 @@ Normalize the remaining implementation-architecture ambiguities in the targeted 
 - Added explicit boundary guidance stating that Capability Platforms may compose Core Engines into higher-level domain services, but that this does not make Authorization a Core Engine.
 - Replaced the final principle with the requested wording that Core Engines provide generic platform services while business semantics remain inside Capability Platforms.
 
-### 062_SmartCore_Module_Interaction_Model.md
+### 063_SmartCore_Module_Interaction_Model.md
 
 - Removed the linear platform hierarchy diagram that implied a sequential platform structure.
 - Replaced it with an event-collaboration example showing PersonRegistered Event flowing to Business, Resource, Finance, and IoT.

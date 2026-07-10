@@ -1,6 +1,6 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.0
+Version: 1.1
 
 Status: **Normative**
 
@@ -27,7 +27,7 @@ The Identity Platform SHALL provide:
 * Session management
 * Personal Organization creation
 * Membership management
-* Foundation for Authorization
+* Foundation for Authorization Context
 * Identity APIs
 * Identity events
 
@@ -155,7 +155,11 @@ Ownership always flows through Organizations.
 
 # 6. Registration Process
 
-Registration SHALL be executed atomically.
+Registration SHALL be executed through coordinated transaction phases.
+
+## Core Ownership Transaction
+
+The atomic ownership transaction SHALL be committed before post-commit operations:
 
 ```text
 Register Request
@@ -174,6 +178,24 @@ Create Owner Membership
 
 ↓
 
+[COMMIT]
+```
+
+This core transaction creates the foundational ownership relationships.
+
+**Commit Requirement**: All three ownership entities MUST be successfully persisted before proceeding.
+
+**Rollback Policy**: If any step fails, the entire transaction rolls back. Partial ownership states are prohibited.
+
+## Post-Commit Identity Operations
+
+After successful commit, the following operations MAY occur:
+
+```text
+[Transaction Committed]
+
+↓
+
 Create Credential
 
 ↓
@@ -189,7 +211,11 @@ Publish PersonRegistered Event
 Return Authentication Result
 ```
 
-Rollback SHALL occur if any step fails.
+**Non-Invalidating Policy**: Post-commit operations SHALL NOT invalidate ownership consistency. If post-commit operations fail, the ownership relationships remain valid.
+
+**Example**: If Session creation fails, the Person, Organization, and Membership are still valid for future login attempts.
+
+**Consistency Guarantee**: Ownership is fully established after core transaction commit and survives independent of credential or session state.
 
 ---
 
@@ -268,25 +294,78 @@ Resource
 
 Direct Person → Resource permissions are prohibited.
 
+## Authorization Boundary
+
+The Identity Platform SHALL provide:
+- Identity context
+- Authentication outcomes
+- Membership information
+- Organization information
+
+The Identity Platform SHALL NOT evaluate business permissions.
+
+Business authorization remains the responsibility of consuming Capability Platforms.
+
+## Role Model
+
+In Version 1.0:
+Role SHALL be an attribute of Membership.
+
+Supported value:
+- Owner
+
+Future versions MAY introduce additional role values without introducing a separate Role Aggregate.
+
+## Event Ownership Table
+
+| Event               | Owner Capability |
+|---------------------|------------------|
+| PersonRegistered    | Identity |
+| PersonUpdated       | Identity |
+| PasswordChanged     | Identity |
+| LoginSucceeded      | Identity |
+| LoginFailed         | Identity |
+| SessionCreated      | Identity |
+| SessionExpired      | Identity |
+| LogoutCompleted     | Identity |
+| OrganizationCreated | Identity |
+| MembershipCreated   | Identity |
+
+This hardening task SHALL NOT introduce additional lifecycle events.
+
+Lifecycle events beyond those listed above are outside the scope of Identity Blueprint Version 1.0 and MAY be introduced through future ADRs.
+
+## Future Identity Types
+
+Future versions MAY introduce:
+- Device Identity
+- Service Identity
+- AI Agent Identity
+
+These identity types SHALL extend the platform without modifying Person identity semantics.
+
 ---
 
 # 10. Identity Events
 
 The platform SHALL publish domain events.
 
-Minimum events include:
+Events declared in Event Ownership Table §9:
 
 * PersonRegistered
 * PersonUpdated
 * PasswordChanged
 * LoginSucceeded
 * LoginFailed
-* LogoutCompleted
+* SessionCreated
 * SessionExpired
+* LogoutCompleted
 * OrganizationCreated
 * MembershipCreated
 
 Events SHALL be immutable.
+
+**Consistency Note**: This list matches the Event Ownership Table exactly. Identity Platform owns and publishes all 10 events listed in the Event Ownership Table.
 
 ---
 
@@ -324,7 +403,7 @@ Minimum persistent entities:
 * Credentials
 * Sessions
 
-Supporting tables may include:
+Supporting persistence structures may include:
 
 * PasswordHistory
 * LoginHistory
@@ -438,5 +517,36 @@ It establishes the identity, ownership, authentication, and organizational model
 No business platform SHALL bypass or replace the Identity Platform.
 
 ---
+
+# Change Log
+
+## Version 1.1 (2026-07-08)
+
+- Added Authorization Boundary clarification: Identity Platform provides context, not permission evaluation
+- Added Role Model specification: Role as Membership attribute, Version 1.0 supports Owner only
+- Added Event Ownership Table with 10 core Identity Platform events
+- Added Future Identity Types documentation: Device, Service, AI Agent as future extensions
+- Changes authorized by ADR-0002_Identity_Foundation_Clarifications.md
+
+## Version 1.0 (2026-06-01)
+
+- Initial release
+- Defined core Identity Platform responsibilities
+- Established authentication and session management model
+
+---
+
+## Event Timing Note
+
+PersonRegistered is published after Credential and initial Session creation to represent completed registration including initial authentication capability.
+
+Ownership consistency is guaranteed independently by the Core Ownership Transaction.
+
+Failure of post-commit operations SHALL NOT invalidate:
+- Person
+- Organization
+- Membership
+
+Post-commit recovery and operational handling are implementation-specific.
 
 **END OF DOCUMENT**

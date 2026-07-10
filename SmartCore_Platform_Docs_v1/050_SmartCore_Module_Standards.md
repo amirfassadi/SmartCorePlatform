@@ -12,7 +12,7 @@ This document defines the mandatory standards for all SmartCore platform modules
 
 ## Scope
 
-This document defines the standards that govern SmartCore platform modules. It does not redefine SFMM semantics, platform taxonomy, or the canonical architecture layer model. It depends on [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md), and [050_SmartCore_Governance_and_Decision_Model.md](050_SmartCore_Governance_and_Decision_Model.md).
+This document defines the standards that govern SmartCore platform modules. It does not redefine SFMM semantics, platform taxonomy, or the canonical architecture layer model. It depends on [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md), and [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md).
 
 Its purpose is to ensure that every platform module is:
 
@@ -338,9 +338,9 @@ Non-compliant modules SHALL NOT be considered part of the official SmartCore Pla
 
 Related documents:
 
-- 046_SmartCore_Reference_Architecture.md
+- 047_SmartCore_Reference_Architecture.md
 - 047_SmartCore_Architecture_Layer_Model.md
-- 048_SmartCore_Platform_Taxonomy.md
+- 049_SmartCore_Platform_Taxonomy.md
 - 050_SmartCore_Architecture_Governance.md
 
 ---

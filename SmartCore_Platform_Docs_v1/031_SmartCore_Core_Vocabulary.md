@@ -55,7 +55,10 @@ Time
 
 These are defined in:
 
-005_SmartCore_Semantic_Grammar.md
+001_SmartCore_Foundational_Principles.md
+
+002_SmartCore_Meta_Model.md
+
 
 ---
 

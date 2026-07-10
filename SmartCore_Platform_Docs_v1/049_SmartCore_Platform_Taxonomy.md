@@ -12,7 +12,7 @@ This document defines the canonical taxonomy of the SmartCore Platform.
 
 ## Scope
 
-This document defines the platform taxonomy of SmartCore. It identifies platform families, platform modules, platform responsibilities, and platform boundaries. It does not define SFMM semantics, domain models, solution architecture, or implementation details. It depends on [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [049_SmartCore_Module_Standards.md](049_SmartCore_Module_Standards.md).
+This document defines the platform taxonomy of SmartCore. It identifies platform families, platform modules, platform responsibilities, and platform boundaries. It does not define SFMM semantics, domain models, solution architecture, or implementation details. It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md).
 
 It specifies how SmartCore is organized into platform families and architectural modules.
 
@@ -241,7 +241,7 @@ Platform evolution SHALL preserve architectural consistency across the SmartCore
 Related documents:
 
 - 002_SmartCore_Meta_Model.md
-- 046_SmartCore_Reference_Architecture.md
+- 047_SmartCore_Reference_Architecture.md
 - 047_SmartCore_Architecture_Layer_Model.md
 - ADR-0001_SFMM_v1_FREEZE.md
 

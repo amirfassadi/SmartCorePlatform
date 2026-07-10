@@ -6,13 +6,13 @@ Perform a repository-wide terminology audit for Core Engine naming and normalize
 
 ## Files Modified
 
-- [SmartCore_Platform_Docs_v1/046_SmartCore_Reference_Architecture.md](SmartCore_Platform_Docs_v1/046_SmartCore_Reference_Architecture.md)
-- [SmartCore_Platform_Docs_v1/056_SmartCore_Tenancy_and_Ownership_Model.md](SmartCore_Platform_Docs_v1/056_SmartCore_Tenancy_and_Ownership_Model.md)
+- [SmartCore_Platform_Docs_v1/047_SmartCore_Reference_Architecture.md](SmartCore_Platform_Docs_v1/047_SmartCore_Reference_Architecture.md)
+- [SmartCore_Platform_Docs_v1/057_SmartCore_Tenancy_and_Ownership_Model.md](SmartCore_Platform_Docs_v1/057_SmartCore_Tenancy_and_Ownership_Model.md)
 
 ## Terminology Changes Applied
 
-- Replaced Permission Engine with Policy Engine in the Core Engines examples in [SmartCore_Platform_Docs_v1/046_SmartCore_Reference_Architecture.md](SmartCore_Platform_Docs_v1/046_SmartCore_Reference_Architecture.md).
-- Replaced Permission Engine implementation with Policy Engine implementation in [SmartCore_Platform_Docs_v1/056_SmartCore_Tenancy_and_Ownership_Model.md](SmartCore_Platform_Docs_v1/056_SmartCore_Tenancy_and_Ownership_Model.md).
+- Replaced Permission Engine with Policy Engine in the Core Engines examples in [SmartCore_Platform_Docs_v1/047_SmartCore_Reference_Architecture.md](SmartCore_Platform_Docs_v1/047_SmartCore_Reference_Architecture.md).
+- Replaced Permission Engine implementation with Policy Engine implementation in [SmartCore_Platform_Docs_v1/057_SmartCore_Tenancy_and_Ownership_Model.md](SmartCore_Platform_Docs_v1/057_SmartCore_Tenancy_and_Ownership_Model.md).
 
 ## Remaining Occurrences
 

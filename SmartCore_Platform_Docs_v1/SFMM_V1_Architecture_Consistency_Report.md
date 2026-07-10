@@ -33,20 +33,20 @@ The following documents were directly updated during this refinement pass:
 - 022_SmartCore_Messaging_and_Event_Communication_Model.md
 - 025_SmartCore_SDK_Developer_Experience_Layer.md
 - 029_SmartCore_Glossary.md
-- 029_SmartCore_Model_Validation_Matrix.md
-- 030_SmartCore_Core_Vocabulary.md
-- 031_SmartCore_Domain_Modeling_Rules.md
-- 035_SmartCore_Relation_Model.md
-- 036_SmartCore_Rule_Model.md
-- 037_SmartCore_Time_Model.md
-- 038_SmartCore_State_Model.md
-- 039_SmartCore_Property_Model.md
-- 040_SmartCore_Identity_Model.md
-- 041_SmartCore_Capability_Model.md
-- 042_SmartCore_Composition_Model.md
-- 043_SmartCore_Lifecycle_Model.md
-- 044_SmartCore_Governance_Model.md
-- 045_SmartCore_Semantic_Glossary.md
+- 030_SmartCore_Model_Validation_Matrix.md
+- 031_SmartCore_Core_Vocabulary.md
+- 032_SmartCore_Domain_Modeling_Rules.md
+- 036_SmartCore_Relation_Model.md
+- 037_SmartCore_Rule_Model.md
+- 038_SmartCore_Time_Model.md
+- 039_SmartCore_State_Model.md
+- 040_SmartCore_Property_Model.md
+- 041_SmartCore_Identity_Model.md
+- 042_SmartCore_Capability_Model.md
+- 043_SmartCore_Composition_Model.md
+- 044_SmartCore_Lifecycle_Model.md
+- 045_SmartCore_Governance_Model.md
+- 046_SmartCore_Semantic_Glossary.md
 
 ---
 

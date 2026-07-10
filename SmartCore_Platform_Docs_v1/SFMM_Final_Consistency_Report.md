@@ -31,7 +31,7 @@ The architecture narrative is now clearer because supporting documents explicitl
 
 ## 4. Governance Consistency
 
-The governance narrative is now framed consistently through [050_SmartCore_Governance_and_Decision_Model.md](050_SmartCore_Governance_and_Decision_Model.md), with the roadmap and architecture documents depending on it for governance expectations.
+The governance narrative is now framed consistently through [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md), with the roadmap and architecture documents depending on it for governance expectations.
 
 ## 5. Cross-Reference Consistency
 

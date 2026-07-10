@@ -27,13 +27,13 @@ The following files were not modified during this implementation pass:
 - [SmartCore_Platform_Docs_v1/006_SmartCore_Execution_Model.md](SmartCore_Platform_Docs_v1/006_SmartCore_Execution_Model.md)
 - [SmartCore_Platform_Docs_v1/007_SmartCore_Economic_Model.md](SmartCore_Platform_Docs_v1/007_SmartCore_Economic_Model.md)
 - [SmartCore_Platform_Docs_v1/008_Validation Matrix.md](SmartCore_Platform_Docs_v1/008_Validation%20Matrix.md)
-- [SmartCore_Platform_Docs_v1/030_SmartCore_Core_Vocabulary.md](SmartCore_Platform_Docs_v1/030_SmartCore_Core_Vocabulary.md)
-- [SmartCore_Platform_Docs_v1/031_SmartCore_Domain_Modeling_Rules.md](SmartCore_Platform_Docs_v1/031_SmartCore_Domain_Modeling_Rules.md)
-- [SmartCore_Platform_Docs_v1/035_SmartCore_Relation_Model.md](SmartCore_Platform_Docs_v1/035_SmartCore_Relation_Model.md)
-- [SmartCore_Platform_Docs_v1/037_SmartCore_Time_Model.md](SmartCore_Platform_Docs_v1/037_SmartCore_Time_Model.md)
-- [SmartCore_Platform_Docs_v1/040_SmartCore_Identity_Model.md](SmartCore_Platform_Docs_v1/040_SmartCore_Identity_Model.md)
-- [SmartCore_Platform_Docs_v1/042_SmartCore_Composition_Model.md](SmartCore_Platform_Docs_v1/042_SmartCore_Composition_Model.md)
-- [SmartCore_Platform_Docs_v1/044_SmartCore_Governance_Model.md](SmartCore_Platform_Docs_v1/044_SmartCore_Governance_Model.md)
+- [SmartCore_Platform_Docs_v1/031_SmartCore_Core_Vocabulary.md](SmartCore_Platform_Docs_v1/031_SmartCore_Core_Vocabulary.md)
+- [SmartCore_Platform_Docs_v1/032_SmartCore_Domain_Modeling_Rules.md](SmartCore_Platform_Docs_v1/032_SmartCore_Domain_Modeling_Rules.md)
+- [SmartCore_Platform_Docs_v1/036_SmartCore_Relation_Model.md](SmartCore_Platform_Docs_v1/036_SmartCore_Relation_Model.md)
+- [SmartCore_Platform_Docs_v1/038_SmartCore_Time_Model.md](SmartCore_Platform_Docs_v1/038_SmartCore_Time_Model.md)
+- [SmartCore_Platform_Docs_v1/041_SmartCore_Identity_Model.md](SmartCore_Platform_Docs_v1/041_SmartCore_Identity_Model.md)
+- [SmartCore_Platform_Docs_v1/043_SmartCore_Composition_Model.md](SmartCore_Platform_Docs_v1/043_SmartCore_Composition_Model.md)
+- [SmartCore_Platform_Docs_v1/045_SmartCore_Governance_Model.md](SmartCore_Platform_Docs_v1/045_SmartCore_Governance_Model.md)
 
 The remaining documents in the set were treated as context only and did not receive edits during this pass.
 

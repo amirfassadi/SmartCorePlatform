@@ -12,7 +12,7 @@ This document defines the governance model of the SmartCore Platform.
 
 ## Scope
 
-This document defines the authoritative governance model for SmartCore documentation, architecture, platform taxonomy, modules, and freeze policy. It does not define implementation engineering practices. It depends on [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md), [046_SmartCore_Reference_Architecture.md](046_SmartCore_Reference_Architecture.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md), and [049_SmartCore_Module_Standards.md](049_SmartCore_Module_Standards.md).
+This document defines the authoritative governance model for SmartCore documentation, architecture, platform taxonomy, modules, and freeze policy. It does not define implementation engineering practices. It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [047_SmartCore_Reference_Architecture.md](047_SmartCore_Reference_Architecture.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md), and [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md).
 
 Its purpose is to establish a consistent decision-making framework for the evolution of SmartCore while preserving architectural integrity, semantic consistency, and long-term maintainability.
 
@@ -380,10 +380,10 @@ Speculative complexity SHOULD be avoided.
 Related documents:
 
 - ADR-0001_SFMM_v1_FREEZE.md
-- 046_SmartCore_Reference_Architecture.md
+- 047_SmartCore_Reference_Architecture.md
 - 047_SmartCore_Architecture_Layer_Model.md
-- 048_SmartCore_Platform_Taxonomy.md
-- 049_SmartCore_Module_Standards.md
+- 049_SmartCore_Platform_Taxonomy.md
+- 050_SmartCore_Module_Standards.md
 
 ---
 

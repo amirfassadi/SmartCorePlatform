@@ -22,13 +22,13 @@ Added scope declarations to the core architecture and governance documents so ea
 Affected documents:
 
 - [README.md](README.md)
-- [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md)
-- [046_SmartCore_Reference_Architecture.md](046_SmartCore_Reference_Architecture.md)
+- [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md)
+- [047_SmartCore_Reference_Architecture.md](047_SmartCore_Reference_Architecture.md)
 - [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md)
-- [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md)
-- [049_SmartCore_Module_Standards.md](049_SmartCore_Module_Standards.md)
-- [050_SmartCore_Governance_and_Decision_Model.md](050_SmartCore_Governance_and_Decision_Model.md)
-- [051_SmartCore_Development_Roadmap.md](051_SmartCore_Development_Roadmap.md)
+- [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md)
+- [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md)
+- [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md)
+- [052_SmartCore_Development_Roadmap.md](052_SmartCore_Development_Roadmap.md)
 
 ### 2.2 Layer Model Clarification
 
@@ -52,13 +52,13 @@ The governance narrative is now framed as the authoritative model for freeze, ar
 The normalization pass affected the following documents:
 
 - [README.md](README.md)
-- [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md)
-- [046_SmartCore_Reference_Architecture.md](046_SmartCore_Reference_Architecture.md)
+- [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md)
+- [047_SmartCore_Reference_Architecture.md](047_SmartCore_Reference_Architecture.md)
 - [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md)
-- [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md)
-- [049_SmartCore_Module_Standards.md](049_SmartCore_Module_Standards.md)
-- [050_SmartCore_Governance_and_Decision_Model.md](050_SmartCore_Governance_and_Decision_Model.md)
-- [051_SmartCore_Development_Roadmap.md](051_SmartCore_Development_Roadmap.md)
+- [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md)
+- [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md)
+- [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md)
+- [052_SmartCore_Development_Roadmap.md](052_SmartCore_Development_Roadmap.md)
 
 ## 4. Conclusion
 

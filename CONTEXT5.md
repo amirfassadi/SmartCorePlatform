@@ -473,8 +473,8 @@ Architecture Decision Records (ADR)
 - 17. Pagination Abstraction
 - 18. Caching Layer (Optional)
 
-### `SmartCore_Platform_Docs_v1/026_SmartCore_Event_Model.md`
-- 026_SmartCore_Event_Model.md
+### `SmartCore_Platform_Docs_v1/035_SmartCore_Event_Model.md`
+- 035_SmartCore_Event_Model.md
 - SmartCore Event Model
 - 1. Purpose
 - 2. Fundamental Principle

@@ -7,8 +7,8 @@ Resolve the remaining documentation-level architectural viewpoint contradictions
 ## Files Modified
 
 - [README.md](README.md)
-- [SmartCore_Platform_Docs_v1/032_SmartCore_Execution_Boundary_Model.md](SmartCore_Platform_Docs_v1/032_SmartCore_Execution_Boundary_Model.md)
-- [SmartCore_Platform_Docs_v1/046_SmartCore_Reference_Architecture.md](SmartCore_Platform_Docs_v1/046_SmartCore_Reference_Architecture.md)
+- [SmartCore_Platform_Docs_v1/033_SmartCore_Execution_Boundary_Model.md](SmartCore_Platform_Docs_v1/033_SmartCore_Execution_Boundary_Model.md)
+- [SmartCore_Platform_Docs_v1/047_SmartCore_Reference_Architecture.md](SmartCore_Platform_Docs_v1/047_SmartCore_Reference_Architecture.md)
 - [SmartCore_Platform_Docs_v1/047_SmartCore_Architecture& Taxonomy_Layer_Model.md](SmartCore_Platform_Docs_v1/047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md)
 
 ## Exact Changes Performed
@@ -18,13 +18,13 @@ Resolve the remaining documentation-level architectural viewpoint contradictions
 - Reframed the documentation structure as a set of complementary architectural viewpoints.
 - Removed any implication that the documentation describes a single universal layer hierarchy.
 
-### 032_SmartCore_Execution_Boundary_Model.md
+### 033_SmartCore_Execution_Boundary_Model.md
 
 - Explicitly identified the document as an Execution Boundary Viewpoint.
 - Stated that it describes runtime execution boundaries rather than the canonical Architecture Layer Taxonomy.
 - Clarified that it does not replace the Architecture Layer Taxonomy View in Document 047.
 
-### 046_SmartCore_Reference_Architecture.md
+### 047_SmartCore_Reference_Architecture.md
 
 - Explicitly identified the document as the Reference Architecture View.
 - Stated that it does not redefine the canonical Architecture Layer Taxonomy View.

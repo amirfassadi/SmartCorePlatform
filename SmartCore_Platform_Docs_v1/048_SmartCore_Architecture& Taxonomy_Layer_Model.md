@@ -12,7 +12,7 @@ This document defines the **canonical Architecture Layer Taxonomy View** of the 
 
 ## Scope
 
-This document defines the canonical Architecture Layer Taxonomy View used by the SmartCore documentation set. It defines the authoritative taxonomy of architectural viewpoints for the layer stack, responsibilities, dependency rules, and governance relevant to that taxonomy. It does not redefine SFMM semantics, platform taxonomy, module standards, or runtime implementation. It depends on [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md), [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md), and [050_SmartCore_Governance_and_Decision_Model.md](050_SmartCore_Governance_and_Decision_Model.md).
+This document defines the canonical Architecture Layer Taxonomy View used by the SmartCore documentation set. It defines the authoritative taxonomy of architectural viewpoints for the layer stack, responsibilities, dependency rules, and governance relevant to that taxonomy. It does not redefine SFMM semantics, platform taxonomy, module standards, or runtime implementation. It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md), and [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md).
 
 It establishes the authoritative separation between semantic modeling, platform architecture, domain modeling, solution design, implementation, and infrastructure within the Architecture Layer Taxonomy View.
 
@@ -257,8 +257,8 @@ Related documents:
 
 - 001_SmartCore_Foundational_Principles.md
 - 002_SmartCore_Meta_Model.md
-- 046_SmartCore_Reference_Architecture.md
-- 048_SmartCore_Platform_Taxonomy.md
+- 047_SmartCore_Reference_Architecture.md
+- 049_SmartCore_Platform_Taxonomy.md
 - ADR-0001_SFMM_v1_FREEZE.md
 
 ---

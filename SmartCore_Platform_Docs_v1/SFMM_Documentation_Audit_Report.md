@@ -23,10 +23,10 @@ The documentation set shows a strong conceptual core, but it is not yet consiste
 
 The set uses several terms in more than one sense:
 
-- “Capability” is used as a semantic construct in [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md) and as a platform-level reusable capability in [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md). These are not equivalent uses.
-- “Domain” is used as a semantic modeling layer in [005_SmartCore_Domain_Layer.md](005_SmartCore_Domain_Layer.md), as a platform structure in [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md), and as a business area in [031_SmartCore_Domain_Modeling_Rules.md](031_SmartCore_Domain_Modeling_Rules.md).
+- “Capability” is used as a semantic construct in [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md) and as a platform-level reusable capability in [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md). These are not equivalent uses.
+- “Domain” is used as a semantic modeling layer in [005_SmartCore_Domain_Layer.md](005_SmartCore_Domain_Layer.md), as a platform structure in [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md), and as a business area in [032_SmartCore_Domain_Modeling_Rules.md](032_SmartCore_Domain_Modeling_Rules.md).
 - “Solution” and “Application” are not clearly separated in [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) and [ADR-0001b_SFMM_v1_FREEZE.md](ADR-0001b_SFMM_v1_FREEZE.md).
-- “Identity” is treated as a semantic continuity concept in [045_SmartCore_Semantic_Glossary.md](045_SmartCore_Semantic_Glossary.md) and as a platform concern in [019_SmartCore_Identity_and_Session_Continuity_Model.md](019_SmartCore_Identity_and_Session_Continuity_Model.md), which creates a broader interpretation than the glossary.
+- “Identity” is treated as a semantic continuity concept in [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md) and as a platform concern in [019_SmartCore_Identity_and_Session_Continuity_Model.md](019_SmartCore_Identity_and_Session_Continuity_Model.md), which creates a broader interpretation than the glossary.
 
 ### 3.2 Layer Consistency
 
@@ -35,7 +35,7 @@ The documentation set does not present one canonical layer model.
 - [001_SmartCore_Foundational_Principles.md](001_SmartCore_Foundational_Principles.md) defines four layers: Semantic, Derived Constructs, Vocabulary, and Execution/Infrastructure.
 - [ADR-0001b_SFMM_v1_FREEZE.md](ADR-0001b_SFMM_v1_FREEZE.md) defines five layers: Semantic Foundation, Platform Taxonomy, Domain Modeling, Solution Design, and Application Implementation.
 - [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) defines six layers: Foundation, Core Engines, Capability Platforms, Domain Models, Solutions, and Developer Platform.
-- [032_SmartCore_Execution_Boundary_Model.md](032_SmartCore_Execution_Boundary_Model.md) defines four layers: Core Semantic Model, Domain Model, Runtime Execution, and Infrastructure.
+- [033_SmartCore_Execution_Boundary_Model.md](033_SmartCore_Execution_Boundary_Model.md) defines four layers: Core Semantic Model, Domain Model, Runtime Execution, and Infrastructure.
 
 These are not equivalent models and therefore cannot be treated as a single architecture reference without further normalization.
 
@@ -43,17 +43,17 @@ These are not equivalent models and therefore cannot be treated as a single arch
 
 Several responsibilities overlap or are blurred:
 
-- [041_SmartCore_Capability_Model.md](041_SmartCore_Capability_Model.md) assigns capability to a Thing at the semantic level, while [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) treats Capability Platforms as architectural modules. These are different responsibilities but the documents do not explicitly reconcile them.
-- [005_SmartCore_Domain_Layer.md](005_SmartCore_Domain_Layer.md) and [031_SmartCore_Domain_Modeling_Rules.md](031_SmartCore_Domain_Modeling_Rules.md) define domain modeling responsibilities, but [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) also uses the term “Domain Models” as an architectural layer. The boundary is not fully explicit.
-- [032_SmartCore_Execution_Boundary_Model.md](032_SmartCore_Execution_Boundary_Model.md) and [033_SmartCore_Runtime_Model.md](033_SmartCore_Runtime_Model.md) are semantically distinct from the SFMM documents, but their boundaries are only partially aligned with the core semantic language.
+- [042_SmartCore_Capability_Model.md](042_SmartCore_Capability_Model.md) assigns capability to a Thing at the semantic level, while [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) treats Capability Platforms as architectural modules. These are different responsibilities but the documents do not explicitly reconcile them.
+- [005_SmartCore_Domain_Layer.md](005_SmartCore_Domain_Layer.md) and [032_SmartCore_Domain_Modeling_Rules.md](032_SmartCore_Domain_Modeling_Rules.md) define domain modeling responsibilities, but [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) also uses the term “Domain Models” as an architectural layer. The boundary is not fully explicit.
+- [033_SmartCore_Execution_Boundary_Model.md](033_SmartCore_Execution_Boundary_Model.md) and [034_SmartCore_Runtime_Model.md](034_SmartCore_Runtime_Model.md) are semantically distinct from the SFMM documents, but their boundaries are only partially aligned with the core semantic language.
 
 ### 3.4 Dependency Consistency
 
 The documentation presents both upward and downward dependency directions in different places.
 
-- [032_SmartCore_Execution_Boundary_Model.md](032_SmartCore_Execution_Boundary_Model.md) uses a clear downward dependency model: Core → Domain → Runtime → Infrastructure.
+- [033_SmartCore_Execution_Boundary_Model.md](033_SmartCore_Execution_Boundary_Model.md) uses a clear downward dependency model: Core → Domain → Runtime → Infrastructure.
 - [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) uses a similar downward model from Foundation to Developer Platform.
-- [023_SmartCore_API_Design_Guidelines.md](023_SmartCore_API_Design_Guidelines.md) and [024_SmartCore_Integration_Layer.md](024_SmartCore_Integration_Layer.md) describe architecture in terms of Application Layer and Core, but they do not explicitly align those layers with the dependency model in [032_SmartCore_Execution_Boundary_Model.md](032_SmartCore_Execution_Boundary_Model.md).
+- [023_SmartCore_API_Design_Guidelines.md](023_SmartCore_API_Design_Guidelines.md) and [024_SmartCore_Integration_Layer.md](024_SmartCore_Integration_Layer.md) describe architecture in terms of Application Layer and Core, but they do not explicitly align those layers with the dependency model in [033_SmartCore_Execution_Boundary_Model.md](033_SmartCore_Execution_Boundary_Model.md).
 
 ### 3.5 Naming Consistency
 
@@ -67,7 +67,7 @@ The set contains naming drift across documents:
 
 Several cross-references are broken, missing, or indirect.
 
-- [030_SmartCore_Core_Vocabulary.md](030_SmartCore_Core_Vocabulary.md) refers to a missing document named “005_SmartCore_Semantic_Grammar.md”.
+- [031_SmartCore_Core_Vocabulary.md](031_SmartCore_Core_Vocabulary.md) refers to a missing document named “005_SmartCore_Semantic_Grammar.md”.
 - [016_SmartCore_Production_Deployment_and_Scaling_Model.md](016_SmartCore_Production_Deployment_and_Scaling_Model.md) references “Document 015”, but no corresponding document exists in the set.
 - The set contains no consistent mechanism for linking architectural layers across the various documents, so cross-document navigation remains weak.
 
@@ -76,7 +76,7 @@ Several cross-references are broken, missing, or indirect.
 The documents rely on several unstated assumptions:
 
 - [ADR-0001b_SFMM_v1_FREEZE.md](ADR-0001b_SFMM_v1_FREEZE.md) assumes the Platform Taxonomy layer is already defined and understood, but it is only partially defined in [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md).
-- [031_SmartCore_Domain_Modeling_Rules.md](031_SmartCore_Domain_Modeling_Rules.md) assumes a stable vocabulary layer exists, but it does not fully define the relationship between that layer and the platform taxonomy.
+- [032_SmartCore_Domain_Modeling_Rules.md](032_SmartCore_Domain_Modeling_Rules.md) assumes a stable vocabulary layer exists, but it does not fully define the relationship between that layer and the platform taxonomy.
 - [046_SmartCore_Platform_Architecture.md](046_SmartCore_Platform_Architecture.md) assumes a clear hierarchy of capability platforms, domains, solutions, and applications, but the surrounding documents do not fully define how those categories are related.
 
 ### 3.8 Semantic Ambiguity

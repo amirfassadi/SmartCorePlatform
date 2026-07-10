@@ -12,7 +12,7 @@ This document defines the official development roadmap of the SmartCore Platform
 
 ## Scope
 
-This document defines the implementation sequence for SmartCore platform development. It does not redefine architecture, semantic constructs, or governance policy. It depends on [046_SmartCore_Reference_Architecture.md](046_SmartCore_Reference_Architecture.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [048_SmartCore_Platform_Taxonomy.md](048_SmartCore_Platform_Taxonomy.md), [049_SmartCore_Module_Standards.md](049_SmartCore_Module_Standards.md), and [050_SmartCore_Governance_and_Decision_Model.md](050_SmartCore_Governance_and_Decision_Model.md).
+This document defines the implementation sequence for SmartCore platform development. It does not redefine architecture, semantic constructs, or governance policy. It depends on [047_SmartCore_Reference_Architecture.md](047_SmartCore_Reference_Architecture.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md), [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md), and [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md).
 
 It establishes the recommended implementation sequence for platform development and identifies architectural milestones required to build a coherent, reusable, and scalable ecosystem.
 
@@ -295,11 +295,11 @@ All future platforms SHALL conform to the SmartCore architectural standards.
 Related documents:
 
 - ADR-0001_SFMM_v1_FREEZE.md
-- 046_SmartCore_Reference_Architecture.md
+- 047_SmartCore_Reference_Architecture.md
 - 047_SmartCore_Architecture_Layer_Model.md
-- 048_SmartCore_Platform_Taxonomy.md
-- 049_SmartCore_Module_Standards.md
-- 050_SmartCore_Governance_and_Decision_Model.md
+- 049_SmartCore_Platform_Taxonomy.md
+- 050_SmartCore_Module_Standards.md
+- 051_SmartCore_Governance_and_Decision_Model.md
 
 ---
 
