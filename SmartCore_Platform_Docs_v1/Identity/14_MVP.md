@@ -1,11 +1,13 @@
 <!--
 Document ID: ID-14
 Title: SmartCore Identity Platform Blueprint - MVP Scope
-Version: 1.0.0
+Version: 1.1.1
 Status: READY_FOR_GENERATION
 Purpose: Define MVP scope and explicitly exclude future lifecycle operations from Version 1.0
-Dependencies: 01_Domain_Model.md, 03_Aggregates.md, 14_MVP.md, 064_SmartCore_Blueprint_Standard
+Dependencies: 01_Domain_Model.md, 03_Aggregates.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications.md
 Change Log:
+  - Version 1.1.1 (2026-07-14): Corrected §8 MVP Readiness Checklist, which still read "All MVP Domain Services are implemented" after §6 was split (v1.1.0) into separate Domain Service and Application Service lists. The checklist item now reads "All MVP Domain Services and the RegistrationApplicationService are implemented" so RegistrationApplicationService is not silently excluded from Version 1.0 readiness criteria. No MVP scope, Command, Event, or API content changed.
+  - Version 1.1.0 (2026-07-14): Reclassified RegistrationDomainService as RegistrationApplicationService in §6 per ADR-0002 Decision 7.1, to synchronize with 01_Domain_Model.md v1.2.0 and 03_Aggregates.md v1.1.0; retitled §6 to "Domain Service and Application Service Scope for MVP" and split the single Domain Service list into separate Domain Service and Application Service lists. Removed a self-referencing entry (14_MVP.md) from this document's own Dependencies list and added ADR-0002_Identity_Foundation_Clarifications.md, which §6 now cites directly. No MVP scope, Command, Event, or API content changed.
   - Version 1.0.0 (2026-07-08): Initial MVP scope clarification, explicit exclusion of Suspend/Archive/Revoke operations
 -->
 
@@ -125,15 +127,23 @@ Future events (SuspendOrganizationRequested, RevokeMembershipCompleted, etc.) ar
 
 ---
 
-# 6. Domain Service Scope for MVP
+# 6. Domain Service and Application Service Scope for MVP
 
 Implemented Domain Services in MVP:
 
-1. **RegistrationDomainService**: Atomic registration coordination
-2. **AuthenticationDomainService**: Credential validation and session creation
-3. **SessionManagementDomainService**: Session refresh, expiration, and closure
-4. **PersonManagementDomainService**: Person profile updates
-5. **CredentialManagementDomainService**: Password changes
+1. **AuthenticationDomainService**: Credential validation and session creation
+2. **SessionManagementDomainService**: Session refresh, expiration, and closure
+3. **PersonManagementDomainService**: Person profile updates
+4. **CredentialManagementDomainService**: Password changes
+
+Implemented Application Services in MVP:
+
+1. **RegistrationApplicationService**: Atomic registration coordination
+   (Person + Personal Organization + Owner Membership). This is an
+   Application Service, not a Domain Service — the single approved
+   exception authorized by ADR-0002 Decision 7 (Command Model
+   Coordination Exception for Identity Registration). See
+   01_Domain_Model.md §8.
 
 Future Domain Services (deferred to future versions):
 
@@ -183,7 +193,7 @@ Identity Platform Version 1.0 is complete when:
 ✓ Password change is implemented
 ✓ Identity events are published per Event Ownership Table
 ✓ REST APIs are operational per API Scope
-✓ All MVP Domain Services are implemented
+✓ All MVP Domain Services and the RegistrationApplicationService are implemented
 ✓ No unreachable states exist
 ✓ All lifecycle states are classified (MVP or Future)
 ✓ Blueprint passes Structural Validation per 065_SmartCore_Blueprint_Validator_Specification

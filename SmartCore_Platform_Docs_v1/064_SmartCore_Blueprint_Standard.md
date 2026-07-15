@@ -2,14 +2,14 @@
 SmartCore Platform
 Document ID: 064
 Title: SmartCore Blueprint Standard
-Version: 1.1.2
+Version: 1.1.4
 Status: STABLE
 Classification: Foundational Architecture Standard
 
 File: 064_SmartCore_Blueprint_Standard.md
 
 Author: SmartCore Architecture Team
-Last Updated: 2026-07-06
+Last Updated: 2026-07-12
 
 Purpose:
 Defines the mandatory standard structure, content, validation rules,
@@ -25,12 +25,49 @@ Dependencies:
 003_Modeling_Rules
 004_Composition_Rules
 005_Domain_Layer
-050_Governance
-064_Blueprint_Validation
-065_AI_Generation_Guidelines
+051_SmartCore_Governance_and_Decision_Model
+065_SmartCore_Blueprint_Validator_Specification
+066_SmartCore_AI_Code_Generation_Specification
 
 Change Log
 -----------
+v1.1.4
+- Corrected self-reference error in §9 and §15: this document
+  previously cited "Document 064 (Blueprint Validator)" for the
+  Blueprint validation process. Document 064 IS this Blueprint
+  Standard; the actual Blueprint Validator is
+  065_SmartCore_Blueprint_Validator_Specification.md. Both references
+  corrected to Document 065.
+- Corrected validation gate count in §9: the document previously
+  stated "Validation consists of five successive gates" while listing
+  Authoring plus four validation gates (Structural, Semantic,
+  Architectural, AI Readiness). Authoring is a phase, not a validation
+  gate. Text now reads "five phases, comprising an Authoring phase
+  followed by four successive validation gates," and each gate in the
+  diagram is explicitly numbered (Gate 1-4).
+- Clarified Authority Chain in §2: distinguished the architectural
+  CONTENT authority chain (001-005, which governs substantive
+  architectural precedence) from the GOVERNANCE PROCESS chain (051,
+  064, 065, 066, which governs how these documents may themselves be
+  changed). 051 was previously absent from §2 despite being invoked
+  elsewhere in this document (§1, §16), which created ambiguity about
+  whether it sits upstream of 001-005. It does not; it governs process,
+  not architectural substance.
+- Condensed duplicated Purpose language in §1 (two overlapping
+  statements of the document's purpose merged into one non-redundant
+  statement) without removing any normative content.
+- No architectural or normative meaning changed beyond the above
+  corrections; this is a clarification and correction release.
+
+v1.1.3
+- Corrected governance document reference: this document previously
+  cited "050_Governance" / "Document 050" in three locations
+  (Dependencies list, §1 Purpose, §16 Governance). The actual
+  governance document in the SmartCore Platform is
+  051_SmartCore_Governance_and_Decision_Model.md. All three
+  references corrected to 051. No architectural or normative meaning
+  changed; this is a document-numbering correction only.
+
 v1.1.2
 - Editorial cleanup.
 - Removed duplicated sections.
@@ -42,7 +79,7 @@ v1.1.2
 
 # SmartCore Blueprint Standard
 
-Version: **1.1.2**
+Version: **1.1.4**
 
 Status: **Stable**
 
@@ -51,36 +88,29 @@ Status: **Stable**
 # 1. Purpose
 
 A Blueprint defines the complete implementation specification for a
-Capability Platform.
-
-A Blueprint SHALL translate the architectural intent defined by the
-Foundational Documents into an implementation-ready specification.
+Capability Platform, translating the architectural intent defined by
+the Foundational Documents into an implementation-ready specification.
 
 A Blueprint is neither a requirements document nor a design proposal.
-
-Its purpose is to eliminate interpretation and enable deterministic
-implementation by both humans and AI systems.
-
-Every Capability Platform SHALL have exactly one Blueprint Package.
-
-This document defines the normative standard for all SmartCore
-Capability Blueprints.
-
-A Blueprint translates the platform architecture into the complete,
-implementation-ready specification for one Capability Platform.
 
 A Blueprint SHALL freeze architectural intent.
 
 A Blueprint SHALL NOT freeze implementation details.
 
-Its purpose is to provide sufficient precision for deterministic
-implementation while preserving implementation freedom where such
-freedom does not affect architectural correctness.
+Its purpose is to eliminate interpretation and enable deterministic
+implementation by both humans and AI systems, while preserving
+implementation freedom where such freedom does not affect architectural
+correctness.
+
+Every Capability Platform SHALL have exactly one Blueprint Package.
 
 Every Capability Platform SHALL conform to this standard.
 
+This document defines the normative standard for all SmartCore
+Capability Blueprints.
+
 Deviation from this standard SHALL follow the Governance process
-defined by Document 050.
+defined by Document 051 (051_SmartCore_Governance_and_Decision_Model.md).
 
 ---
 # 2. Authority
@@ -108,6 +138,30 @@ take precedence.
 Blueprints specialize platform architecture.
 
 Blueprints SHALL NOT redefine it.
+
+## 2.1 Relationship to the Governance Process Chain
+
+The chain above governs architectural CONTENT: it determines which
+document's substantive architectural rules take precedence when
+Blueprints are authored.
+
+It is distinct from the GOVERNANCE PROCESS chain, which governs how
+this standard and its dependent specifications may themselves be
+changed:
+
+051 — Governance and Decision Model (defines the change and approval
+process for this document and other governance-subject documents)
+
+064 — this document (Blueprint Standard)
+
+065 — Blueprint Validator Specification
+
+066 — AI Code Generation Specification
+
+051 is not part of the 001–005 architectural content chain and does
+not take precedence over Foundational Documents on architectural
+questions. It governs the process by which documents change, not
+architectural substance.
 
 # 3. Blueprint Philosophy
 
@@ -624,24 +678,25 @@ They SHALL NOT introduce additional requirements.
 # 9. Blueprint Validation
 
 Every Blueprint SHALL successfully pass the validation process defined by
-Document 064.
+Document 065 (065_SmartCore_Blueprint_Validator_Specification.md).
 
-Validation consists of five successive gates.
+The Blueprint lifecycle proceeds through five phases, comprising an
+Authoring phase followed by four successive validation gates.
 
 ```
 Authoring
       ↓
-Structural Validation
+Structural Validation      (Gate 1)
       ↓
-Semantic Validation
+Semantic Validation        (Gate 2)
       ↓
-Architectural Validation
+Architectural Validation   (Gate 3)
       ↓
-AI Readiness Validation
+AI Readiness Validation    (Gate 4)
 ```
 
-A Blueprint SHALL NOT proceed to implementation until all validation gates
-have passed.
+A Blueprint SHALL NOT proceed to implementation until all four
+validation gates have passed.
 
 ---
 
@@ -777,7 +832,7 @@ following conditions are satisfied.
 ✓ capability.machine.yaml is synchronized with the narrative
 documentation.
 
-✓ All validation gates defined by Document 064 pass.
+✓ All validation gates defined by Document 065 pass.
 
 ✓ No unresolved TODO items remain.
 
@@ -916,8 +971,8 @@ Neither replaces the other.
 Compliance with this document is mandatory for every Capability
 Blueprint.
 
-Compliance SHALL be evaluated using Document 064
-(Blueprint Validator).
+Compliance SHALL be evaluated using Document 065
+(065_SmartCore_Blueprint_Validator_Specification.md).
 
 Blueprints passing all mandatory validation gates SHALL be eligible
 for implementation.
@@ -933,7 +988,7 @@ manual interpretation.
 # 16. Governance
 
 Changes to this standard SHALL follow the Governance process defined by
-Document 050.
+Document 051 (051_SmartCore_Governance_and_Decision_Model.md).
 
 Editorial corrections MAY increment the Patch version.
 
@@ -963,7 +1018,7 @@ End of Document
 
 Document ID: 064
 
-Version: 1.1.2
+Version: 1.1.4
 
 Status: Stable
 

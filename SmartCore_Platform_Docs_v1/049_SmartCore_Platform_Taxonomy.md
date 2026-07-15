@@ -12,7 +12,7 @@ This document defines the canonical taxonomy of the SmartCore Platform.
 
 ## Scope
 
-This document defines the platform taxonomy of SmartCore. It identifies platform families, platform modules, platform responsibilities, and platform boundaries. It does not define SFMM semantics, domain models, solution architecture, or implementation details. It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md).
+This document defines the platform taxonomy of SmartCore. It identifies platform families, platform modules, platform responsibilities, and platform boundaries. It does not define SFMM semantics, domain models, solution architecture, or implementation details. It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [048_SmartCore_Architecture& Taxonomy_Layer_Model.md](048_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [050_SmartCore_Module_Standards.md](050_SmartCore_Module_Standards.md).
 
 It specifies how SmartCore is organized into platform families and architectural modules.
 

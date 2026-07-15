@@ -4,8 +4,9 @@ Title: SmartCore Identity Platform Blueprint - Domain Model
 Version: 1.1.0
 Status: READY_FOR_GENERATION
 Purpose: Define the domain model, aggregates, entities, and value objects for the Identity Platform Blueprint
-Dependencies: 019_SmartCore_Identity_and_Session_Continuity_Model, 041_SmartCore_Identity_Model, 064_SmartCore_Blueprint_Standard
+Dependencies: 019_SmartCore_Identity_and_Session_Continuity_Model, 041_SmartCore_Identity_Model, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.2.0 (2026-07-12): Reclassified RegistrationDomainService as RegistrationApplicationService per ADR-0002 Decision 7.1; introduced dedicated Application Services section separate from Domain Services per 064 §14.2; updated Event Producer Mapping and cross-aggregate coordination note accordingly
   - Version 1.1.0 (2026-07-08): Added metadata completion, relationships section, missing domain services, session lifecycle correction, SessionToken resolution (added AccessTokenId), event audit requirements
   - Version 1.0.0 (2026-06-01): Initial domain model definition
 -->
@@ -23,6 +24,8 @@ The Identity Domain consists of five Aggregates:
 All state changes SHALL occur through Aggregate Roots.
 
 Cross-Aggregate coordination SHALL occur through Domain Services.
+
+**Exception**: The initial creation of Person, Personal Organization, and Owner Membership during registration is coordinated by an Application Service (RegistrationApplicationService), not a Domain Service. This is an approved, narrowly-scoped exception per ADR-0002 Decision 7 (Command Model Coordination Exception for Identity Registration) and applies only to the RegisterPerson operation. See Section 8 (Application Services).
 
 ---
 
@@ -311,41 +314,7 @@ Note: Suspended state is optional and aligns with Document 019 §6.
 
 # 7. Domain Services
 
-## RegistrationDomainService
-
-Coordinates atomic registration across core ownership transaction and post-commit operations.
-
-### Core Transaction Phase
-
-Responsibilities (atomic, single transaction):
-
-- Create Person
-- Create Organization (Personal Organization)
-- Create Membership (Owner role)
-
-Transaction Commit: All three ownership entities must be successfully persisted.
-
-### Post-Commit Phase
-
-Responsibilities (after transaction commit, non-blocking):
-
-- Create Credential
-- Request Initial Session creation through Authentication lifecycle
-- Publish Registration Events
-
-Produces:
-
-- PersonRegistered
-- OrganizationCreated
-- MembershipCreated
-
-**Note**: SessionCreated is produced by AuthenticationDomainService after successful Initial Session creation.
-RegistrationDomainService coordinates the registration flow but does
-not own Session lifecycle events.
-
-**Transaction Semantics**: Core transaction failure rolls back all ownership changes. Post-commit operation failures do not invalidate ownership relationships.
-
----
+Domain Services in this section describe intrinsic domain rules confined to coordinating behavior across Aggregates that already share a bounded context. Per 064 §14.2, orchestration of initial multi-Aggregate creation (registration) is an Application Service concern and is documented separately in Section 8.
 
 ## AuthenticationDomainService
 
@@ -405,13 +374,55 @@ Note: Do NOT introduce `OrganizationManagementDomainService` or `MembershipManag
 
 ---
 
+# 8. Application Services
+
+Application Services perform orchestration across multiple Aggregate operations. They are not part of the Domain Model's business-rule layer and SHALL NOT be modeled as Domain Services (064 §14.2).
+
+## RegistrationApplicationService
+
+Coordinates atomic registration across the core ownership transaction and post-commit operations. This is the approved exception to standard cross-aggregate coordination, authorized by ADR-0002 Decision 7, and applies only to the RegisterPerson operation.
+
+### Core Transaction Phase
+
+Responsibilities (atomic, single transaction):
+
+- Create Person
+- Create Organization (Personal Organization)
+- Create Membership (Owner role)
+
+Transaction Commit: All three ownership entities must be successfully persisted.
+
+### Post-Commit Phase
+
+Responsibilities (after transaction commit, non-blocking):
+
+- Request Credential creation through CredentialManagementDomainService
+- Request Initial Session creation through Authentication lifecycle
+- Publish Registration Events
+
+Produces:
+
+- PersonRegistered
+- OrganizationCreated
+- MembershipCreated
+
+**Note**: SessionCreated is produced by AuthenticationDomainService after successful Initial Session creation.
+RegistrationApplicationService coordinates the registration flow but does
+not own Session lifecycle events. Credential creation is likewise delegated to CredentialManagementDomainService rather than performed directly, keeping Credential business rules inside the Domain layer.
+
+**Transaction Semantics**: Core transaction failure rolls back all ownership changes. Post-commit operation failures do not invalidate ownership relationships.
+
+**Scope Limitation**: This exception applies only to RegisterPerson. It SHALL NOT be treated as precedent for other multi-Aggregate orchestration (ADR-0002 §"Scope Limitation").
+
+---
+
 # Event Producer Mapping
 
-The following Domain Services produce the events declared in 059_SmartCore_Identity_Platform.md Event Ownership Table.
+The following Domain Services and Application Services produce the events declared in 059_SmartCore_Identity_Platform.md Event Ownership Table.
 
 This mapping ensures event ownership traceability and MVP scope validation.
 
-## RegistrationDomainService Produces
+## RegistrationApplicationService Produces
 
 - PersonRegistered
 - OrganizationCreated
@@ -436,11 +447,11 @@ This mapping ensures event ownership traceability and MVP scope validation.
 
 - PasswordChanged
 
-**Validation Note**: All 10 events in 059 Event Ownership Table are accounted for by MVP Domain Services. No orphaned or unclassified events exist.
+**Validation Note**: All 10 events in 059 Event Ownership Table are accounted for by MVP Domain Services and the RegistrationApplicationService. No orphaned or unclassified events exist.
 
 ---
 
-# 8. Domain Rules
+# 9. Domain Rules
 
 Rule-001
 
@@ -479,7 +490,7 @@ All Domain Events SHALL support:
 Detailed event contracts are defined in 06_Domain_Events.md.
 
 ---
-# 9. Future Extensions
+# 10. Future Extensions
 
 Future versions MAY introduce:
 

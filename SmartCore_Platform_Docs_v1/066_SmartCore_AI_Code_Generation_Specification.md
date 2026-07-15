@@ -1,4 +1,4 @@
-# 065 — SmartCore AI Generation Specification
+# 066 — SmartCore AI Code Generation Specification
 
 Version: 1.1
 
@@ -6,11 +6,11 @@ Status: NORMATIVE
 
 Depends on:
 
-- 046 Reference Architecture
-- 047 Architecture & Taxonomy Layer Model
-- 050 Governance & Decision Model
-- 063 Blueprint Standard
-- 064 Blueprint Validator Specification
+- 047 Reference Architecture
+- 048 Architecture & Taxonomy Layer Model
+- 051 Governance & Decision Model
+- 064 Blueprint Standard
+- 065 Blueprint Validator Specification
 
 ---
 

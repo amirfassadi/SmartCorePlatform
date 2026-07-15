@@ -2,9 +2,12 @@
 
 # SmartCore Command Model
 
-Version: 1.0
-Status: Draft
+Version: 1.2
+Status: Normative
 Layer: Core
+
+Related Decision Records:
+- ADR-0002_Identity_Foundation_Clarifications.md (Decision 7)
 
 ---
 
@@ -350,6 +353,21 @@ Device
 
 Cross-aggregate work is coordinated through Events.
 
+## 17.1 Command Model Coordination Exception for Identity Registration
+
+`RegisterPerson` is an approved, narrowly-scoped exception to this rule.
+
+RegisterPerson MAY coordinate creation of multiple Identity Aggregates (Person, Organization, Membership) within a single atomic consistency boundary.
+
+This exception:
+
+-   Applies ONLY to the RegisterPerson operation.
+-   Is authorized by ADR-0002_Identity_Foundation_Clarifications.md, Decision 7 (Command Model Coordination Exception for Identity Registration).
+-   Exists because Person, Personal Organization, and Membership represent a single business invariant that must not exist in a partial state; an event-driven Saga would permit temporarily invalid intermediate states.
+-   SHALL NOT be treated as a general precedent. Any future request for a similar cross-Aggregate atomic coordination exception SHALL require its own independent architectural review.
+
+All other Commands SHALL target exactly one Aggregate per this section.
+
 ---
 
 # 18. Command Payload
@@ -552,6 +570,47 @@ They represent intentions, enforce validation and authorization, invoke domain b
 Commands never describe history.
 
 They initiate it.
+
+---
+
+# Change Log
+
+## Version 1.2 (2026-07-12)
+
+**Decision**: Status promoted from Draft to Normative.
+
+**Rationale**: 057_SmartCore_Tenancy_and_Ownership_Model.md (v1.3,
+Normative) and, transitively, 059_SmartCore_Identity_Platform.md
+(Normative) now explicitly cite this document as the authoritative
+baseline rule from which RegisterPerson is a documented exception.
+A Normative document cannot coherently except itself from a rule
+defined in a document that has not itself reached binding status.
+This document's content has used SHALL-level normative language
+throughout since v1.0 and was already being treated as binding by
+dependent Blueprints; this change aligns its declared Status with
+its actual role in the architecture.
+
+**Note**: This is a maturity/status decision, not a content change to
+Sections 1-30. As with any Level 3+ change per
+051_SmartCore_Governance_and_Decision_Model.md §5, this promotion
+should be confirmed through the standard Architecture Review process
+before being treated as final.
+
+## Version 1.1 (2026-07-12)
+
+**Decisions Implemented:** - Documented the approved RegisterPerson
+exception to the single-Aggregate Command rule.
+
+**Authorizing Decision Records:** -
+ADR-0002_Identity_Foundation_Clarifications.md, Decision 7
+
+**Changes:** - Added §17.1 Command Model Coordination Exception for
+Identity Registration under §17 Aggregate Target - Added Related
+Decision Records reference to document header
+
+## Version 1.0
+
+- Initial Command Model definition
 
 ---
 

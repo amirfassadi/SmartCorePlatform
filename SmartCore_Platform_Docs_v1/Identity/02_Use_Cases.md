@@ -2,11 +2,12 @@
 <!--
 Document ID: ID-02
 Title: SmartCore Identity Platform Blueprint - Use Cases
-Version: 1.1.0
+Version: 1.2.0
 Status: READY_FOR_GENERATION
 Purpose: Define user goals, business-level use cases, and actor interactions for the Identity Platform Blueprint
-Dependencies: 00_Overview.md, 01_Domain_Model.md, 03_Aggregates.md, 14_MVP.md, 019_SmartCore_Identity_and_Session_Continuity_Model, 041_SmartCore_Identity_Model, 057_SmartCore_Tenancy_and_Ownership_Model, 059_SmartCore_Identity_Platform, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification, 066_SmartCore_AI_Code_Generation_Specification
+Dependencies: 00_Overview.md, 01_Domain_Model.md, 03_Aggregates.md, 14_MVP.md, 019_SmartCore_Identity_and_Session_Continuity_Model, 041_SmartCore_Identity_Model, 057_SmartCore_Tenancy_and_Ownership_Model, 059_SmartCore_Identity_Platform, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification, 066_SmartCore_AI_Code_Generation_Specification, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.2.0 (2026-07-12): Reclassified RegistrationDomainService references as RegistrationApplicationService per ADR-0002 Decision 7.1 and 01_Domain_Model.md v1.2.0; UC-001 and UC-008 Domain References now distinguish Application Services from Domain Services; Event Publication Map column header updated accordingly. No use case behavior changed.
   - Version 1.1.0 (2026-07-09): Added Refresh Session MVP use case, corrected Identity event publication mapping, corrected aggregate participation matrix consistency, corrected lifecycle validation statements. No architecture changes introduced.
   - Version 1.0.1 (2026-07-09): Clarified registration event timing, MembershipCreated ownership reference, and Session lifecycle wording. No scope or capability changes.
   - Version 1.0.0 (2026-07-09): Initial use case specification for Identity Platform MVP
@@ -88,7 +89,7 @@ boundary.
 
 Note: PersonRegistered indicates completion of the registration
 experience including initial authentication capability. OrganizationCreated
-and MembershipCreated are independent events published by RegistrationDomainService.
+and MembershipCreated are independent events published by RegistrationApplicationService.
 Ownership consistency is already guaranteed by the Core Ownership Transaction.
 Failure of post-commit operations SHALL NOT invalidate Person,
 Organization, or Membership.
@@ -127,7 +128,7 @@ Organization, or Membership.
 **Domain References**:
 
 -   Aggregates: Person, Organization, Membership, Credential, Session
--   Domain Services: RegistrationDomainService
+-   Application Services: RegistrationApplicationService (ADR-0002 Decision 7 exception; see 01_Domain_Model.md §8)
 -   Events: PersonRegistered, OrganizationCreated, MembershipCreated
 -   Lifecycle: Person (Registered→Active), Organization
     (Created→Active), Membership (Created→Active)
@@ -614,13 +615,13 @@ Organization during registration.
 -   status = Active
 -   Membership is part of atomic registration transaction success
 -   Person now participates in Organization
--   MembershipCreated event is published independently by RegistrationDomainService
+-   MembershipCreated event is published independently by RegistrationApplicationService
 
 **Domain References**:
 
 -   Aggregates: Membership, Person, Organization
--   Domain Services: RegistrationDomainService
--   Events: MembershipCreated (published independently by RegistrationDomainService)
+-   Application Services: RegistrationApplicationService (ADR-0002 Decision 7 exception; see 01_Domain_Model.md §8)
+-   Events: MembershipCreated (published independently by RegistrationApplicationService)
 -   Lifecycle: Membership (Created→Active)
 
 **Constraints**:
@@ -795,9 +796,9 @@ Note: UC-009 operates on existing Session without creating new Person, Credentia
 # 6. Event Publication Map
 
   --------------------------------------------------------------------------------
-  Use Case        Events Published             Domain Service
+  Use Case        Events Published             Domain / Application Service
   --------------- ---------------------------- -----------------------------------
-  UC-001:         PersonRegistered            RegistrationDomainService
+  UC-001:         PersonRegistered            RegistrationApplicationService
   Register Person OrganizationCreated          
                   MembershipCreated            
 
@@ -820,7 +821,7 @@ Note: UC-009 operates on existing Session without creating new Person, Credentia
   UC-007: End     LogoutCompleted OR           SessionManagementDomainService
   Session         SessionExpired               
 
-  UC-008: Create  MembershipCreated            RegistrationDomainService
+  UC-008: Create  MembershipCreated            RegistrationApplicationService
   Organization                                 
   Membership                                   
 

@@ -1,0 +1,160 @@
+TASK: Fix internal document-number/name references throughout the
+project so they match the actual filenames. Do NOT change anything
+else.
+
+CONTEXT:
+The filenames in this project are the source of truth and are already
+correct. Some documents refer to OTHER documents — or even to
+themselves, in their own header/title — using a document number or
+name that does not match that document's real, current filename. Your
+only job is to find and correct these mismatched references.
+
+SCOPE: All project documents, including the Identity Blueprint series.
+
+CANONICAL FILENAMES (source of truth — never rename these files):
+- 00_Overview.md
+- 01_Domain_Model.md
+- 02_Use_Cases.md
+- 03_Aggregates.md
+- 04_Commands.md
+- 14_MVP.md
+- 019_SmartCore_Identity_and_Session_Continuity_Model.md
+- 027_SmartCore_Command_Model.md
+- 041_SmartCore_Identity_Model.md
+- 046_SmartCore_Semantic_Glossary.md
+- 049_SmartCore_Platform_Taxonomy.md
+- 050_SmartCore_Module_Standards.md
+- 051_SmartCore_Governance_and_Decision_Model.md
+- 057_SmartCore_Tenancy_and_Ownership_Model.md
+- 059_SmartCore_Identity_Platform.md
+- 064_SmartCore_Blueprint_Standard.md
+- 065_SmartCore_Blueprint_Validator_Specification.md
+- 066_SmartCore_AI_Code_Generation_Specification.md
+- ADR-0002_Identity_Foundation_Clarifications.md
+- ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md
+(plus any other existing project files not listed above — use their
+actual current filename as the source of truth for each.)
+
+WHAT TO FIX:
+1. Self-reference mismatches: a document's own header/title refers to
+   itself with a wrong number or name (e.g. a file actually named
+   066_SmartCore_AI_Code_Generation_Specification.md whose own heading
+   reads "# 065 — SmartCore AI Generation Specification").
+   → Correct the internal number/title to match the actual filename.
+2. Cross-reference mismatches: a document references ANOTHER document
+   by number or name — in "Depends on", "Dependencies", "References",
+   "Cross References", "Related documents", inline mentions, etc. —
+   and that number/name does not match the real filename of the
+   referenced document.
+   → Correct the number/name to match the real filename.
+3. Known example to start from (verify against the real file, don't
+   assume it's still there):
+   - 066_SmartCore_AI_Code_Generation_Specification.md currently opens
+     with "# 065 — SmartCore AI Generation Specification" and lists
+     dependencies as "046 Reference Architecture, 047 Architecture &
+     Taxonomy Layer Model, 050 Governance & Decision Model, 063
+     Blueprint Standard, 064 Blueprint Validator Specification" — these
+     numbers (065 self-title, 050, 063, 064) don't match the real files
+     (066 = itself, 051 = Governance, 064 = Blueprint Standard,
+     065 = Blueprint Validator Spec). Fix the title and dependency
+     numbers to match real filenames.
+   - Check every "Dependencies" / "Depends on" / "References" block in
+     every file (including 00, 01, 02, 03, 04, 14, ADR-0002, ADR-0003,
+     019, 041, 057, 059, 027, 051, 066) the same way — do not assume
+     only 066 has this problem.
+
+EXCEPTION — DO NOT TOUCH, ONLY REPORT:
+- 051_SmartCore_Governance_and_Decision_Model.md currently lists TWO
+  different documents both numbered "047" (one titled "Reference
+  Architecture", one titled "Architecture & Taxonomy Layer Model" /
+  "Architecture_Layer_Model"). Do NOT guess or invent a new number for
+  either one, and do not merge or delete either reference. Just flag
+  this exact spot in your output and leave the text unchanged — it
+  needs a human decision.
+- Any other case where two real files appear to share the same number,
+  or where you cannot find a real file matching a referenced
+  number/name at all: flag it, do not guess or invent a filename.
+
+STRICT GUARDRAILS:
+- Do NOT change any decision, rule, statement, rationale, requirement,
+  or definition text.
+- Do NOT change version numbers, dates, statuses (Proposed / Accepted /
+  Normative / READY_FOR_GENERATION / etc.), or Change Log / Change
+  History entries.
+- Do NOT rename any actual file.
+- Do NOT reorder, reformat, or "clean up" unrelated sections or
+  wording.
+- Do NOT touch numbers that are not document references — e.g. rule
+  IDs ("Rule-001"), invariant IDs ("Invariant-004"), use case IDs
+  ("UC-001"), ADR decision numbers ("Decision 7"), section numbers,
+  event counts, version numbers.
+- If you are not 100% sure whether a number is a document reference or
+  something else, leave it unchanged and report it instead of
+  guessing.
+
+OUTPUT REQUIRED:
+1. A list of every change made, in this format:
+   File: <filename>
+   Location: <section/line context>
+   Before: <exact original text>
+   After: <corrected text>
+2. A separate "FLAGGED — NOT FIXED" list for anything ambiguous
+   (including the 047 duplicate case above, and any other unresolved
+   number-to-file mismatch) that needs human review before any change
+   is made.
+3. Confirmation that no content outside header/reference fields (i.e.
+   no decisions, rules, or body wording) was modified.
+
+FINAL DELIVERABLE — CREATE A REPORT FILE:
+In addition to making the corrections described above, create a single
+new report file named:
+
+  DOC_REFERENCE_FIX_REPORT.md
+
+Do NOT overwrite or modify any existing project file with this name if
+one already exists — if it exists, create
+DOC_REFERENCE_FIX_REPORT_v2.md instead and note that in your summary.
+
+The report file MUST contain exactly these sections:
+
+## 1. Summary
+- Total number of files scanned
+- Total number of files with at least one correction made
+- Total number of individual corrections made
+- Total number of items flagged for human review (not auto-fixed)
+
+## 2. Files Changed
+For every file where at least one correction was made, list:
+  ### <filename>
+  - Location: <section/heading or line context>
+    Before: <exact original text>
+    After: <corrected text>
+  (repeat for each correction in that file)
+
+## 3. Files Scanned With No Issues Found
+A plain list of filenames that were checked and required no changes.
+
+## 4. Flagged — Not Fixed (Needs Human Review)
+For every ambiguous case (including the known 047 duplicate-number
+issue in 051, and any other unresolved number-to-file mismatch), list:
+  ### <filename>
+  - Location: <section/heading or line context>
+  - Text: <exact original text>
+  - Why flagged: <one-line reason, e.g. "two files both numbered 047,
+    cannot determine which is correct without human input" or
+    "referenced document number/name not found among project files">
+
+## 5. Files NOT Covered By This Pass
+List any file that exists in the project but was NOT scanned/checked
+in this task (for example, if new files were added after your file
+list was fixed, or any file you could not access). If none, explicitly
+state "All project files were scanned — none excluded."
+
+RULES FOR THE REPORT:
+- The report must be fully consistent with the actual edits made — do
+  not summarize changes you didn't actually make, and do not omit any
+  change you did make.
+- Every entry in "Files Changed" must be traceable to a real diff in
+  that file.
+- Keep the report itself free of any content changes to other files —
+  it is a new, standalone file.

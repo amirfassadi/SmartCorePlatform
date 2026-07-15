@@ -1,6 +1,6 @@
 # 047_SmartCore_Reference_Architecture.md
 
-Version: 1.0
+Version: 1.3
 
 Status: Draft
 
@@ -18,9 +18,9 @@ While SFMM defines the semantic language used to describe reality, this document
 
 ## Scope
 
-This document defines the Reference Architecture View of SmartCore. It does not redefine SFMM semantics. It does not replace the canonical Architecture Layer Taxonomy View in [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md).
+This document defines the Reference Architecture View of SmartCore. It does not redefine SFMM semantics. It does not replace the canonical Architecture Layer Taxonomy View in [048_SmartCore_Architecture& Taxonomy_Layer_Model.md](048_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It depends on [046_SmartCore_Semantic_Glossary.md](046_SmartCore_Semantic_Glossary.md), [048_SmartCore_Architecture& Taxonomy_Layer_Model.md](048_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), and [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md).
 
-Where this document uses taxonomy terminology, it adopts the terminology established by the Architecture Layer Taxonomy View in [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It is complementary to the semantic view, the execution boundary view, and the architecture layer taxonomy view.
+Where this document uses taxonomy terminology, it adopts the terminology established by the Architecture Layer Taxonomy View in [048_SmartCore_Architecture& Taxonomy_Layer_Model.md](048_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). It is complementary to the semantic view, the execution boundary view, and the architecture layer taxonomy view.
 
 Its purpose is to clearly separate:
 
@@ -35,24 +35,42 @@ This separation prevents architectural ambiguity and establishes a stable long-t
 
 ---
 
-# 2. Architectural Layers
+# 2. Platform Ecosystem Composition View
 
-The SmartCore Platform is organized into a Reference Architecture View. The canonical Architecture Layer Taxonomy View is defined in [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). This document uses that taxonomy terminology as its reference and does not redefine the canonical taxonomy.
+The SmartCore Platform is organized into a Reference Architecture View. The canonical Architecture Layer Taxonomy View is defined in [048_SmartCore_Architecture& Taxonomy_Layer_Model.md](048_SmartCore_Architecture&%20Taxonomy_Layer_Model.md). This document uses that taxonomy terminology as its reference and does not redefine the canonical taxonomy.
+
+**This section describes ecosystem components, not an alternative layer stack.** Per 048§9, 048 is the sole canonical source for the SmartCore architecture layer hierarchy, and no other document SHALL introduce an alternative layer hierarchy. The components below elaborate the composition of the SmartCore ecosystem; they are positioned within — not parallel to — the six canonical layers defined in 048§3. See §2.1 for the explicit mapping.
 
 ```
-SmartCore Platform
+SmartCore Ecosystem Composition
 
+Primary chain:
 ├── Foundation
-├── Core Engines
 ├── Capability Platforms
 ├── Domain Models
-├── Solutions
+└── Solutions
+
+Cross-cutting components (see §2.1):
+├── Core Engines
 └── Developer Platform
 ```
 
-Each layer has a distinct responsibility.
+Each component has a distinct responsibility.
 
-No layer should assume the responsibilities of another.
+No component should assume the responsibilities of another.
+
+## 2.1 Mapping to the Canonical Architecture Layer Taxonomy (048)
+
+| 047 Ecosystem Component | Corresponding 048 Canonical Layer |
+| --- | --- |
+| Foundation | Layer 1 — Semantic Foundation (SFMM) |
+| Core Engines | Cross-cutting runtime capability supporting Layers 1–2. Not a distinct top-level layer in 048. |
+| Capability Platforms | Architectural elements defined *within* Layer 2 — Platform Taxonomy (see 049§4, Platform Families), not Layer 2 itself. Platform Taxonomy is the classification model; Capability Platforms are the elements it classifies. |
+| Domain Models | Layer 3 — Domain Modeling |
+| Solutions | Layer 4 — Solution Design |
+| Developer Platform | Cross-cutting tooling concern supporting Layers 3–5. Not a distinct top-level layer in 048. |
+
+048 remains the sole canonical source for the layer stack and its dependency rules. This table exists only to reconcile this document's ecosystem composition terminology with that canonical stack; it does not add, reorder, or redefine any 048 layer.
 
 ---
 
@@ -203,29 +221,43 @@ They do not define the architecture itself.
 
 ---
 
-# 9. Relationship Between Layers
+# 9. Relationship Between Ecosystem Components
 
-The dependency direction is strictly one-way.
+The primary compositional dependency among the layer-aligned ecosystem components is strictly one-way, and is nested within — not an alternative to — the canonical top-to-bottom dependency direction defined in 048§5:
 
 ```
 Foundation
-      ↓
-Core Engines
       ↓
 Capability Platforms
       ↓
 Domain Models
       ↓
 Solutions
-      ↓
-Developer Platform
 ```
 
-Lower layers must never depend on higher layers.
+Core Engines and Developer Platform are cross-cutting components (see §2.1) and are intentionally not shown as steps in this chain, since neither is a distinct top-level layer:
 
-Higher layers may compose lower layers.
+```
+                Core Engines
+        (cross-cutting: executes semantic
+         models used by Foundation and
+         Capability Platforms)
+
+Foundation → Capability Platforms → Domain Models → Solutions
+
+                Developer Platform
+        (cross-cutting: tooling support
+         spanning Domain Models, Solutions,
+         and Application Implementation)
+```
+
+Consistent with the dependency rules defined in 048§5, earlier components in this compositional view do not depend on later components.
+
+Later components may compose earlier components.
 
 No circular dependencies are permitted.
+
+This ordering is descriptive of, and consistent with, the canonical layer dependency direction in 048§5 (Layer 1 → Layer 6); it does not introduce an independent rule. See §2.1 for how each component maps onto that canonical stack.
 
 ---
 
@@ -316,7 +348,7 @@ New domain models may be introduced without modifying existing capability platfo
 
 New solutions may be created by composing existing domains and capabilities.
 
-This layered architecture enables long-term scalability while preserving architectural stability.
+This ecosystem composition, nested within the canonical layer stack defined in 048, enables long-term scalability while preserving architectural stability.
 
 ---
 
@@ -327,6 +359,111 @@ The SmartCore Platform is **not a collection of applications**.
 It is a layered semantic platform for building reusable capabilities, domain models, and complete solutions.
 
 Applications are outcomes of the platform—not the platform itself.
+
+---
+
+# Change Log
+
+## Version 1.3 (2026-07-13)
+
+**Refinement (review feedback):** §9 previously stated "Earlier
+components in the primary chain must never depend on later components,"
+which read as an independent normative rule issued by this Reference
+Architecture View document, rather than a restatement of the dependency
+rule already established as canonical and normative in
+048_SmartCore_Architecture& Taxonomy_Layer_Model.md §5. Reworded to:
+"Consistent with the dependency rules defined in 048§5, earlier
+components in this compositional view do not depend on later
+components," and added an explicit closing statement that this ordering
+"does not introduce an independent rule." This keeps 048 as the sole
+source of normative dependency rules and this document strictly
+descriptive/reference in nature, consistent with its Draft status and
+its Scope statement that it does not redefine 048's canonical taxonomy.
+
+**Classification:** Level 1 — Editorial per 051§5 (wording precision
+only; no change to which rules govern dependency direction).
+
+## Version 1.2 (2026-07-13)
+
+**Refinements to the v1.1 correction (review feedback):**
+
+- **Capability Platforms mapping corrected.** §2.1 previously mapped
+  Capability Platforms directly to "Layer 2 — Platform Taxonomy." This
+  conflated the classification model with the elements it classifies.
+  Per 049§4 (Platform Families), Platform Taxonomy is the classification
+  layer; Capability Platforms are architectural elements defined *within*
+  it. §2.1 now states this distinction explicitly.
+- **Core Engines / Developer Platform no longer shown inline in a single
+  vertical chain.** §2 and §9 previously displayed all six ecosystem
+  components as one arrow-connected vertical sequence, which visually
+  read as a seventh layer stack despite §2.1 already classifying Core
+  Engines and Developer Platform as cross-cutting, non-layer components.
+  Both sections now separate the four layer-aligned components (primary
+  chain) from the two cross-cutting components (shown alongside, not
+  in-line).
+- **Change Log wording precision.** "No architectural content changed"
+  (v1.1 entry) replaced with "No normative architectural rule changed,"
+  since the v1.1 correction did change this document's presentation and
+  structure, just not any binding rule.
+
+**Classification:** Level 1 — Editorial per 051§5 (wording precision and
+diagram clarity; no conceptual or normative change beyond what v1.1
+already introduced).
+
+## Version 1.1 (2026-07-13)
+
+**Issue Identified:** §2 previously presented an independent six-item
+"Architectural Layers" stack (Foundation, Core Engines, Capability
+Platforms, Domain Models, Solutions, Developer Platform) with its own
+top-to-bottom dependency rules in §9. This stack did not correspond to,
+and was not reconciled with, the canonical six-layer stack defined in
+048_SmartCore_Architecture& Taxonomy_Layer_Model.md §3 (Semantic
+Foundation, Platform Taxonomy, Domain Modeling, Solution Design,
+Application Implementation, Infrastructure & Runtime). 048§9 states that
+048 is the only canonical architecture layer model and that no other
+document SHALL introduce an alternative layer hierarchy; §2 as previously
+written did exactly that, despite this document's own Scope stating it
+does not replace or redefine 048's canonical taxonomy.
+
+**Additional defect corrected:** §2 also self-referenced itself
+incorrectly, citing "047_SmartCore_Architecture&Taxonomy_Layer_Model.md"
+as the source of the canonical Architecture Layer Taxonomy View. The
+correct source is 048_SmartCore_Architecture& Taxonomy_Layer_Model.md,
+as already correctly cited elsewhere in this document's own Scope
+section.
+
+**Resolution:**
+- Renamed §2 from "Architectural Layers" to "Platform Ecosystem
+  Composition View" and added an explicit statement that this section
+  describes ecosystem components nested within 048's canonical layers,
+  not an alternative layer hierarchy.
+- Added §2.1, an explicit mapping table reconciling each of this
+  document's six ecosystem components to their corresponding 048
+  canonical layer (or noting where a component is a cross-cutting
+  concern with no direct 048 layer counterpart, namely Core Engines and
+  Developer Platform).
+- Renamed §9 from "Relationship Between Layers" to "Relationship Between
+  Ecosystem Components" and clarified that its dependency direction is
+  nested within, not an alternative to, the canonical dependency
+  direction defined in 048§5.
+- Corrected the self-reference defect in §2 (047 → 048).
+- Adjusted §13 wording to avoid implying an independently layered
+  architecture.
+
+**Classification:** Level 2 — Documentation clarification per
+051_SmartCore_Governance_and_Decision_Model.md §5. No normative
+architectural rule changed in either document; no ADR required. The
+presentation of this document's ecosystem composition changed (§2/§9
+restructured, §2.1 mapping added), but the underlying architectural
+substance — including the canonical layer stack defined in 048 — is
+unchanged.
+
+**Note:** This document's Status remains Draft. No other content in
+this document was changed.
+
+## Version 1.0
+
+- Initial Reference Architecture View definition.
 
 ---
 

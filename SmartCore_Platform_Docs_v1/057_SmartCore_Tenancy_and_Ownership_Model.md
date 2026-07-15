@@ -1,6 +1,6 @@
 # 057_SmartCore_Tenancy_and_Ownership_Model.md
 
-Version: 1.2
+Version: 1.3
 
 Status: **Normative**
 
@@ -259,6 +259,19 @@ commit, including:
 
 These operations SHALL NOT invalidate ownership consistency.
 
+## Command Model Coordination Exception
+
+The Registration Core Transaction coordinates creation of three distinct Aggregates (Person, Organization, Membership) within a single atomic consistency boundary.
+
+This is a deliberate, narrowly-scoped exception to the default cross-Aggregate coordination rule defined in 027_SmartCore_Command_Model.md, under which a Command SHALL target exactly one Aggregate and cross-Aggregate work SHALL be coordinated through Events.
+
+This exception:
+
+-   Applies ONLY to the RegisterPerson operation.
+-   Is authorized by ADR-0002_Identity_Foundation_Clarifications.md, Decision 7 (Command Model Coordination Exception for Identity Registration).
+-   SHALL NOT be interpreted as a general precedent for multi-Aggregate transactional Commands elsewhere in the platform.
+-   Does NOT redefine or supersede 027_SmartCore_Command_Model.md, which SHALL continue to govern all other Commands.
+
 ------------------------------------------------------------------------
 
 # 9. Personal Organization
@@ -356,7 +369,33 @@ this document.
 
 ------------------------------------------------------------------------
 
+# References
+
+-   027_SmartCore_Command_Model.md (see §8 Command Model Coordination
+    Exception)
+-   ADR-0002_Identity_Foundation_Clarifications.md
+-   ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md
+
+------------------------------------------------------------------------
+
 # Change Log
+
+## Version 1.3 (2026-07-12)
+
+**Decisions Implemented:** - Command Model Coordination Exception
+reference: documents that the Registration Core Transaction is a
+narrowly-scoped, approved exception to the default single-Aggregate
+Command rule in 027_SmartCore_Command_Model.md, applicable only to
+RegisterPerson.
+
+**Authorizing Decision Records:** -
+ADR-0002_Identity_Foundation_Clarifications.md, Decision 7
+
+**Changes:** - Added "Command Model Coordination Exception" subsection
+under §8 Registration Model - Added 027_SmartCore_Command_Model.md to
+References
+
+------------------------------------------------------------------------
 
 ## Version 1.2 (2026-07-08)
 

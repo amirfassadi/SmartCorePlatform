@@ -9,11 +9,11 @@ Defines the purpose, scope, boundaries, terminology, dependencies,
 and architectural intent of the SmartCore Identity Capability Platform.
 
 Dependencies:
-019_Identity_and_Session_Continuity_Model
-041_Identity_Model
-057_Tenancy_and_Ownership_Model
-059_Identity_Platform
-064_Blueprint_Standard
+019_SmartCore_Identity_and_Session_Continuity_Model
+041_SmartCore_Identity_Model
+057_SmartCore_Tenancy_and_Ownership_Model
+059_SmartCore_Identity_Platform
+064_SmartCore_Blueprint_Standard
 
 Change Log:
 See Section 13 for detailed version history.

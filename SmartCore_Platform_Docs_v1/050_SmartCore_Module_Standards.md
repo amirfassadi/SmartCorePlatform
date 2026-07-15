@@ -1,6 +1,6 @@
 # 050_SmartCore_Module_Standards.md
 
-Version: 1.0
+Version: 1.1
 
 Status: Normative
 
@@ -12,7 +12,7 @@ This document defines the mandatory standards for all SmartCore platform modules
 
 ## Scope
 
-This document defines the standards that govern SmartCore platform modules. It does not redefine SFMM semantics, platform taxonomy, or the canonical architecture layer model. It depends on [047_SmartCore_Architecture& Taxonomy_Layer_Model.md](047_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md), and [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md).
+This document defines the standards that govern SmartCore platform modules. It does not redefine SFMM semantics, platform taxonomy, or the canonical architecture layer model. It depends on [048_SmartCore_Architecture& Taxonomy_Layer_Model.md](048_SmartCore_Architecture&%20Taxonomy_Layer_Model.md), [049_SmartCore_Platform_Taxonomy.md](049_SmartCore_Platform_Taxonomy.md), and [051_SmartCore_Governance_and_Decision_Model.md](051_SmartCore_Governance_and_Decision_Model.md).
 
 Its purpose is to ensure that every platform module is:
 
@@ -339,9 +339,9 @@ Non-compliant modules SHALL NOT be considered part of the official SmartCore Pla
 Related documents:
 
 - 047_SmartCore_Reference_Architecture.md
-- 047_SmartCore_Architecture_Layer_Model.md
+- 048_SmartCore_Architecture& Taxonomy_Layer_Model.md
 - 049_SmartCore_Platform_Taxonomy.md
-- 050_SmartCore_Architecture_Governance.md
+- 051_SmartCore_Governance_and_Decision_Model.md
 
 ---
 
@@ -354,6 +354,42 @@ Related documents:
 - Internal implementation SHALL remain encapsulated.
 - Module dependencies SHALL remain explicit and traceable.
 - Architectural quality SHALL take precedence over implementation convenience.
+
+---
+
+# 21. Change Log
+
+## Version 1.1 (2026-07-13)
+
+**Issue Identified:** §19 (Cross References) contained two defective
+references:
+- "047_SmartCore_Architecture_Layer_Model.md" — the correct document is
+  048_SmartCore_Architecture& Taxonomy_Layer_Model.md. This is the same
+  self-reference defect (047 substituted for 048) already corrected in
+  047_SmartCore_Reference_Architecture.md v1.1 and
+  049_SmartCore_Platform_Taxonomy.md v1.1.
+- "050_SmartCore_Architecture_Governance.md" — this document does not
+  exist. The actual SmartCore governance document is
+  051_SmartCore_Governance_and_Decision_Model.md, which this document's
+  own Scope section (§1) already correctly cites. This is the same class
+  of governance-document-number error previously corrected in
+  064_SmartCore_Blueprint_Standard.md v1.1.3 ("Document 050" →
+  "Document 051").
+
+**Resolution:**
+- Corrected "047_SmartCore_Architecture_Layer_Model.md" to
+  "048_SmartCore_Architecture& Taxonomy_Layer_Model.md" in §19.
+- Corrected "050_SmartCore_Architecture_Governance.md" to
+  "051_SmartCore_Governance_and_Decision_Model.md" in §19.
+
+**Classification:** Level 2 — Documentation clarification per
+051_SmartCore_Governance_and_Decision_Model.md §5 (reference correction
+only; no change to module standards, dependency rules, or any normative
+statement in this document).
+
+## Version 1.0
+
+- Initial Module Standards definition.
 
 ---
 

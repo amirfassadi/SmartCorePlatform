@@ -2,13 +2,20 @@
 
 ## Metadata
 
-- **ADR Number**: ADR-0002
-- **Title**: Identity Foundation Clarifications
-- **Status**: Proposed
-- **Date Created**: 2026-07-08
-- **Version**: 1.0
+* **ADR Number**: ADR-0002
+* **Title**: Identity Foundation Clarifications
+* **Status**: Proposed
+* **Version**: 1.2
+* **Date Created**: 2026-07-08
+* **Author**: SmartCore Architecture Team
+* **Approval Date**: TBD
+* **Effective Date**: TBD
+* **Decision Type**: Architectural Decision
+* **Decision Level**: Level 4 — Architectural Change (applies to Decision 7; Decisions 1–6 are Level 2 Documentation clarifications)
 
-## Decision Scope
+---
+
+# Decision Scope
 
 1. Registration Boundary Clarification
 2. Authorization Boundary Clarification
@@ -16,157 +23,396 @@
 4. Identity Platform Person-Centric Boundary
 5. Event Ownership Documentation
 6. Future Identity Types Documentation
+7. Command Model Coordination Exception for Identity Registration
 
-## Context
+---
 
-The Identity Platform requires architectural clarifications before Version 1.0 freeze to ensure consistency, clarity, and extensibility for future SmartCore Capability Platforms.
+# Context
 
-This ADR addresses ambiguities in:
-- Registration atomicity and boundary
-- Authorization responsibilities and separation of concerns
-- Membership role structure and future evolution
-- Event ownership and lifecycle management
-- Support for future identity types while maintaining backward compatibility
+The SmartCore Identity Platform requires architectural clarification before Version 1.0 freeze to ensure consistency, governance alignment, and future extensibility.
 
-## Decision
+This ADR defines foundational decisions related to:
 
-### 1. Registration Boundary Clarification
+* Identity registration boundaries
+* Authorization responsibility separation
+* Membership role modeling
+* Person-centric Identity boundaries
+* Event ownership
+* Future identity extensions
+* Command coordination rules for initial Identity registration
 
-**Decision**: Registration is an atomic operation that creates three core ownership entities.
+The SmartCore Command Model defines a general rule that Commands operate within a single Aggregate boundary and that cross-aggregate coordination should normally be achieved through domain events.
 
-**Rationale**: Atomic registration ensures that no Person can exist outside organizational ownership context.
+Identity Registration requires an explicit architectural exception to this general rule.
 
-**Statement**: The atomic registration transaction SHALL include:
-- Person creation
-- Organization creation (Personal Organization)
-- Membership creation (Owner role)
+The initial Identity ownership boundary consists of:
 
-The transaction SHALL commit after these ownership entities are successfully created.
+* Person
+* Personal Organization
+* Membership
 
-Additional Identity Platform operations MAY occur after successful commit, including:
-- Credential creation
-- Initial session creation
-- Domain event publication
+These entities represent a single business invariant.
+
+A Person without ownership context is considered an invalid Identity state.
+
+Therefore, initial registration requires strong consistency and atomic creation.
+
+---
+
+# Decision
+
+## 1. Registration Boundary Clarification
+
+### Decision
+
+Registration is an atomic operation that creates the initial Identity ownership boundary.
+
+### Rationale
+
+Identity ownership must exist as a complete and consistent state after successful registration.
+
+### Statement
+
+The RegisterPerson operation SHALL create:
+
+* Person
+* Personal Organization
+* Membership with Owner role
+
+within a single atomic transaction boundary.
+
+Partial registration states are prohibited.
+
+Post-registration operations MAY include:
+
+* Credential creation
+* Session creation
+* Event publication
 
 These operations SHALL NOT invalidate ownership consistency.
 
-### 2. Authorization Boundary Clarification
+---
 
-**Decision**: The Identity Platform provides authentication and membership context, not business authorization.
+## 2. Authorization Boundary Clarification
 
-**Rationale**: Separation of concerns allows each Capability Platform to implement domain-specific authorization rules.
+### Decision
 
-**Statement**: The Identity Platform SHALL provide:
-- Identity context
-- Authentication outcomes
-- Membership information
-- Organization information
+Identity Platform authentication and business authorization responsibilities SHALL remain separated.
 
-The Identity Platform SHALL NOT evaluate business permissions.
+### Statement
 
-Business authorization remains the responsibility of consuming Capability Platforms.
+Identity Platform SHALL provide:
 
-### 3. Membership Role Model Clarification
+* Authentication results
+* Identity context
+* Membership context
+* Organization context
 
-**Decision**: In Version 1.0, Role is an attribute of Membership, supporting only the "Owner" value.
+Identity Platform SHALL NOT implement Capability-specific business authorization rules.
 
-**Rationale**: Simple role structure enables MVP while maintaining extensibility.
+Business authorization SHALL remain the responsibility of consuming Capability Platforms.
 
-**Statement**: Role SHALL be an attribute of Membership.
+---
 
-Supported value in Version 1.0:
-- Owner
+## 3. Membership Role Model Clarification
 
-Future versions MAY introduce additional role values (Admin, Member, Guest, Operator) without introducing a separate Role Aggregate.
+### Decision
 
-### 4. Identity Platform Person-Centric Boundary
+Role SHALL remain an attribute of Membership.
 
-**Decision**: Identity Platform remains Person-centric in Version 1.x.
+### Statement
 
-**Rationale**: Human identity is the foundation. Other identity types require distinct design patterns and threat models.
+Version 1.0 SHALL support:
 
-**Statement**: Identity Platform SHALL remain Person-centric in Version 1.x.
+* Owner
 
-Future identity types including:
-- Device Identity
-- Service Identity
-- AI Agent Identity
+Future roles MAY be introduced without creating a separate Role Aggregate.
 
-SHALL be introduced through extension and SHALL NOT alter existing Person identity semantics.
+---
 
-### 5. Event Ownership Documentation
+## 4. Identity Platform Person-Centric Boundary
 
-**Decision**: Explicit Event Ownership Table declares which domain events belong to Identity Platform.
+### Decision
 
-**Rationale**: Clear ownership prevents event orphaning and enables consistent deployment patterns.
+Identity Platform SHALL remain Person-centric during Version 1.x.
 
-**Statement**: The Identity Platform owns and publishes the following domain events:
+### Statement
 
-| Event               | Owner Capability | MVP |
-|---------------------|------------------|-----|
-| PersonRegistered    | Identity         | Yes |
-| PersonUpdated       | Identity         | Yes |
-| PasswordChanged     | Identity         | Yes |
-| LoginSucceeded      | Identity         | Yes |
-| LoginFailed         | Identity         | Yes |
-| SessionCreated      | Identity         | Yes |
-| SessionExpired      | Identity         | Yes |
-| LogoutCompleted     | Identity         | Yes |
-| OrganizationCreated | Identity         | Yes |
-| MembershipCreated   | Identity         | Yes |
+Future identity types such as:
 
-Lifecycle events beyond those listed above are outside the scope of Identity Blueprint Version 1.0 and MAY be introduced through future ADRs.
+* Device Identity
+* Service Identity
+* AI Agent Identity
 
-### 6. Future Identity Types Documentation
+MAY be introduced through future architectural decisions.
 
-**Decision**: Future identity types are explicitly scoped as future extensions.
+They SHALL NOT modify existing Person identity semantics.
 
-**Rationale**: Supports long-term platform extensibility while maintaining MVP simplicity.
+---
 
-**Statement**: Future versions MAY introduce:
-- Device Identity
-- Service Identity
-- AI Agent Identity
+## 5. Event Ownership Documentation
 
-These identity types SHALL extend the platform without modifying Person identity semantics.
+### Decision
 
-## Consequences
+Identity Platform SHALL explicitly own and publish Identity-related domain events.
 
-### Document Updates
+### Event Ownership
 
-- 057_SmartCore_Tenancy_and_Ownership_Model.md version: 1.0 → 1.1
-- 059_SmartCore_Identity_Platform.md version: 1.0 → 1.1
+| Event               | Owner    | MVP |
+| ------------------- | -------- | --- |
+| PersonRegistered    | Identity | Yes |
+| PersonUpdated       | Identity | Yes |
+| PasswordChanged     | Identity | Yes |
+| LoginSucceeded      | Identity | Yes |
+| LoginFailed         | Identity | Yes |
+| SessionCreated      | Identity | Yes |
+| SessionExpired      | Identity | Yes |
+| LogoutCompleted     | Identity | Yes |
+| OrganizationCreated | Identity | Yes |
+| MembershipCreated   | Identity | Yes |
 
-### Backward Compatibility
+Events represent completed business facts.
 
-All changes are additive and clarifying. No breaking changes to existing Person identity model.
+Events SHALL NOT be used to coordinate initial ownership creation.
 
-### Future Decisions
+Security and audit classification of events is outside the scope of this ADR.
+
+---
+
+## 6. Future Identity Types Documentation
+
+### Decision
+
+Future Identity types SHALL be introduced through explicit architectural decisions.
+
+### Statement
+
+The following are considered future extensions:
+
+* Device Identity
+* Service Identity
+* AI Agent Identity
+
+These SHALL extend Identity capabilities without changing Person identity semantics.
+
+---
+
+## 7. Command Model Coordination Exception for Identity Registration
+
+### Decision
+
+Identity Registration is an approved exception to the default cross-aggregate coordination model defined in:
+
+`027_SmartCore_Command_Model.md`
+
+The RegisterPerson operation MAY coordinate creation of multiple Identity Aggregates within a single atomic consistency boundary.
+
+This permission is what Decision 1 of this ADR already requires in practice: Decision 1 mandates atomic creation of Person, Personal Organization, and Membership. Decision 7 exists solely to formally except that mandated behavior from the default cross-aggregate coordination rule in 027, not to introduce a new requirement.
+
+This exception applies ONLY to initial Identity ownership creation.
+
+It SHALL NOT redefine the general SmartCore Command Model.
+
+All other Commands SHALL follow standard cross-aggregate coordination rules.
+
+---
+
+### Rationale
+
+Initial Identity registration requires strong consistency.
+
+The following entities must exist together:
+
+* Person
+* Personal Organization
+* Membership
+
+Using an event-driven Saga approach would allow temporary invalid states.
+
+Examples:
+
+* Person exists without ownership
+* Organization exists without Membership
+* Membership exists without valid Person relationship
+
+These states violate Identity ownership invariants.
+
+---
+
+### Alternatives Considered
+
+#### Alternative 1 — Event-driven Saga Registration
+
+Rejected.
+
+Reasons:
+
+* Allows partial ownership states.
+* Requires compensation workflows.
+* Introduces unnecessary complexity.
+* Violates registration invariants.
+
+---
+
+#### Alternative 2 — Separate Registration Commands
+
+Rejected.
+
+Reasons:
+
+* Allows invalid sequencing.
+* Weakens Identity ownership guarantees.
+
+---
+
+#### Alternative 3 — Single Large Registration Aggregate
+
+Rejected.
+
+Reasons:
+
+* Creates excessive Aggregate responsibility.
+* Violates established Identity Aggregate boundaries.
+
+---
+
+## 7.1 Registration Orchestration Responsibility
+
+The orchestration component responsible for RegisterPerson SHALL be classified as an Application Service according to:
+
+`064_SmartCore_Blueprint_Standard.md`
+
+It SHALL NOT be modeled as a Domain Service.
+
+The responsibility is application-level orchestration of multiple Aggregate operations.
+
+Dependent documents SHALL update terminology accordingly:
+
+```
+RegistrationDomainService
+        ↓
+RegistrationApplicationService
+```
+
+(or an equivalent name aligned with implementation standards)
+
+---
+
+# Consequences
+
+## Positive Consequences
+
+* Guarantees valid Identity ownership after registration.
+* Prevents partial ownership states.
+* Maintains Identity invariants.
+* Preserves general Command Model rules while documenting a controlled exception.
+
+---
+
+## Negative Consequences
+
+* Registration requires coordinated transaction handling.
+* Similar exceptions cannot be introduced without governance review.
+* Additional validation is required when modifying Identity lifecycle flows.
+
+---
+
+## Backward Compatibility
+
+All changes introduced by this ADR, including the Command Model Coordination Exception in Section 7, are additive and clarifying.
+
+No breaking changes are introduced to the existing Person identity model.
+
+The Command Model Coordination Exception does not alter the behavior of any previously implemented Command. It documents and formalizes the pre-existing RegisterPerson design.
+
+---
+
+## Future Decisions
 
 This ADR establishes the foundation for:
-- Future identity type extensions (Device, Service, AI Agent)
-- Role extension mechanisms
-- Event extension patterns
 
-## Acceptance Criteria
+* Future identity type extensions (Device, Service, AI Agent)
+* Role extension mechanisms
+* Event extension patterns
+* Any future request for a similar cross-aggregate atomic coordination exception, which SHALL require its own independent architectural review and SHALL NOT cite this ADR as a general precedent
 
-This ADR SHALL remain "Proposed" until:
-- [ ] All related document changes (057, 059, 01_Domain_Model) have been implemented
-- [ ] Architecture Validation Review has been completed
-- [ ] Blueprint passes Structural Validation per 065_SmartCore_Blueprint_Validator_Specification
+---
 
-Upon successful Architecture Validation Review:
-- Status SHALL be updated to "Accepted"
-- Acceptance date SHALL be recorded
-- Reference SHALL be added to all dependent ADRs
+# Scope Limitation
 
-## References
+This exception applies ONLY to:
 
-- 019_SmartCore_Identity_and_Session_Continuity_Model.md
-- 041_SmartCore_Identity_Model.md
-- 057_SmartCore_Tenancy_and_Ownership_Model.md
-- 059_SmartCore_Identity_Platform.md
-- 064_SmartCore_Blueprint_Standard.md
-- 065_SmartCore_Blueprint_Validator_Specification.md
-- 066_SmartCore_AI_Code_Generation_Specification.md
-- ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md
+```
+RegisterPerson
+```
+
+It SHALL NOT be interpreted as permission for general multi-Aggregate transactional Commands.
+
+Future exceptions require separate architectural review.
+
+---
+
+# Document Updates Required
+
+| Document                                      | Current Version | Target Version      | Required Change                                                       |
+| ---------------------------------------------- | ---------------- | -------------------- | ----------------------------------------------------------------------- |
+| 057_SmartCore_Tenancy_and_Ownership_Model.md   | 1.2               | 1.3                  | Add registration exception reference                                    |
+| 059_SmartCore_Identity_Platform.md             | 1.1               | Next Minor Version    | Align registration lifecycle documentation                              |
+| 01_Domain_Model.md                             | 1.1.0             | Next Minor Version    | Reclassify RegistrationDomainService → RegistrationApplicationService   |
+| 03_Aggregates.md                               | 1.0.0             | Next Minor Version    | Document atomic registration boundary                                   |
+| 04_Commands.md                                 | 1.0.0             | Next Minor Version    | Add Command Model exception reference and Application Service mapping   |
+
+Note: 057's target version is stated precisely because it follows the version-tracking precedent already established by ADR-0003. Target versions for 059, 01, 03, and 04 are left as "Next Minor Version" since these documents have not yet been edited under this ADR and the exact scope of required change will be confirmed during editing.
+
+---
+
+# Acceptance Criteria
+
+This ADR SHALL remain Proposed until:
+
+* [ ] Related document updates are completed
+* [ ] Architecture Validation Review is completed
+* [ ] Blueprint passes Structural Validation
+* [ ] All affected Blueprint documents reference ADR-0002 (latest accepted version)
+
+After approval:
+
+* Status SHALL change to Accepted
+* Approval Date SHALL be recorded
+* Effective Date SHALL be recorded
+
+---
+
+# References
+
+> *Document 019 is retained as a referenced architectural context
+> document for the identity/session-continuity concepts underlying this
+> ADR. Its long-term
+> lineage status (relative to 041 and 059) remains subject to future
+> Architecture Board review under a separate governance track, and this
+> reference does not constitute a supersession determination.*
+
+* 019_SmartCore_Identity_and_Session_Continuity_Model.md
+* 027_SmartCore_Command_Model.md
+* 041_SmartCore_Identity_Model.md
+* 051_SmartCore_Governance_and_Decision_Model.md
+* 057_SmartCore_Tenancy_and_Ownership_Model.md
+* 059_SmartCore_Identity_Platform.md
+* 064_SmartCore_Blueprint_Standard.md
+* 065_SmartCore_Blueprint_Validator_Specification.md
+* 066_SmartCore_AI_Code_Generation_Specification.md
+* ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md
+
+---
+
+# Change History
+
+| Version | Status   | Description                                                                                                                                         |
+| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.0     | Proposed | Initial Identity Foundation Clarifications                                                                                                          |
+| 1.1     | Proposed | Added Command Model coordination exception for Identity Registration, clarified Application Service responsibility, added governance metadata, and documented compatibility boundaries. Clarified that the exception applies only to RegisterPerson and does not establish a general multi-Aggregate transaction rule. |
+| 1.2     | Proposed | Added a clarifying note to the References section stating that Document 019 is retained as an architectural context document for this ADR without constituting a lineage/supersession determination relative to 041/059; that determination is deferred to a separate Architecture Board governance track. Corrected a stale version-pinned self-reference in Acceptance Criteria (ADR-0002 v1.1 → latest accepted version). No substantive decision content changed. |
+
+---
+
+**END OF DOCUMENT**

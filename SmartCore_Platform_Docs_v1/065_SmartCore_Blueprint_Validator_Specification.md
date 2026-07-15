@@ -1,4 +1,4 @@
-# 064 — SmartCore Blueprint Validator Specification
+# 065 — SmartCore Blueprint Validator Specification
 
 Version: 1.1
 
@@ -6,10 +6,10 @@ Status: NORMATIVE
 
 Depends on:
 
-- 046 Reference Architecture
-- 047 Architecture & Taxonomy Layer Model
-- 050 Governance
-- 063 Blueprint Standard
+- 047 Reference Architecture
+- 048 Architecture & Taxonomy Layer Model
+- 051 Governance
+- 064 Blueprint Standard
 
 ---
 

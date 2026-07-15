@@ -1,6 +1,6 @@
 # 048_SmartCore_Architecture& Taxonomy_Layer_Model.md
 
-Version: 1.0
+Version: 1.1
 
 Status: Normative
 
@@ -127,6 +127,8 @@ Responsible for:
 Does NOT define semantic meaning.
 
 Platform Taxonomy is built upon SFMM.
+
+This layer was formally introduced as a distinct architectural layer by ADR-0001b_SFMM_v1_FREEZE.md, which recognized it as a structural layer sitting between SFMM and Domain Modeling.
 
 ---
 
@@ -260,6 +262,7 @@ Related documents:
 - 047_SmartCore_Reference_Architecture.md
 - 049_SmartCore_Platform_Taxonomy.md
 - ADR-0001_SFMM_v1_FREEZE.md
+- ADR-0001b_SFMM_v1_FREEZE.md
 
 ---
 
@@ -284,6 +287,35 @@ The SmartCore Architecture Layer Model is governed by the following principles:
 - Modular Evolution
 
 These principles ensure that the SmartCore Platform can evolve while preserving a stable semantic foundation.
+
+---
+
+# 11. Change Log
+
+## Version 1.1 (2026-07-13)
+
+**Issue Identified:** §8 (Cross References) cited ADR-0001_SFMM_v1_FREEZE.md
+but omitted ADR-0001b_SFMM_v1_FREEZE.md, even though ADR-0001b is the
+decision record that formally introduced the Platform Taxonomy layer
+codified here as Layer 2 (§4, Layer 2 — Platform Taxonomy). Per
+051_SmartCore_Governance_and_Decision_Model.md §4 and §6.6, every
+significant architectural decision SHALL be traceable, and this
+document's Layer 2 definition was not traceable to its authorizing
+decision record.
+
+**Resolution:**
+- Added ADR-0001b_SFMM_v1_FREEZE.md to §8 Cross References.
+- Added a traceability note directly under the Layer 2 — Platform
+  Taxonomy definition (§4) citing ADR-0001b as the decision that
+  formally introduced this layer.
+
+**Classification:** Level 2 — Documentation clarification per 051§5
+(cross-reference and traceability addition; no change to the layer
+stack, its definitions, or its dependency rules).
+
+## Version 1.0
+
+- Initial canonical Architecture Layer Taxonomy View definition.
 
 ---
 
