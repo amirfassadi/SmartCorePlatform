@@ -247,7 +247,7 @@ field's contents; every other envelope field below applies uniformly.
 | AggregateType | string enum: `Person` \| `Organization` \| `Membership` \| `Session` \| `Credential` | Required | Which Aggregate (01_Domain_Model §1) this event pertains to |
 | AggregateId | string (UUID) | Required — see exception in §4.6 | The identifier of the specific Aggregate instance this event is about (e.g. PersonId for a Person-type event, SessionId for a Session-type event) |
 | OccurredAt | string (timestamp, ISO 8601 UTC) | Required | When the fact described by the event was committed; for PersonRegistered, the registration workflow's transition to Ready (§4.2) |
-| ActorIdentity | string (PersonId), or the reserved value `System` | Required — see exception in §4.6 | The Identity responsible for causing this event. `System` is reserved for events triggered by scheduled/system processes rather than a Person-initiated request (§4.8) |
+| ActorIdentity | string (PersonId), or the reserved value `System` | Required — see exception in §4.6 | The actor of the completed fact: PersonId for a Person-initiated transition, `System` for automated processing (including registration recovery and scheduled jobs) |
 | SessionReference | string (SessionId) | Optional | The Session under which the causing request was made, if any (see per-event tables for when this applies) |
 | DelegatedIdentity | string (PersonId) | Optional — always absent in MVP | Reserved for a future delegation feature (00_Overview §17 / 059 §17). No MVP Command or Use Case populates this field; it exists so the envelope shape does not need to change when delegation is introduced |
 | ExecutionContext | object (§4.1.1) | Optional | Operational context describing how the causing request was made |
@@ -295,15 +295,14 @@ exists, would be scope creep beyond what Version 1.0 needs.
 | IpAddress | string | Optional |
 | DeviceInfo | string | Optional |
 
-**On `CorrelationId`**: A request-initiated event (i.e. `ActorIdentity`
-is a real PersonId — every event in §4 except `SessionExpired`, and
-except `LoginFailed` when `Reason = PersonNotFound`, per §4.6) SHALL
-carry a `CorrelationId` linking it back to the originating request,
+**On `CorrelationId`**: A Person-initiated event (i.e. `ActorIdentity`
+is a real PersonId) SHALL carry a `CorrelationId` linking it back to
+the request that caused the event's fact,
 since a full audit trail for a Person-initiated action requires being
 able to trace the event to the request that caused it. `CorrelationId`
-is Optional only for the one case where no external request exists to
-correlate against: `SessionExpired`, triggered by a scheduled job with
-`ActorIdentity = System` (§4.8). `IpAddress` and `DeviceInfo` remain
+is Optional when `ActorIdentity = System`, including scheduled
+`SessionExpired` (§4.8) or automated registration recovery (§4.2).
+`IpAddress` and `DeviceInfo` remain
 Optional throughout, since not every request transport surfaces them
 (e.g. an internal service-to-service call may have no meaningful
 client IP/device to report).
@@ -322,9 +321,19 @@ event-specific Payload, so that every event — not only Session events
 
 **Producer**: RegistrationApplicationService (§3)
 
-**ActorIdentity**: The newly created Person's own PersonId (this is
-self-registration — the actor causing the event is the new Identity
-itself).
+**ActorIdentity**: The actor that caused the Ready transition, not
+necessarily the actor of the earlier ownership commit. Use the
+registered PersonId when the Person completes the distinct secure
+Credential challenge; use `System` when automated provisioning or
+reconciliation completes registration. This does not imply that a
+password-authenticated Session already exists. A future administrator
+completion path requires its own governed actor rule.
+
+**ExecutionContext**: For Person-initiated completion, use the request
+that actually caused Ready (including its CorrelationId), not the
+original registration request. For automated completion, do not
+attribute the original request's IP/device to the worker; System
+correlation and other context are optional under §4.1.1.
 
 **SessionReference**: Absent. `PersonRegistered` is enqueued atomically
 with the transition to Ready, before any optional initial Session is
@@ -372,6 +381,9 @@ Core Ownership Transaction, which precedes any authenticated Session
 context (059 §6) — there is no session to reference at this point in
 the flow.
 
+**OccurredAt**: The atomic ownership commit time, which may precede
+`PersonRegistered.OccurredAt` by a prolonged recovery interval.
+
 ### Payload
 
 | Field | Type | Required |
@@ -391,6 +403,9 @@ always `Active` in MVP (01_Domain_Model §2; 14_MVP §3).
 **ActorIdentity**: The PersonId of the registering Person.
 
 **SessionReference**: Absent — same rationale as §4.3.
+
+**OccurredAt**: The same atomic ownership commit time as
+`OrganizationCreated`, not the later Ready transition (§4.2).
 
 ### Payload
 
@@ -624,7 +639,7 @@ framing does not literally apply to it. It is published once the
 authentication decision itself (accept/reject) is finalized, not tied
 to any Aggregate persistence.
 
-## 5.4 Post-Commit Operation Failures Do Not Suppress Already-Valid Events
+## 5.4 Post-Commit Failures and Event Timing
 
 Per ADR-0002 Decisions 1 and 8, a failed Credential provision or
 initial Session creation does not invalidate the ownership commit.
@@ -654,6 +669,14 @@ observable by a consumer in the actual order those state transitions
 occurred on that Aggregate instance — e.g. for a single Session:
 `SessionCreated` always precedes that same Session's eventual
 `SessionExpired` or `LogoutCompleted` (never the reverse).
+
+`PersonRegistered` retains `AggregateType = Person` and
+`AggregateId = PersonId` for identity and correlation, although Ready
+is a registration-workflow transition. The persistence and ordering
+contract for this workflow-derived Person event must be defined in
+03_Aggregates.md and 09_Persistence.md before the general guarantee
+above is claimed for it; those contracts are not silently established
+by the PersonId reference alone.
 
 `OccurredAt` (§4.1) is expected to be consistent with this order, but
 is **not itself the ordering mechanism**: two events on the same
@@ -692,7 +715,11 @@ be delayed by manual Credential completion. A consumer that receives
 `OrganizationCreated` before `PersonRegistered` is not observing a
 race condition or an inconsistent intermediate state — the Person and
 Membership already exist, fully committed, regardless of which event
-arrives first. This is precisely what distinguishes an event
+arrives first. Consumers may observe these two ownership events while
+registration remains PendingCredential. If recovery never reaches Ready,
+`PersonRegistered` is never emitted under this decision; ownership
+events alone SHALL NOT be interpreted as evidence of an active
+Credential or permission to authenticate. This distinguishes an event
 *announcing* a fact from an event *coordinating* one (§2.3): ordering
 would only matter if the events were themselves part of achieving
 consistency, and per ADR-0002 Decision 1 they are not.
@@ -766,6 +793,12 @@ In particular:
   01_Domain_Model, 059, contracts, machine specifications, and consumers.
 - [ ] The other email-dependent Identity event contracts are reviewed
   for mobile-only Persons; this revision does not change their payloads.
+- [ ] 03_Aggregates.md and 09_Persistence.md specify ownership and
+  ordering of the durable PendingCredential/Ready workflow alongside
+  PersonId and the existing Person event stream.
+- [ ] The machine contract distinguishes an omitted Email from null;
+  dependent Blueprint documents currently marked READY_FOR_GENERATION
+  are reviewed against this Draft contract before generation.
 - [ ] Architecture and structural validation are rerun after ADR-0002
   approval. Earlier readiness assertions below describe the v1.0 baseline.
 
@@ -805,6 +838,9 @@ records the Ready transition in OccurredAt and the earlier ownership
 commit in its required OwnershipCommittedAt payload field. Email is
 optional for mobile-only registration and SessionReference is absent;
 publishing and ordering rules reflect delayed Credential readiness.
+ActorIdentity and ExecutionContext now identify the Ready actor and
+request; ownership events retain ownership-commit timestamps. The
+workflow-derived ordering guarantee remains pending persistence design.
 Status is Draft until dependent Identity documents, contracts, consumers,
 and structural validation are reconciled. No new event type is added.
 
