@@ -6,7 +6,7 @@ Baseline: `9fa0266b381b8f185af54a51747fefff6599fa92` on main
 
 ## Scope and provenance
 
-Integrates the reviewed proposals from PR #1 (`725ed58`), #2 (`c90af51`), #3 (`37df22b`) and #4 (`0dc9071`) and completes the surrounding narrative/machine package. Main remains unchanged by this work. The integrated PR is a coherent alternative to merging those overlapping branches individually; rebase/reconcile if they merge first.
+Integrates the proposal content from PR #1 (`725ed58`), #2 (`c90af51`), #3 (`37df22b`) and #4 (`0dc9071`) and completes the surrounding narrative/machine package. Main remains unchanged by this work. The integrated PR is a coherent alternative to merging those overlapping branches individually; rebase/reconcile if they merge first.
 
 The rewritten narrative documents consolidate repeated legacy descriptions into current proposed contracts. Historical versions remain in Git; the persistence companion changelog is explicitly historical. This is a substantive package revision, not a readiness-label-only patch.
 
@@ -35,3 +35,7 @@ GFM parsed with the available Marked parser: 19 Markdown documents (17 normative
 Full 065 structural/semantic/contract/dependency/machine/MVP/quality-gate compliance; full OpenAPI/JSON Schema conformance; visual rendering; deployed consumer compatibility; any implemented runtime/security/race test; production KDF/service/key configuration; ADR acceptance. See Identity/12_Validation.md and 13_Testing.md for explicit gates.
 
 All 00–16 documents and the machine manifest remain DRAFT; ADR-0002 remains Proposed. No merge or READY_FOR_GENERATION transition is included.
+
+## Follow-up provenance and architecture review
+
+[Independent PR #1 and D8/9 traceability review](Identity_Decision_8_9_Traceability_Review.md) records a direct read of the pinned PR #1 diff. Prior “reviewed” wording did not establish architectural approval. The follow-up distinguishes upstream Proposed requirements, delegated implementation choices and additional architectural decisions; early Credential winner, polling, pre-Ready replacement exclusion and stream authority remain open. It also records the scoped search for the unlocated 12_Validation v1.0.1. No prior validation count is expanded into an architecture approval.
