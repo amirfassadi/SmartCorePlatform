@@ -744,6 +744,10 @@ The same transaction records the ownership triple, workflow, Outbox,
 and ownership commit timestamp. Physical tables and locking syntax are
 implementation details. Recovery-needed conditions and bounded retry
 metadata SHALL survive process restart without changing ownership.
+This inclusion of supporting workflow and Outbox writes is required
+for RegisterPerson alone under ADR-0002 Decisions 1, 7, and 8. It is
+not a general authorization to append application-process records to
+another Command's Unit of Work without architectural review.
 
 ## 5.2 No Other Command Requires This
 
@@ -908,14 +912,19 @@ recovery without creating a second Person.
 
 ## 6.4 Ready Transition and Person Event Position (Proposed)
 
-Identity SHALL serialize all Person-addressed event enqueue operations
-for a PersonId through one durable, monotonically increasing stream
-position. Every event whose envelope has `AggregateType = Person` and
-`AggregateId = PersonId` obtains its position within the transaction
-that commits the fact and its Outbox entry. In particular, a
+Identity SHALL serialize the MVP registration/profile events
+`PersonRegistered` and `PersonUpdated` for a PersonId through one durable,
+monotonically increasing stream position. Each obtains its position
+within the transaction that commits its fact and Outbox entry. A
 PersonUpdated transaction and the registration Ready transaction use
-the same allocator; an event cannot be published ahead of a lower
-position for that Person. This is a logical ordering contract, not a
+the same allocator; neither event is published ahead of a lower
+position for that Person. `AggregateType = Person` and
+`AggregateId = PersonId` alone do not require the allocator:
+audit-only `LoginFailed` (including attempts with a resolved PersonId)
+and authentication outcomes without a Person state transition SHALL
+NOT join this stream. Their own audit ordering and delivery guarantees
+remain governed by their separate event/security contracts. This is a
+logical ordering contract, not a
 choice of database sequence, Person row mutation, broker, or physical
 event-store layout. Existing events and handlers need alignment before
 this guarantee can be marked implemented.
@@ -929,7 +938,8 @@ PersonRegistered Outbox entry containing the original
 and conditional update of the workflow prevent a second event if
 automated and manual completion race. A loser returns the committed
 result and reconciles any already-created Credential attempt under the
-one-active-Credential rule; it creates no additional Ready event. If the transaction
+one-active-Credential rule; it creates no additional Ready event. If the
+transaction
 rolls back, it leaves PendingCredential and no new event or position;
 after a crash, reconciliation verifies the active Credential and
 retries safely. Outbox delivery may happen later but SHALL preserve
@@ -1228,6 +1238,14 @@ propagated to 01_Domain_Model, 04_Commands, 06_Domain_Events,
 07_Contracts, machine specifications, and tests. ADR-0002 must be
 accepted and structural validation rerun. The historical v1.0
 checklist below does not grant generation readiness for v1.1.
+
+- [ ] A Credential service deployed separately has an authenticated,
+  idempotent active-Credential confirmation and crash-reconciliation
+  contract that allows Identity's local Ready/event transaction
+  without claiming a cross-service transaction.
+- [ ] 06_Domain_Events.md §6.1 distinguishes the registration/profile
+  stream from resolved-Person audit-only LoginFailed and other
+  authentication events; producers and consumers honor this scope.
 
 Persistence Blueprint Version 1.0 is complete when:
 
