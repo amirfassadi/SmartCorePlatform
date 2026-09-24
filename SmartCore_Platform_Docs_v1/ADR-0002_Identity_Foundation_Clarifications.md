@@ -535,11 +535,11 @@ Challenge consumption prevents a second commit; a separate durable mapping
 permits authorized replay of the same result for a documented bounded retention
 period no longer than the original challenge validity window. The session
 identifier alone SHALL NOT authorize replay. Within that window, replay SHALL
-require the same successfully
-verified one-time challenge proof and the same request binding (including the
-normalized contact), subject to rate limits and attempted-proof limits. A
-consumed proof MAY retrieve only its already committed outcome; it SHALL NOT
-authorize another commit, Credential change, or authenticated Session. Proofs
+require the same successfully verified one-time challenge proof and the same
+request binding (including the normalized contact), subject to rate limits
+and attempted-proof limits. A consumed proof MAY retrieve only its already
+committed outcome; it SHALL NOT authorize another commit, Credential change,
+or authenticated Session. Proofs
 SHALL NOT be logged or exposed in the mapping. A stored verifier for a
 low-entropy code SHALL be keyed with a server-held secret (for example, an
 HMAC bound to the session and purpose), never an unkeyed hash of the code.
@@ -548,10 +548,9 @@ the verifier SHALL be removed when its replay window ends, while its key SHALL
 be protected and rotated under the security specification. The security and
 API contracts SHALL specify proof verification, replay retention, and safe
 responses. A different payload under the same session SHALL be rejected and
-audited. After
-the proof expires or mapping retention ends, replay SHALL fail safely without
-creating another ownership triple. The API contract SHALL specify delivery and
-use of the stable `registrationId`; Decision 8 uses it for post-commit
+audited. After the proof expires or mapping retention ends, replay SHALL fail
+safely without creating another ownership triple. The API contract SHALL
+specify delivery and use of the stable `registrationId`; Decision 8 uses it for post-commit
 idempotency.
 
 If a commit response is lost and this replay window has expired, another
@@ -562,6 +561,11 @@ without treating contact possession alone as authorization to set a password.
 The response and challenge delivery SHALL respect the same anti-enumeration
 and rate-limit controls; this path SHALL NOT silently reset the original
 verification session or extend its expiry.
+Any password-provisioning material staged for this new attempt SHALL NOT be
+bound to the existing `registrationId` or replace its Credential material. It
+SHALL be invalidated on the uniqueness conflict and deleted under that new
+verification session's bounded cleanup rule. Only Decision 8's separate,
+authorized completion challenge may establish a new Credential.
 
 Credential provisioning then follows Decision 8. Before the workflow is
 `Ready` and a Credential is active, password login is denied; confirmation of
