@@ -224,12 +224,16 @@ state transition is fabricated. Automated retry and secure manual completion
 race on the same workflow, with exactly one winning transition.
 
 The PersonId on `PersonRegistered` identifies its subject and its
-per-Person event stream; it does not make the workflow a Person child.
-All Person-addressed events, including `PersonUpdated` and the
-workflow-derived `PersonRegistered`, SHALL receive a monotonically
+per-Person registration/profile event stream; it does not make the
+workflow a Person child. In the MVP this ordering contract applies to
+`PersonRegistered` and `PersonUpdated`: each SHALL receive a monotonically
 increasing position for that Person in the transaction that records
-their fact and enqueue. Delivery SHALL preserve this stream position
-per Person, even across retries. A profile update may precede Ready;
+its fact and enqueue. An `AggregateType = Person` envelope alone does
+not opt another event into this stream. In particular, audit-only
+`LoginFailed` and authentication outcomes without a Person state
+transition SHALL NOT contend for this allocator; their audit
+ordering/retention is a separate contract. Delivery SHALL preserve
+this stream position per Person, even across retries. A profile update may precede Ready;
 consumers SHALL NOT assume `PersonRegistered` is the first Person event.
 Neither `OccurredAt` timestamps nor Outbox delivery time establish
 that ordering. No ordering across Person, Organization, and Membership
