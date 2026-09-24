@@ -1,12 +1,12 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.3
+Version: 1.4
 
 Status: **Normative**
 
 Related Decision Records:
 
-- ADR-0002_Identity_Foundation_Clarifications.md (v1.4, Proposed)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.5, Proposed)
 - ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md (v1.2.1, Proposed)
 
 **Governance qualification**: The related registration, role, authorization,
@@ -165,6 +165,25 @@ Ownership always flows through Organizations.
 
 # 6. Registration Process
 
+## Initial input and contact verification (ADR-0002 Decision 9, Proposed)
+
+A Person supplies a basic name (`DisplayName`), a password, and **one**
+contact: a mobile number OR email. Identity normalizes the selected contact,
+sends a purpose-bound one-time code to it, and verifies that code before the
+core ownership transaction. The code and password must not be logged or
+stored as plaintext in Outbox work. Pre-registration challenge material is
+short-lived and does not create a Person, Organization, Membership, Credential,
+or authenticated Session. A mobile-only Person must not be forced to provide
+an Email; PersonId remains the stable identity. Uniqueness of the verified
+contact is enforced at commit even when confirmations race. Other profile
+fields are requested later when a capability needs them.
+
+A confirmed code initiates the core transaction below; it does not imply
+Credential readiness. After the transaction, the proposed
+`PendingCredential` flow, login gate, and secure recovery in Decision 8 still
+apply. Retrying code confirmation must not create duplicate ownership.
+
+
 Registration SHALL be executed through coordinated transaction phases.
 
 Under the proposal in ADR-0002 Decisions 1, 7, and 7.1,
@@ -179,7 +198,7 @@ creation remain post-commit operations as described below.
 The atomic ownership transaction SHALL be committed before post-commit operations:
 
 ```text
-Register Request
+Verified contact + name + protected credential setup material
 
 ↓
 
@@ -290,7 +309,11 @@ or Use Case is added to Version 1.0 by this clarification.
 # 7. Authentication Flow
 
 ```text
-Login Request
+Login Request with verified mobile OR email contact and password
+
+↓
+
+Resolve Person by normalized verified contact
 
 ↓
 
@@ -601,6 +624,13 @@ No business platform SHALL bypass or replace the Identity Platform.
 
 # Change Log
 
+## Version 1.4 (2026-09-24)
+
+- Reflected ADR-0002 v1.5 Decision 9 as Proposed: DisplayName, password and one verified mobile OR email contact; code verification before atomic ownership creation.
+- Removed the email-only assumption at the Platform overview boundary and specified progressive collection of other fields.
+- Kept atomic ownership, post-commit PendingCredential recovery, PersonRegistered timing proposed in v1.3, and the existing ten public event names.
+- Full Identity Blueprint/schema/contract/security validation remains pending.
+
 ## Version 1.3 (2026-09-24)
 
 - Propagated ADR-0002 v1.4 Decision 8 as Proposed: durable registration readiness, Outbox provisioning, idempotent retry and secure user completion.
@@ -657,6 +687,7 @@ Failure of post-commit operations SHALL NOT invalidate:
 Post-commit recovery and operational handling are implementation-specific.
 
 **END OF DOCUMENT**
+
 
 
 

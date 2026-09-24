@@ -5,7 +5,7 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.4
+* **Version**: 1.5
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
@@ -32,6 +32,7 @@ Acceptance remains subject to the criteria below and Document 051.
 6. Future Identity Types Documentation
 7. Command Model Coordination Exception for Identity Registration
 8. Post-Commit Credential Provisioning and Recovery
+9. Minimal Contact Registration and Verification
 
 ---
 
@@ -433,6 +434,99 @@ challenge delivery, or security tests are already aligned or implemented.
 
 ---
 
+## 9. Minimal Contact Registration and Verification
+
+### Required registration input
+
+A Person registering for the human Identity MVP SHALL provide only:
+
+- One contact method: a mobile phone number OR an email address.
+- A password.
+- A name for the basic Person profile (`DisplayName`).
+
+The chosen contact method SHALL be normalized and uniqueness-checked in its
+own namespace. Email is optional when mobile is chosen; mobile is optional
+when email is chosen. The domain and machine schemas must therefore stop
+requiring Email for every Person and instead require at least one verified
+contact at registration completion. Choosing both contacts MAY be supported,
+but verification of an additional contact is a separate operation; possessing
+one verified contact does not automatically verify the other. Account identity
+remains PersonId, never a phone number or email address. One Person SHALL NOT
+be registered twice using the same verified contact. Contact change, account
+merging, and recovery of access to a lost contact require separate governed
+rules and are not implicitly defined here.
+
+Date of birth, gender, address, family name, profile picture, preferences,
+and other optional fields SHALL NOT be required to start or finish initial
+registration. Consuming products MAY request additional information later
+when needed for a stated purpose; it belongs to the owning capability unless
+it is genuinely a Person profile field. A salon customer does not gain a
+Membership in the salon's Organization merely by registering or booking.
+
+### Verification before the ownership commit
+
+The registration entry flow SHALL send a one-time verification code to the
+selected mobile number or email address and verify it before executing the
+atomic RegisterPerson ownership transaction in Decision 1. The temporary
+pre-registration challenge is not a Person, Organization, Membership,
+authenticated Session, or completed registration. An unverified contact SHALL
+NOT create the ownership triple or an active Credential.
+
+The challenge SHALL be purpose-bound, short-lived, single-use, rate-limited,
+and resistant to guessing and enumeration. Resends and failures must be
+bounded; the password and code SHALL never appear in logs or the Outbox.
+Pending pre-registration material must be protected and expire; the user may
+enter the code after initially entering name, contact and password without
+requiring the raw password to be retained as a durable secret. The concrete
+expiry, code format, channel delivery mechanism, and transport schema belong
+to the Identity security and API specifications.
+
+After verification, re-check normalized-contact uniqueness and atomically
+commit Person, Personal Organization, Owner Membership, the
+`PendingCredential` registration-workflow record, and the provisioning Outbox
+work item per Decisions 1 and 8. Verification and account creation can race;
+a unique constraint or equivalent consistency guard SHALL prevent duplicate
+Persons for the same verified contact. A retry of code confirmation SHALL
+resolve to the same registration outcome rather than create a second
+ownership triple. If the ownership commit fails, the user SHALL NOT receive a
+claim that registration is complete; the verification process must allow a
+safe retry within its validity window without reusing an already consumed code
+to create a second account.
+
+Credential provisioning then follows Decision 8. Before the workflow is
+`Ready` and a Credential is active, password login is denied; confirmation of
+the contact alone SHALL NOT issue an authenticated Session. After readiness,
+login MAY use a verified contact and the password. Verification codes for
+registration SHALL NOT be treated as a general passwordless login mechanism.
+
+### Scope and propagation
+
+This decision extends the Identity onboarding contract and changes the prior
+email-only registration assumption. It does not redefine the PersonId,
+Organization-centric ownership, Owner Membership, or ten existing public
+Identity events. It introduces an internal verification challenge, not a new
+public event family. The chosen contact and verified state require explicit
+persistence, authentication query, validation, API, security, testing and
+machine-specification updates. The initial user flow must visibly distinguish
+contact verification, committed-but-PendingCredential, and Ready registration.
+
+**Rationale**: A customer can start with one reachable contact and provide
+other details as needed. Verifying the chosen contact before creating the
+ownership triple avoids durable accounts for unused or mistyped contacts while
+preserving atomic ownership and the post-commit recovery process.
+
+**Alternatives considered**: Requiring email from mobile-only users is rejected
+for the proposed MVP. Creating the ownership triple before contact proof would
+require a separate unverified-account lifecycle and cleanup policy; it is not
+adopted by this proposal. Collecting a full customer profile at registration
+is deferred to context-specific product workflows.
+
+This section is a Proposed architectural decision. It does not assert that
+OTP delivery, mobile authentication, revised schemas, or the full Identity
+Blueprint have already been built or validated.
+
+---
+
 # Consequences
 
 ## Positive Consequences
@@ -447,6 +541,8 @@ challenge delivery, or security tests are already aligned or implemented.
 ## Negative Consequences
 
 * Registration requires coordinated transaction handling.
+* Minimal-contact registration requires a challenge service, contact uniqueness,
+  schema and query changes for phone-only Persons, and progressive profile capture.
 * Post-commit provisioning requires an Outbox, idempotent Credential creation,
   durable workflow readiness, safe retries, and a secure user completion path.
 * PersonRegistered event timing and registration API outcome must be reviewed
@@ -506,6 +602,15 @@ must follow 051 §9; versions must not be reduced to historical targets.
 | 03_Aggregates.md | 1.1.1 | Atomic registration exception already exists; verify consistency and qualify pending approval. |
 | 04_Commands.md | 1.1.0 | Application Service mapping already exists; verify consistency and qualify pending approval. |
 
+For Decision 9 in v1.5, replace email-only assumptions across 059 and the
+Identity Blueprint's Person aggregate, RegisterPerson command, queries,
+contracts, API, persistence, security, testing, MVP, and machine YAML.
+Validate mobile-only and email-only onboarding, verification challenge expiry,
+resend/guess throttling, concurrency/uniqueness, safe retries, and later
+profile completion. Ensure no business-specific customer fields become
+mandatory Identity registration attributes. Changes to contact recovery or
+merging require separate review.
+
 For Decision 8 in v1.4, synchronize 057 and 059 with the post-commit
 workflow and update the Identity Blueprint Use Cases, Commands, Domain Events,
 Contracts, API, Persistence, Security, Testing, MVP, and machine specification.
@@ -536,6 +641,9 @@ proof that Structural Validation has passed.
 This ADR SHALL remain Proposed until:
 
 * [ ] Related document updates are completed
+* [ ] Mobile-only and email-only registrations, verification-before-commit,
+      unique-contact concurrency, and progressive-profile boundaries are
+      reflected in narrative, machine specification, contracts, and tests
 * [ ] Decision 8 recovery states, idempotency, Outbox and failure scenarios are
       synchronized across narrative, machine specification, contracts, and security tests
 * [ ] PersonRegistered timing/consumers and pending registration API outcomes are
@@ -588,7 +696,10 @@ After approval:
 
 | 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
 
+| 1.5 | Proposed | 2026-09-24: Added minimal registration with verified mobile OR email, password and DisplayName; one-time challenge precedes the atomic ownership commit. Made email optional for mobile-only Persons, retained the PendingCredential post-commit recovery flow, and deferred other profile data. Full Blueprint/schema validation and approval remain pending. |
+
 ---
 
 **END OF DOCUMENT**
+
 

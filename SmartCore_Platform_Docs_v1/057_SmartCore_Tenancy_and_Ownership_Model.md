@@ -1,11 +1,11 @@
 # 057_SmartCore_Tenancy_and_Ownership_Model.md
 
-Version: 1.4
+Version: 1.4.1
 
 Status: **Normative**
 
 **Governance qualification**: Registration clarifications and the coordination
-exception in §8 reflect ADR-0002 v1.4 (Proposed); Organization/Membership
+exception in §8 reflect ADR-0002 v1.5 (Proposed); Organization/Membership
 lifecycle clarifications in §9 reflect ADR-0003 v1.2.1 (Proposed). These
 synchronized descriptions do not approve either ADR or clear implementation.
 The ADR acceptance criteria and 051/065 governance checks still apply.
@@ -288,7 +288,7 @@ This is a proposed, narrowly-scoped exception to the default cross-Aggregate coo
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.4, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.5, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   SHALL NOT be interpreted as a general precedent for multi-Aggregate transactional Commands elsewhere in the platform.
 -   Does NOT redefine or supersede 027_SmartCore_Command_Model.md, which SHALL continue to govern all other Commands.
 
@@ -417,6 +417,10 @@ this document.
 ------------------------------------------------------------------------
 
 # Change Log
+
+## Version 1.4.1 (2026-09-24)
+
+- Synchronized the proposed pre-registration contact verification gate with ADR-0002 v1.5 Decision 9; the atomic ownership triple and PendingCredential post-commit flow remain unchanged.
 
 ## Version 1.4 (2026-09-24)
 
