@@ -533,19 +533,35 @@ Successful confirmation SHALL atomically bind `verificationSessionId` to the
 issued `registrationId` and consume the challenge alongside ownership commit.
 Challenge consumption prevents a second commit; a separate durable mapping
 permits authorized replay of the same result for a documented bounded retention
-period. The session identifier alone SHALL NOT authorize replay. Within the
-original challenge validity window, replay SHALL require the same successfully
+period no longer than the original challenge validity window. The session
+identifier alone SHALL NOT authorize replay. Within that window, replay SHALL
+require the same successfully
 verified one-time challenge proof and the same request binding (including the
 normalized contact), subject to rate limits and attempted-proof limits. A
 consumed proof MAY retrieve only its already committed outcome; it SHALL NOT
 authorize another commit, Credential change, or authenticated Session. Proofs
-SHALL NOT be logged or exposed in the mapping. The security and API contracts
-SHALL specify proof verification, replay retention, and safe responses. A
-different payload under the same session SHALL be rejected and audited. After
+SHALL NOT be logged or exposed in the mapping. A stored verifier for a
+low-entropy code SHALL be keyed with a server-held secret (for example, an
+HMAC bound to the session and purpose), never an unkeyed hash of the code.
+Verification SHALL occur only online under the same bounded-attempt controls;
+the verifier SHALL be removed when its replay window ends, while its key SHALL
+be protected and rotated under the security specification. The security and
+API contracts SHALL specify proof verification, replay retention, and safe
+responses. A different payload under the same session SHALL be rejected and
+audited. After
 the proof expires or mapping retention ends, replay SHALL fail safely without
 creating another ownership triple. The API contract SHALL specify delivery and
 use of the stable `registrationId`; Decision 8 uses it for post-commit
 idempotency.
+
+If a commit response is lost and this replay window has expired, another
+verified contact attempt SHALL NOT create a second Person. When the existing
+Person's registration remains PendingCredential, Identity SHALL direct the
+verified contact holder to Decision 8's distinct secure completion challenge
+without treating contact possession alone as authorization to set a password.
+The response and challenge delivery SHALL respect the same anti-enumeration
+and rate-limit controls; this path SHALL NOT silently reset the original
+verification session or extend its expiry.
 
 Credential provisioning then follows Decision 8. Before the workflow is
 `Ready` and a Credential is active, password login is denied; confirmation of
@@ -718,6 +734,8 @@ This ADR SHALL remain Proposed until:
       post-verification uniqueness conflict are reviewed for enumeration
 * [ ] Challenge consumption, durable replay mapping, bounded retention, and
       atomic link to registrationId are specified and tested
+* [ ] Keyed code verifier, online attempt limits, replay-window expiry, and
+      expired-replay routing to secure PendingCredential completion are tested
 * [ ] PersonRegistered timestamps, delayed manual recovery, and the separate
       commit-signal rule are reflected in 026 and consumer contracts
 * [ ] Identity/06_Domain_Events.md §4.2 and its envelope are reconciled with
@@ -768,9 +786,8 @@ After approval:
 | 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
 | 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
 | 1.5 | Proposed | 2026-09-24: Added minimal registration with verified mobile OR email, password and DisplayName; one-time challenge precedes the atomic ownership commit. Made email optional for mobile-only Persons, retained the PendingCredential post-commit recovery flow, and deferred other profile data. Full Blueprint/schema validation and approval remain pending. |
-| 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security, atomic material-reference binding, authenticated replay mapping, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; classified Decisions 8–9 as Level 4 and expanded dependent acceptance checks. |
+| 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security, atomic material-reference binding, keyed replay verification within the original challenge window, secure completion after expired replay, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; classified Decisions 8–9 as Level 4 and expanded dependent acceptance checks. |
 
 ---
 
 **END OF DOCUMENT**
-
