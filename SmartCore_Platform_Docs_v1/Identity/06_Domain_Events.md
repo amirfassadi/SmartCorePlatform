@@ -1,19 +1,19 @@
 <!--
 Document ID: ID-06
 Title: SmartCore Identity Platform Blueprint - Domain Events
-Version: 1.0.2
-Status: READY_FOR_GENERATION
+Version: 1.2.0
+Status: DRAFT
 
 Purpose:
 Define the Domain Event Contract of the Identity Platform: the common
 event envelope (including the Event Audit Requirements named but not
 specified by 01_Domain_Model.md), event ownership, and the per-event
-payload schema for all 10 MVP Identity Domain Events. This is the
+payload schema for all 10 MVP Identity events (nine Domain Events and LoginFailed, a Security Event). This is the
 document 01_Domain_Model.md's "Event Audit Requirements" section
 explicitly defers to ("Detailed event contracts are defined in
 06_Domain_Events.md").
 
-Dependencies (Required):
+Dependencies:
 - 00_Overview.md
 - 01_Domain_Model.md
 - 03_Aggregates.md
@@ -26,16 +26,18 @@ Cross-Checked Against (Optional / informative only):
 - 02_Use_Cases.md
 - 05_Queries.md
 
-Explicitly NOT a Dependency:
-- 07_Contracts.md
-- 08_API.md
-Domain Events are independent of REST Transport and Wire Contract
-concerns. Nothing in this document is derived from, or constrained by,
-07_Contracts.md or 08_API.md, and this document's naming convention
-(§3.1) is deliberately decoupled from 07_Contracts.md's REST-specific
-camelCase convention.
+Contract boundaries:
+This file owns PascalCase event envelopes/payloads. 07_Contracts.md references them for interoperability; 08_API.md independently owns camelCase REST schemas. See 09, 11 and 12 for persistence, security and acceptance gates.
 
 Change Log:
+  - Version 1.2.0 (2026-09-24): Aligned optional Email snapshots, selected-contact LoginFailed audit and machine omission rules; retained the ten-event catalog and limited registration/profile stream.
+  - Version 1.1.0 (2026-09-24): Proposed alignment with ADR-0002
+    Decisions 8–9: PersonRegistered is enqueued on Ready, its
+    OccurredAt is the Ready transition, and its payload includes
+    OwnershipCommittedAt. Email is optional for mobile-only
+    registration, and no initial SessionReference is attached.
+    Updated publishing and ordering language; full Blueprint and
+    contract validation remain pending.
   - Version 1.0.2 (2026-07-14): Architect-review refinement pass —
     approved with minor non-blocking comments, both addressed. (1)
     §6.1 reworded to stop implying `OccurredAt` is itself the
@@ -169,11 +171,11 @@ guarantees in §6.3.
 
 ## 2.4 Payload Fields Trace to the Domain Model
 
-Every payload field defined in §4 traces to an attribute already
-declared in 01_Domain_Model.md §2, or is a reference (ID) to another
-Aggregate already named in the Domain Model's Relationships (§2 / §5
-of 01_Domain_Model.md). No event invents a business concept the
-Domain Model does not already have.
+Payload fields in §4 trace to existing domain attributes and Aggregate
+references, except `OwnershipCommittedAt`: this timestamp records the
+Decision 1 ownership transaction separately from the Decision 8 Ready
+transition. The dependent Domain Model and machine contracts require
+alignment before this Blueprint is generation ready.
 
 ## 2.5 Credential Secrets Are Never Present in Any Event
 
@@ -186,16 +188,9 @@ never stores plain text passwords") and 059 §13 ("Passwords SHALL
 never be stored in plain text") — the same principle extended to the
 event stream, where a leak would be equally damaging.
 
-## 2.6 Field-Level Sensitivity Classification Is Deferred
+## 2.6 Security classification
 
-This document defines which fields exist on each event payload. It
-does NOT classify those fields by sensitivity (PII, restricted,
-internal-only, etc.) or define redaction/masking policy for
-downstream consumers or logs. Per ADR-0002 Decision 5: "Security and
-audit classification of events is outside the scope of this ADR" —
-this document, being the detailed continuation of that same
-Decision, inherits the same boundary. Sensitivity classification is
-future scope for a dedicated Security/Data Classification document.
+LoginFailed is a Security Event under ADR-0002 Decision 5. The remaining nine events are Domain Events. Field-level access, logging and retention requirements are now specified in 11_Security.md. ContactValue is restricted personal data; a resolved PersonId on failed login identifies the target, not an authenticated caller. None of these fields may be treated as proof of authorization.
 
 ---
 
@@ -206,7 +201,7 @@ Identity Platform owns and exclusively publishes the following 10
 events. Both source documents agree on this table exactly; no
 discrepancy exists.
 
-| Event | Owner | MVP | Producing Service (01_Domain_Model §"Event Producer Mapping") |
+| Event | Owner | MVP | Producing Service (01_Domain_Model §§7–8) |
 |---|---|---|---|
 | PersonRegistered | Identity | Yes | RegistrationApplicationService |
 | OrganizationCreated | Identity | Yes | RegistrationApplicationService |
@@ -221,7 +216,7 @@ discrepancy exists.
 
 No event in this table is owned by, or co-published with, any other
 Capability Platform. No additional Identity event exists beyond these
-10 in Version 1.0 (14_MVP §5).
+10 in Version 1.0 (14_MVP §1).
 
 ---
 
@@ -239,24 +234,22 @@ field's contents; every other envelope field below applies uniformly.
 | EventType | string | Required | Exact event name, e.g. `PersonRegistered` |
 | AggregateType | string enum: `Person` \| `Organization` \| `Membership` \| `Session` \| `Credential` | Required | Which Aggregate (01_Domain_Model §1) this event pertains to |
 | AggregateId | string (UUID) | Required — see exception in §4.6 | The identifier of the specific Aggregate instance this event is about (e.g. PersonId for a Person-type event, SessionId for a Session-type event) |
-| OccurredAt | string (timestamp, ISO 8601 UTC) | Required | When the underlying state change was committed |
-| ActorIdentity | string (PersonId), or the reserved value `System` | Required — see exception in §4.6 | The Identity responsible for causing this event. `System` is reserved for events triggered by scheduled/system processes rather than a Person-initiated request (§4.8) |
+| OccurredAt | string (timestamp, ISO 8601 UTC) | Required | When the fact described by the event was committed; for PersonRegistered, the registration workflow's transition to Ready (§4.2) |
+| ActorIdentity | string (PersonId), or the reserved value `System` | Required — see exception in §4.6 | The actor of the completed fact: PersonId for a Person-initiated transition, `System` for automated processing (including registration recovery and scheduled jobs) |
 | SessionReference | string (SessionId) | Optional | The Session under which the causing request was made, if any (see per-event tables for when this applies) |
-| DelegatedIdentity | string (PersonId) | Optional — always absent in MVP | Reserved for a future delegation feature (00_Overview §17 / 059 §17). No MVP Command or Use Case populates this field; it exists so the envelope shape does not need to change when delegation is introduced |
+| DelegatedIdentity | string (PersonId) | Optional — always absent in MVP | Reserved for a future delegation feature (14_MVP §3 / 059 §17). No MVP Command or Use Case populates this field; it exists so the envelope shape does not need to change when delegation is introduced |
 | ExecutionContext | object (§4.1.1) | Optional | Operational context describing how the causing request was made |
 | Payload | object | Required | Event-specific business data; schema defined per event in §4.2–§4.11 |
 
-These five audit-related fields (`ActorIdentity`, `SessionReference`,
-`DelegatedIdentity`, `OccurredAt`, `ExecutionContext`) are exactly the
-five named, but not specified, by 01_Domain_Model.md's Event Audit
-Requirements section ("Actor Identity", "Session Reference (optional)",
-"Delegated Identity (optional)", "Timestamp", "Execution Context").
-This table is their detailed contract.
+Audit-related fields identify the fact's actor and execution context. Optional fields are omitted, never null. DelegatedIdentity is prohibited in the MVP machine schema and can only be introduced by a separately versioned delegation contract.
 
-**On `OccurredAt` vs. publish time**: `OccurredAt` is strictly the
-moment the underlying Aggregate state change was committed — it is
-**not** the moment the event was published, transmitted, or received
-by any consumer. This document defines no `PublishedAt` field, since
+**On `OccurredAt` vs. publish time**: `OccurredAt` is the commit time
+of the fact described by the event. For `PersonRegistered`, that fact
+is the durable registration workflow's transition to Ready, atomically
+enqueued with the event, rather than a new Person Aggregate transition
+or the earlier ownership commit (§4.2). It is **not** the moment the
+event was published, transmitted, or received by any consumer. This
+document defines no `PublishedAt` field, since
 publication timing is a delivery-mechanism concern (§1.2, §5.5) outside
 this Contract's scope. If a future Event Bus/Outbox implementation
 introduces a delay between commit and publish (which is expected and
@@ -266,16 +259,7 @@ the event actually reaches a consumer. A future Transport/delivery
 document, not this one, would be the place to add a `PublishedAt`
 field if a consumer-facing need for it is demonstrated.
 
-**On the absence of a schema `EventVersion` field**: This envelope
-does not include a payload-schema version field (e.g. `EventVersion`
-or `SchemaVersion`). For Version 1.0, with a single internal consumer
-context and no external Integration Event surface yet defined (§1.2),
-this is not a gap. If a future version introduces external/cross-
-platform consumers of these events, or the payload schemas in §4.2–
-§4.11 need to evolve in a way that isn't purely additive, an
-`EventVersion` field is the most likely first addition to this
-envelope — but adding it speculatively now, before such a consumer
-exists, would be scope creep beyond what Version 1.0 needs.
+**Schema versioning**: This proposal retains the existing envelope without adding EventVersion. The versioned schema is events.schema.json. A consumer inventory and compatibility/migration decision remain required before deployment; this repository does not prove there are no existing consumers. Preserve event names under ADR-0002 and do not silently replace an incompatible deployed contract.
 
 ### 4.1.1 ExecutionContext Object
 
@@ -285,15 +269,14 @@ exists, would be scope creep beyond what Version 1.0 needs.
 | IpAddress | string | Optional |
 | DeviceInfo | string | Optional |
 
-**On `CorrelationId`**: A request-initiated event (i.e. `ActorIdentity`
-is a real PersonId — every event in §4 except `SessionExpired`, and
-except `LoginFailed` when `Reason = PersonNotFound`, per §4.6) SHALL
-carry a `CorrelationId` linking it back to the originating request,
+**On `CorrelationId`**: A Person-initiated event (i.e. `ActorIdentity`
+is a real PersonId) SHALL carry a `CorrelationId` linking it back to
+the request that caused the event's fact,
 since a full audit trail for a Person-initiated action requires being
 able to trace the event to the request that caused it. `CorrelationId`
-is Optional only for the one case where no external request exists to
-correlate against: `SessionExpired`, triggered by a scheduled job with
-`ActorIdentity = System` (§4.8). `IpAddress` and `DeviceInfo` remain
+is Optional when `ActorIdentity = System`, including scheduled
+`SessionExpired` (§4.8) or automated registration recovery (§4.2).
+`IpAddress` and `DeviceInfo` remain
 Optional throughout, since not every request transport surfaces them
 (e.g. an internal service-to-service call may have no meaningful
 client IP/device to report).
@@ -312,24 +295,41 @@ event-specific Payload, so that every event — not only Session events
 
 **Producer**: RegistrationApplicationService (§3)
 
-**ActorIdentity**: The newly created Person's own PersonId (this is
-self-registration — the actor causing the event is the new Identity
-itself).
+**ActorIdentity**: The actor that caused the Ready transition, not
+necessarily the actor of the earlier ownership commit. Use the
+registered PersonId when the Person completes the distinct secure
+Credential challenge; use `System` when automated provisioning or
+reconciliation completes registration. This does not imply that a
+password-authenticated Session already exists. A future administrator
+completion path requires its own governed actor rule.
 
-**SessionReference**: The initial Session's SessionId, if Post-Commit
-Session creation succeeded; absent if it failed (059 §6 Non-Invalidating
-Policy — Session creation failure SHALL NOT invalidate the
-PersonRegistered fact itself).
+**ExecutionContext**: For synchronous Person-initiated completion, use the request
+that actually caused Ready (including its CorrelationId), not the
+original registration request. For automated completion, do not
+attribute the original request's IP/device to the worker; System
+correlation and other context are optional under §4.1.1.
+
+**SessionReference**: Absent. `PersonRegistered` is enqueued atomically
+with the transition to Ready, before any optional initial Session is
+created. A later Session, whether successful or failed, SHALL NOT
+retroactively change this immutable event (ADR-0002 Decision 8).
+
+**OccurredAt**: The timestamp of the atomic Ready transition and
+`PersonRegistered` enqueue. `OwnershipCommittedAt` in the payload is
+the earlier ownership commit timestamp; manual Credential completion
+may separate them by hours or days. Consumers SHALL use the latter
+for account age or ownership-based retention, not receipt time.
 
 ### Payload
 
 | Field | Type | Required |
 |---|---|---|
 | PersonId | string (UUID) | Required |
-| Email | string | Required |
+| Email | string | Optional; absent for mobile-only registration |
 | DisplayName | string | Required |
 | OrganizationId | string (UUID) | Required |
 | MembershipId | string (UUID) | Required |
+| OwnershipCommittedAt | string (timestamp, ISO 8601 UTC) | Required |
 
 `OrganizationId` and `MembershipId` are included directly on this
 payload — rather than requiring a consumer to separately correlate
@@ -337,6 +337,10 @@ payload — rather than requiring a consumer to separately correlate
 Decision 1, a Person without ownership context is an invalid Identity
 state: by the time `PersonRegistered` exists at all, these two
 references are guaranteed to already exist and be valid (§2.3, §6.3).
+`Email` is present only if the registered contact is email; a mobile-only
+Person is identified by `PersonId` without inventing a mobile payload
+field in this revision. No Credential secret or verification code is
+included. Optional fields are omitted, never null. The contact contract is defined in 01, 07 and 08; consumer compatibility and runtime validation remain acceptance gates.
 
 ## 4.3 OrganizationCreated
 
@@ -350,6 +354,9 @@ Core Ownership Transaction, which precedes any authenticated Session
 context (059 §6) — there is no session to reference at this point in
 the flow.
 
+**OccurredAt**: The atomic ownership commit time, which may precede
+`PersonRegistered.OccurredAt` by a prolonged recovery interval.
+
 ### Payload
 
 | Field | Type | Required |
@@ -360,7 +367,7 @@ the flow.
 | Status | string enum: `Active` | Required |
 
 **MVP Constraint**: `Category` is always `Personal` and `Status` is
-always `Active` in MVP (01_Domain_Model §2; 14_MVP §3).
+always `Active` in MVP (01_Domain_Model §2; 14_MVP §1).
 
 ## 4.4 MembershipCreated
 
@@ -369,6 +376,9 @@ always `Active` in MVP (01_Domain_Model §2; 14_MVP §3).
 **ActorIdentity**: The PersonId of the registering Person.
 
 **SessionReference**: Absent — same rationale as §4.3.
+
+**OccurredAt**: The same atomic ownership commit time as
+`OrganizationCreated`, not the later Ready transition (§4.2).
 
 ### Payload
 
@@ -381,7 +391,7 @@ always `Active` in MVP (01_Domain_Model §2; 14_MVP §3).
 | Status | string enum: `Active` | Required |
 
 **MVP Constraint**: `Role` is always `Owner` and `Status` is always
-`Active` in MVP (14_MVP §1, §3; 059 §9 Role Model).
+`Active` in MVP (14_MVP §1; 059 §9 Role Model).
 
 ## 4.5 LoginSucceeded
 
@@ -407,7 +417,7 @@ relationship between `LoginSucceeded` and `SessionCreated`.
 **ActorIdentity**: **Exception to the envelope's general rule** — this
 field is Optional for `LoginFailed` only, and is absent specifically
 when `Reason = PersonNotFound` (there is no Person to identify as the
-actor). When `Reason` is `CredentialMissing` or `InvalidPassword`, a
+actor). When `Reason` is `CredentialMissing`, `RegistrationNotReady`, `PersonInactive`, or `InvalidPassword`, a
 Person record does exist and `ActorIdentity` SHALL be populated with
 that PersonId.
 
@@ -416,7 +426,7 @@ is always `Person` for `LoginFailed` (a login attempt is conceptually
 an operation against a Person, whether or not resolution succeeds).
 `AggregateId`, however, follows exactly the same rule as `ActorIdentity`
 above: it SHALL be populated with the resolved PersonId when `Reason`
-is `CredentialMissing` or `InvalidPassword` (a Person record exists),
+is `CredentialMissing`, `RegistrationNotReady`, `PersonInactive`, or `InvalidPassword` (a Person record exists),
 and SHALL be absent when `Reason = PersonNotFound` (there is no
 Aggregate instance to identify — no Person, and therefore no
 Aggregate, exists to attempt authentication against). This is the same
@@ -432,18 +442,14 @@ failed authentication attempt (04_Commands §4.2 Postconditions).
 
 | Field | Type | Required |
 |---|---|---|
-| Email | string | Required |
-| Reason | string enum: `PersonNotFound` \| `CredentialMissing` \| `InvalidPassword` | Required |
+| ContactType | string enum: `Email` \| `Mobile` | Required |
+| ContactValue | string | Required; canonical attempted contact, restricted security data |
+| Reason | string enum: `PersonNotFound` \| `CredentialMissing` \| `RegistrationNotReady` \| `PersonInactive` \| `InvalidPassword` | Required |
 
 **Security Note**: `Reason` carries the precise internal cause for
-audit purposes, per 04_Commands §4.2's Security Note that "internally,
-LoginFailed is still published with the precise cause for audit
-purposes" even though any external-facing surface built on top of this
-event (e.g. a REST API) is expected to collapse these three reasons
-into a single generic outcome to prevent account enumeration. That
-collapsing, if any, is a concern for whatever document defines that
-external surface — not for this Domain Event, whose entire purpose
-includes preserving the precise audit trail.
+audit purposes, as required by 04_Commands §4.2 even though any external-facing surface built on top of this
+event (e.g. a REST API) is expected to collapse these reasons
+into a single generic outcome to prevent account enumeration. The API must collapse these reasons into its generic authentication failure; this Security Event preserves the restricted internal audit trail.
 
 ## 4.7 SessionCreated
 
@@ -519,28 +525,10 @@ authenticated.
 | Field | Type | Required |
 |---|---|---|
 | PersonId | string (UUID) | Required |
-| Email | string | Required |
+| Email | string | Optional; omitted for mobile-only Person |
 | DisplayName | string | Required |
 
-**Design Note**: This payload carries the Person's full current
-`Email`/`DisplayName` state after the update (not a before/after diff).
-04_Commands §4.3 allows updating either or both fields in a single
-request; rather than modeling optional delta fields, this event
-reports the resulting full state, which is simpler for consumers to
-project and avoids ambiguity about which fields actually changed
-versus were merely re-submitted unchanged.
-
-**Forward-Compatibility Note**: This snapshot approach is appropriate
-while Person carries a small, fixed attribute set (01_Domain_Model §2:
-`Email`, `DisplayName` are the only mutable profile fields in MVP). If
-a future version grows Person's mutable attribute set substantially,
-a full-snapshot `PersonUpdated` may become disproportionately large
-for what actually changed. That future scenario would be a candidate
-for either a delta-shaped `PersonUpdated`, or splitting into
-field-specific events (e.g. `PersonEmailChanged`,
-`PersonDisplayNameChanged`) — a decision explicitly deferred, since
-introducing that complexity now would be speculative given MVP's
-two-field profile.
+**Design Note**: Snapshot of PersonId, optional Email and DisplayName after a DisplayName update. Contact mutation is outside this MVP. Email is omitted for mobile-only Persons, never null; Mobile is intentionally excluded from the public event for data minimization. Consumers identify the Person by PersonId. This does not authorize a contact lookup through GetPersonById.
 
 ## 4.11 PasswordChanged
 
@@ -573,22 +561,25 @@ underlying secret in any form.
 
 ## 5.1 Publish-After-Commit
 
-An event SHALL only be published after the state change it describes
-has been durably committed to its owning Aggregate's store. No event
-is published speculatively, optimistically, or before commit.
+An event SHALL only be published after the fact it describes has been
+durably committed. For `PersonRegistered`, the Ready workflow change and
+event enqueue are atomic; publication may occur later through the Outbox.
+No event is published speculatively, optimistically, or before commit.
 
 ## 5.2 Failed Persistence Never Produces an Event
 
-If an Aggregate's state change fails to persist, no event describing
-that (non-)change is published. This applies uniformly across all 10
-events — including, notably, that a failed Core Ownership Transaction
-(rolled back per ADR-0002 Decision 1) produces none of
-`PersonRegistered`, `OrganizationCreated`, or `MembershipCreated`.
+If a required state change fails to persist, no event describing that
+(non-)change is published. A failed Core Ownership Transaction (rolled
+back per ADR-0002 Decision 1) produces none of `PersonRegistered`,
+`OrganizationCreated`, or `MembershipCreated`. After a successful
+ownership commit, a failed Credential provision or a failed transition
+to Ready does not yet produce `PersonRegistered`; Decision 8 recovery
+must reach Ready first.
 
-## 5.3 LoginFailed Is the One Event That Is Not a State Change
+## 5.3 LoginFailed Describes a Completed Failure Rather Than a State Change
 
-`LoginFailed` is the sole exception to "events describe a committed
-Aggregate state change": no Aggregate state changes on a failed
+`LoginFailed` describes a completed failure without a committed state
+change: no Aggregate state changes on a failed
 authentication attempt (04_Commands §4.2 Postconditions: "Authentication
 attempts do not modify: Person identity state, Credential state").
 `LoginFailed` instead reports a completed *business fact of a
@@ -599,22 +590,21 @@ framing does not literally apply to it. It is published once the
 authentication decision itself (accept/reject) is finalized, not tied
 to any Aggregate persistence.
 
-## 5.4 Post-Commit Operation Failures Do Not Suppress Already-Valid Events
+## 5.4 Post-Commit Failures and Event Timing
 
-Per 059 §6 (Non-Invalidating Policy) and ADR-0002 Decision 1: if a
-Post-Commit Operation fails (Credential creation, initial Session
-creation), the already-committed Core Ownership Transaction's events
-(`PersonRegistered`, `OrganizationCreated`, `MembershipCreated`) are
-still published. Only the specific field that depended on the failed
-operation is affected — e.g. `PersonRegistered.SessionReference` is
-simply absent (§4.2) if Session creation failed. The event as a whole
-is never withheld because of a Post-Commit failure.
+Per ADR-0002 Decisions 1 and 8, a failed Credential provision or
+initial Session creation does not invalidate the ownership commit.
+`OrganizationCreated` and `MembershipCreated` still describe the
+committed ownership facts. `PersonRegistered` is enqueued only when
+Credential readiness is confirmed; a failed Credential provision
+delays this event until recovery reaches Ready. Once Ready is committed,
+an initial Session failure neither withdraws nor changes the event.
 
 ## 5.5 Delivery Mechanics Are Out of Scope
 
 Whether publishing is at-least-once or exactly-once, whether retries
 occur, and how a consumer deduplicates are Event Bus / Messaging
-Engine concerns (00_Overview §9 lists "Messaging Engine" as a
+Engine concerns (00_Overview §4 lists messaging infrastructure as a
 dependency of the Identity Platform, not a component the Identity
 Platform itself implements) and are explicitly out of scope for this
 document (§1.2).
@@ -625,24 +615,33 @@ document (§1.2).
 
 ## 6.1 Per-Aggregate Ordering
 
-Events sharing the same `AggregateId` (envelope, §4.1) SHALL be
-observable by a consumer in the actual order those state transitions
-occurred on that Aggregate instance — e.g. for a single Session:
+Consumers SHALL apply unique events describing committed state transitions on the same Aggregate
+instance in the order those transitions occurred (deduplicating EventId and handling redelivery as described in 09 §6.4)
+— e.g. for a single Session:
 `SessionCreated` always precedes that same Session's eventual
 `SessionExpired` or `LogoutCompleted` (never the reverse).
 
-`OccurredAt` (§4.1) is expected to be consistent with this order, but
-is **not itself the ordering mechanism**: two events on the same
+`PersonRegistered` retains `AggregateType = Person` and
+`AggregateId = PersonId` for identity and correlation, although Ready
+is a registration-workflow transition. The proposed shared per-Person
+registration/profile stream includes `PersonRegistered` and
+`PersonUpdated` only (03_Aggregates.md §9.1 and 09_Persistence.md §6.4,
+both Draft). This ordering guarantee depends on their durable stream
+position and producer/delivery alignment. `AggregateType = Person`
+or the presence of a resolved PersonId alone does not opt an event in:
+audit-only `LoginFailed` and other authentication outcomes without a
+Person state transition SHALL NOT acquire this stream position. Their
+audit ordering is governed separately; no publish-order guarantee
+relative to these registration/profile events is claimed here.
+
+`OccurredAt` (§4.1) is expected to be consistent with an applicable
+stream's order, but is **not itself the ordering mechanism**: two events on the same
 Aggregate committed within the same transaction, or at timestamp
 resolutions too coarse to distinguish, could carry equal or
-non-monotonic `OccurredAt` values. The actual ordering guarantee is
-provided by whatever mechanism assigns a strict per-Aggregate sequence
-(e.g. an Aggregate version/sequence number, or event-store stream
-position) — that mechanism is an Event Bus/store implementation
-concern, out of scope per §1.2. This section states only the guarantee
-a consumer MAY rely on (state transitions are observable in true
-occurrence order); it does not claim `OccurredAt` is the field that
-enforces it.
+non-monotonic `OccurredAt` values. The ordering guarantee comes from
+a strict position in the applicable Aggregate or registration/profile
+stream. The physical sequencer and delivery mechanism remain
+implementation concerns (§1.2); `OccurredAt` does not enforce order.
 
 ## 6.2 Cross-Event Ordering Is Not Guaranteed Except Where Stated
 
@@ -653,20 +652,26 @@ instances unless explicitly stated below. In particular:
   **no publish-order guarantee**. A consumer needing both SHALL
   correlate them via the shared `SessionId`/`PersonId`, not via the
   order in which it happens to receive them.
-- `PersonRegistered`, `OrganizationCreated`, `MembershipCreated` (same
-  RegisterPerson call): **no publish-order guarantee among the three**
-  — see §6.3 for why this is architecturally safe.
+- `PersonRegistered`, `OrganizationCreated`, `MembershipCreated`:
+  **no publish-order guarantee among the three**. The ownership
+  transaction precedes Ready, but delivery order need not follow
+  occurrence order across their distinct Aggregate identities (§6.3).
 
 ## 6.3 Why Unordered Registration Events Are Safe
 
 Per §2.3 (Events SHALL NOT coordinate initial ownership creation) and
-ADR-0002 Decision 1, the Core Ownership Transaction has already
-committed Person + Organization + Membership atomically *before any of
-the three events is published*. A consumer that receives
+ADR-0002 Decisions 1 and 8, the Core Ownership Transaction commits
+Person + Organization + Membership atomically before these events can
+be published. `PersonRegistered` additionally waits until Ready and may
+be delayed by manual Credential completion. A consumer that receives
 `OrganizationCreated` before `PersonRegistered` is not observing a
 race condition or an inconsistent intermediate state — the Person and
 Membership already exist, fully committed, regardless of which event
-arrives first. This is precisely what distinguishes an event
+arrives first. Consumers may observe these two ownership events while
+registration remains PendingCredential. If recovery never reaches Ready,
+`PersonRegistered` is never emitted under this decision; ownership
+events alone SHALL NOT be interpreted as evidence of an active
+Credential or permission to authenticate. This distinguishes an event
 *announcing* a fact from an event *coordinating* one (§2.3): ordering
 would only matter if the events were themselves part of achieving
 consistency, and per ADR-0002 Decision 1 they are not.
@@ -683,82 +688,42 @@ not sequential, outcomes for the same Session instance.
 
 # 7. Cross-Document Alignment
 
-## 7.1 Against 059_SmartCore_Identity_Platform.md §9–§10
+The ten-event names and producer ownership remain aligned with 059 and ADR-0002 Decision 5. 01/04 describe production points; 03 §9.1 and 09 §6.4 own workflow/stream persistence; 07 defines interoperability; 08 defines separate camelCase REST shapes. events.schema.json encodes all ten envelopes/payloads and omit-not-null behavior.
 
-✅ The 10 events specified in §4 are exactly the 10 events in 059's
-Event Ownership Table and §10 Identity Events list. No addition, no
-omission.
-
-## 7.2 Against 01_Domain_Model.md
-
-✅ Every "Produces" mapping in 01_Domain_Model.md's Domain Services
-(§7) and Application Services (§8) sections, and its consolidated
-"Event Producer Mapping" section, matches §3 of this document exactly.
-
-✅ The five Event Audit Requirement fields named by 01_Domain_Model.md
-are fully specified by the Common Event Envelope (§4.1) — this
-document is the "06_Domain_Events.md" that section explicitly
-forward-referenced.
-
-## 7.3 Against 04_Commands.md
-
-✅ Every Command's "Events Produced" (04_Commands §8, Command → Event
-Mapping) matches the events specified per-Contract in §4 of this
-document. `RefreshSession`, which produces no event (04_Commands §4.5),
-correctly has no corresponding section in §4.
-
-## 7.4 Against 14_MVP.md §5
-
-✅ The 10-event list in 14_MVP.md §5 ("Event Ownership Alignment")
-matches §3 of this document exactly, including the note that "future
-events... are explicitly scoped as future" — this document defines no
-such future event.
-
-## 7.5 Against ADR-0002_Identity_Foundation_Clarifications.md
-
-✅ Decision 5 (Event Ownership Documentation)'s table matches §3
-exactly.
-
-✅ Decision 5's statement "Events SHALL NOT be used to coordinate
-initial ownership creation" is upheld and elaborated in §2.3 and §6.3.
-
-✅ Decision 5's statement "Security and audit classification of events
-is outside the scope of this ADR" is respected — this document defines
-audit *structure* (§4.1) and per-field *existence* (§4.2–§4.11), but
-explicitly defers sensitivity *classification* (§2.6).
-
----
+The registration/profile stream includes only PersonRegistered and PersonUpdated. Actor and execution context describe the actual Ready transition: an asynchronous reconciliation worker is System even when the winning Credential candidate originally came from a Person; candidate provenance is separate internal metadata.
 
 # 8. MVP Readiness Checklist
 
-Domain Events Blueprint Version 1.0 is complete when:
+- [x] Documentary alignment of Ready/ownership timestamps, optional Email and no initial SessionReference.
+- [x] Optional Email in PersonUpdated; selected ContactType/ContactValue and RegistrationNotReady in restricted LoginFailed audit.
+- [x] Workflow/stream and machine omission rules specified across 03, 07 and 09.
+- [ ] Consumer compatibility/version migration review and architecture approval.
+- [ ] Full 065 validation and runtime/security/event ordering tests in 13.
 
-✓ All 10 MVP events (059 §9 / ADR-0002 Decision 5) have a full payload
-  specification (§4.2–§4.11)
-
-✓ The Common Event Envelope satisfies all five Event Audit Requirement
-  fields named by 01_Domain_Model.md (§4.1)
-
-✓ No event payload contains Credential secret material (§2.5)
-
-✓ Publishing Rules are defined for the normal case, the Post-Commit
-  failure case, and the one non-state-change event (`LoginFailed`)
-  (§5)
-
-✓ Event Ordering guarantees are stated precisely enough that a
-  consumer knows what it MAY and MAY NOT assume (§6)
-
-✓ No new Aggregates, Commands, Queries, or Events introduced
-
-✓ Alignment verified against 059, 01_Domain_Model, 04_Commands,
-  14_MVP, and ADR-0002 (§7)
-
-✓ No Event Bus, Outbox, or Integration Event mechanics defined (out of
-  scope, §1.2)
+These are documentary completion marks only. The document remains DRAFT and ADR-0002 remains Proposed.
 
 ---
 
 # 9. Change Log
+
+## Version 1.2.0 (2026-09-24)
+
+Aligned the complete proposed package, restricted LoginFailed contact audit, optional Email snapshots and event schema. Retained ten event names. Full validation and consumer review remain open.
+
+## Version 1.1.0 (2026-09-24)
+
+Proposed alignment with ADR-0002 Decisions 8–9. PersonRegistered now
+records the Ready transition in OccurredAt and the earlier ownership
+commit in its required OwnershipCommittedAt payload field. Email is
+optional for mobile-only registration and SessionReference is absent;
+publishing and ordering rules reflect delayed Credential readiness.
+ActorIdentity and ExecutionContext now identify the Ready actor and
+request; ownership events retain ownership-commit timestamps. The
+workflow-derived ordering guarantee is scoped to the proposed
+PersonRegistered/PersonUpdated stream, excluding audit-only LoginFailed;
+it remains pending persistence and producer/delivery alignment.
+Status is Draft until dependent Identity documents, contracts, consumers,
+and structural validation are reconciled. No new event type is added.
 
 ## Version 1.0.2 (2026-07-14)
 
@@ -839,3 +804,7 @@ Initial Domain Events Blueprint.
 ---
 
 **END OF DOCUMENT**
+
+## Integrated validation note (v1.2.0)
+
+LoginFailed is a Security Event per ADR-0002 Decision 5; its resolved PersonId identifies the target, not authenticated actor proof. ContactValue/ExecutionContext subscriptions and retention are restricted under 11_Security. The service/stream definitions are now documented in 07 §3 and 09 §6.4; implementation tests remain unexecuted. Historical baseline checklist claims do not establish current readiness. Full acceptance is tracked in 12_Validation.

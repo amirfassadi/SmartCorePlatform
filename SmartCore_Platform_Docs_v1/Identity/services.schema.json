@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:smartcore:identity:services:proposed:1",
+  "title": "Internal service messages (DRAFT)",
+  "$defs": {
+    "EnsureInitialCredentialRequest": {
+      "type": "object",
+      "properties": {
+        "registrationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "protectedMaterialRef": {
+          "type": "string"
+        },
+        "materialOwner": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "purpose": {
+          "const": "initial-registration"
+        }
+      },
+      "required": [
+        "registrationId",
+        "personId",
+        "operationId",
+        "protectedMaterialRef",
+        "materialOwner",
+        "purpose"
+      ],
+      "additionalProperties": false
+    },
+    "GetInitialCredentialResultRequest": {
+      "type": "object",
+      "properties": {
+        "registrationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "registrationId",
+        "personId"
+      ],
+      "additionalProperties": false
+    },
+    "GetPersonByIdRequest": {
+      "type": "object",
+      "properties": {
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "personId"
+      ],
+      "additionalProperties": false
+    },
+    "GetPersonByIdResult": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "Found"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "displayName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "personId",
+            "displayName"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "NotFound"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "EnsureInitialCredentialResult": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "registrationId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "const": "Active"
+            },
+            "credentialId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "operationIdOfWinner": {
+              "type": "string"
+            },
+            "confirmationVersion": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "registrationId",
+            "personId",
+            "status",
+            "credentialId",
+            "operationIdOfWinner",
+            "confirmationVersion"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "registrationId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "enum": [
+                "RetryableUnavailable",
+                "InvalidMaterial",
+                "BindingConflict"
+              ]
+            }
+          },
+          "required": [
+            "registrationId",
+            "personId",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "GetInitialCredentialResultResponse": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "registrationId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "const": "Active"
+            },
+            "credentialId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "operationIdOfWinner": {
+              "type": "string"
+            },
+            "confirmationVersion": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "registrationId",
+            "personId",
+            "status",
+            "credentialId",
+            "operationIdOfWinner",
+            "confirmationVersion"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "registrationId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "enum": [
+                "NotProvisioned",
+                "Unavailable"
+              ]
+            }
+          },
+          "required": [
+            "registrationId",
+            "personId",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

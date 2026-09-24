@@ -5,17 +5,17 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.5
+* **Version**: 1.7
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
 * **Effective Date**: TBD
 * **Decision Type**: Architectural Decision
-* **Decision Level**: Level 4 — Architectural Change (applies to Decision 5 event classification and Decision 7; Decisions 1–4 and 6 are Level 2 Documentation clarifications)
+* **Decision Level**: Level 4 — Architectural Change (applies to Decision 5 event classification and Decisions 7–9; Decisions 1–4 and 6 are Level 2 Documentation clarifications)
 
-## Review Revision — 2026-09-24 (v1.3)
+## Review Revision — 2026-09-24 (v1.7)
 
-This revision records the agreed LoginFailed classification in Decision 5 in addition to the earlier documentation corrections. Status remains Proposed;
+This revision records integrated narrative/API/machine propagation and remaining review gates, while retaining the pre-commit verification, PersonRegistered timestamp and Decision 8/9 boundary decisions. Status remains Proposed;
 Approval Date and Effective Date remain TBD. Decision requirements describe the
 proposed architecture and do not constitute approval or implementation clearance.
 Acceptance remains subject to the criteria below and Document 051.
@@ -368,7 +368,7 @@ SHALL carry only an opaque reference to protected, durable provisioning material
 available after a crash. Preparation and the reference must survive the core
 commit together, or the referenced material must already be durably staged.
 Sensitive material must be protected under the Identity security policy, with
-expiry and cleanup after completion/recovery.
+expiry and cleanup after completion/recovery. Pre-commit staging is governed by Decision 9; post-commit retries SHALL NOT extend its pre-commit verification lifetime.
 
 Transient provisioning failures SHALL be retried with bounded backoff and
 operational visibility. Exhausting automated retries SHALL leave the workflow
@@ -417,6 +417,17 @@ Blueprint must review its existing payload and consumer expectations before
 acceptance. OrganizationCreated and MembershipCreated remain tied to the
 committed ownership triple. Internal Outbox provisioning work is not a public
 addition to the ten-event MVP catalog.
+
+For PersonRegistered, `OccurredAt` SHALL record the atomic transition to Ready
+and event enqueue, not Outbox delivery or receipt. `OwnershipCommittedAt` SHALL
+separately record the timestamp of the atomic ownership commit. Manual recovery
+may separate these moments by hours or days. Consumers measuring account age,
+retention, or ownership-based service periods SHALL use `OwnershipCommittedAt`;
+consumers measuring usable registration SHALL use `OccurredAt`. Neither SHALL
+use receipt time as a substitute. If a commit-time signal is needed, Identity
+SHALL define a distinct internal or new event; it SHALL NOT move
+PersonRegistered publication back to ownership commit. The event contract and
+consumer review SHALL adopt these meanings before acceptance.
 
 ### Scope and alternatives
 
@@ -481,6 +492,31 @@ requiring the raw password to be retained as a durable secret. The concrete
 expiry, code format, channel delivery mechanism, and transport schema belong
 to the Identity security and API specifications.
 
+Identity SHALL issue an opaque `verificationSessionId` before ownership commit.
+The challenge and protected password-provisioning material SHALL be bound to
+that session, protected against disclosure and replay, subject to an absolute
+expiry and bounded attempts. Raw passwords SHALL NOT be persisted. Expiry,
+cancellation, or successful consumption SHALL immediately invalidate access to
+unused material; Identity SHALL delete it within a documented bounded cleanup
+interval. The security specification SHALL define the absolute lifetime and
+cleanup interval. Resends SHALL NOT silently extend the absolute expiry. An
+expired session cannot authorize ownership commit. Material needed after commit
+follows Decision 8's protection and cleanup rules. At the ownership commit,
+Identity SHALL atomically bind the durable protected material reference to
+`registrationId` together with the provisioning Outbox item. Physical movement
+of the secret is not required, but cleanup of the consumed verification
+session SHALL NOT delete or invalidate material still referenced by the
+PendingCredential registration. From that commit onward, its access,
+retention, and eventual cleanup are governed by Decision 8; a rolled-back
+commit SHALL leave no registration-owned material or Outbox reference.
+
+Before contact ownership is proven, initial request and resend responses SHALL
+NOT reveal whether the normalized contact belongs to a Person. Observable
+status, content, timing, delivery and throttling behavior SHALL be designed
+and tested against enumeration. After successful code verification, Identity
+MAY report a uniqueness conflict to the verified contact holder without
+creating a second Person; the API contract SHALL define safe retry behavior.
+
 After verification, re-check normalized-contact uniqueness and atomically
 commit Person, Personal Organization, Owner Membership, the
 `PendingCredential` registration-workflow record, and the provisioning Outbox
@@ -492,6 +528,44 @@ ownership triple. If the ownership commit fails, the user SHALL NOT receive a
 claim that registration is complete; the verification process must allow a
 safe retry within its validity window without reusing an already consumed code
 to create a second account.
+
+Successful confirmation SHALL atomically bind `verificationSessionId` to the
+issued `registrationId` and consume the challenge alongside ownership commit.
+Challenge consumption prevents a second commit; a separate durable mapping
+permits authorized replay of the same result for a documented bounded retention
+period no longer than the original challenge validity window. The session
+identifier alone SHALL NOT authorize replay. Within that window, replay SHALL
+require the same successfully verified one-time challenge proof and the same
+request binding (including the normalized contact), subject to rate limits
+and attempted-proof limits. A consumed proof MAY retrieve only its already
+committed outcome; it SHALL NOT authorize another commit, Credential change,
+or authenticated Session. Proofs
+SHALL NOT be logged or exposed in the mapping. A stored verifier for a
+low-entropy code SHALL be keyed with a server-held secret (for example, an
+HMAC bound to the session and purpose), never an unkeyed hash of the code.
+Verification SHALL occur only online under the same bounded-attempt controls;
+the verifier SHALL be removed when its replay window ends, while its key SHALL
+be protected and rotated under the security specification. The security and
+API contracts SHALL specify proof verification, replay retention, and safe
+responses. A different payload under the same session SHALL be rejected and
+audited. After the proof expires or mapping retention ends, replay SHALL fail
+safely without creating another ownership triple. The API contract SHALL
+specify delivery and use of the stable `registrationId`; Decision 8 uses it for post-commit
+idempotency.
+
+If a commit response is lost and this replay window has expired, another
+verified contact attempt SHALL NOT create a second Person. When the existing
+Person's registration remains PendingCredential, Identity SHALL direct the
+verified contact holder to Decision 8's distinct secure completion challenge
+without treating contact possession alone as authorization to set a password.
+The response and challenge delivery SHALL respect the same anti-enumeration
+and rate-limit controls; this path SHALL NOT silently reset the original
+verification session or extend its expiry.
+Any password-provisioning material staged for this new attempt SHALL NOT be
+bound to the existing `registrationId` or replace its Credential material. It
+SHALL be invalidated on the uniqueness conflict and deleted under that new
+verification session's bounded cleanup rule. Only Decision 8's separate,
+authorized completion challenge may establish a new Credential.
 
 Credential provisioning then follows Decision 8. Before the workflow is
 `Ready` and a Credential is active, password login is denied; confirmation of
@@ -554,9 +628,7 @@ Blueprint have already been built or validated.
 
 ## Backward Compatibility
 
-All changes introduced by this ADR, including the Command Model Coordination Exception in Section 7, are additive and clarifying.
-
-No breaking changes are introduced to the existing Person identity model.
+The original ownership coordination clarification does not change PersonId. Decisions 8–9 and their Blueprint propagation do change registration/API behavior, contact optionality and event timestamp/payload contracts. They must not be described as universally additive or non-breaking. Inventory consumers and apply the governed compatibility/version migration policy before acceptance; the repository does not establish that no consumers exist.
 
 The Command Model Coordination Exception does not alter the behavior of any previously implemented Command. It documents and formalizes the pre-existing RegisterPerson design.
 
@@ -589,7 +661,7 @@ Future exceptions require separate architectural review.
 
 # Document Updates Required
 
-The following is the reviewed baseline from the supplied Platform and Identity
+The following is the historical reviewed baseline from the supplied Platform and Identity
 packages, not a claim that acceptance conditions have passed. Further revisions
 must follow 051 §9; versions must not be reduced to historical targets.
 
@@ -597,7 +669,8 @@ must follow 051 §9; versions must not be reduced to historical targets.
 | --- | --- | --- |
 | 027_SmartCore_Command_Model.md | 1.2 | §17.1 already records the exception; qualify its pending approval and verify the exact RegisterPerson-only scope. |
 | 057_SmartCore_Tenancy_and_Ownership_Model.md | 1.3 | §8 already records the exception; qualify pending approval and verify the core ownership boundary. |
-| 059_SmartCore_Identity_Platform.md | 1.1 | §6 already separates ownership commit from Credential/Session operations; synchronize approval wording, lifecycle references, and revision history. |
+| 059_SmartCore_Identity_Platform.md | 1.4 | Synchronize Decisions 8–9, verification-to-registration material transfer, event timing, pending approval wording, and version references. |
+| 026_SmartCore_Event_Model.md | 1.1.2 (this branch) | §8 now records PersonRegistered timing; validate payload placement and Identity contract alignment. |
 | 01_Domain_Model.md | Header 1.1.0; Change Log includes 1.2.0 | Application Service reclassification already exists; reconcile version metadata and pending-approval wording. |
 | 03_Aggregates.md | 1.1.1 | Atomic registration exception already exists; verify consistency and qualify pending approval. |
 | 04_Commands.md | 1.1.0 | Application Service mapping already exists; verify consistency and qualify pending approval. |
@@ -622,17 +695,23 @@ currently tracked in the repository.
 For Decision 5 in v1.3, also synchronize 026 §5/§6/§9/§17/§20 and 027 §14
 with the Security Event classification, and update 059's event-family catalog.
 The earlier baseline table above records the package review; it is not a live
-version manifest. Decision 5 also requires an Identity Blueprint review of
+version manifest. Current Identity document versions are indexed in Identity/capability.machine.yaml. Decision 5 also requires an Identity Blueprint review of
 06_Domain_Events.md, 07_Contracts.md, 04_Commands.md, 02_Use_Cases.md, affected
 security/testing/validation/MVP documents, and the machine specification.
 Verify consumer and delivery references even where no payload change is needed.
 
-Also verify dependent references and readiness labels in 02_Use_Cases.md,
-14_MVP.md, and the machine specification. The supplied machine file is named
-`capability_machine.yaml`; 064 §7 requires `capability.machine.yaml`.
-Its governance block already requires acceptance of ADR-0002 and ADR-0003.
-These package corrections are prerequisites for a new validation result, not
-proof that Structural Validation has passed.
+Version-pinned references to ADR-0002 in 027, 057, and 059 SHALL be reviewed
+against the version each document actually adopts. Do not silently change an
+older reference to v1.7 as if the dependent contract were already aligned;
+record the approved version and pending synchronization explicitly. Document
+026 §8, Identity/06_Domain_Events.md §§4.1–4.2, and the affected consumers
+require a consistent Ready-time `OccurredAt` contract. The workflow Ready
+transition is the relevant committed state change for PersonRegistered; it is
+not a new Person Aggregate lifecycle transition.
+
+The integrated proposal now includes Identity/00–16, the canonical `capability.machine.yaml`, `openapi.yaml` and `events.schema.json`. No machine file was previously tracked at this baseline; this addition does not claim to rename or validate a separately supplied attachment. All narrative statuses are DRAFT and machine governance requires ADR-0002/ADR-0003 acceptance. Proposed exact-one-contact MVP, DisplayName-only update, explicit login after Ready, polling-based Credential confirmation and configuration defaults require review as Blueprint refinements, not accepted decisions.
+
+Review and merge the integrated snapshot coherently. PRs #1–#4 overlap this proposal; either use this consolidated package or reconcile after those branches merge. Partial merges do not authorize generation. Structural checks are limited evidence, not a full 065 result. See Identity/12_Validation.md for remaining gates.
 
 ---
 
@@ -648,6 +727,18 @@ This ADR SHALL remain Proposed until:
       synchronized across narrative, machine specification, contracts, and security tests
 * [ ] PersonRegistered timing/consumers and pending registration API outcomes are
       reviewed, with no premature authentication or duplicate ownership
+* [ ] Decision 9 pre-commit material has absolute expiry, bounded attempts,
+      immediate invalidation, and a documented bounded deletion interval
+* [ ] Contact request and resend behavior, delivery, throttling, and the
+      post-verification uniqueness conflict are reviewed for enumeration
+* [ ] Challenge consumption, durable replay mapping, bounded retention, and
+      atomic link to registrationId are specified and tested
+* [ ] Keyed code verifier, online attempt limits, replay-window expiry, and
+      expired-replay routing to secure PendingCredential completion are tested
+* [ ] PersonRegistered timestamps, delayed manual recovery, and the separate
+      commit-signal rule are reflected in 026 and consumer contracts
+* [ ] Identity/06_Domain_Events.md §4.2 and its envelope are reconciled with
+      optional Email, initial SessionReference, and Ready-time event semantics
 * [ ] Architecture Validation Review is completed
 * [ ] Blueprint passes Structural Validation
 * [ ] LoginFailed classification is synchronized across Platform, Identity narrative, machine specification, and affected contract/consumer references; no identity or payload contract is silently changed
@@ -691,15 +782,12 @@ After approval:
 | 1.1     | Proposed | Added Command Model coordination exception for Identity Registration, clarified Application Service responsibility, added governance metadata, and documented compatibility boundaries. Clarified that the exception applies only to RegisterPerson and does not establish a general multi-Aggregate transaction rule. |
 | 1.2     | Proposed | Added a clarifying note to the References section stating that Document 019 is retained as an architectural context document for this ADR without constituting a lineage/supersession determination relative to 041/059; that determination is deferred to a separate Architecture Board governance track. Corrected a stale version-pinned self-reference in Acceptance Criteria (ADR-0002 v1.1 → latest accepted version). No substantive decision content changed. |
 | 1.2.1 | Proposed | 2026-09-24 review candidate: clarified pending approval, replaced stale document-update assumptions with observed package baselines, and recorded dependent validation work. No transaction boundary, role, event, authentication, or MVP behavior changed. |
-
 | 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
-
 | 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
-
 | 1.5 | Proposed | 2026-09-24: Added minimal registration with verified mobile OR email, password and DisplayName; one-time challenge precedes the atomic ownership commit. Made email optional for mobile-only Persons, retained the PendingCredential post-commit recovery flow, and deferred other profile data. Full Blueprint/schema validation and approval remain pending. |
+| 1.7 | Proposed | 2026-09-24: Recorded integrated Blueprint/API/machine propagation, coordinated merge requirement and remaining review/validation gates; corrected the blanket non-breaking claim. Decisions remain Proposed. |
+| 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security, atomic material-reference binding, keyed replay verification within the original challenge window, secure completion after expired replay, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; classified Decisions 8–9 as Level 4 and expanded dependent acceptance checks. |
 
 ---
 
 **END OF DOCUMENT**
-
-

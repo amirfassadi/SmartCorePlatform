@@ -1,12 +1,12 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.4
+Version: 1.5
 
 Status: **Normative**
 
 Related Decision Records:
 
-- ADR-0002_Identity_Foundation_Clarifications.md (v1.5, Proposed)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.7, Proposed)
 - ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md (v1.2.1, Proposed)
 
 **Governance qualification**: The related registration, role, authorization,
@@ -268,7 +268,7 @@ RegistrationApplicationService coordinates the durable Outbox work item and
 registration workflow within that commit; the Credential service consumes
 it after commit. Internal work is not an extra public Domain Event.
 
-**Recovery (ADR-0002 v1.4 Decision 8, Proposed)**: Use the server-issued
+**Recovery (ADR-0002 v1.7 Decision 8, Proposed)**: Use the server-issued
 registrationId to deduplicate at-least-once work and retries with bounded
 backoff. When automatic retries are exhausted, keep PendingCredential and
 offer a separate single-use, short-lived, verified-channel Credential setup
@@ -622,7 +622,18 @@ No business platform SHALL bypass or replace the Identity Platform.
 
 ---
 
+
+## Integrated Identity proposal (2026-09-24)
+
+This revision references ADR-0002 v1.7 (Proposed) and the integrated Identity Blueprint. The verification session/material transfer, keyed bounded replay, separate secure setup and Ready/ownership timestamp rules are specified there. Identity/07 §3 proposes the Credential confirmation protocol; Identity/08 specifies registration responses and explicit login after Ready. These references are synchronization proposals, not ADR acceptance or generation clearance. Merge the coherent document set and apply Identity/12 validation gates.
+
+For PersonRegistered, OccurredAt is the atomic Ready transition and OwnershipCommittedAt is the original ownership commit. OrganizationCreated/MembershipCreated can precede Ready indefinitely; neither proves usable Credential. A future commit signal is distinct and must not move PersonRegistered back to commit time.
+
 # Change Log
+
+## Version 1.5 (2026-09-24)
+
+Synchronized the proposed integrated Identity contract references and merge/readiness qualification; no new public event or general Command exception.
 
 ## Version 1.4 (2026-09-24)
 

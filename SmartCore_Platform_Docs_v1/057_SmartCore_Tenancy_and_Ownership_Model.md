@@ -1,11 +1,11 @@
 # 057_SmartCore_Tenancy_and_Ownership_Model.md
 
-Version: 1.4.1
+Version: 1.4.2
 
 Status: **Normative**
 
 **Governance qualification**: Registration clarifications and the coordination
-exception in §8 reflect ADR-0002 v1.5 (Proposed); Organization/Membership
+exception in §8 reflect ADR-0002 v1.7 (Proposed); Organization/Membership
 lifecycle clarifications in §9 reflect ADR-0003 v1.2.1 (Proposed). These
 synchronized descriptions do not approve either ADR or clear implementation.
 The ADR acceptance criteria and 051/065 governance checks still apply.
@@ -269,7 +269,7 @@ commit, including:
 
 These operations SHALL NOT invalidate ownership consistency.
 
-Under ADR-0002 v1.4 Decision 8 (Proposed), the durable registration workflow
+Under ADR-0002 v1.7 Decision 8 (Proposed), the durable registration workflow
 starts PendingCredential. The initial Outbox provisioning work item and workflow
 record commit with the Person/Organization/Membership triple, while Credential
 creation remains after commit. This internal workflow state does not change the
@@ -288,7 +288,7 @@ This is a proposed, narrowly-scoped exception to the default cross-Aggregate coo
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.5, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.7, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   SHALL NOT be interpreted as a general precedent for multi-Aggregate transactional Commands elsewhere in the platform.
 -   Does NOT redefine or supersede 027_SmartCore_Command_Model.md, which SHALL continue to govern all other Commands.
 
@@ -416,7 +416,16 @@ this document.
 
 ------------------------------------------------------------------------
 
+
+## Integrated Identity proposal (2026-09-24)
+
+This revision references ADR-0002 v1.7 (Proposed) and the integrated Identity Blueprint. The verification session/material transfer, keyed bounded replay, separate secure setup and Ready/ownership timestamp rules are specified there. Identity/07 §3 proposes the Credential confirmation protocol; Identity/08 specifies registration responses and explicit login after Ready. These references are synchronization proposals, not ADR acceptance or generation clearance. Merge the coherent document set and apply Identity/12 validation gates.
+
 # Change Log
+
+## Version 1.4.2 (2026-09-24)
+
+Synchronized the proposed integrated Identity contract references and merge/readiness qualification; no new public event or general Command exception.
 
 ## Version 1.4.1 (2026-09-24)
 

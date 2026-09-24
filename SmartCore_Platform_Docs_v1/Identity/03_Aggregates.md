@@ -1,11 +1,16 @@
 <!--
 Document ID: ID-03
 Title: SmartCore Identity Platform Blueprint - Aggregates
-Version: 1.1.1
-Status: READY_FOR_GENERATION
+Version: 1.3.0
+Status: DRAFT
 Purpose: Define aggregate design rationale and boundaries for the Identity Platform Blueprint
 Dependencies: 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.3.0 (2026-09-24): Aligned optional verified contact and linked the concrete proposed Credential confirmation contract in 07 §3 and persistence in 09 §6.
+  - Version 1.2.0 (2026-09-24): Proposed registration-workflow
+    ownership and Person event-stream ordering contract under
+    ADR-0002 Decisions 8–9. No sixth Aggregate or Person lifecycle
+    status is introduced. Pending cross-document and structural review.
   - Version 1.1.1 (2026-07-15): Cross-check pass against 01_Domain_Model.md,
     02_Use_Cases.md, 04_Commands.md, 05_Queries.md, and 09_Persistence.md,
     following those documents' own recent revision passes. No new
@@ -20,7 +25,7 @@ Change Log:
     Dependency (01_Domain_Model.md) does not support. (2) Added §11.1,
     recording two Aggregate-boundary candidates (RefreshToken
     re-evaluation; additional Credential Types) that 09_Persistence.md
-    §7.1/§4.5/§8.3 explicitly defer to this document's future decision.
+    §7/§4.5/§8.3 explicitly defer to this document's future decision.
     Neither is proposed as an Aggregate by this revision; §11.1 exists
     so this document is not silent about a decision it has been named
     as the owner of elsewhere in the Blueprint set.
@@ -48,12 +53,13 @@ Each Aggregate owns an independent lifecycle and consistency boundary.
 
 **Root Entity Responsibilities**:
 - Owns identity
-- Manages profile attributes (Email, DisplayName)
+- Manages profile attributes (verified contact, DisplayName; email
+  is optional for mobile-only registration under ADR-0002 Decision 9)
 - Tracks lifecycle status
 
 **Child Entities**: None in MVP
 
-**Child Value Objects**: EmailAddress
+**Child Value Objects**: EmailAddress, MobileNumber
 
 **Independent Lifecycle**:
 - Registered → Active → Suspended → Archived
@@ -99,8 +105,7 @@ No lifecycle transition commands are part of MVP.
 
 **Child Value Objects**: None in MVP. `Role` is a plain field on the
 Membership Aggregate (01_Domain_Model.md §2), not a modeled Value
-Object — 01_Domain_Model.md §3's Value Object catalog defines exactly
-four: `EmailAddress`, `PasswordHash`, `AccessTokenId`, `RefreshToken`.
+Object — 01_Domain_Model.md §3 defines the contact and authentication Value Objects.
 `Role` is not among them. (Corrected in v1.1.1; earlier versions of
 this document listed `Role` here, which was not supported by
 01_Domain_Model.md.)
@@ -146,7 +151,7 @@ this document listed `Role` here, which was not supported by
 **Independent Lifecycle**:
 - Created → Active → Replaced → Revoked
 - Credential changes do not affect Person identity
-- Version 1.x supports exactly one active Credential per Person
+- Version 1.x supports at most one active Credential per Person; PendingCredential may have none
 
 ---
 
@@ -176,7 +181,7 @@ Credential is modeled as an independent Aggregate because:
 - Credential history and rotation do not affect Person identity
 - Multiple credentials may be managed through future extensibility
 
-**Design Note**: Version 1.x SHALL support exactly one active Credential per Person. Credential History is future scope.
+**Design Note**: Version 1.x SHALL support at most one active Credential per Person; PendingCredential may have none, and Ready requires one at its transition. Credential History is future scope.
 
 **Design Consequence**: Credential changes represent authentication mechanism evolution, not identity change. Person identity remains stable across credential rotations.
 
@@ -189,17 +194,62 @@ Each Aggregate maintains:
 - **Consistency Boundary**: Internal state is consistent without external coordination
 - **Root Entity**: Single aggregate root entity owns all internal entities
 - **Transaction Scope**: All changes to an aggregate occur within a single transaction
-- **Cross-Aggregate Consistency**: Maintained by Domain Services, not aggregates
+- **Cross-Aggregate Consistency**: Coordinated by the responsible
+  application or domain service under the applicable ADR; it is not
+  granted by an Aggregate boundary alone
 
-**Exception**: Initial creation of Person, Organization, and Membership during registration is coordinated by RegistrationApplicationService (an Application Service, not a Domain Service), per the approved exception in ADR-0002 Decision 7. See 01_Domain_Model.md §8.
+**Proposed exception**: Initial creation of Person, Organization, and
+Membership during registration is coordinated by
+RegistrationApplicationService (an Application Service, not a Domain
+Service), under ADR-0002 Decision 7. See 01_Domain_Model.md §8.
+
+## 9.1 Registration Workflow and Person Event Stream (Proposed)
+
+`PendingCredential` and `Ready` belong to one durable, Identity-owned
+registration workflow keyed by `registrationId` and uniquely associated
+with a `PersonId`. This workflow is an application-process record: it is
+not a sixth Aggregate, a child of the Person Aggregate, or a Person,
+Organization, or Membership lifecycle status. The RegistrationApplicationService
+owns its state transitions; 09_Persistence.md defines storage and transaction
+ownership. The Person can be Active while this workflow is PendingCredential.
+Authentication requires both Ready and an active Credential.
+
+Initial creation of the workflow in PendingCredential and its internal
+Credential-provisioning Outbox item participate in the atomic ownership
+transaction required by Decision 8. A later transition to Ready occurs
+only after an active Credential is confirmed. The application service
+atomically records Ready and enqueues one `PersonRegistered` event with
+`AggregateType = Person` and `AggregateId = PersonId`; no Person Aggregate
+state transition is fabricated. Automated retry and secure manual completion
+race on the same workflow, with exactly one winning transition.
+
+The PersonId on `PersonRegistered` identifies its subject and its
+per-Person registration/profile event stream; it does not make the
+workflow a Person child. In the MVP this ordering contract applies to
+`PersonRegistered` and `PersonUpdated`: each SHALL receive a monotonically
+increasing position for that Person in the transaction that records
+its fact and enqueue. An `AggregateType = Person` envelope alone does
+not opt another event into this stream. In particular, audit-only
+`LoginFailed` and authentication outcomes without a Person state
+transition SHALL NOT contend for this allocator; their audit
+ordering/retention is a separate contract. Delivery SHALL preserve
+this stream position per Person, even across retries. A profile update may precede Ready;
+consumers SHALL NOT assume `PersonRegistered` is the first Person event.
+Neither `OccurredAt` timestamps nor Outbox delivery time establish
+that ordering. No ordering across Person, Organization, and Membership
+streams is implied. §9.1 is proposed pending ADR acceptance and
+runtime verification of the aligned 06_Domain_Events.md and 09_Persistence.md contracts.
 
 ---
 
 # 10. Future Persistence Considerations
 
-Persistence layer design (Repository patterns, storage strategies, consistency mechanisms) will be defined in blueprint document 09_Persistence.md.
+Persistence layer design (Repository patterns, storage strategies,
+consistency mechanisms) is defined in blueprint document
+09_Persistence.md. The proposed registration workflow and event-stream
+ordering are specified there in §§5.1.3 and 6.4.
 
-Each Aggregate Root will have exactly one owning Repository, to be specified in the Persistence blueprint.
+Each Aggregate Root will have exactly one owning Repository, as specified in the Persistence blueprint.
 
 This document establishes Aggregate boundaries; persistence implementation is deferred to the dedicated Persistence document.
 
@@ -229,28 +279,31 @@ boundary evaluation to this document, and this document should not be
 silent about a decision it has been named as the owner of:
 
 - **RefreshToken re-evaluation** (deferred from 09_Persistence.md
-  §7.1): `RefreshToken` is currently classified as internal storage
+  §7): `RefreshToken` is currently classified as internal storage
   detail owned by the Session Aggregate (§5; 01_Domain_Model.md §3).
   If a future capability requires token-family revocation, reuse
   detection, or comparable multi-device security behavior, that
   behavior would introduce independent lifecycle rules and invariants
   not owned by Session — at which point RefreshToken becomes a
   candidate for promotion to a child entity or independent Aggregate,
-  per this document's own pattern (§9) and 09_Persistence.md §7.0's
+  per this document's own pattern (§9) and 09_Persistence.md §7's
   general Promotion Rule. No such behavior exists today, and no
   promotion is proposed by this revision.
 - **Additional Credential Types** (deferred from 09_Persistence.md
-  §4.5, §8.3): the Credential Aggregate (§6, §8) is scoped to exactly
+  §4): the Credential Aggregate (§6, §8) is scoped to exactly
   one Credential Type (Password) in MVP. Should future Credential
   Types (Passkey, WebAuthn, TOTP, Recovery Code, OAuth Identity) be
   introduced, whether each becomes a distinct child entity under a
   broadened Credential Aggregate, a family of sibling Aggregates, or
   something else is a decision for the ADR that introduces the first
-  such type — not decided here. §8's "Version 1.x SHALL support
-  exactly one active Credential per Person" constraint is scoped to
+  such type — not decided here. §8's single-active-Credential constraint is scoped to
   MVP's single-Credential-Type model and would need re-evaluation
   alongside that same future decision.
 
 ---
 
 **END OF DOCUMENT**
+
+## Integrated contract alignment
+
+The proposed persistence and confirmation contracts are now defined in 09 §6 and 07 §3. Their documentation does not establish runtime compliance. All generation gates in 12 remain open. Profile mutation changes DisplayName only; contact mutation requires separate governance.

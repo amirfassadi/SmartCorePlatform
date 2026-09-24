@@ -1,0 +1,1548 @@
+openapi: 3.1.0
+info:
+  title: SmartCore Identity proposed API
+  version: 1.1.0
+  description: DRAFT; ADR-0002 remains Proposed. Not an implemented or approved contract.
+paths:
+  /auth/register:
+    post:
+      operationId: StartRegistration
+      x-business-operation: RegisterPerson
+      summary: StartRegistration
+      security: []
+      responses:
+        '202':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationPending'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRegistration'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema: &id001
+          type: string
+          minLength: 32
+          maxLength: 128
+  /auth/register/verify:
+    post:
+      operationId: VerifyRegistration
+      x-business-operation: RegisterPerson
+      summary: VerifyRegistration
+      security: []
+      responses:
+        '201':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResult'
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResult'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRegistration'
+  /auth/register/resend:
+    post:
+      operationId: ResendVerification
+      x-business-operation: RegisterPerson
+      summary: ResendVerification
+      security: []
+      responses:
+        '202':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendVerification'
+  /auth/register/setup:
+    post:
+      operationId: RequestSetup
+      x-business-operation: RegisterPerson
+      summary: RequestSetup
+      security: []
+      responses:
+        '202':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetupPending'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRegistration'
+  /auth/register/complete:
+    post:
+      operationId: CompleteRegistration
+      x-business-operation: RegisterPerson
+      summary: CompleteRegistration
+      security: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResult'
+        '202':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResult'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteRegistration'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema: *id001
+  /auth/login:
+    post:
+      operationId: AuthenticatePerson
+      x-business-operation: AuthenticatePerson
+      summary: AuthenticatePerson
+      security: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResult'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+  /auth/logout:
+    post:
+      operationId: LogoutSession
+      x-business-operation: LogoutSession
+      summary: LogoutSession
+      security:
+      - bearerAuth: []
+      responses:
+        '204':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Logout'
+  /auth/refresh:
+    post:
+      operationId: RefreshSession
+      x-business-operation: RefreshSession
+      summary: RefreshSession
+      security: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionTokens'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Refresh'
+  /me:
+    get:
+      operationId: GetCurrentPerson
+      x-business-operation: GetCurrentPerson
+      summary: GetCurrentPerson
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+            ETag:
+              schema: &id002
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: UpdatePersonProfile
+      x-business-operation: UpdatePersonProfile
+      summary: UpdatePersonProfile
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+            ETag:
+              schema: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfile'
+      parameters:
+      - name: If-Match
+        in: header
+        required: true
+        schema: *id002
+  /me/password:
+    post:
+      operationId: ChangePassword
+      x-business-operation: ChangePassword
+      summary: ChangePassword
+      security:
+      - bearerAuth: []
+      responses:
+        '204':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+  /organizations:
+    get:
+      operationId: GetOrganizationsForPerson
+      x-business-operation: GetOrganizationsForPerson
+      summary: GetOrganizationsForPerson
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /me/memberships:
+    get:
+      operationId: GetMembershipsForPerson
+      x-business-operation: GetMembershipsForPerson
+      summary: GetMembershipsForPerson
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Membership'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /sessions:
+    get:
+      operationId: GetSessionsForPerson
+      x-business-operation: GetSessionsForPerson
+      summary: GetSessionsForPerson
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Success; see 08_API.md for state and replay semantics.
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SessionSummary'
+        '400':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Applicable failure as defined in 08_API.md §5; no existence
+            detail before proof.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    StartRegistration:
+      type: object
+      properties:
+        email: &id008
+          type: string
+          format: email
+          maxLength: 254
+        mobile: &id009
+          type: string
+          pattern: ^\+[1-9][0-9]{1,14}$
+        password: &id005
+          type: string
+          minLength: 15
+          maxLength: 128
+          writeOnly: true
+        displayName: &id010
+          type: string
+          minLength: 1
+          maxLength: 100
+        bindingSecret: &id003
+          type: string
+          pattern: ^[A-Za-z0-9_-]{43}$
+          writeOnly: true
+          description: Base64url unpadded encoding of 32 random bytes.
+      required:
+      - password
+      - displayName
+      - bindingSecret
+      additionalProperties: false
+      oneOf: &id011
+      - required:
+        - email
+        not:
+          required:
+          - mobile
+      - required:
+        - mobile
+        not:
+          required:
+          - email
+    VerifyRegistration:
+      type: object
+      properties:
+        verificationSessionId: *id001
+        code: &id004
+          type: string
+          pattern: ^[0-9]{6}$
+          writeOnly: true
+        bindingSecret: *id003
+      required:
+      - verificationSessionId
+      - code
+      - bindingSecret
+      additionalProperties: false
+    ResendVerification:
+      type: object
+      properties:
+        verificationSessionId: *id001
+        bindingSecret: *id003
+      required:
+      - verificationSessionId
+      - bindingSecret
+      additionalProperties: false
+    CompleteRegistration:
+      type: object
+      properties:
+        setupChallengeId: *id001
+        code: *id004
+        bindingSecret: *id003
+        newPassword: *id005
+      required:
+      - setupChallengeId
+      - code
+      - bindingSecret
+      - newPassword
+      additionalProperties: false
+    VerificationPending:
+      type: object
+      properties:
+        verificationSessionId: *id001
+        expiresAt: &id006
+          type: string
+          format: date-time
+        status:
+          const: AwaitingVerification
+      required:
+      - verificationSessionId
+      - expiresAt
+      - status
+      additionalProperties: false
+    SetupPending:
+      type: object
+      properties:
+        setupChallengeId: *id001
+        expiresAt: *id006
+        status:
+          const: Accepted
+      required:
+      - setupChallengeId
+      - expiresAt
+      - status
+      additionalProperties: false
+    Accepted:
+      type: object
+      properties:
+        status:
+          const: Accepted
+      required:
+      - status
+      additionalProperties: false
+    RegistrationResult:
+      type: object
+      properties:
+        registrationId: &id007
+          type: string
+          format: uuid
+        status:
+          enum:
+          - PendingCredential
+          - Ready
+        ownershipCommittedAt: *id006
+        readyAt: *id006
+      required:
+      - registrationId
+      - status
+      - ownershipCommittedAt
+      additionalProperties: false
+      allOf:
+      - if:
+          properties:
+            status:
+              const: Ready
+        then:
+          required:
+          - readyAt
+        else:
+          not:
+            required:
+            - readyAt
+    Person:
+      type: object
+      properties:
+        personId: *id007
+        email: *id008
+        mobile: *id009
+        displayName: *id010
+        status:
+          enum:
+          - Active
+          - Suspended
+          - Archived
+        createdAt: *id006
+        updatedAt: *id006
+      required:
+      - personId
+      - displayName
+      - status
+      - createdAt
+      - updatedAt
+      additionalProperties: false
+      oneOf: *id011
+    Organization:
+      type: object
+      properties:
+        organizationId: *id007
+        name: *id002
+        category:
+          const: Personal
+        status:
+          const: Active
+        createdAt: *id006
+      required:
+      - organizationId
+      - name
+      - category
+      - status
+      - createdAt
+      additionalProperties: false
+    Membership:
+      type: object
+      properties:
+        membershipId: *id007
+        personId: *id007
+        organizationId: *id007
+        role:
+          const: Owner
+        status:
+          const: Active
+        createdAt: *id006
+      required:
+      - membershipId
+      - personId
+      - organizationId
+      - role
+      - status
+      - createdAt
+      additionalProperties: false
+    SessionTokens:
+      type: object
+      properties:
+        sessionId: *id007
+        accessToken: *id002
+        refreshToken: *id002
+        expiresAt: *id006
+      required:
+      - sessionId
+      - accessToken
+      - refreshToken
+      - expiresAt
+      additionalProperties: false
+    SessionSummary:
+      type: object
+      properties:
+        sessionId: *id007
+        deviceInfo: *id002
+        ipAddress: *id002
+        expiresAt: *id006
+        status:
+          const: Active
+        createdAt: *id006
+      required:
+      - sessionId
+      - expiresAt
+      - status
+      - createdAt
+      additionalProperties: false
+    Login:
+      type: object
+      properties:
+        email: *id008
+        mobile: *id009
+        password:
+          type: string
+          minLength: 1
+          maxLength: 128
+          writeOnly: true
+        deviceInfo: *id002
+      required:
+      - password
+      additionalProperties: false
+      oneOf: *id011
+    LoginResult:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+        session:
+          $ref: '#/components/schemas/SessionTokens'
+      required:
+      - person
+      - session
+      additionalProperties: false
+    Logout:
+      type: object
+      properties:
+        sessionId: *id007
+      required:
+      - sessionId
+      additionalProperties: false
+    Refresh:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          writeOnly: true
+      required:
+      - refreshToken
+      additionalProperties: false
+    UpdateProfile:
+      type: object
+      properties:
+        displayName: *id010
+      required:
+      - displayName
+      additionalProperties: false
+    ChangePassword:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+          minLength: 1
+          maxLength: 128
+          writeOnly: true
+        newPassword: *id005
+      required:
+      - currentPassword
+      - newPassword
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: *id002
+            message: *id002
+            nextAction:
+              enum:
+              - RequestSetup
+              - SignIn
+          required:
+          - code
+          - message
+          additionalProperties: false
+        traceId: *id002
+      required:
+      - error
+      - traceId
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

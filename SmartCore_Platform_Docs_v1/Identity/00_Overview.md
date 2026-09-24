@@ -1,378 +1,46 @@
 <!--
 Document ID: ID-00
 Title: SmartCore Identity Platform Blueprint - Overview
-Version: 1.1.0
-Status: READY_FOR_GENERATION
-
-Purpose:
-Defines the purpose, scope, boundaries, terminology, dependencies,
-and architectural intent of the SmartCore Identity Capability Platform.
-
-Dependencies:
-019_SmartCore_Identity_and_Session_Continuity_Model
-041_SmartCore_Identity_Model
-057_SmartCore_Tenancy_and_Ownership_Model
-059_SmartCore_Identity_Platform
-064_SmartCore_Blueprint_Standard
-
+Version: 1.2.0
+Status: DRAFT
+Purpose: Define the proposed Identity overview contract.
+Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
-See Section 13 for detailed version history.
+  - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
 -->
 
-# 1. Purpose
+> Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
-The Identity Capability Platform provides the foundational identity,
-authentication, organization ownership, membership participation,
-credential management, and session management services required by
-all SmartCore Capability Platforms.
+# 1. Purpose and boundary
 
-Identity establishes the canonical actor model of SmartCore.
+Identity owns Person identity, Personal Organization ownership, Membership, Credential and Session. Business authorization remains with consuming capabilities. Resources belong to Organizations, not Persons. Membership is the participation path. Authentication and authorization are separate.
 
-Identity is the authoritative source for:
+# 2. Registration
 
-- Person identity
-- Authentication
-- Session continuity
-- Organization ownership
-- Membership participation
-- Credential management
+`RegisterPerson` is one application process with multiple protocol operations:
 
-Identity SHALL be implemented exactly once and reused by all
-Capability Platforms.
+1. Accept exactly one email or mobile, password and DisplayName. Stage protected password material under a verification session; send a purpose-bound code. Neither Person nor ownership exists yet.
+2. After proof, commit Person, Personal Organization and Owner Membership atomically with the workflow, consumed verification mapping, transferred material reference and Outbox work. Return the stable `registrationId` and `PendingCredential`; no authentication tokens.
+3. Provision Credential idempotently. Confirm the committed active Credential, then atomically transition the application workflow to `Ready` and enqueue `PersonRegistered`. The response may already report Ready if this completed. The client signs in through `AuthenticatePerson` afterwards.
 
----
+Ownership failure rolls back the whole ownership transaction. Credential failure retains ownership, blocks login and enters bounded retry/secure completion. An abandoned PendingCredential registration need never produce PersonRegistered. No automatic deletion/compensation is implied.
 
-# 2. Capability Boundary
+# 3. Model and surfaces
 
-The Identity Capability owns:
+Five Aggregates: Person, Organization, Membership, Credential, Session. Verification, registration workflow, Outbox and stream counters are supporting application records, not Aggregates.
 
-- Persons
-- Organizations
-- Memberships
-- Credentials
-- Sessions
+Six business Commands: RegisterPerson, AuthenticatePerson, UpdatePersonProfile, LogoutSession, RefreshSession, ChangePassword.
 
-The Identity Capability SHALL NOT own:
+Five Queries: GetCurrentPerson, GetOrganizationsForPerson, GetMembershipsForPerson, GetSessionsForPerson, GetPersonById.
 
-- Resources
-- Devices
-- Buildings
-- Contracts
-- Financial Accounts
-- Inventory
-- Workflow Definitions
-- Authorization Policies
+Ten public Identity events remain: nine Domain Events and the Security Event LoginFailed. Internal provisioning work and verification operations do not add public events or Commands. Definitions are in [04](04_Commands.md), [05](05_Queries.md), [06](06_Domain_Events.md), [07](07_Contracts.md) and [08](08_API.md).
 
-Authorization evaluation belongs to consuming platforms.
+# 4. Dependencies
 
-Identity only provides identity context and membership information.
+Use Core infrastructure for persistence, delivery, key management and authenticated service transport; no dependency on a business Communication capability is introduced by technical SMS/email delivery. No Shared Kernel or Core dependency may point back to Identity. External consumers resolve minimal Person identity through GetPersonById and must not infer permission to authenticate from ownership events.
 
----
+# 5. Integrated merge and readiness
 
-# 3. Architectural Intent
+This package incorporates the proposals of PRs #1–#4 as a coherent alternative to merging their overlapping branches separately. Review and merge one consistent snapshot; do not cherry-pick readiness headers alone. If the earlier PRs merge first, rebase and reconcile this package before merging. Partial merges do not authorize generation.
 
-Identity establishes the canonical ownership model of SmartCore.
-
-Ownership SHALL follow:
-
-Person
-→ Membership
-→ Organization
-→ Resource
-
-Direct Person → Resource ownership is prohibited.
-
-Identity SHALL remain independent from:
-
-- IoT
-- Finance
-- Manufacturing
-- Resource
-- Reservation
-- Communication
-
-All business capabilities consume Identity.
-
-Identity consumes none of them.
-
----
-
-# 4. Core Concepts
-
-## Person
-
-Represents a human identity capable of interacting with the platform.
-
-A Person is a persistent identity.
-
-A Person is not a Session.
-
----
-
-## Organization
-
-Represents the ownership and tenancy boundary.
-
-Every resource belongs to exactly one Organization.
-
-Every Person belongs to at least one Organization.
-
----
-
-## Membership
-
-Represents participation of a Person inside an Organization.
-
-Membership is the only architectural path connecting a Person to an Organization.
-
----
-
-## Credential
-
-Represents authentication information.
-
-MVP supports Password Credentials only.
-
-Credential is not Identity.
-
-Credential is a mechanism used to authenticate Identity.
-
----
-
-## Session
-
-Represents a temporary authenticated execution context.
-
-Session references Identity.
-
-Session is not Identity.
-
-Identity persists after Session expiration.
-
----
-
-# 5. Ownership Model
-
-Canonical ownership path:
-
-Person
-↓
-Membership
-↓
-Organization
-↓
-Resource
-
-The Identity Platform SHALL enforce the ownership constraints defined by
-the SmartCore Tenancy and Ownership Model.
-
----
-
-# 6. Registration Model
-
-Registration establishes the initial ownership structure of a new
-SmartCore identity.
-
-Registration consists of two phases:
-
-## Core Ownership Transaction
-
-The atomic ownership transaction SHALL include:
-
-1. Create Person
-2. Create Personal Organization
-3. Create Owner Membership
-4. Commit
-
-The ownership transaction SHALL commit only when all ownership
-entities are successfully created.
-
-Partial ownership states are forbidden.
-
-Rollback SHALL occur if any ownership step fails before commit.
-
-## Post-Commit Identity Operations
-
-After successful ownership commit, the Identity Platform MAY perform:
-
-1. Create Credential
-2. Create Initial Session
-3. Publish PersonRegistered Event
-
-These operations occur after ownership consistency has been established.
-
-Failure of any post-commit operation SHALL NOT invalidate:
-
-- Person
-- Organization
-- Membership
-
-Ownership consistency SHALL remain valid after commit.
-
-Recovery, retry, compensation, or operational handling of post-commit
-failures is implementation-specific and outside the scope of this
-Blueprint.
-
----
-
-# 7. Authentication Model
-
-Authentication answers:
-
-Who are you?
-
-Authentication SHALL:
-
-- Validate Credentials
-- Resolve Identity
-- Create Session
-- Issue Tokens
-
-Authentication SHALL NOT evaluate permissions.
-
-Authorization remains separate.
-
----
-
-# 8. Session Model
-
-A Person MAY own multiple Sessions.
-
-Sessions are device independent.
-
-Examples:
-
-- Browser Session
-- Mobile Session
-- Desktop Session
-- API Client Session
-
-Session expiration SHALL NOT invalidate Identity.
-
----
-
-# 9. Dependencies
-
-Identity depends on:
-
-- Shared Kernel
-- Policy Engine (future)
-- Event Engine
-- Messaging Engine
-
-Identity SHALL NOT depend on any Capability Platform.
-
-Dependency direction:
-
-Identity
-↓
-Core Engines
-↓
-Shared Kernel
-
----
-
-# 10. Public Surface
-
-Identity exposes:
-
-Commands
-
-- RegisterPerson
-- AuthenticatePerson
-- LogoutSession
-- RefreshSession
-- ChangePassword
-
-Queries
-
-- GetPersonById
-- GetCurrentPerson
-- GetOrganizationsForPerson
-- GetMembershipsForPerson
-- GetSessionsForPerson
-
-Events
-
-- PersonRegistered
-- PersonUpdated
-- OrganizationCreated
-- MembershipCreated
-- PasswordChanged
-- LoginSucceeded
-- LoginFailed
-- SessionCreated
-- SessionExpired
-- LogoutCompleted
-
----
-
-# 11. MVP Scope
-
-Included:
-
-- Password Authentication
-- Personal Organization Creation
-- Owner Membership
-- Session Management
-- Refresh Tokens
-- Public API Contracts
-- Domain Events
-
-Excluded:
-
-- MFA
-- OAuth
-- Google Login
-- Apple Login
-- Telegram Login
-- Enterprise SSO
-- Delegated Administration
-- Organization Switching
-- Advanced Authorization
-
----
-
-# 12. Success Criteria
-
-Identity MVP is complete when:
-
-✓ Registration succeeds
-
-✓ Login succeeds
-
-✓ Logout succeeds
-
-✓ Refresh succeeds
-
-✓ Organization creation succeeds
-
-✓ Membership creation succeeds
-
-✓ Sessions are managed correctly
-
-✓ Events are published
-
-✓ APIs are operational
-
----
-
-# 13. Change Log
-
-## Version 1.1.0 (2026-07-08)
-
-**Changes Implemented**:
-- Registration Model refactored into Core Ownership Transaction and Post-Commit Identity Operations
-- Explicit separation of ownership consistency from post-commit operations
-- Session creation documented as post-commit operation via AuthenticationDomainService
-
-**Aligned With**:
-- 057_SmartCore_Tenancy_and_Ownership_Model.md (v1.2)
-- 059_SmartCore_Identity_Platform.md (v1.1)
-
-**Authorized By**:
-- ADR-0002_Identity_Foundation_Clarifications.md
-
----
-
-**END OF DOCUMENT**
+All 00–16 documents remain DRAFT. Acceptance requires ADR governance, consumer compatibility review, full 065 validation and the runtime/security tests in [13](13_Testing.md). Existing implementation or deployed consumer compatibility is not asserted.

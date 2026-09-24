@@ -1,0 +1,378 @@
+metadata:
+  name: Identity
+  version: 1.0.0
+  status: DRAFT
+  date: '2026-09-24'
+  standard: 064 v1.1.4
+  narrativeAuthority: true
+governance:
+  adr0002: Proposed
+  adr0003: Proposed
+  generationAllowed: false
+  acceptanceGates: 12_Validation.md
+documents:
+- path: 00_Overview.md
+  version: 1.2.0
+  status: DRAFT
+- path: 01_Domain_Model.md
+  version: 1.3.0
+  status: DRAFT
+- path: 02_Use_Cases.md
+  version: 1.3.0
+  status: DRAFT
+- path: 03_Aggregates.md
+  version: 1.3.0
+  status: DRAFT
+- path: 04_Commands.md
+  version: 1.2.0
+  status: DRAFT
+- path: 05_Queries.md
+  version: 1.1.0
+  status: DRAFT
+- path: 06_Domain_Events.md
+  version: 1.2.0
+  status: DRAFT
+- path: 07_Contracts.md
+  version: 1.1.0
+  status: DRAFT
+- path: 08_API.md
+  version: 1.1.0
+  status: DRAFT
+- path: 09_Persistence.md
+  version: 1.2.0
+  status: DRAFT
+- path: 10_Configuration.md
+  version: 1.0.0
+  status: DRAFT
+- path: 11_Security.md
+  version: 1.0.0
+  status: DRAFT
+- path: 12_Validation.md
+  version: 1.0.0
+  status: DRAFT
+- path: 13_Testing.md
+  version: 1.0.0
+  status: DRAFT
+- path: 14_MVP.md
+  version: 1.3.0
+  status: DRAFT
+- path: 15_Extensibility.md
+  version: 1.0.0
+  status: DRAFT
+- path: 16_Examples.md
+  version: 1.0.0
+  status: DRAFT
+aggregates:
+- name: Person
+  repository: PersonRepository
+  narrative: 01_Domain_Model.md
+  requiredAttributes:
+  - PersonId
+  - DisplayName
+  - Status
+  - CreatedAt
+  - UpdatedAt
+  optionalAttributes:
+  - Email
+  - Mobile
+  contactInvariant: exactly one verified Email or Mobile; contact mutation outside
+    MVP
+- name: Organization
+  repository: OrganizationRepository
+  narrative: 01_Domain_Model.md
+  requiredAttributes:
+  - OrganizationId
+  - Name
+  - Category
+  - Status
+  - CreatedAt
+  optionalAttributes: []
+- name: Membership
+  repository: MembershipRepository
+  narrative: 01_Domain_Model.md
+  requiredAttributes:
+  - MembershipId
+  - PersonId
+  - OrganizationId
+  - Role
+  - Status
+  - CreatedAt
+  optionalAttributes: []
+- name: Credential
+  repository: CredentialRepository
+  narrative: 01_Domain_Model.md
+  requiredAttributes:
+  - CredentialId
+  - PersonId
+  - PasswordHash
+  - PasswordVersion
+  - Status
+  - CreatedAt
+  optionalAttributes: []
+  invariant: at most one active per Person; zero permitted before Ready
+- name: Session
+  repository: SessionRepository
+  narrative: 01_Domain_Model.md
+  requiredAttributes:
+  - SessionId
+  - PersonId
+  - AccessTokenId
+  - RefreshTokenId
+  - ExpiresAt
+  - Status
+  - CreatedAt
+  optionalAttributes:
+  - DeviceInfo
+  - IpAddress
+commands:
+- name: RegisterPerson
+  service: RegistrationApplicationService
+  operations:
+  - StartRegistration
+  - VerifyRegistration
+  - ResendVerification
+  - RequestSetup
+  - CompleteRegistration
+  narrative: 04_Commands.md
+- name: AuthenticatePerson
+  service: AuthenticationDomainService
+  operations:
+  - AuthenticatePerson
+  narrative: 04_Commands.md
+- name: UpdatePersonProfile
+  service: PersonManagementDomainService
+  operations:
+  - UpdatePersonProfile
+  narrative: 04_Commands.md
+- name: LogoutSession
+  service: SessionManagementDomainService
+  operations:
+  - LogoutSession
+  narrative: 04_Commands.md
+- name: RefreshSession
+  service: SessionManagementDomainService
+  operations:
+  - RefreshSession
+  narrative: 04_Commands.md
+- name: ChangePassword
+  service: CredentialManagementDomainService
+  operations:
+  - ChangePassword
+  narrative: 04_Commands.md
+queries:
+- name: GetCurrentPerson
+  publicRest: true
+  narrative: 05_Queries.md
+- name: GetOrganizationsForPerson
+  publicRest: true
+  narrative: 05_Queries.md
+- name: GetMembershipsForPerson
+  publicRest: true
+  narrative: 05_Queries.md
+- name: GetSessionsForPerson
+  publicRest: true
+  narrative: 05_Queries.md
+- name: GetPersonById
+  publicRest: false
+  narrative: 05_Queries.md
+events:
+- name: PersonRegistered
+  classification: DomainEvent
+  producer: RegistrationApplicationService
+  schema: events.schema.json#/$defs/PersonRegistered
+  occurredAt: Ready
+  stream: PersonRegistrationProfile
+- name: OrganizationCreated
+  classification: DomainEvent
+  producer: RegistrationApplicationService
+  schema: events.schema.json#/$defs/OrganizationCreated
+  occurredAt: OwnershipCommit
+  stream: OwnLifecycleOrAudit
+- name: MembershipCreated
+  classification: DomainEvent
+  producer: RegistrationApplicationService
+  schema: events.schema.json#/$defs/MembershipCreated
+  occurredAt: OwnershipCommit
+  stream: OwnLifecycleOrAudit
+- name: LoginSucceeded
+  classification: DomainEvent
+  producer: AuthenticationDomainService
+  schema: events.schema.json#/$defs/LoginSucceeded
+  occurredAt: CommittedFact
+  stream: OwnLifecycleOrAudit
+- name: LoginFailed
+  classification: SecurityEvent
+  producer: AuthenticationDomainService
+  schema: events.schema.json#/$defs/LoginFailed
+  occurredAt: CommittedFact
+  stream: OwnLifecycleOrAudit
+- name: SessionCreated
+  classification: DomainEvent
+  producer: AuthenticationDomainService
+  schema: events.schema.json#/$defs/SessionCreated
+  occurredAt: CommittedFact
+  stream: OwnLifecycleOrAudit
+- name: SessionExpired
+  classification: DomainEvent
+  producer: SessionManagementDomainService
+  schema: events.schema.json#/$defs/SessionExpired
+  occurredAt: CommittedFact
+  stream: OwnLifecycleOrAudit
+- name: LogoutCompleted
+  classification: DomainEvent
+  producer: SessionManagementDomainService
+  schema: events.schema.json#/$defs/LogoutCompleted
+  occurredAt: CommittedFact
+  stream: OwnLifecycleOrAudit
+- name: PersonUpdated
+  classification: DomainEvent
+  producer: PersonManagementDomainService
+  schema: events.schema.json#/$defs/PersonUpdated
+  occurredAt: CommittedFact
+  stream: PersonRegistrationProfile
+- name: PasswordChanged
+  classification: DomainEvent
+  producer: CredentialManagementDomainService
+  schema: events.schema.json#/$defs/PasswordChanged
+  occurredAt: CommittedFact
+  stream: OwnLifecycleOrAudit
+contracts:
+  rest:
+    version: 1.1.0
+    schema: openapi.yaml
+    narrative: 08_API.md
+  events:
+    version: 1.2.0
+    schema: events.schema.json
+    narrative: 06_Domain_Events.md
+  services:
+  - name: IdentityLookup
+    version: '1'
+    operations:
+    - GetPersonById
+    narrative: 07_Contracts.md
+    schemas:
+    - services.schema.json#/$defs/GetPersonByIdRequest
+    - services.schema.json#/$defs/GetPersonByIdResult
+  - name: CredentialProvisioning
+    version: '1'
+    operations:
+    - EnsureInitialCredential
+    - GetInitialCredentialResult
+    narrative: 07_Contracts.md
+    schemas:
+    - services.schema.json#/$defs/EnsureInitialCredentialRequest
+    - services.schema.json#/$defs/GetInitialCredentialResultRequest
+    - services.schema.json#/$defs/EnsureInitialCredentialResult
+    - services.schema.json#/$defs/GetInitialCredentialResultResponse
+workflow:
+  owner: RegistrationApplicationService
+  aggregate: false
+  key: registrationId
+  states:
+  - PendingCredential
+  - Ready
+  initialTransaction:
+  - Person
+  - Organization
+  - Membership
+  - RegistrationWorkflow
+  - VerificationConsumption
+  - MaterialOwnerBinding
+  - ProvisioningOutbox
+  - OwnershipEventOutbox
+  readyTransaction:
+  - WorkflowCAS
+  - PersonStreamPosition
+  - PersonRegisteredOutbox
+  credentialConfirmation: AuthenticatedPolling
+  authenticationRequires:
+  - PersonActive
+  - RegistrationReady
+  - CurrentActiveCredential
+configuration:
+  verificationLifetimeSeconds:
+    default: 600
+    rule: Absolute from creation; no resend/read extension
+  verificationMaxAttempts:
+    default: 5
+    rule: Cumulative per session, including replay; atomic across workers
+  verificationMaxResends:
+    default: 3
+    rule: Rotate code without resetting expiry/attempt count
+  resendMinIntervalSeconds:
+    default: 60
+    rule: Applies independently of account existence
+  setupLifetimeSeconds:
+    default: 600
+    rule: Absolute; separate purpose/proof from registration
+  setupMaxAttempts:
+    default: 5
+    rule: Includes authorized replay attempts
+  secretDeletionDeadlineSeconds:
+    default: 300
+    rule: Physical/cryptographic disposal after invalidation
+  provisioningMaterialLifetimeSeconds:
+    default: 3600
+    rule: Absolute from ownership commit; never renewed by retries
+  provisioningMaxAttempts:
+    default: 8
+    rule: Includes initial attempt; reconcile uncertain result before retry
+  provisioningInitialBackoffSeconds:
+    default: 2
+    rule: Exponential with jitter
+  provisioningMaxBackoffSeconds:
+    default: 300
+    rule: Cap; no infinite retry loop
+  dependencyTimeoutSeconds:
+    default: 5
+    rule: Fail closed; classify uncertain writes and reconcile
+  reconciliationIntervalSeconds:
+    default: 30
+    rule: Poll pending uncertain outcomes within bounded automated policy
+  maxActiveSessionsPerPerson:
+    default: 20
+    rule: New login at cap fails with capacity error; no unbounded session query
+  sessionLifetimeSeconds:
+    default: 86400
+    rule: Absolute; refresh does not extend
+  accessTokenLifetimeSeconds:
+    default: 900
+    rule: Never beyond Session expiry
+  minPasswordLength:
+    default: 15
+    rule: No silent truncation; allow spaces/Unicode
+  maxPasswordLength:
+    default: 128
+    rule: Bound KDF abuse; explicit validation before staging
+  maxDisplayNameLength:
+    default: 100
+    rule: Nonblank normalized text; output escaping remains mandatory
+  maxInitiationsPerContactPerHour:
+    default: 5
+    rule: Applied to all canonical contacts, existing or not
+  maxInitiationsPerIpPerHour:
+    default: 30
+    rule: Trusted ingress IP; combine with contact/device/global budgets
+  maxSetupDeliveriesPerContactPerHour:
+    default: 3
+    rule: Distinct setup deliveries share a contact budget across fresh verification
+      attempts
+  maxLoginAttemptsPerContactPer15Minutes:
+    default: 10
+    rule: All existence states; shared distributed counter
+security:
+  narrative: 11_Security.md
+  otpVerifier: 'HMAC: purpose/session bound'
+  proofLengthDigits: 6
+  replayAuthorization:
+  - sameSuccessfulCode
+  - sameBindingSecret
+  replayExpiry: originalVerificationExpiry
+  optionalJson: omit-not-null
+  passwordMaterialInEvents: false
+dependencies:
+- layer: Core
+  purpose: persistence, messaging, service authentication, delivery, KMS
+- layer: SharedKernel
+  purpose: identifiers and execution context
