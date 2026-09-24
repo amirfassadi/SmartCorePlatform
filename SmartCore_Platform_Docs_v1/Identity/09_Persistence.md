@@ -1,8 +1,8 @@
 <!--
 Document ID: ID-09
 Title: SmartCore Identity Platform Blueprint - Persistence (Repository & Storage Model)
-Version: 1.0.9
-Status: READY_FOR_GENERATION
+Version: 1.1.0
+Status: DRAFT
 
 Purpose:
 Define the Repository pattern, logical persistent entity schema, and
@@ -35,6 +35,11 @@ Persistence is independent of REST Transport and Wire Contract
 concerns, the same way 06_Domain_Events.md is independent of them.
 
 Change Log:
+  - Version 1.1.0 (2026-09-24): Proposed durable
+    PendingCredential/Ready workflow, atomic provisioning and event
+    Outbox writes, and per-Person event-stream ordering under
+    ADR-0002 Decisions 8–9. Dependent contracts and validation remain
+    pending; no sixth Aggregate is introduced.
   - Version 1.0.9 (2026-07-15): Ninth pass — first cross-check against
     the actual content of 02_Use_Cases.md, 04_Commands.md, and
     05_Queries.md, all previously Required/Referenced Dependencies of
@@ -286,6 +291,8 @@ This document answers:
   (§7)
 - Consistency, concurrency, and uniqueness constraints required by
   Domain Rules and Command Invariants already declared elsewhere (§8)
+- The supporting RegistrationWorkflow, atomic Outbox entries, and
+  per-Person event position required by proposed ADR-0002 Decisions 8–9
 
 ## 1.2 What This Document Does NOT Define
 
@@ -300,9 +307,10 @@ This document answers:
   guarantee is required, not *how* it is implemented
 - Connection pooling, replication, backup/restore, or disaster
   recovery
-- Event Store, Outbox pattern, or any Domain Event delivery mechanism
-  — that boundary is set by 06_Domain_Events.md §1.2 and is not
-  reopened here
+- Event Bus, transport, delivery retry policy, or Event Sourcing.
+  This document DOES specify atomic Outbox persistence, deduplication,
+  and per-Person event position where Decisions 8–9 require them;
+  transport behavior remains outside its scope
 - ORM or data-mapping framework choice
 
 This document introduces no new:
@@ -635,19 +643,28 @@ within a single atomic transaction.
 
 Concretely: `RegistrationApplicationService` (01_Domain_Model §8)
 SHALL execute the Core Ownership Transaction as one Unit of Work
-comprising exactly three Repository writes:
+comprising exactly three Aggregate Repository writes, together with
+the supporting workflow and internal Outbox writes required by
+ADR-0002 Decision 8 (§5.1.3):
 
 ```text
 BEGIN Unit of Work
   PersonRepository.Create(Person)
   OrganizationRepository.Create(Organization)
   MembershipRepository.Create(Membership)
+  Insert RegistrationWorkflow(PendingCredential, registrationId, PersonId)
+  Insert CredentialProvisioningOutbox(registrationId, protectedReference)
 COMMIT Unit of Work
 ```
 
-If any of the three writes fails, the entire Unit of Work SHALL roll
+If any required write fails, the entire Unit of Work SHALL roll
 back — no partial ownership state may persist (ADR-0002 Decision 1;
 057 §8: "Partial ownership registration states are prohibited").
+The workflow and Outbox are supporting application records, not
+additional Aggregate Repositories or permission for other Aggregate
+types to join this transaction. A protected material reference SHALL
+be durably bound to registrationId before the Outbox is visible; a
+rollback SHALL leave no registration-owned reference or work item.
 
 ### 5.1.1 Transaction Ownership: the Unit of Work Owns the Transaction, Repositories Do Not
 
@@ -655,10 +672,12 @@ The atomicity guaranteed above holds only if a single physical
 transaction is shared by all three Repository writes. This document
 therefore states, as a normative constraint on any implementation:
 
-- The **Unit of Work** (not any individual Repository) owns the
+- The **Unit of Work** (not any individual Repository or supporting
+  workflow/Outbox writer) owns the
   transaction boundary — it opens the transaction, passes/shares it
   with `PersonRepository`, `OrganizationRepository`, and
-  `MembershipRepository` for the duration of the three writes, and
+  `MembershipRepository` and the supporting workflow/Outbox writers
+  for the duration of the required writes, and
   alone commits or rolls it back.
 - Individual Repositories SHALL NOT open or commit their own
   transaction (e.g. an independent `SaveChanges()`/commit call per
@@ -669,10 +688,10 @@ therefore states, as a normative constraint on any implementation:
   risk (a Person committed with no Organization, for example) that
   ADR-0002 Decision 1 and 057 §8 prohibit, because a failure on the
   second or third write can no longer roll back the first.
-- Outside this Unit of Work (i.e. every other Command in §5.2, and the
-  Post-Commit writes in §6), each Repository's `Create`/`Update` call
-  legitimately owns its own transaction, since those operate on
-  exactly one Aggregate.
+- Outside this Unit of Work, single-Aggregate operations use their
+  own transaction. The Ready transition (§6.4) updates supporting
+  workflow, Person stream-position, and event Outbox records in one
+  Identity transaction; it does not write a second Aggregate type.
 
 This is a persistence-layer constraint, not an infrastructure/ORM
 choice: *how* a shared transaction is technically propagated across
@@ -710,6 +729,21 @@ revision to 03_Aggregates.md and this document, following the same
 justification standard ADR-0002 Decision 7 already set. §5.3's Scope
 Limitation governs both cases identically: no exception, present or
 future, is self-authorizing.
+
+### 5.1.3 Supporting Registration Records (Proposed)
+
+Identity SHALL durably store one RegistrationWorkflow per registrationId,
+with a unique PersonId association, status PendingCredential or Ready,
+OwnershipCommittedAt, a concurrency marker, and the verified contact
+reference needed for controlled recovery. The workflow and
+CredentialProvisioningOutbox are owned by the RegistrationApplicationService
+through its Unit of Work; neither has a public Aggregate Repository.
+The Outbox item is keyed by registrationId for idempotent delivery and
+contains only a protected material reference, not plaintext password.
+The same transaction records the ownership triple, workflow, Outbox,
+and ownership commit timestamp. Physical tables and locking syntax are
+implementation details. Recovery-needed conditions and bounded retry
+metadata SHALL survive process restart without changing ownership.
 
 ## 5.2 No Other Command Requires This
 
@@ -812,23 +846,41 @@ BEGIN separate transaction
 COMMIT (or fail independently)
         ↓
 BEGIN separate transaction
+  Confirm active Credential
+  Compare-and-set RegistrationWorkflow PendingCredential -> Ready
+  Reserve next per-Person event position
+  Insert PersonRegisteredEventOutbox (unique registrationId/EventType)
+COMMIT (or retry/reconcile)
+        ↓
+BEGIN separate transaction (optional)
   SessionRepository.Create(Session)
 COMMIT (or fail independently)
 ```
 
-Each Post-Commit write is its own transaction, opened only after §5.1's
-Unit of Work has already committed. A failure in either SHALL NOT roll
-back, retry-into, or otherwise reopen the §5.1 Unit of Work — the
+Each Post-Commit transaction starts only after §5.1's Unit of Work
+has committed. A failure in Credential creation, Ready transition,
+or optional Session creation SHALL NOT roll back, retry into, or
+otherwise reopen the §5.1 Unit of Work — the
 ownership Aggregates (Person, Organization, Membership) are already
 durably committed and remain valid regardless of what happens next
 (059 §6 Non-Invalidating Policy).
 
-## 6.2 Recovery Is Implementation-Specific
+The diagram represents the successful path. Automated provisioning and
+manual completion may race; §6.4 governs their common Ready transition.
+The Credential may be stored by a separate service: its active-state
+confirmation is reconciled before the Identity Ready transaction, not
+assumed to be an atomic cross-service Credential write. Authentication
+continues to verify both workflow readiness and an active Credential.
 
-Per 04_Commands §9.3 and 059 §6: how a failed Post-Commit write is
-retried, compensated, or surfaced to an operator is implementation-
-specific and out of scope for this document, consistent with every
-other Blueprint document's treatment of this same topic.
+## 6.2 Durable Recovery Boundary
+
+Per ADR-0002 Decision 8, failed Credential provisioning is retried
+with bounded backoff and operational visibility. Exhausting retries
+leaves PendingCredential plus a durable recovery-needed condition;
+secure user completion and reconciliation may subsequently reach Ready.
+Retry intervals, secret lifetime, and challenge delivery belong to
+the security/API specifications, while the durable state and atomic
+Ready/event boundary are fixed by this document.
 
 ## 6.3 Effect on the Query Layer
 
@@ -845,6 +897,50 @@ return empty results for that Person during this same interval (per
 §3.1.1). No Query in this Blueprint set SHALL treat a temporarily
 absent Credential or Session as a fault when resolving an otherwise
 valid Person.
+
+The workflow query SHALL expose PendingCredential or Ready to
+authorized callers; authentication SHALL require Ready and an active
+Credential. Complete ownership data alone does not imply a usable
+login. An indefinitely pending registration remains visible for
+recovery without creating a second Person.
+
+---
+
+## 6.4 Ready Transition and Person Event Position (Proposed)
+
+Identity SHALL serialize all Person-addressed event enqueue operations
+for a PersonId through one durable, monotonically increasing stream
+position. Every event whose envelope has `AggregateType = Person` and
+`AggregateId = PersonId` obtains its position within the transaction
+that commits the fact and its Outbox entry. In particular, a
+PersonUpdated transaction and the registration Ready transaction use
+the same allocator; an event cannot be published ahead of a lower
+position for that Person. This is a logical ordering contract, not a
+choice of database sequence, Person row mutation, broker, or physical
+event-store layout. Existing events and handlers need alignment before
+this guarantee can be marked implemented.
+
+After reconciling evidence of an active Credential, Identity SHALL in
+one local transaction compare-and-set the workflow from
+PendingCredential to Ready, record Ready's `OccurredAt`, allocate the
+next Person stream position, and insert exactly one
+PersonRegistered Outbox entry containing the original
+`OwnershipCommittedAt`. Uniqueness on (registrationId, EventType)
+and conditional update of the workflow prevent a second event if
+automated and manual completion race. A loser returns the committed
+result and reconciles any already-created Credential attempt under the
+one-active-Credential rule; it creates no additional Ready event. If the transaction
+rolls back, it leaves PendingCredential and no new event or position;
+after a crash, reconciliation verifies the active Credential and
+retries safely. Outbox delivery may happen later but SHALL preserve
+per-Person position and event identity on retries. No cross-stream
+ordering between Person, Organization, and Membership is promised.
+
+Workflow storage, position allocator, and both Outboxes are supporting
+Identity structures, not a sixth Aggregate or additional public Domain
+Events. The Ready transaction does not change Person lifecycle status.
+Credential creation remains separately committed as in §6.1; this
+contract does not introduce distributed two-phase commit.
 
 ---
 
@@ -926,12 +1022,12 @@ boundary — its failure SHALL NOT affect `AuthenticatePerson`'s outcome.
 
 ## 7.3 IdentityEvents — Explicitly Deferred
 
-An `IdentityEvents` table would be an Event Store. Per
-06_Domain_Events.md §1.2, Event Bus/Outbox/store mechanics are
-explicitly out of scope for that document, and this document does not
-reopen that boundary. Whether Domain Events are persisted at all
-(and if so, how) is deferred to a future Messaging/Integration
-document.
+An `IdentityEvents` table would be an Event Store; Event Sourcing and
+an independently queryable historical Event Store remain deferred.
+This does not exclude the required, durable Outbox entries in §5.1.3
+and §6.4. Those entries retain event identity until reliable delivery
+and are not a general Event Store. Transport and long-term event
+retention belong to the future Messaging/Integration contract.
 
 ## 7.4 AuditLogs — Explicitly Deferred
 
@@ -1126,6 +1222,13 @@ Scope Limitation explicitly carried through in §5.3.
 
 # 10. MVP Readiness Checklist
 
+Version 1.1 remains Draft until the proposed registration workflow,
+atomic Outbox, per-Person event ordering, and authentication gate are
+propagated to 01_Domain_Model, 04_Commands, 06_Domain_Events,
+07_Contracts, machine specifications, and tests. ADR-0002 must be
+accepted and structural validation rerun. The historical v1.0
+checklist below does not grant generation readiness for v1.1.
+
 Persistence Blueprint Version 1.0 is complete when:
 
 ✓ Every Aggregate Root has exactly one owning Repository, with no
@@ -1186,6 +1289,17 @@ v1.0.9.
 ---
 
 # 11. Change Log
+
+## Version 1.1.0 (2026-09-24)
+
+Proposed storage and transaction contract for ADR-0002 Decisions
+8–9: RegistrationWorkflow and provisioning Outbox join the three
+Aggregate Repository writes in the ownership Unit of Work. A
+post-commit local transaction moves the workflow to Ready and
+atomically enqueues one PersonRegistered event with a per-Person
+stream position. Automated/manual races and crash reconciliation
+converge on one result. Event transport remains out of scope. Status
+is Draft pending dependent Blueprint and validator review.
 
 ## Version 1.0.9 (2026-07-15)
 
