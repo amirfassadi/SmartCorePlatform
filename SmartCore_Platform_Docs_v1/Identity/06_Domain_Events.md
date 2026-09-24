@@ -664,32 +664,33 @@ document (§1.2).
 
 ## 6.1 Per-Aggregate Ordering
 
-Events sharing the same `AggregateId` (envelope, §4.1) SHALL be
-observable by a consumer in the actual order those state transitions
-occurred on that Aggregate instance — e.g. for a single Session:
+Events describing committed state transitions on the same Aggregate
+instance SHALL be observable in the order those transitions occurred
+— e.g. for a single Session:
 `SessionCreated` always precedes that same Session's eventual
 `SessionExpired` or `LogoutCompleted` (never the reverse).
 
 `PersonRegistered` retains `AggregateType = Person` and
 `AggregateId = PersonId` for identity and correlation, although Ready
-is a registration-workflow transition. The persistence and ordering
-contract for this workflow-derived Person event must be defined in
-03_Aggregates.md and 09_Persistence.md before the general guarantee
-above is claimed for it; those contracts are not silently established
-by the PersonId reference alone.
+is a registration-workflow transition. The proposed shared per-Person
+registration/profile stream includes `PersonRegistered` and
+`PersonUpdated` only (03_Aggregates.md §9.1 and 09_Persistence.md §6.4,
+both Draft). This ordering guarantee depends on their durable stream
+position and producer/delivery alignment. `AggregateType = Person`
+or the presence of a resolved PersonId alone does not opt an event in:
+audit-only `LoginFailed` and other authentication outcomes without a
+Person state transition SHALL NOT acquire this stream position. Their
+audit ordering is governed separately; no publish-order guarantee
+relative to these registration/profile events is claimed here.
 
-`OccurredAt` (§4.1) is expected to be consistent with this order, but
-is **not itself the ordering mechanism**: two events on the same
+`OccurredAt` (§4.1) is expected to be consistent with an applicable
+stream's order, but is **not itself the ordering mechanism**: two events on the same
 Aggregate committed within the same transaction, or at timestamp
 resolutions too coarse to distinguish, could carry equal or
-non-monotonic `OccurredAt` values. The actual ordering guarantee is
-provided by whatever mechanism assigns a strict per-Aggregate sequence
-(e.g. an Aggregate version/sequence number, or event-store stream
-position) — that mechanism is an Event Bus/store implementation
-concern, out of scope per §1.2. This section states only the guarantee
-a consumer MAY rely on (state transitions are observable in true
-occurrence order); it does not claim `OccurredAt` is the field that
-enforces it.
+non-monotonic `OccurredAt` values. The ordering guarantee comes from
+a strict position in the applicable Aggregate or registration/profile
+stream. The physical sequencer and delivery mechanism remain
+implementation concerns (§1.2); `OccurredAt` does not enforce order.
 
 ## 6.2 Cross-Event Ordering Is Not Guaranteed Except Where Stated
 
@@ -840,7 +841,9 @@ optional for mobile-only registration and SessionReference is absent;
 publishing and ordering rules reflect delayed Credential readiness.
 ActorIdentity and ExecutionContext now identify the Ready actor and
 request; ownership events retain ownership-commit timestamps. The
-workflow-derived ordering guarantee remains pending persistence design.
+workflow-derived ordering guarantee is scoped to the proposed
+PersonRegistered/PersonUpdated stream, excluding audit-only LoginFailed;
+it remains pending persistence and producer/delivery alignment.
 Status is Draft until dependent Identity documents, contracts, consumers,
 and structural validation are reconciled. No new event type is added.
 
