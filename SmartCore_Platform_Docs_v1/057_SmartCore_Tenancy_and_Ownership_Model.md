@@ -1,8 +1,14 @@
 # 057_SmartCore_Tenancy_and_Ownership_Model.md
 
-Version: 1.3
+Version: 1.3.1
 
 Status: **Normative**
+
+**Governance qualification**: Registration clarifications and the coordination
+exception in §8 reflect ADR-0002 v1.2.1 (Proposed); Organization/Membership
+lifecycle clarifications in §9 reflect ADR-0003 v1.2.1 (Proposed). These
+synchronized descriptions do not approve either ADR or clear implementation.
+The ADR acceptance criteria and 051/065 governance checks still apply.
 
 ------------------------------------------------------------------------
 
@@ -183,7 +189,7 @@ Ownership SHALL remain independent from implementation technology.
 Membership is the canonical mechanism that grants participation within
 an Organization.
 
-A Membership may later include:
+Membership attributes may include:
 
 -   Role
 -   Responsibility
@@ -191,7 +197,11 @@ A Membership may later include:
 -   Effective period
 -   Status
 
-Version 1.0 requires only the existence of Membership.
+This platform-level participation relationship is realized by Membership.
+For the Identity MVP described in ADR-0002 Decision 3 and ADR-0003 §2
+(both Proposed), the initial Membership also has Role = Owner and
+Status = Active. Role is a Membership attribute; this clarification does not
+introduce a Role Aggregate or capability-specific permission rules.
 
 The interpretation of roles and permissions is defined by higher
 platform layers.
@@ -263,12 +273,12 @@ These operations SHALL NOT invalidate ownership consistency.
 
 The Registration Core Transaction coordinates creation of three distinct Aggregates (Person, Organization, Membership) within a single atomic consistency boundary.
 
-This is a deliberate, narrowly-scoped exception to the default cross-Aggregate coordination rule defined in 027_SmartCore_Command_Model.md, under which a Command SHALL target exactly one Aggregate and cross-Aggregate work SHALL be coordinated through Events.
+This is a proposed, narrowly-scoped exception to the default cross-Aggregate coordination rule defined in 027_SmartCore_Command_Model.md, under which a Command SHALL target exactly one Aggregate and cross-Aggregate work SHALL be coordinated through Events.
 
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is authorized by ADR-0002_Identity_Foundation_Clarifications.md, Decision 7 (Command Model Coordination Exception for Identity Registration).
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.2.1, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   SHALL NOT be interpreted as a general precedent for multi-Aggregate transactional Commands elsewhere in the platform.
 -   Does NOT redefine or supersede 027_SmartCore_Command_Model.md, which SHALL continue to govern all other Commands.
 
@@ -299,17 +309,35 @@ architecture.
 
 ## Organization Lifecycle
 
-Organizations SHALL follow this lifecycle unless superseded by a future
-ADR:
+The full lifecycle described by ADR-0003 v1.2.1 §1 (Proposed) has
+Created, Active, Suspended, and Archived states. Its complete transition set is:
 
-    Created → Active → Suspended → Archived
+| From | To |
+| --- | --- |
+| Created | Active |
+| Active | Suspended |
+| Suspended | Active |
+| Suspended | Archived |
+
+No transition returns to Created. Archived is terminal. Active and Suspended
+form a reversible pair. These rules describe the proposed full lifecycle,
+including future operations; they do not make transition commands part of MVP.
+
+In the Identity MVP, Organizations are created directly in Active state.
+Organization suspension, resumption, and archival commands remain future scope.
+A suspended Organization retains its resources; its Memberships remain active
+but non-functional, as described by ADR-0003 §1.
 
 ## Membership Lifecycle
 
-Memberships SHALL follow this lifecycle unless superseded by a future
-ADR:
+The full lifecycle described by ADR-0003 v1.2.1 §2 (Proposed) is:
 
     Created → Active → Revoked
+
+Revoked is terminal. In the Identity MVP, initial Owner Memberships are
+created directly in Active state. Created is reserved for future invitation
+workflows; invitation and revocation operations remain future scope. No
+Organization or Membership lifecycle transition command is introduced in MVP.
 
 ------------------------------------------------------------------------
 
@@ -379,6 +407,14 @@ this document.
 ------------------------------------------------------------------------
 
 # Change Log
+
+## Version 1.3.1 (2026-09-24)
+
+- Qualified registration/lifecycle references as pending ADR acceptance.
+- Synchronized the already-proposed Owner/Active defaults and full lifecycle transition rules with ADR-0002/0003 v1.2.1.
+- Distinguished future lifecycle transitions from direct Active initialization in MVP.
+- Preserved ownership invariants, the registration transaction boundary, and future-scope operations.
+- Historical authorization wording below records earlier documentation revisions and does not establish approval of the Proposed ADRs.
 
 ## Version 1.3 (2026-07-12)
 

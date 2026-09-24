@@ -1,8 +1,18 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.1
+Version: 1.1.1
 
 Status: **Normative**
+
+Related Decision Records:
+
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.2.1, Proposed)
+- ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md (v1.2.1, Proposed)
+
+**Governance qualification**: The related registration, role, authorization,
+event-ownership, and lifecycle descriptions reflect these pending proposals.
+Synchronizing this document does not accept either ADR or clear code generation.
+Acceptance remains subject to the ADR criteria and Documents 051/065.
 
 ---
 
@@ -157,6 +167,13 @@ Ownership always flows through Organizations.
 
 Registration SHALL be executed through coordinated transaction phases.
 
+Under the proposal in ADR-0002 Decisions 1, 7, and 7.1,
+RegistrationApplicationService coordinates the Person, Personal Organization,
+and Owner Membership creation within the core ownership transaction. It is an
+Application Service. The proposed exception applies only to RegisterPerson;
+027 §17 continues to define the general Command rule. Credential and Session
+creation remain post-commit operations as described below.
+
 ## Core Ownership Transaction
 
 The atomic ownership transaction SHALL be committed before post-commit operations:
@@ -216,6 +233,27 @@ Return Authentication Result
 **Example**: If Session creation fails, the Person, Organization, and Membership are still valid for future login attempts.
 
 **Consistency Guarantee**: Ownership is fully established after core transaction commit and survives independent of credential or session state.
+
+---
+
+## Organization and Membership Lifecycle Scope
+
+This subsection synchronizes ADR-0003 v1.2.1 §§1–2 (Proposed) with registration.
+
+| Aggregate | Initial state in Identity MVP | Future operations excluded from MVP |
+| --- | --- | --- |
+| Organization | Active | Staged initialization, suspend, resume, archive |
+| Membership | Active, with Role = Owner | Invitation, activation from Created, revocation |
+
+The full Organization transition set is Created → Active, Active → Suspended,
+Suspended → Active, and Suspended → Archived. Archived is terminal; no
+transition returns to Created. Organization suspension retains ownership;
+Memberships remain active but non-functional while the Organization is suspended.
+
+The full Membership transition set is Created → Active and Active → Revoked;
+Revoked is terminal. These full lifecycles describe future operations as well as
+MVP defaults. No Organization or Membership lifecycle transition Command, API,
+or Use Case is added to Version 1.0 by this clarification.
 
 ---
 
@@ -520,6 +558,14 @@ No business platform SHALL bypass or replace the Identity Platform.
 
 # Change Log
 
+## Version 1.1.1 (2026-09-24)
+
+- Added explicit Proposed ADR references and governance qualification.
+- Documented the existing RegistrationApplicationService mapping from ADR-0002 Decision 7.1 without changing transaction phases.
+- Synchronized Owner/Active registration defaults, full lifecycle descriptions, and MVP exclusions with ADR-0003.
+- Preserved the event catalog, event timing, APIs, and post-commit recovery policy.
+- Earlier authorization wording below describes historical documentation edits; it does not establish acceptance of ADR-0002.
+
 ## Version 1.1 (2026-07-08)
 
 - Added Authorization Boundary clarification: Identity Platform provides context, not permission evaluation
@@ -550,3 +596,4 @@ Failure of post-commit operations SHALL NOT invalidate:
 Post-commit recovery and operational handling are implementation-specific.
 
 **END OF DOCUMENT**
+

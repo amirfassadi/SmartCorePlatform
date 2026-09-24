@@ -2,12 +2,17 @@
 
 # SmartCore Command Model
 
-Version: 1.2
+Version: 1.2.1
 Status: Normative
 Layer: Core
 
 Related Decision Records:
-- ADR-0002_Identity_Foundation_Clarifications.md (Decision 7)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.2.1, Proposed; Decision 7)
+
+**Governance qualification**: The registration exception in §17.1 records the
+proposal in ADR-0002; it is not effective authorization while that ADR remains
+Proposed. Acceptance and implementation eligibility remain subject to 051 and
+065. The existing document Status does not approve this pending exception.
 
 ---
 
@@ -355,14 +360,14 @@ Cross-aggregate work is coordinated through Events.
 
 ## 17.1 Command Model Coordination Exception for Identity Registration
 
-`RegisterPerson` is an approved, narrowly-scoped exception to this rule.
+`RegisterPerson` is the proposed, narrowly-scoped exception recorded in ADR-0002 Decision 7. The following permission describes that proposal and becomes effective only upon its acceptance.
 
 RegisterPerson MAY coordinate creation of multiple Identity Aggregates (Person, Organization, Membership) within a single atomic consistency boundary.
 
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is authorized by ADR-0002_Identity_Foundation_Clarifications.md, Decision 7 (Command Model Coordination Exception for Identity Registration).
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.2.1, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   Exists because Person, Personal Organization, and Membership represent a single business invariant that must not exist in a partial state; an event-driven Saga would permit temporarily invalid intermediate states.
 -   SHALL NOT be treated as a general precedent. Any future request for a similar cross-Aggregate atomic coordination exception SHALL require its own independent architectural review.
 
@@ -574,6 +579,12 @@ They initiate it.
 ---
 
 # Change Log
+
+## Version 1.2.1 (2026-09-24)
+
+- Corrected premature approval wording in §17.1 and pinned the reviewed ADR-0002 reference.
+- Kept the default single-Aggregate rule, the proposed RegisterPerson-only exception, and all command/event rules unchanged.
+- Historical entries below describe prior documentation revisions. Their approval wording does not establish ADR acceptance. The v1.2 status-promotion review note remains unresolved by this editorial patch.
 
 ## Version 1.2 (2026-07-12)
 
