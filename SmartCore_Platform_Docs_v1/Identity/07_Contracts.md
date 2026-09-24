@@ -1,8 +1,8 @@
 <!--
 Document ID: ID-07
 Title: SmartCore Identity Platform Blueprint - Contracts (Request/Response Schemas)
-Version: 1.0.1
-Status: READY_FOR_GENERATION
+Version: 1.0.2
+Status: DRAFT
 
 Purpose:
 Define the Request/Response Schemas, DTO field contracts, and Error
@@ -23,6 +23,11 @@ Dependencies:
 - ADR-0002_Identity_Foundation_Clarifications.md
 
 Change Log:
+  - Version 1.0.2 (2026-09-24): Marked Draft pending ADR-0002
+    Decisions 8–9 and alignment of contact optionality, verification,
+    pending/Ready responses, authentication, and dependent API/machine
+    contracts. Existing request/response schemas are historical and
+    are not approved for generation by this status update.
   - Version 1.0.1 (2026-07-14): Review-driven clarification pass, no
     schema, mapping, or Contract content changed. (1) §3.1 expanded the
     AccessTokenId → accessToken naming note to clarify that the wire
@@ -47,6 +52,18 @@ Change Log:
 -->
 
 # 1. Overview
+
+**Generation status**: Draft. The email-required RegisterPerson and
+AuthenticatePerson requests, full Person DTO, immediate 201-success
+wording, and optional initial Session in §5.1 reflect the earlier
+registration design. They SHALL NOT be used as generation-ready
+contracts under proposed ADR-0002 Decisions 8–9. Before validation,
+align the verification challenge, mobile-only registration, safe
+pending/Ready outcomes and stable registration reference with
+04_Commands.md and 08_API.md. Define whether optional contact fields
+are omitted or null in machine and REST contracts; do not infer wire
+nullability from the proposed event contract. Reconcile dependent
+contracts and rerun structural validation after ADR acceptance.
 
 This document defines the **Contract layer** artifacts that
 04_Commands.md, 05_Queries.md, and 08_API.md each deferred:
