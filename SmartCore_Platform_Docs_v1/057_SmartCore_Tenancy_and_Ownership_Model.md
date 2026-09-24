@@ -1,11 +1,11 @@
 # 057_SmartCore_Tenancy_and_Ownership_Model.md
 
-Version: 1.3.1
+Version: 1.4
 
 Status: **Normative**
 
 **Governance qualification**: Registration clarifications and the coordination
-exception in §8 reflect ADR-0002 v1.2.1 (Proposed); Organization/Membership
+exception in §8 reflect ADR-0002 v1.4 (Proposed); Organization/Membership
 lifecycle clarifications in §9 reflect ADR-0003 v1.2.1 (Proposed). These
 synchronized descriptions do not approve either ADR or clear implementation.
 The ADR acceptance criteria and 051/065 governance checks still apply.
@@ -269,6 +269,16 @@ commit, including:
 
 These operations SHALL NOT invalidate ownership consistency.
 
+Under ADR-0002 v1.4 Decision 8 (Proposed), the durable registration workflow
+starts PendingCredential. The initial Outbox provisioning work item and workflow
+record commit with the Person/Organization/Membership triple, while Credential
+creation remains after commit. This internal workflow state does not change the
+Active Organization/Membership states or the ownership invariant. Password
+login requires both an active Credential and a Ready registration workflow.
+Provisioning retries and secure user completion may make the workflow Ready;
+retry exhaustion preserves the ownership triple. See 059 §6 for the full
+proposed flow and its PersonRegistered timing.
+
 ## Command Model Coordination Exception
 
 The Registration Core Transaction coordinates creation of three distinct Aggregates (Person, Organization, Membership) within a single atomic consistency boundary.
@@ -278,7 +288,7 @@ This is a proposed, narrowly-scoped exception to the default cross-Aggregate coo
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.2.1, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.4, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   SHALL NOT be interpreted as a general precedent for multi-Aggregate transactional Commands elsewhere in the platform.
 -   Does NOT redefine or supersede 027_SmartCore_Command_Model.md, which SHALL continue to govern all other Commands.
 
@@ -408,6 +418,12 @@ this document.
 
 # Change Log
 
+## Version 1.4 (2026-09-24)
+
+- Propagated ADR-0002 v1.4 Decision 8 as Proposed: durable PendingCredential workflow and Outbox work commit alongside the ownership triple; Credential creation and recovery occur after commit.
+- Preserved the atomic three-Aggregate ownership invariant and direct Active Organization/Membership creation.
+- Did not accept ADR-0002 or introduce logical ownership cancellation.
+
 ## Version 1.3.1 (2026-09-24)
 
 - Qualified registration/lifecycle references as pending ADR acceptance.
@@ -487,3 +503,4 @@ unless superseded by a formally accepted Architecture Decision Record.
 ------------------------------------------------------------------------
 
 **END OF DOCUMENT**
+

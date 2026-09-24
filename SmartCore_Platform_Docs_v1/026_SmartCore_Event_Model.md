@@ -2,11 +2,11 @@
 
 # SmartCore Event Model
 
-Version: 1.1
+Version: 1.1.1
 Status: Draft
 Layer: Core
 
-Related Decision: ADR-0002_Identity_Foundation_Clarifications.md v1.3, Decision 5
+Related Decision: ADR-0002_Identity_Foundation_Clarifications.md v1.4, Decision 5
 (Proposed). The LoginFailed-specific clarifications below record that pending
 ADR; they do not constitute full ADR acceptance or generation clearance.
 
@@ -615,6 +615,10 @@ Events preserve truth.
 
 
 # Change Log
+
+## Version 1.1.1 (2026-09-24)
+
+- Updated the reference to the current Proposed ADR-0002 v1.4; Decision 5 classification and all event rules remain unchanged.
 
 ## Version 1.1 (2026-09-24)
 

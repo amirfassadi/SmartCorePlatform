@@ -5,7 +5,7 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.3
+* **Version**: 1.4
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
@@ -31,6 +31,7 @@ Acceptance remains subject to the criteria below and Document 051.
 5. Event Ownership Documentation
 6. Future Identity Types Documentation
 7. Command Model Coordination Exception for Identity Registration
+8. Post-Commit Credential Provisioning and Recovery
 
 ---
 
@@ -97,6 +98,11 @@ Post-registration operations MAY include:
 * Event publication
 
 These operations SHALL NOT invalidate ownership consistency.
+
+Decision 8 specifies the proposed Credential provisioning and recovery
+protocol after the ownership transaction. The initial ownership triple remains
+atomic; a PendingCredential registration workflow does not make an Organization
+or Membership pending or change the Person lifecycle.
 
 ---
 
@@ -326,6 +332,107 @@ RegistrationApplicationService
 
 ---
 
+## 8. Post-Commit Credential Provisioning and Recovery
+
+### Boundary and state
+
+After RegisterPerson commits Person, Personal Organization, and Owner Membership
+atomically, Identity SHALL track a separate durable registration workflow with
+an opaque server-issued `registrationId` and the states `PendingCredential` and
+`Ready`. This workflow record is not a sixth Identity Aggregate, a Person
+lifecycle status, or an Organization/Membership status. Its initial state and a
+reliable Credential-provisioning work item SHALL be persisted with the same core
+ownership commit. If the core transaction rolls back, neither is retained.
+
+Person, Organization, and Owner Membership are created in their already
+specified Active states. Authentication SHALL deny password login and Session
+creation for the newly registered Person until the workflow is Ready and an
+active Credential exists; membership/ownership context is not sufficient to
+authenticate. This is a readiness gate, not a new business authorization role.
+
+### Reliable provisioning and retry
+
+The registration application SHALL commit an Outbox work item atomically with
+the ownership triple and PendingCredential workflow record. The Outbox item is
+an internal provisioning signal, not a new public Domain Event or a replacement
+for PersonRegistered. When a Credential service is separate, delivery may be
+at least once. The consumer SHALL deduplicate using `registrationId` and
+ensure that duplicate/concurrent deliveries cannot create a second active
+Credential for that registration or Person. Any recovery step SHALL reconcile
+Credential creation and workflow readiness after a crash. Replaying the same
+key returns the existing result; a different payload under the same key SHALL
+be rejected and audited. No plaintext password SHALL be retained in the Outbox. The Outbox item
+SHALL carry only an opaque reference to protected, durable provisioning material
+(such as a securely prepared password hash or a protected secret handle),
+available after a crash. Preparation and the reference must survive the core
+commit together, or the referenced material must already be durably staged.
+Sensitive material must be protected under the Identity security policy, with
+expiry and cleanup after completion/recovery.
+
+Transient provisioning failures SHALL be retried with bounded backoff and
+operational visibility. Exhausting automated retries SHALL leave the workflow
+PendingCredential with a recorded recovery-needed condition. The account
+remains non-authenticatable and retains its committed ownership records.
+Automatic deletion, full compensation, or a second registration with the same
+email are not part of the MVP recovery policy.
+
+### Secure completion path
+
+The Person SHALL be able to complete Credential setup without repeating
+registration. Identity SHALL provide a distinct one-time, short-lived setup
+challenge delivered through a verified channel. The challenge must be
+single-use, rate-limited, bound to the pending registration, and invalidated
+on completion or expiry. An email address or `registrationId` alone SHALL NOT
+prove authorization to set a password. The completion operation SHALL be
+idempotent with respect to its own challenge and SHALL enforce the
+one-active-Credential rule. A manual password choice uses its challenge as a
+separate idempotency key from automated provisioning. The two paths SHALL
+converge on the same registration: once either one wins and marks it Ready,
+the other becomes a no-op and its unused challenge/prepared material is
+invalidated. Account-enumeration and secret-handling constraints
+apply. This setup path serves PendingCredential registration completion; it
+does not silently introduce a general account-recovery policy.
+
+An API response after the ownership commit but before Credential readiness
+SHALL communicate pending status and a stable opaque registration reference,
+without reporting successful authentication or issuing tokens. A request
+repeated with the same registration identity SHALL resolve to that existing
+workflow, subject to authorization and anti-enumeration safeguards; it SHALL
+NOT attempt to create another Person/Organization/Membership. Specific REST
+routes, retention intervals, and retry counts belong in the Identity Blueprint
+and contracts, not this ADR.
+
+### Completion and event timing
+
+When an active Credential is confirmed, Identity SHALL move the workflow to
+Ready exactly once and enqueue PersonRegistered publication atomically with
+the readiness change. Reconciliation after a crash SHALL not publish it twice.
+The event records a completed registration fact. Initial Session creation MAY
+follow; Session failure SHALL NOT return the workflow to PendingCredential,
+invalidate ownership, or prevent later login. This changes the old 059 event
+timing note that required an initial Session before PersonRegistered.
+PersonRegistered remains Identity-owned with its established name; the
+Blueprint must review its existing payload and consumer expectations before
+acceptance. OrganizationCreated and MembershipCreated remain tied to the
+committed ownership triple. Internal Outbox provisioning work is not a public
+addition to the ten-event MVP catalog.
+
+### Scope and alternatives
+
+This post-commit workflow is a forward-recovery Saga with retry and a secure
+user completion path. It SHALL NOT use an event-driven Saga to create the
+initial ownership triple: the rejection in Decision 7 remains in force.
+A distributed two-phase commit is not required. Full logical cancellation and
+soft compensation are deferred because they would add ownership lifecycle and
+cross-platform cleanup semantics; they require a separate approved decision.
+No Person, Organization, or Membership is hard-deleted by retry exhaustion.
+
+This section specifies a proposed architectural decision. It does not claim
+that the current Identity Blueprint, machine specification, contracts, recovery
+challenge delivery, or security tests are already aligned or implemented.
+
+---
+
 # Consequences
 
 ## Positive Consequences
@@ -340,6 +447,10 @@ RegistrationApplicationService
 ## Negative Consequences
 
 * Registration requires coordinated transaction handling.
+* Post-commit provisioning requires an Outbox, idempotent Credential creation,
+  durable workflow readiness, safe retries, and a secure user completion path.
+* PersonRegistered event timing and registration API outcome must be reviewed
+  with consumers before implementation.
 * Similar exceptions cannot be introduced without governance review.
 * Additional validation is required when modifying Identity lifecycle flows.
 
@@ -395,6 +506,14 @@ must follow 051 §9; versions must not be reduced to historical targets.
 | 03_Aggregates.md | 1.1.1 | Atomic registration exception already exists; verify consistency and qualify pending approval. |
 | 04_Commands.md | 1.1.0 | Application Service mapping already exists; verify consistency and qualify pending approval. |
 
+For Decision 8 in v1.4, synchronize 057 and 059 with the post-commit
+workflow and update the Identity Blueprint Use Cases, Commands, Domain Events,
+Contracts, API, Persistence, Security, Testing, MVP, and machine specification.
+Verify registration idempotency, atomic Outbox persistence, failure recovery,
+secure challenge proof, authentication gating, and PersonRegistered consumers.
+Do not mark this item complete based on the three high-level Identity documents
+currently tracked in the repository.
+
 For Decision 5 in v1.3, also synchronize 026 §5/§6/§9/§17/§20 and 027 §14
 with the Security Event classification, and update 059's event-family catalog.
 The earlier baseline table above records the package review; it is not a live
@@ -417,6 +536,10 @@ proof that Structural Validation has passed.
 This ADR SHALL remain Proposed until:
 
 * [ ] Related document updates are completed
+* [ ] Decision 8 recovery states, idempotency, Outbox and failure scenarios are
+      synchronized across narrative, machine specification, contracts, and security tests
+* [ ] PersonRegistered timing/consumers and pending registration API outcomes are
+      reviewed, with no premature authentication or duplicate ownership
 * [ ] Architecture Validation Review is completed
 * [ ] Blueprint passes Structural Validation
 * [ ] LoginFailed classification is synchronized across Platform, Identity narrative, machine specification, and affected contract/consumer references; no identity or payload contract is silently changed
@@ -463,6 +586,9 @@ After approval:
 
 | 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
 
+| 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
+
 ---
 
 **END OF DOCUMENT**
+

@@ -1,12 +1,12 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.2
+Version: 1.3
 
 Status: **Normative**
 
 Related Decision Records:
 
-- ADR-0002_Identity_Foundation_Clarifications.md (v1.3, Proposed)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.4, Proposed)
 - ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md (v1.2.1, Proposed)
 
 **Governance qualification**: The related registration, role, authorization,
@@ -195,6 +195,10 @@ Create Owner Membership
 
 ↓
 
+Persist PendingCredential workflow and Outbox provisioning work item
+
+↓
+
 [COMMIT]
 ```
 
@@ -206,33 +210,59 @@ This core transaction creates the foundational ownership relationships.
 
 ## Post-Commit Identity Operations
 
-After successful commit, the following operations MAY occur:
+After successful commit, Credential provisioning and registration readiness SHALL follow the proposed Decision 8; initial Session creation MAY follow readiness:
 
 ```text
-[Transaction Committed]
+[Ownership + PendingCredential workflow + Outbox committed]
 
 ↓
 
-Create Credential
+Deliver internal Credential-provisioning work with retry
 
 ↓
 
-Create Initial Session
+Create/confirm exactly one active Credential (idempotent by registrationId)
 
 ↓
 
-Publish PersonRegistered Event
+Mark registration Ready and reliably publish PersonRegistered
 
 ↓
 
-Return Authentication Result
+Create Initial Session if requested/available
+
+↓
+
+Return authenticated result only when a valid Session exists
 ```
 
 **Non-Invalidating Policy**: Post-commit operations SHALL NOT invalidate ownership consistency. If post-commit operations fail, the ownership relationships remain valid.
 
-**Example**: If Session creation fails, the Person, Organization, and Membership are still valid for future login attempts.
+**Example**: If Session creation fails after Credential readiness, Person,
+Organization, Membership, and active Credential remain valid for later login.
+If Credential creation fails, the ownership triple remains valid but the
+registration is PendingCredential and cannot authenticate.
 
-**Consistency Guarantee**: Ownership is fully established after core transaction commit and survives independent of credential or session state.
+**Consistency Guarantee**: Ownership is fully established after the core
+transaction commit and survives independently of Credential/Session state.
+RegistrationApplicationService coordinates the durable Outbox work item and
+registration workflow within that commit; the Credential service consumes
+it after commit. Internal work is not an extra public Domain Event.
+
+**Recovery (ADR-0002 v1.4 Decision 8, Proposed)**: Use the server-issued
+registrationId to deduplicate at-least-once work and retries with bounded
+backoff. When automatic retries are exhausted, keep PendingCredential and
+offer a separate single-use, short-lived, verified-channel Credential setup
+challenge. Email or registrationId alone is insufficient proof. Existing
+ownership is never deleted due solely to provisioning failure. The setup
+path must not create a second Person or active Credential. No plaintext
+password belongs in Outbox work; protect and expire any sensitive setup data.
+
+**Response and login gate**: A post-commit response before readiness indicates
+pending registration and provides an opaque registration reference, never an
+authentication token. Password login requires Ready and an active Credential.
+Person and Organization/Membership lifecycle states remain as documented in
+§6's lifecycle scope; PendingCredential is a registration workflow state.
 
 ---
 
@@ -264,7 +294,11 @@ Login Request
 
 ↓
 
-Validate Credential
+Verify registration workflow is Ready
+
+↓
+
+Validate active Credential
 
 ↓
 
@@ -567,6 +601,13 @@ No business platform SHALL bypass or replace the Identity Platform.
 
 # Change Log
 
+## Version 1.3 (2026-09-24)
+
+- Propagated ADR-0002 v1.4 Decision 8 as Proposed: durable registration readiness, Outbox provisioning, idempotent retry and secure user completion.
+- Explicitly changed proposed PersonRegistered timing to follow Credential readiness; initial Session creation is independent.
+- Preserved atomic ownership, five Identity Aggregates, ten public events, and business authorization boundary.
+- The historical event-timing and post-commit wording below must be read with this proposed revision; full Blueprint/contract approval is pending.
+
 ## Version 1.2 (2026-09-24)
 
 - Classified LoginFailed as an Identity-owned Security Event for audit under ADR-0002 v1.3 Decision 5.
@@ -599,7 +640,12 @@ No business platform SHALL bypass or replace the Identity Platform.
 
 ## Event Timing Note
 
-PersonRegistered is published after Credential and initial Session creation to represent completed registration including initial authentication capability.
+Under ADR-0002 v1.4 Decision 8 (Proposed), PersonRegistered is published
+after an active Credential is confirmed and the registration becomes Ready.
+Initial Session creation is independent and may occur afterward; its failure
+does not reverse registration readiness or ownership. This revises the prior
+requirement to wait for an initial Session before PersonRegistered and requires
+review of existing event consumers and contracts before acceptance.
 
 Ownership consistency is guaranteed independently by the Core Ownership Transaction.
 
@@ -611,5 +657,6 @@ Failure of post-commit operations SHALL NOT invalidate:
 Post-commit recovery and operational handling are implementation-specific.
 
 **END OF DOCUMENT**
+
 
 

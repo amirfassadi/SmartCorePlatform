@@ -119,3 +119,25 @@ Blueprint 00–16 documents, machine YAML, concrete event contracts, or consumer
 implementations in that snapshot. Their absence is not evidence of successful
 contract or machine validation. The earlier supplied archive remains separate;
 it was not imported over the current repository.
+
+## D-02 proposed disposition (2026-09-24)
+
+The project owner recommended post-commit retry/forward recovery with a
+durable PendingCredential workflow, idempotent provisioning, Outbox work,
+and a secure user completion path after retries are exhausted. That direction
+is recorded as ADR-0002 v1.4 Decision 8, still Proposed. The earlier D-02
+section above preserves the reason this was raised; it is no longer a request
+to invent a retry policy without review. Ownership still commits atomically;
+Person/Organization/Membership remain Active. The PendingCredential marker
+belongs to the registration workflow and gates login, not to the Person
+lifecycle. This design does not provide full cancellation compensation.
+
+The proposal revises PersonRegistered timing to follow Credential readiness,
+independent of an initial Session. Review event consumers, API pending
+responses, Outbox/idempotency constraints, secure setup challenge, and
+concurrent automated/manual completion in the complete Identity Blueprint.
+The live Identity repository contains only its README, vision, and Kimia MVP
+scope documents; those have been aligned at high level, but the earlier
+17-document Blueprint and machine YAML have not been moved into that repository
+or validated against this proposal. GOV-01, ADR acceptance, and AI generation
+remain blocked pending the original and new acceptance criteria.

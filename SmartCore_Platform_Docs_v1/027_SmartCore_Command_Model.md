@@ -2,12 +2,12 @@
 
 # SmartCore Command Model
 
-Version: 1.3
+Version: 1.3.1
 Status: Normative
 Layer: Core
 
 Related Decision Records:
-- ADR-0002_Identity_Foundation_Clarifications.md (v1.3, Proposed; Decisions 5 and 7)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.4, Proposed; Decisions 5, 7 and 8)
 
 **Governance qualification**: The registration exception in §17.1 records the
 proposal in ADR-0002; it is not effective authorization while that ADR remains
@@ -308,7 +308,7 @@ InvalidTransition
 
 Optional System Events may still be emitted for audit or monitoring.
 
-Under ADR-0002 v1.3 Decision 5 (Proposed), Identity continues to publish
+Under ADR-0002 v1.4 Decision 5 (Proposed), Identity continues to publish
 LoginFailed for its documented failed-authentication outcomes as a Security
 Event used for audit (026 §9). This is not a Domain Event and does not imply
 successful Command execution, a committed Aggregate state change, or an
@@ -374,7 +374,7 @@ RegisterPerson MAY coordinate creation of multiple Identity Aggregates (Person, 
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.3, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.4, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   Exists because Person, Personal Organization, and Membership represent a single business invariant that must not exist in a partial state; an event-driven Saga would permit temporarily invalid intermediate states.
 -   SHALL NOT be treated as a general precedent. Any future request for a similar cross-Aggregate atomic coordination exception SHALL require its own independent architectural review.
 
@@ -587,9 +587,13 @@ They initiate it.
 
 # Change Log
 
+## Version 1.3.1 (2026-09-24)
+
+- Updated the reference to ADR-0002 v1.4 and its post-commit Decision 8. No Command, event, or transaction-boundary rule changed.
+
 ## Version 1.3 (2026-09-24)
 
-- Synchronized the agreed LoginFailed classification with ADR-0002 v1.3 Decision 5.
+- Synchronized the agreed LoginFailed classification with ADR-0002 v1.4 Decision 5.
 - Qualified generic successful-command/event statements as Domain Event rules and documented the Identity-specific Security Event in §14.
 - Preserved the prohibition on Domain Events for failed Commands and the pending RegisterPerson-only coordination exception.
 
