@@ -1,11 +1,15 @@
 <!--
 Document ID: ID-03
 Title: SmartCore Identity Platform Blueprint - Aggregates
-Version: 1.1.1
-Status: READY_FOR_GENERATION
+Version: 1.2.0
+Status: DRAFT
 Purpose: Define aggregate design rationale and boundaries for the Identity Platform Blueprint
 Dependencies: 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.2.0 (2026-09-24): Proposed registration-workflow
+    ownership and Person event-stream ordering contract under
+    ADR-0002 Decisions 8–9. No sixth Aggregate or Person lifecycle
+    status is introduced. Pending cross-document and structural review.
   - Version 1.1.1 (2026-07-15): Cross-check pass against 01_Domain_Model.md,
     02_Use_Cases.md, 04_Commands.md, 05_Queries.md, and 09_Persistence.md,
     following those documents' own recent revision passes. No new
@@ -48,7 +52,8 @@ Each Aggregate owns an independent lifecycle and consistency boundary.
 
 **Root Entity Responsibilities**:
 - Owns identity
-- Manages profile attributes (Email, DisplayName)
+- Manages profile attributes (verified contact, DisplayName; email
+  is optional for mobile-only registration under ADR-0002 Decision 9)
 - Tracks lifecycle status
 
 **Child Entities**: None in MVP
@@ -189,15 +194,56 @@ Each Aggregate maintains:
 - **Consistency Boundary**: Internal state is consistent without external coordination
 - **Root Entity**: Single aggregate root entity owns all internal entities
 - **Transaction Scope**: All changes to an aggregate occur within a single transaction
-- **Cross-Aggregate Consistency**: Maintained by Domain Services, not aggregates
+- **Cross-Aggregate Consistency**: Coordinated by the responsible
+  application or domain service under the applicable ADR; it is not
+  granted by an Aggregate boundary alone
 
-**Exception**: Initial creation of Person, Organization, and Membership during registration is coordinated by RegistrationApplicationService (an Application Service, not a Domain Service), per the approved exception in ADR-0002 Decision 7. See 01_Domain_Model.md §8.
+**Proposed exception**: Initial creation of Person, Organization, and
+Membership during registration is coordinated by
+RegistrationApplicationService (an Application Service, not a Domain
+Service), under ADR-0002 Decision 7. See 01_Domain_Model.md §8.
+
+## 9.1 Registration Workflow and Person Event Stream (Proposed)
+
+`PendingCredential` and `Ready` belong to one durable, Identity-owned
+registration workflow keyed by `registrationId` and uniquely associated
+with a `PersonId`. This workflow is an application-process record: it is
+not a sixth Aggregate, a child of the Person Aggregate, or a Person,
+Organization, or Membership lifecycle status. The RegistrationApplicationService
+owns its state transitions; 09_Persistence.md defines storage and transaction
+ownership. The Person can be Active while this workflow is PendingCredential.
+Authentication requires both Ready and an active Credential.
+
+Initial creation of the workflow in PendingCredential and its internal
+Credential-provisioning Outbox item participate in the atomic ownership
+transaction required by Decision 8. A later transition to Ready occurs
+only after an active Credential is confirmed. The application service
+atomically records Ready and enqueues one `PersonRegistered` event with
+`AggregateType = Person` and `AggregateId = PersonId`; no Person Aggregate
+state transition is fabricated. Automated retry and secure manual completion
+race on the same workflow, with exactly one winning transition.
+
+The PersonId on `PersonRegistered` identifies its subject and its
+per-Person event stream; it does not make the workflow a Person child.
+All Person-addressed events, including `PersonUpdated` and the
+workflow-derived `PersonRegistered`, SHALL receive a monotonically
+increasing position for that Person in the transaction that records
+their fact and enqueue. Delivery SHALL preserve this stream position
+per Person, even across retries. A profile update may precede Ready;
+consumers SHALL NOT assume `PersonRegistered` is the first Person event.
+Neither `OccurredAt` timestamps nor Outbox delivery time establish
+that ordering. No ordering across Person, Organization, and Membership
+streams is implied. §9.1 is proposed pending ADR acceptance and
+alignment with 06_Domain_Events.md and 09_Persistence.md.
 
 ---
 
 # 10. Future Persistence Considerations
 
-Persistence layer design (Repository patterns, storage strategies, consistency mechanisms) will be defined in blueprint document 09_Persistence.md.
+Persistence layer design (Repository patterns, storage strategies,
+consistency mechanisms) is defined in blueprint document
+09_Persistence.md. The proposed registration workflow and event-stream
+ordering are specified there in §§5.1.3 and 6.4.
 
 Each Aggregate Root will have exactly one owning Repository, to be specified in the Persistence blueprint.
 
