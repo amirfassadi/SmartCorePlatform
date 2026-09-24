@@ -5,13 +5,20 @@
 - **ADR Number**: ADR-0003
 - **Title**: Organization and Membership Lifecycle Standardization
 - **Status**: Proposed
-- **Version**: 1.2
+- **Version**: 1.2.1
 - **Date Created**: 2026-07-08
 - **Author**: SmartCore Architecture Team
 - **Approval Date**: TBD
 - **Effective Date**: TBD
 - **Decision Type**: Architectural Decision
 - **Decision Level**: Level 3 — Architectural Refinement
+
+## Review Revision — 2026-09-24
+
+This revision is a documentation correction candidate. Status remains Proposed;
+Approval Date and Effective Date remain TBD. Decision requirements describe the
+proposed architecture and do not constitute approval or implementation clearance.
+Acceptance remains subject to the criteria below and Document 051.
 
 ---
 
@@ -57,7 +64,7 @@ This ADR establishes a standard lifecycle template applicable to all SmartCore C
 
 **Decision**: Organizations follow a four-state lifecycle.
 
-**Rationale**: Four-state model provides flexibility for future operations while maintaining MVP simplicity through forward-only transitions and future scope designation.
+**Rationale**: Four-state model supports future suspension, resumption, and retirement while keeping MVP Organizations directly Active and deferring transition operations.
 
 **Statement**: Organization lifecycle SHALL follow:
 
@@ -77,7 +84,11 @@ Created → Active → Suspended → Archived
 - Active → Suspended: Explicit administrator action (future scope for MVP)
 - Suspended → Active: Explicit administrator action (future scope for MVP)
 - Suspended → Archived: Explicit administrator action (future scope for MVP)
-- All transitions are forward-only except: **Suspended → Active**, which is the only reversible transition. Once a transition other than Suspended → Active has occurred, the prior state cannot be re-entered.
+- The transitions listed above are the complete allowed transition set.
+- Active → Suspended and Suspended → Active form a reversible pair; entering Suspended does not prevent later resumption to Active.
+- No transition returns to Created.
+- Archived is terminal and permits no outgoing transition.
+- The linear diagram shows the lifecycle states; it does not replace the transition rules.
 
 **MVP Scope**:
 Organizations SHALL be created in Active state for MVP.
@@ -145,7 +156,20 @@ Rejected for Version 1.0. Adds complexity not required by MVP scope (single Owne
 
 ### Document Updates
 
-- 057_SmartCore_Tenancy_and_Ownership_Model.md — Target version after acceptance: 1.2
+The supplied 057 is already version 1.3; version 1.2 was the historical lifecycle
+update, not a target to which the document should be reverted. Track any further
+correction using 051 §9.
+
+| Document | Remaining synchronization work |
+| --- | --- |
+| 057_SmartCore_Tenancy_and_Ownership_Model.md | Clarify the complete transition set, including Suspended → Active, and direct Active initialization in MVP. |
+| 059_SmartCore_Identity_Platform.md | Add the Organization/Membership lifecycle scope and an explicit reference to this Proposed ADR; record the final accepted reference upon approval. |
+| 01_Domain_Model.md | Replace the misleading “MVP-visible lifecycle flow” description with a full lifecycle description; keep MVP initialization and exclusions explicit. |
+| 03_Aggregates.md | Apply the same lifecycle-diagram clarification without changing Aggregate boundaries. |
+| 14_MVP.md | Preserve direct Active initialization and excluded transition commands; synchronize this ADR reference. |
+
+This table records work identified during review; it does not mark any acceptance
+criterion as complete.
 
 ### Architectural Consistency
 
@@ -220,6 +244,7 @@ Upon successful Architecture Validation Review:
 | 1.0     | Proposed | Initial organization and membership lifecycle standardization                                                                   |
 | 1.1     | Proposed | Added governance metadata (Author, Decision Level, Approval/Effective Date), explicit Scope section, Alternatives Considered for both decisions, clarified Organization and Membership transition/Created-state wording, hedged reference to ADR-0002 pending its acceptance, added terminology-synchronization and document-reference Acceptance Criteria, made 057 version target conditional on acceptance, and added Change History |
 | 1.2     | Proposed | Added a clarifying note to the References section stating that Document 019 is retained as an architectural context document for this ADR without constituting a lineage/supersession determination relative to 041/059; that determination is deferred to a separate Architecture Board governance track. No substantive decision content changed. |
+| 1.2.1 | Proposed | 2026-09-24 review candidate: removed wording that contradicted the explicitly allowed Suspended → Active transition, clarified the complete allowed transition set, and updated document synchronization tracking. No new transition or MVP operation was introduced. |
 
 ---
 

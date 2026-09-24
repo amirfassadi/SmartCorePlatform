@@ -5,13 +5,20 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.2
+* **Version**: 1.2.1
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
 * **Effective Date**: TBD
 * **Decision Type**: Architectural Decision
 * **Decision Level**: Level 4 — Architectural Change (applies to Decision 7; Decisions 1–6 are Level 2 Documentation clarifications)
+
+## Review Revision — 2026-09-24
+
+This revision is a documentation correction candidate. Status remains Proposed;
+Approval Date and Effective Date remain TBD. Decision requirements describe the
+proposed architecture and do not constitute approval or implementation clearance.
+Acceptance remains subject to the criteria below and Document 051.
 
 ---
 
@@ -201,7 +208,7 @@ These SHALL extend Identity capabilities without changing Person identity semant
 
 ### Decision
 
-Identity Registration is an approved exception to the default cross-aggregate coordination model defined in:
+This ADR proposes a narrowly scoped exception for Identity Registration to the default cross-aggregate coordination model defined in:
 
 `027_SmartCore_Command_Model.md`
 
@@ -354,15 +361,25 @@ Future exceptions require separate architectural review.
 
 # Document Updates Required
 
-| Document                                      | Current Version | Target Version      | Required Change                                                       |
-| ---------------------------------------------- | ---------------- | -------------------- | ----------------------------------------------------------------------- |
-| 057_SmartCore_Tenancy_and_Ownership_Model.md   | 1.2               | 1.3                  | Add registration exception reference                                    |
-| 059_SmartCore_Identity_Platform.md             | 1.1               | Next Minor Version    | Align registration lifecycle documentation                              |
-| 01_Domain_Model.md                             | 1.1.0             | Next Minor Version    | Reclassify RegistrationDomainService → RegistrationApplicationService   |
-| 03_Aggregates.md                               | 1.0.0             | Next Minor Version    | Document atomic registration boundary                                   |
-| 04_Commands.md                                 | 1.0.0             | Next Minor Version    | Add Command Model exception reference and Application Service mapping   |
+The following is the reviewed baseline from the supplied Platform and Identity
+packages, not a claim that acceptance conditions have passed. Further revisions
+must follow 051 §9; versions must not be reduced to historical targets.
 
-Note: 057's target version is stated precisely because it follows the version-tracking precedent already established by ADR-0003. Target versions for 059, 01, 03, and 04 are left as "Next Minor Version" since these documents have not yet been edited under this ADR and the exact scope of required change will be confirmed during editing.
+| Document | Observed baseline | Required work / verification |
+| --- | --- | --- |
+| 027_SmartCore_Command_Model.md | 1.2 | §17.1 already records the exception; qualify its pending approval and verify the exact RegisterPerson-only scope. |
+| 057_SmartCore_Tenancy_and_Ownership_Model.md | 1.3 | §8 already records the exception; qualify pending approval and verify the core ownership boundary. |
+| 059_SmartCore_Identity_Platform.md | 1.1 | §6 already separates ownership commit from Credential/Session operations; synchronize approval wording, lifecycle references, and revision history. |
+| 01_Domain_Model.md | Header 1.1.0; Change Log includes 1.2.0 | Application Service reclassification already exists; reconcile version metadata and pending-approval wording. |
+| 03_Aggregates.md | 1.1.1 | Atomic registration exception already exists; verify consistency and qualify pending approval. |
+| 04_Commands.md | 1.1.0 | Application Service mapping already exists; verify consistency and qualify pending approval. |
+
+Also verify dependent references and readiness labels in 02_Use_Cases.md,
+14_MVP.md, and the machine specification. The supplied machine file is named
+`capability_machine.yaml`; 064 §7 requires `capability.machine.yaml`.
+Its governance block already requires acceptance of ADR-0002 and ADR-0003.
+These package corrections are prerequisites for a new validation result, not
+proof that Structural Validation has passed.
 
 ---
 
@@ -412,6 +429,7 @@ After approval:
 | 1.0     | Proposed | Initial Identity Foundation Clarifications                                                                                                          |
 | 1.1     | Proposed | Added Command Model coordination exception for Identity Registration, clarified Application Service responsibility, added governance metadata, and documented compatibility boundaries. Clarified that the exception applies only to RegisterPerson and does not establish a general multi-Aggregate transaction rule. |
 | 1.2     | Proposed | Added a clarifying note to the References section stating that Document 019 is retained as an architectural context document for this ADR without constituting a lineage/supersession determination relative to 041/059; that determination is deferred to a separate Architecture Board governance track. Corrected a stale version-pinned self-reference in Acceptance Criteria (ADR-0002 v1.1 → latest accepted version). No substantive decision content changed. |
+| 1.2.1 | Proposed | 2026-09-24 review candidate: clarified pending approval, replaced stale document-update assumptions with observed package baselines, and recorded dependent validation work. No transaction boundary, role, event, authentication, or MVP behavior changed. |
 
 ---
 
