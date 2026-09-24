@@ -1,17 +1,33 @@
 <!--
 Document ID: ID-01
 Title: SmartCore Identity Platform Blueprint - Domain Model
-Version: 1.1.0
-Status: READY_FOR_GENERATION
+Version: 1.2.1
+Status: DRAFT
 Purpose: Define the domain model, aggregates, entities, and value objects for the Identity Platform Blueprint
 Dependencies: 019_SmartCore_Identity_and_Session_Continuity_Model, 041_SmartCore_Identity_Model, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.2.1 (2026-09-24): Corrected the header version to
+    follow the existing v1.2.0 change log and marked the document
+    Draft pending ADR-0002 Decisions 8–9, PRs #1–#3, dependent
+    Blueprint alignment, and structural validation. Existing legacy
+    field, cardinality, and registration-flow contracts are not
+    approved for generation by this status update.
   - Version 1.2.0 (2026-07-12): Reclassified RegistrationDomainService as RegistrationApplicationService per ADR-0002 Decision 7.1; introduced dedicated Application Services section separate from Domain Services per 064 §14.2; updated Event Producer Mapping and cross-aggregate coordination note accordingly
   - Version 1.1.0 (2026-07-08): Added metadata completion, relationships section, missing domain services, session lifecycle correction, SessionToken resolution (added AccessTokenId), event audit requirements
   - Version 1.0.0 (2026-06-01): Initial domain model definition
 -->
 
 # 1. Domain Model Overview
+
+**Generation status**: Draft. The current EmailAddress Required rule,
+Person-to-Active-Credential cardinality, and registration application
+flow below predate proposed ADR-0002 Decisions 8–9. They SHALL NOT be
+used as generation-ready statements for mobile-only or
+PendingCredential registration. The next domain revision must define
+verified mobile/email contact, optional Email, the durable workflow
+boundary outside the five Aggregates, authentication gating, and
+Ready-time PersonRegistered timing. Acceptance and structural
+validation remain pending.
 
 The Identity Domain consists of five Aggregates:
 
@@ -25,7 +41,7 @@ All state changes SHALL occur through Aggregate Roots.
 
 Cross-Aggregate coordination SHALL occur through Domain Services.
 
-**Exception**: The initial creation of Person, Personal Organization, and Owner Membership during registration is coordinated by an Application Service (RegistrationApplicationService), not a Domain Service. This is an approved, narrowly-scoped exception per ADR-0002 Decision 7 (Command Model Coordination Exception for Identity Registration) and applies only to the RegisterPerson operation. See Section 8 (Application Services).
+**Proposed exception**: The initial creation of Person, Personal Organization, and Owner Membership during registration is coordinated by an Application Service (RegistrationApplicationService), not a Domain Service. This narrowly-scoped exception is proposed in ADR-0002 Decision 7 (Command Model Coordination Exception for Identity Registration) and applies only to the RegisterPerson operation upon acceptance. See Section 8 (Application Services).
 
 ---
 
@@ -380,7 +396,7 @@ Application Services perform orchestration across multiple Aggregate operations.
 
 ## RegistrationApplicationService
 
-Coordinates atomic registration across the core ownership transaction and post-commit operations. This is the approved exception to standard cross-aggregate coordination, authorized by ADR-0002 Decision 7, and applies only to the RegisterPerson operation.
+Coordinates atomic registration across the core ownership transaction and post-commit operations. This is the proposed exception to standard cross-aggregate coordination under ADR-0002 Decision 7, limited to RegisterPerson and pending acceptance.
 
 ### Core Transaction Phase
 
