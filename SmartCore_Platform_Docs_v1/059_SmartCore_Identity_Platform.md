@@ -1,12 +1,12 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.1.1
+Version: 1.2
 
 Status: **Normative**
 
 Related Decision Records:
 
-- ADR-0002_Identity_Foundation_Clarifications.md (v1.2.1, Proposed)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.3, Proposed)
 - ADR-0003_Organization_and_Membership_Lifecycle_Standardization.md (v1.2.1, Proposed)
 
 **Governance qualification**: The related registration, role, authorization,
@@ -356,18 +356,18 @@ Future versions MAY introduce additional role values without introducing a separ
 
 ## Event Ownership Table
 
-| Event               | Owner Capability |
-|---------------------|------------------|
-| PersonRegistered    | Identity |
-| PersonUpdated       | Identity |
-| PasswordChanged     | Identity |
-| LoginSucceeded      | Identity |
-| LoginFailed         | Identity |
-| SessionCreated      | Identity |
-| SessionExpired      | Identity |
-| LogoutCompleted     | Identity |
-| OrganizationCreated | Identity |
-| MembershipCreated   | Identity |
+| Event | Owner Capability | Family |
+| --- | --- | --- |
+| PersonRegistered | Identity | Domain Event |
+| PersonUpdated | Identity | Domain Event |
+| PasswordChanged | Identity | Domain Event |
+| LoginSucceeded | Identity | Domain Event |
+| LoginFailed | Identity | Security Event |
+| SessionCreated | Identity | Domain Event |
+| SessionExpired | Identity | Domain Event |
+| LogoutCompleted | Identity | Domain Event |
+| OrganizationCreated | Identity | Domain Event |
+| MembershipCreated | Identity | Domain Event |
 
 This hardening task SHALL NOT introduce additional lifecycle events.
 
@@ -386,7 +386,9 @@ These identity types SHALL extend the platform without modifying Person identity
 
 # 10. Identity Events
 
-The platform SHALL publish domain events.
+The platform SHALL publish the ten Identity events listed below: nine retain
+their Domain Event classification, and LoginFailed is a Security Event used for
+audit, per ADR-0002 v1.3 Decision 5 and 026 §9.
 
 Events declared in Event Ownership Table §9:
 
@@ -403,7 +405,14 @@ Events declared in Event Ownership Table §9:
 
 Events SHALL be immutable.
 
-**Consistency Note**: This list matches the Event Ownership Table exactly. Identity Platform owns and publishes all 10 events listed in the Event Ownership Table.
+**Consistency Note**: This list matches the Event Ownership Table exactly.
+Identity owns and publishes all ten events. LoginFailed remains required for
+the documented failed-authentication outcomes; it is not a successful Domain
+state transition and does not require a successful login or Session creation.
+Its existing producer, payload, and conditional identity-reference rules remain
+unchanged. Consumer classification and Blueprint/machine references must be
+synchronized before generation readiness is granted. This document does not
+choose a new topic, transport, delivery guarantee, or retention policy.
 
 ---
 
@@ -558,6 +567,12 @@ No business platform SHALL bypass or replace the Identity Platform.
 
 # Change Log
 
+## Version 1.2 (2026-09-24)
+
+- Classified LoginFailed as an Identity-owned Security Event for audit under ADR-0002 v1.3 Decision 5.
+- Retained the ten event names and owners, nine other event classifications, payload contracts, APIs, and registration transaction/recovery behavior.
+- Recorded classification propagation as pending Blueprint verification; full ADR acceptance remains pending.
+
 ## Version 1.1.1 (2026-09-24)
 
 - Added explicit Proposed ADR references and governance qualification.
@@ -596,4 +611,5 @@ Failure of post-commit operations SHALL NOT invalidate:
 Post-commit recovery and operational handling are implementation-specific.
 
 **END OF DOCUMENT**
+
 

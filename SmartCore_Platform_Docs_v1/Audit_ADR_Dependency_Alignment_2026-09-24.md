@@ -4,7 +4,7 @@ Date: 2026-09-24
 Status: Partial documentation alignment complete; architecture decisions and full Blueprint validation remain open.
 Repository baseline: ff07744e125dcb7624adbc636084a0121ab76c28
 
-## Scope and reviewed revisions
+## Initial alignment checkpoint (before the D-01 decision)
 
 | Document | Baseline | Revision | Result |
 | --- | --- | --- | --- |
@@ -20,6 +20,13 @@ transaction participant, or implementation authorization. The Normative document
 headers do not convert their Proposed ADR dependencies into Accepted decisions.
 Historical changelog entries remain historical; current qualification notes
 explicitly correct their premature approval wording.
+
+## D-01 propagation revision
+
+The subsequent D-01 decision revises ADR-0002 to v1.3 (still Proposed),
+026 to v1.1 (still Draft), 027 to v1.3, and 059 to v1.2. The initial
+checkpoint table above is historical. Document 057 remains v1.3.1.
+Only LoginFailed is reclassified; the other nine retain their current family.
 
 ## Focused checks performed
 
@@ -37,7 +44,15 @@ Result: PASS for these focused documentation checks only. The complete Blueprint
 Validator under 065 was not run. This report does not close GOV-01 or grant AI
 code-generation readiness.
 
-## Open decision D-01: failed-authentication event classification
+## D-01: classification direction agreed; Blueprint propagation pending
+
+Update (2026-09-24): The project owner agreed to Candidate A. ADR-0002 v1.3
+Decision 5 now records LoginFailed as an Identity-owned Security Event used for
+audit. Platform documents 026, 027, and 059 are synchronized in this revision.
+The evidence and alternatives below record the prior review baseline; they do
+not describe the newly revised Platform wording. Full ADR acceptance remains
+pending; the current Identity Blueprint and consumer assumptions still require
+propagation and verification. D-02 remains open and unchanged.
 
 Evidence:
 
@@ -57,8 +72,7 @@ Candidate B: explicitly allow a Domain Event representing a failed business
 outcome, with a narrowly defined rule and scope in the governing documents.
 This would amend the current Command/Event policy and needs architectural review.
 
-Working recommendation: evaluate Candidate A first, including delivery and
-consumer consequences. Neither candidate is approved by this report.
+Historical recommendation was Candidate A. Its classification direction is now agreed by the project owner; this does not accept ADR-0002 as a whole or complete Blueprint/consumer validation.
 
 ## Open decision D-02: post-commit Credential failure recovery
 
@@ -87,9 +101,21 @@ atomic core would be a separate change to the current decision.
 
 ## Remaining closure work
 
-1. Resolve D-01 with the architecture owner and propagate the chosen rule.
+1. Complete the agreed D-01 classification propagation into the current Identity Blueprint, machine specification, and consumer/contract references; Platform propagation is complete.
 2. Read and align the current Identity Blueprint; resolve D-02 before implementation.
 3. Reconcile Identity metadata, ADR references, and generation-readiness labels.
 4. Verify the current machine package and required validation evidence under 064/065.
 5. Record Architecture Validation Review and formal ADR acceptance only after all conditions are met.
 6. Re-evaluate GOV-01 and generation readiness after acceptance; do not infer either from this patch.
+
+
+## Current Identity repository propagation
+
+The live amirfassadi/SmartCoreIdentity repository was inspected during this
+revision. Its tracked documents are README.md, docs/IDENTITY_VISION.md, and
+docs/KIMIA_IDENTITY_MVP.md. LoginFailed classification is being synchronized in
+those three current narratives as a companion commit. There are no tracked
+Blueprint 00–16 documents, machine YAML, concrete event contracts, or consumer
+implementations in that snapshot. Their absence is not evidence of successful
+contract or machine validation. The earlier supplied archive remains separate;
+it was not imported over the current repository.

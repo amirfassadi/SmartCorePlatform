@@ -5,17 +5,17 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.2.1
+* **Version**: 1.3
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
 * **Effective Date**: TBD
 * **Decision Type**: Architectural Decision
-* **Decision Level**: Level 4 — Architectural Change (applies to Decision 7; Decisions 1–6 are Level 2 Documentation clarifications)
+* **Decision Level**: Level 4 — Architectural Change (applies to Decision 5 event classification and Decision 7; Decisions 1–4 and 6 are Level 2 Documentation clarifications)
 
-## Review Revision — 2026-09-24
+## Review Revision — 2026-09-24 (v1.3)
 
-This revision is a documentation correction candidate. Status remains Proposed;
+This revision records the agreed LoginFailed classification in Decision 5 in addition to the earlier documentation corrections. Status remains Proposed;
 Approval Date and Effective Date remain TBD. Decision requirements describe the
 proposed architecture and do not constitute approval or implementation clearance.
 Acceptance remains subject to the criteria below and Document 051.
@@ -161,28 +161,49 @@ They SHALL NOT modify existing Person identity semantics.
 
 ### Decision
 
-Identity Platform SHALL explicitly own and publish Identity-related domain events.
+Identity Platform SHALL explicitly own and publish the Identity events listed below. LoginFailed is an Identity-owned Security Event used for audit; the other nine retain their existing Domain Event classification in this revision.
 
 ### Event Ownership
 
-| Event               | Owner    | MVP |
-| ------------------- | -------- | --- |
-| PersonRegistered    | Identity | Yes |
-| PersonUpdated       | Identity | Yes |
-| PasswordChanged     | Identity | Yes |
-| LoginSucceeded      | Identity | Yes |
-| LoginFailed         | Identity | Yes |
-| SessionCreated      | Identity | Yes |
-| SessionExpired      | Identity | Yes |
-| LogoutCompleted     | Identity | Yes |
-| OrganizationCreated | Identity | Yes |
-| MembershipCreated   | Identity | Yes |
+| Event | Owner | Family | MVP |
+| --- | --- | --- | --- |
+| PersonRegistered | Identity | Domain Event | Yes |
+| PersonUpdated | Identity | Domain Event | Yes |
+| PasswordChanged | Identity | Domain Event | Yes |
+| LoginSucceeded | Identity | Domain Event | Yes |
+| LoginFailed | Identity | Security Event | Yes |
+| SessionCreated | Identity | Domain Event | Yes |
+| SessionExpired | Identity | Domain Event | Yes |
+| LogoutCompleted | Identity | Domain Event | Yes |
+| OrganizationCreated | Identity | Domain Event | Yes |
+| MembershipCreated | Identity | Domain Event | Yes |
 
-Events represent completed business facts.
+Events represent completed facts. Events SHALL NOT be used to coordinate initial
+ownership creation.
 
-Events SHALL NOT be used to coordinate initial ownership creation.
+### LoginFailed classification and consequences
 
-Security and audit classification of events is outside the scope of this ADR.
+- LoginFailed records the completed outcome of an unsuccessful authentication attempt. It is a Security Event in the family already defined by 026 §9; audit is its purpose, not a new event family.
+- It SHALL NOT be classified as a Domain Event or interpreted as evidence of a successful Command, Aggregate state transition, or authenticated Session.
+- Identity SHALL continue to publish it for the documented failed-authentication outcomes. Classification does not make its existing MVP publication optional.
+- Its publication does not require a successful authentication Command or a committed business-state change. The failed-attempt outcome must have occurred before publication.
+- Failed authentication does not create an authenticated Session merely to produce the event. An unresolved Person does not justify creating an Aggregate or fabricating an identity reference.
+- Its name, Identity ownership, producer, existing payload fields, and existing conditional identity-reference rules are retained. This decision does not add or remove a wire field, choose a broker/topic, change delivery guarantees, or select storage/retention policies.
+- Consumers SHALL process LoginFailed as a security/audit fact, not as a successful Domain state transition. Blueprint event catalogs, classification-based validators, machine specifications, and any consumer routing assumptions must be reviewed before generation readiness is granted.
+
+This is consistent with 027 §14's prohibition on Domain Events for failed
+Commands. The nine other events retain their current classification; this is
+not a classification decision about every authentication-related event.
+
+**Rationale**: Failed authentication is an observable security outcome without
+requiring successful business-state mutation. The existing Security Event
+family captures it while preserving the failed-Command Domain Event rule.
+
+**Alternative considered**: Allowing Domain Events for failed Commands would
+change the general Command policy. That alternative is not adopted here.
+
+Security sensitivity levels, audit retention/access policies, and classification
+of other event types remain outside this decision's scope.
 
 ---
 
@@ -374,6 +395,14 @@ must follow 051 §9; versions must not be reduced to historical targets.
 | 03_Aggregates.md | 1.1.1 | Atomic registration exception already exists; verify consistency and qualify pending approval. |
 | 04_Commands.md | 1.1.0 | Application Service mapping already exists; verify consistency and qualify pending approval. |
 
+For Decision 5 in v1.3, also synchronize 026 §5/§6/§9/§17/§20 and 027 §14
+with the Security Event classification, and update 059's event-family catalog.
+The earlier baseline table above records the package review; it is not a live
+version manifest. Decision 5 also requires an Identity Blueprint review of
+06_Domain_Events.md, 07_Contracts.md, 04_Commands.md, 02_Use_Cases.md, affected
+security/testing/validation/MVP documents, and the machine specification.
+Verify consumer and delivery references even where no payload change is needed.
+
 Also verify dependent references and readiness labels in 02_Use_Cases.md,
 14_MVP.md, and the machine specification. The supplied machine file is named
 `capability_machine.yaml`; 064 §7 requires `capability.machine.yaml`.
@@ -390,6 +419,7 @@ This ADR SHALL remain Proposed until:
 * [ ] Related document updates are completed
 * [ ] Architecture Validation Review is completed
 * [ ] Blueprint passes Structural Validation
+* [ ] LoginFailed classification is synchronized across Platform, Identity narrative, machine specification, and affected contract/consumer references; no identity or payload contract is silently changed
 * [ ] All affected Blueprint documents reference ADR-0002 (latest accepted version)
 
 After approval:
@@ -430,6 +460,8 @@ After approval:
 | 1.1     | Proposed | Added Command Model coordination exception for Identity Registration, clarified Application Service responsibility, added governance metadata, and documented compatibility boundaries. Clarified that the exception applies only to RegisterPerson and does not establish a general multi-Aggregate transaction rule. |
 | 1.2     | Proposed | Added a clarifying note to the References section stating that Document 019 is retained as an architectural context document for this ADR without constituting a lineage/supersession determination relative to 041/059; that determination is deferred to a separate Architecture Board governance track. Corrected a stale version-pinned self-reference in Acceptance Criteria (ADR-0002 v1.1 → latest accepted version). No substantive decision content changed. |
 | 1.2.1 | Proposed | 2026-09-24 review candidate: clarified pending approval, replaced stale document-update assumptions with observed package baselines, and recorded dependent validation work. No transaction boundary, role, event, authentication, or MVP behavior changed. |
+
+| 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
 
 ---
 

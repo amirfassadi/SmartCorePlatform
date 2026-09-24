@@ -2,9 +2,13 @@
 
 # SmartCore Event Model
 
-Version: 1.0
+Version: 1.1
 Status: Draft
 Layer: Core
+
+Related Decision: ADR-0002_Identity_Foundation_Clarifications.md v1.3, Decision 5
+(Proposed). The LoginFailed-specific clarifications below record that pending
+ADR; they do not constitute full ADR acceptance or generation clearance.
 
 ---
 
@@ -107,7 +111,11 @@ State Change
 Event Emitted
 ```
 
-Events are emitted only after successful execution.
+Domain Events in this lifecycle are emitted only after successful execution.
+LoginFailed is the specifically classified Security Event described by
+ADR-0002 Decision 5: it records a completed failed-authentication outcome and
+therefore does not require a successful authentication Command or business-state
+commit. This clarification does not authorize Domain Events for failed Commands.
 
 ---
 
@@ -140,6 +148,12 @@ Version
 ```
 
 ---
+
+For LoginFailed, the generic structure above does not require a fabricated
+AggregateId, ActorId, or TenantId when authentication cannot resolve the relevant
+identity/context. The existing Identity Blueprint envelope and conditional
+reference rules define its concrete contract; this clarification changes no
+wire field or nullability rule.
 
 # 7. Event Identity
 
@@ -228,6 +242,11 @@ ERPExportCompleted
 ## Security Events
 
 Authentication and authorization.
+
+LoginFailed is an Identity-owned Security Event used for audit, per
+ADR-0002 Decision 5. Its required Identity MVP publication records an unsuccessful
+authentication attempt without asserting a successful Domain state change.
+Its unchanged name and ownership do not make it a Domain Event.
 
 Examples:
 
@@ -379,7 +398,11 @@ CausationId = PaymentCompleted
 
 # 17. Aggregate Boundary
 
-Every Event belongs to exactly one Aggregate.
+Every Domain Event belongs to exactly one Aggregate.
+For the LoginFailed Security Event, identity resolution may fail before any
+Aggregate instance is available. The existing conditional identity-reference
+rules apply; no Aggregate is created solely to satisfy an event reference.
+This revision does not redefine aggregate associations of other event families.
 
 Examples
 
@@ -445,9 +468,11 @@ Do not duplicate entity state.
 
 # 20. Event Publishing
 
-Events are published after transaction success.
-
-Never before.
+Domain Events are published after transaction success, never before.
+LoginFailed publication follows the completed failed-authentication outcome;
+it does not wait for a successful authentication transaction or Session creation.
+This classification does not prescribe a different transport, topic, or delivery
+guarantee for the existing event.
 
 Publication failures must not invalidate committed business state.
 
@@ -564,7 +589,7 @@ Before introducing a new Event verify:
 
 ✓ Immutable
 
-✓ Belongs to one Aggregate
+✓ Domain Event belongs to one Aggregate; LoginFailed uses the conditional references described in §17
 
 ✓ Contains minimal payload
 
@@ -587,3 +612,12 @@ They form the foundation of auditability, automation, integrations, analytics, w
 Commands express intent.
 
 Events preserve truth.
+
+
+# Change Log
+
+## Version 1.1 (2026-09-24)
+
+- Synchronized LoginFailed classification with ADR-0002 v1.3 Decision 5.
+- Clarified the Domain Event scope of successful execution/commit requirements and the existing conditional identity references for LoginFailed.
+- Retained Draft status, the four existing event families, and the semantic definition of an Event. Other event families are not reclassified by this revision.

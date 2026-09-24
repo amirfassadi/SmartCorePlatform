@@ -2,12 +2,12 @@
 
 # SmartCore Command Model
 
-Version: 1.2.1
+Version: 1.3
 Status: Normative
 Layer: Core
 
 Related Decision Records:
-- ADR-0002_Identity_Foundation_Clarifications.md (v1.2.1, Proposed; Decision 7)
+- ADR-0002_Identity_Foundation_Clarifications.md (v1.3, Proposed; Decisions 5 and 7)
 
 **Governance qualification**: The registration exception in §17.1 records the
 proposal in ADR-0002; it is not effective authorization while that ADR remains
@@ -56,7 +56,7 @@ It may fail.
 
 It may be rejected.
 
-Only successful Commands produce Events.
+Only successful Commands produce Domain Events. The LoginFailed Security Event is governed by §14.
 
 ---
 
@@ -252,7 +252,7 @@ If violated:
 ContractAlreadyApproved
 ```
 
-No Event is produced.
+No Domain Event is produced. Security/audit outcomes are subject to §14.
 
 ---
 
@@ -307,6 +307,13 @@ InvalidTransition
 ```
 
 Optional System Events may still be emitted for audit or monitoring.
+
+Under ADR-0002 v1.3 Decision 5 (Proposed), Identity continues to publish
+LoginFailed for its documented failed-authentication outcomes as a Security
+Event used for audit (026 §9). This is not a Domain Event and does not imply
+successful Command execution, a committed Aggregate state change, or an
+authenticated Session. This revision does not make its Identity MVP publication
+optional or require every failed Command to emit a Security Event.
 
 ---
 
@@ -367,7 +374,7 @@ RegisterPerson MAY coordinate creation of multiple Identity Aggregates (Person, 
 This exception:
 
 -   Applies ONLY to the RegisterPerson operation.
--   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.2.1, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
+-   Is proposed by ADR-0002_Identity_Foundation_Clarifications.md v1.3, Decision 7 (Command Model Coordination Exception for Identity Registration), pending acceptance.
 -   Exists because Person, Personal Organization, and Membership represent a single business invariant that must not exist in a partial state; an event-driven Saga would permit temporarily invalid intermediate states.
 -   SHALL NOT be treated as a general precedent. Any future request for a similar cross-Aggregate atomic coordination exception SHALL require its own independent architectural review.
 
@@ -580,6 +587,12 @@ They initiate it.
 
 # Change Log
 
+## Version 1.3 (2026-09-24)
+
+- Synchronized the agreed LoginFailed classification with ADR-0002 v1.3 Decision 5.
+- Qualified generic successful-command/event statements as Domain Event rules and documented the Identity-specific Security Event in §14.
+- Preserved the prohibition on Domain Events for failed Commands and the pending RegisterPerson-only coordination exception.
+
 ## Version 1.2.1 (2026-09-24)
 
 - Corrected premature approval wording in §17.1 and pinned the reviewed ADR-0002 reference.
@@ -626,3 +639,4 @@ Decision Records reference to document header
 ---
 
 End of Document
+
