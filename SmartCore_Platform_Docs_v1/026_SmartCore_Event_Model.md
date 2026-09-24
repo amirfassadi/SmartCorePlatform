@@ -2,11 +2,11 @@
 
 # SmartCore Event Model
 
-Version: 1.1.1
+Version: 1.1.2
 Status: Draft
 Layer: Core
 
-Related Decision: ADR-0002_Identity_Foundation_Clarifications.md v1.4, Decision 5
+Related Decision: ADR-0002_Identity_Foundation_Clarifications.md v1.6, Decisions 5, 8, and 9
 (Proposed). The LoginFailed-specific clarifications below record that pending
 ADR; they do not constitute full ADR acceptance or generation clearance.
 
@@ -186,6 +186,16 @@ ProcessedAt
 ```
 
 OccurredAt represents business reality.
+For Identity's `PersonRegistered`, `OccurredAt` is the atomic transition to
+registration workflow `Ready` and enqueue of that event. The event also carries
+`OwnershipCommittedAt`, the earlier atomic ownership commit time. Outbox
+publication or consumer receipt time is neither of these timestamps. Manual
+Credential recovery may delay Ready by hours or days. Consumers measuring
+ownership age or retention use `OwnershipCommittedAt`; consumers measuring
+usable registration use `OccurredAt`. If a commit-time notification is needed,
+Identity defines a distinct signal rather than moving `PersonRegistered` back
+to the ownership commit (ADR-0002 Decision 8). The precise payload placement
+and casing must be aligned with the Identity event contract before acceptance.
 
 ---
 
@@ -615,6 +625,14 @@ Events preserve truth.
 
 
 # Change Log
+
+## Version 1.1.2 (2026-09-24)
+
+- Updated the Proposed ADR-0002 reference to v1.6. For PersonRegistered,
+  `OccurredAt` now means the Ready transition (previous event-contract
+  assumptions used initial ownership commit), while `OwnershipCommittedAt`
+  records the earlier ownership commit. Consumer and Identity contract
+  alignment remains an acceptance condition.
 
 ## Version 1.1.1 (2026-09-24)
 
