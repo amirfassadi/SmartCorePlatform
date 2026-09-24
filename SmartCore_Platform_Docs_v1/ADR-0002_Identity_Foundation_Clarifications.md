@@ -501,7 +501,14 @@ unused material; Identity SHALL delete it within a documented bounded cleanup
 interval. The security specification SHALL define the absolute lifetime and
 cleanup interval. Resends SHALL NOT silently extend the absolute expiry. An
 expired session cannot authorize ownership commit. Material needed after commit
-follows Decision 8's protection and cleanup rules.
+follows Decision 8's protection and cleanup rules. At the ownership commit,
+Identity SHALL atomically bind the durable protected material reference to
+`registrationId` together with the provisioning Outbox item. Physical movement
+of the secret is not required, but cleanup of the consumed verification
+session SHALL NOT delete or invalidate material still referenced by the
+PendingCredential registration. From that commit onward, its access,
+retention, and eventual cleanup are governed by Decision 8; a rolled-back
+commit SHALL leave no registration-owned material or Outbox reference.
 
 Before contact ownership is proven, initial request and resend responses SHALL
 NOT reveal whether the normalized contact belongs to a Person. Observable
@@ -526,10 +533,19 @@ Successful confirmation SHALL atomically bind `verificationSessionId` to the
 issued `registrationId` and consume the challenge alongside ownership commit.
 Challenge consumption prevents a second commit; a separate durable mapping
 permits authorized replay of the same result for a documented bounded retention
-period. A different payload under the same session SHALL be rejected and
-audited. After retention expires, replay SHALL fail safely without creating
-another ownership triple. The API contract SHALL specify delivery and use of
-the stable `registrationId`; Decision 8 uses it for post-commit idempotency.
+period. The session identifier alone SHALL NOT authorize replay. Within the
+original challenge validity window, replay SHALL require the same successfully
+verified one-time challenge proof and the same request binding (including the
+normalized contact), subject to rate limits and attempted-proof limits. A
+consumed proof MAY retrieve only its already committed outcome; it SHALL NOT
+authorize another commit, Credential change, or authenticated Session. Proofs
+SHALL NOT be logged or exposed in the mapping. The security and API contracts
+SHALL specify proof verification, replay retention, and safe responses. A
+different payload under the same session SHALL be rejected and audited. After
+the proof expires or mapping retention ends, replay SHALL fail safely without
+creating another ownership triple. The API contract SHALL specify delivery and
+use of the stable `registrationId`; Decision 8 uses it for post-commit
+idempotency.
 
 Credential provisioning then follows Decision 8. Before the workflow is
 `Ready` and a Credential is active, password login is denied; confirmation of
@@ -635,7 +651,8 @@ must follow 051 §9; versions must not be reduced to historical targets.
 | --- | --- | --- |
 | 027_SmartCore_Command_Model.md | 1.2 | §17.1 already records the exception; qualify its pending approval and verify the exact RegisterPerson-only scope. |
 | 057_SmartCore_Tenancy_and_Ownership_Model.md | 1.3 | §8 already records the exception; qualify pending approval and verify the core ownership boundary. |
-| 059_SmartCore_Identity_Platform.md | 1.1 | §6 already separates ownership commit from Credential/Session operations; synchronize approval wording, lifecycle references, and revision history. |
+| 059_SmartCore_Identity_Platform.md | 1.4 | Synchronize Decisions 8–9, verification-to-registration material transfer, event timing, pending approval wording, and version references. |
+| 026_SmartCore_Event_Model.md | 1.1.2 (this branch) | §8 now records PersonRegistered timing; validate payload placement and Identity contract alignment. |
 | 01_Domain_Model.md | Header 1.1.0; Change Log includes 1.2.0 | Application Service reclassification already exists; reconcile version metadata and pending-approval wording. |
 | 03_Aggregates.md | 1.1.1 | Atomic registration exception already exists; verify consistency and qualify pending approval. |
 | 04_Commands.md | 1.1.0 | Application Service mapping already exists; verify consistency and qualify pending approval. |
@@ -664,6 +681,15 @@ version manifest. Decision 5 also requires an Identity Blueprint review of
 06_Domain_Events.md, 07_Contracts.md, 04_Commands.md, 02_Use_Cases.md, affected
 security/testing/validation/MVP documents, and the machine specification.
 Verify consumer and delivery references even where no payload change is needed.
+
+Version-pinned references to ADR-0002 in 027, 057, and 059 SHALL be reviewed
+against the version each document actually adopts. Do not silently change an
+older reference to v1.6 as if the dependent contract were already aligned;
+record the approved version and pending synchronization explicitly. Document
+026 §8, Identity/06_Domain_Events.md §§4.1–4.2, and the affected consumers
+require a consistent Ready-time `OccurredAt` contract. The workflow Ready
+transition is the relevant committed state change for PersonRegistered; it is
+not a new Person Aggregate lifecycle transition.
 
 Also verify dependent references and readiness labels in 02_Use_Cases.md,
 14_MVP.md, and the machine specification. The supplied machine file is named
@@ -742,10 +768,9 @@ After approval:
 | 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
 | 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
 | 1.5 | Proposed | 2026-09-24: Added minimal registration with verified mobile OR email, password and DisplayName; one-time challenge precedes the atomic ownership commit. Made email optional for mobile-only Persons, retained the PendingCredential post-commit recovery flow, and deferred other profile data. Full Blueprint/schema validation and approval remain pending. |
-| 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security and replay mapping, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; expanded acceptance checks. |
+| 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security, atomic material-reference binding, authenticated replay mapping, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; classified Decisions 8–9 as Level 4 and expanded dependent acceptance checks. |
 
 ---
 
 **END OF DOCUMENT**
-
 
