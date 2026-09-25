@@ -2,18 +2,24 @@
 
 ## Metadata
 
-- Status: Proposed
-- Version: 1.1.0
+- Status: Accepted
+- Version: 1.1.1
 - Date Created: 2026-09-24
 - Last Reviewed: 2026-09-25
 - Decision Level: Level 4 — Architectural Change
-- Approval Date: TBD
-- Effective Date: TBD
+- Approval Date: 2026-09-25
+- Effective Date: 2026-09-25 (architectural decision only; deployment/generation gates remain open)
 - Related decisions: ADR-0002 Decisions 8–9 (Proposed); governance 051 §§5–7
+
+## Approval record and limits
+
+The repository owner **@amirfassadi**, acting as both architecture/security approver and accountable operations/support owner, accepted the architectural content of v1.1.0 at `82ef455eda661064b69bd6f2f080010a341d014e` on 2026-09-25. The [signed acceptance record](../_Copilot_Reports/Identity_ADR-0004_Acceptance_Decision_Record.md) was introduced in commit [`16b720c9cb9afdd60769dcad7b2c4d8c1e2e983c`](https://github.com/amirfassadi/SmartCorePlatform/blob/16b720c9cb9afdd60769dcad7b2c4d8c1e2e983c/_Copilot_Reports/Identity_ADR-0004_Acceptance_Decision_Record.md). Version 1.1.1 records that approval without changing the technical decisions.
+
+This is owner-directed approval with disclosed combined author/reviewer roles, not an independent review or GPG/SSH signing claim. ADR-0002 remains Proposed; T16 is not accepted. Blueprint propagation, implementation, runtime verification, deployment configuration and full validation are separate pending obligations. All original “before acceptance” implementation/verification conditions below are now explicitly tracked as subsequent implementation/verification/rollout gates under the owner's scoped approval; they are not certified complete or waived.
 
 ## Context
 
-The PR #5 Blueprint at 4f13eff proposes polling, an immutable initial Credential winner and a prohibition on independent pre-Ready replacement. ADR-0002 requires reconciliation, one active Credential and a loser no-op after Ready, but does not itself select these mechanisms or the earlier winner point. The traceability review at 9514461 records A01/A02/A03 and C01/C02/C03 as unresolved. This ADR supplies an explicit proposed disposition, not retroactive approval of the Blueprint.
+The PR #5 Blueprint at 4f13eff proposes polling, an immutable initial Credential winner and a prohibition on independent pre-Ready replacement. ADR-0002 requires reconciliation, one active Credential and a loser no-op after Ready, but does not itself select these mechanisms or the earlier winner point. The traceability review at 9514461 records A01/A02/A03 and C01/C02/C03 as unresolved. This ADR records the accepted architectural disposition; the approval record above does not retroactively approve the existing Blueprint or implementation.
 
 The unsafe interleaving to exclude is: Credential service confirms active C1; another operation revokes/replaces C1; Identity commits Ready based on stale evidence. One-active uniqueness alone permits that interleaving. A confirmation version that is never checked at the authoritative mutation cannot prevent it.
 
@@ -198,7 +204,7 @@ C01 protects a cardinality invariant; C02 makes uncertain duplicate provisioning
 
 ## Consequences and propagation gates
 
-These dispositions are Proposed, not accepted. They do not retroactively validate 07/09 or authorize implementation under 051 §7. Before acceptance, update and review together:
+These architectural dispositions are accepted within the signed record's scope. They do not certify 07/09, schemas or implementation. Propagation is authorized; generation remains blocked by the upstream decisions and validation gates. Before implementation/rollout clearance, update and review together:
 
 - ADR-0002: explicitly reference the earlier C02 winner point and this protocol without rewriting its existing history as if it selected polling.
 - Identity 01/03/04/07/09: authoritative guard ownership, all mutation paths, early winner, acknowledgment, internal administrative recovery job/audit persistence and post-Ready retryable password-change behavior.
@@ -216,9 +222,9 @@ This ADR does not approve the PersonRegistered/PersonUpdated shared stream. T16 
 
 Choosing PR #5 as the sole review vehicle and closing #1–#4 as superseded is a repository-workflow decision, distinct from accepting ADRs or enabling generation. Do not represent publication of this proposal as the user's approval of its architecture or authorization to merge. The maintainer selected PR #5 as the review path and PRs #1–#4 were closed unmerged as superseded. That repository action does not accept any architectural decision; this change neither merges nor reopens a PR.
 
-## Acceptance criteria
+## Architectural approval and remaining delivery gates
 
-- [ ] Architecture review accepts/revises A01/A02/A03, including early winner and release-protocol availability cost.
+- [x] Owner architectural approval of A01/A02/A03 and Decision 4, including early winner, availability cost and restricted administrative recovery design; signed record at commit 16b720c.
 - [ ] Decision 4 administrative recovery contract, state/guard/audit rules, restricted result access and bounded runbook are reviewed and propagated within this ADR; accepting the MVP limitation alone cannot satisfy this gate.
 - [ ] Architecture/security and the accountable operations/support owner approve permissions, monitoring/escalation, recovery/audit/replay budgets and responses for unresolved outcomes; no generic unlock or post-commit cancellation is granted.
 - [ ] Administrative invalidation/reconciliation races, access revocation, idempotency, audit atomicity/immutability, cleanup and failure outcomes in §4.6 are verified. Listing these requirements is not evidence that they passed.
@@ -232,6 +238,7 @@ Choosing PR #5 as the sole review vehicle and closing #1–#4 as superseded is a
 
 | Version | Status | Change |
 |---|---|---|
+| 1.1.1 | Accepted | 2026-09-25: Owner @amirfassadi accepted v1.1.0 architectural content via Identity_ADR-0004_Acceptance_Decision_Record.md at commit 16b720c9cb9afdd60769dcad7b2c4d8c1e2e983c. No technical decision changed; delivery/runtime gates remain open. |
 | 1.1.0 | Proposed | 2026-09-25: Added restricted internal AdminRecoverStalledRegistration to this ADR, with two actions, guarded race handling, operator authorization, mandatory append-only audit and bounded support outcomes. Removed limitation-only acceptance; Blueprint/schema propagation remains pending. |
 | 1.0.1 | Proposed | 2026-09-25: Recorded stalled-registration administrative recovery as an explicit acceptance choice; distinguished pre-commit contact abandonment from post-provisioning reconciliation failure. No unlock, TTL or protocol change. |
 | 1.0.0 | Proposed | Explicit A01/A02/A03 disposition with durable mutation guard, early winner, registration-lifetime deduplication and post-Ready acknowledgment. No Blueprint behavior or acceptance status changed by this document. |
