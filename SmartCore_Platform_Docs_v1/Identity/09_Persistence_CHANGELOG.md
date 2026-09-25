@@ -1,3 +1,5 @@
+> Historical revision log. Current persistence contract and version are in [09_Persistence.md](09_Persistence.md); this log does not grant generation readiness.
+
 <!--
 Document ID: ID-09-CHANGELOG
 Title: SmartCore Identity Platform Blueprint - Persistence — Historical Change Log (v1.0.0–v1.0.4)
