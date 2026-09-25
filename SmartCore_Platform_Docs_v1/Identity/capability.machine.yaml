@@ -28,7 +28,7 @@ documents:
   version: 1.4.0
   status: DRAFT
 - path: 03_Aggregates.md
-  version: 1.4.0
+  version: 1.4.1
   status: DRAFT
 - path: 04_Commands.md
   version: 1.3.0

@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-03
 Title: SmartCore Identity Platform Blueprint - Aggregates
-Version: 1.4.0
+Version: 1.4.1
 Status: DRAFT
 Purpose: Define aggregate design rationale and boundaries for the Identity Platform Blueprint
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.4.1 (2026-09-25): Corrected pre-Ready profile-update claim against 04 §§4.2–4.3; causal commit order does not establish publication/delivery ordering or accept T16.
   - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Aligned optional verified contact and linked the concrete proposed Credential confirmation contract in 07 §3 and persistence in 09 §6.
   - Version 1.2.0 (2026-09-24): Proposed registration-workflow
@@ -236,8 +237,15 @@ not opt another event into this stream. In particular, audit-only
 `LoginFailed` and authentication outcomes without a Person state
 transition SHALL NOT contend for this allocator; their audit
 ordering/retention is a separate contract. Delivery SHALL preserve
-this stream position per Person, even across retries. A profile update may precede Ready;
-consumers SHALL NOT assume `PersonRegistered` is the first Person event.
+this stream position per Person, even across retries. Under the current command
+model (04_Commands.md §§4.2–4.3), UpdatePersonProfile requires an authenticated
+Session, and Session creation requires Ready plus a current active Credential.
+Consequently, Ready and the PersonRegistered Outbox entry commit before any
+PersonUpdated produced by those paths. Credential becoming active alone is not
+Ready. This causal commit order does not establish publication or delivery order;
+consumers cannot infer arrival order from it. Any new PersonUpdated producer or
+Session-creation path that bypasses Ready requires architectural review of this
+premise. T16 remains Proposed.
 Neither `OccurredAt` timestamps nor Outbox delivery time establish
 that ordering. No ordering across Person, Organization, and Membership
 streams is implied. §9.1 is proposed pending ADR acceptance and
