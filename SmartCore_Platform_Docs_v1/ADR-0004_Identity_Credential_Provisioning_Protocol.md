@@ -3,7 +3,7 @@
 ## Metadata
 
 - Status: Proposed
-- Version: 1.0.0
+- Version: 1.0.1
 - Date Created: 2026-09-24
 - Last Reviewed: 2026-09-25
 - Decision Level: Level 4 — Architectural Change
@@ -95,6 +95,14 @@ This trades availability of immediate post-Ready password changes for safety. Re
 
 No independent emergency revoke bypass is granted by this proposal. Introducing such a path requires its own consistency/security decision, including how to prevent stale Ready evidence. If that capability is required now, this ADR cannot be accepted unchanged.
 
+### 3.5 Stalled provisioning and administrative recovery limitation
+
+Contact verification precedes ownership commit and Credential provisioning under ADR-0002 Decision 9. Abandoning or losing the pre-commit verification challenge therefore does not itself create a Credential in ProvisionedAwaitingReady. This limitation concerns a committed registration whose Credential exists but whose Ready reconciliation stalls, or a committed Ready fact whose acknowledgment cannot be delivered.
+
+The guard can remain indefinitely while the cause is unresolved. User inactivity or elapsed time is not a reason to release it. PendingCredential still denies login; Ready with a pending acknowledgment can permit login while blocking Credential replacement. Operational re-drive may resume the existing authorized workflow or resend its committed Ready acknowledgment; it cannot synthesize Ready evidence, replace the winner, revoke it or bypass the guard.
+
+Before acceptance, architecture/security and the accountable operations/support owner must explicitly accept this MVP limitation or require a separate governed recovery/cancellation decision. Acceptance must identify the monitoring/escalation owner, the auditable authorized re-drive procedure, and the support response when re-drive cannot resolve the registration. There is no implied self-service or administrative unlock. No new numeric deadline, TTL release or emergency-revoke behavior is introduced by documenting the gap.
+
 ## Rationale
 
 C01 protects a cardinality invariant; C02 makes uncertain duplicate provisioning recoverable; C03 protects the validity interval between remote confirmation and local Ready. The explicit post-commit acknowledgment makes the release condition verifiable at the authoritative Credential writer without introducing distributed 2PC. It exposes the availability cost instead of hiding it in a blanket no-replacement sentence.
@@ -131,6 +139,7 @@ Choosing PR #5 as the sole review vehicle and closing #1–#4 as superseded is a
 ## Acceptance criteria
 
 - [ ] Architecture review accepts/revises A01/A02/A03, including early winner and release-protocol availability cost.
+- [ ] Architecture/security and the accountable operations/support owner explicitly record acceptance of the potentially indefinite stalled-registration guard and absence of an administrative unlock in MVP, with monitoring/escalation ownership, an audited authorized re-drive procedure and a support response for unresolved cases (§3.5); otherwise a separate recovery/cancellation decision must be approved and propagated before accepting this protocol. This limitation is not accepted merely by adding this checklist item.
 - [ ] Every supported Credential mutation path is demonstrably guarded; deployment assumptions are enforceable.
 - [ ] ADR/Blueprint/API/machine propagation above is completed and reviewed.
 - [ ] Cross-service binding, replay, crash, rollback, stale evidence, acknowledgment loss and late-duplicate tests pass.
@@ -141,4 +150,5 @@ Choosing PR #5 as the sole review vehicle and closing #1–#4 as superseded is a
 
 | Version | Status | Change |
 |---|---|---|
+| 1.0.1 | Proposed | 2026-09-25: Recorded stalled-registration administrative recovery as an explicit acceptance choice; distinguished pre-commit contact abandonment from post-provisioning reconciliation failure. No unlock, TTL or protocol change. |
 | 1.0.0 | Proposed | Explicit A01/A02/A03 disposition with durable mutation guard, early winner, registration-lifetime deduplication and post-Ready acknowledgment. No Blueprint behavior or acceptance status changed by this document. |
