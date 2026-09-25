@@ -92,3 +92,9 @@ After fetching complete ancestry (`git fetch --unshallow origin`, shallow status
 ## 8. Outcome
 
 PR #1 has now been directly reviewed at a pinned head. D8/9 obligations and Blueprint additions are mapped; A01–A03/C02–C03 and T16 remain open architecture items. This report adds review evidence only, changes no protocol, approves no invariant and closes no PR. Main and all ADR acceptance statuses remain unchanged.
+
+## 9. Proposed disposition follow-up
+
+[ADR-0004](../SmartCore_Platform_Docs_v1/ADR-0004_Identity_Credential_Provisioning_Protocol.md) now records a concrete proposal for A01/A02/A03: authenticated polling, registration-lifetime minimized deduplication, a durable Credential-side mutation guard and idempotent acknowledgment of committed Ready. It explicitly chooses C02's earlier winner point and requires all writers to enforce C03. It also records the cost: post-Ready password changes may temporarily remain unavailable until acknowledgment is reconciled.
+
+This is **proposal recorded**, not **architecture accepted** or **propagation completed**. The acknowledgment operation, phases and response refinements are not yet represented by the current Blueprint/schema set. ADR-0004 lists that propagation as an acceptance gate; this report must not be used to claim that prose/schema agreement or the 358 limited checks validates the new protocol. T16 remains separate and open. Closing superseded PRs is a review-path decision, not a substitute for these approvals.
