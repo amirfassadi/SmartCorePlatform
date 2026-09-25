@@ -1,8 +1,9 @@
 openapi: 3.1.0
 info:
   title: SmartCore Identity proposed API
-  version: 1.1.0
-  description: DRAFT; ADR-0002 remains Proposed. Not an implemented or approved contract.
+  version: 1.2.0
+  description: DRAFT wire contract. ADR-0004 architectural approval is scoped; ADR-0002
+    remains Proposed, T16 open. No implementation/generation clearance.
 paths:
   /auth/register:
     post:
@@ -382,7 +383,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RegistrationResult'
+                allOf:
+                - $ref: '#/components/schemas/CompletionResult'
+                - properties:
+                    status:
+                      const: Ready
         '202':
           description: Success; see 08_API.md for state and replay semantics.
           headers:
@@ -392,7 +397,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RegistrationResult'
+                allOf:
+                - $ref: '#/components/schemas/CompletionResult'
+                - properties:
+                    status:
+                      const: PendingCredential
         '400':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -467,6 +476,8 @@ paths:
         in: header
         required: true
         schema: *id001
+      description: Reports candidate outcome; Ready alone does not mean the submitted
+        password won. No Session is issued.
   /auth/login:
     post:
       operationId: AuthenticatePerson
@@ -970,12 +981,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '503':
-          description: Applicable failure as defined in 08_API.md §5; no existence
-            detail before proof.
+          description: Valid caller/current password but Ready acknowledgment pending,
+            or unavailable dependency. No password mutation/event. Retry does not
+            release guard on time.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ChangePasswordUnavailable'
+          headers:
+            Retry-After:
+              required: false
+              schema:
+                type: integer
+                minimum: 1
+              description: Optional policy hint, not guard-release deadline.
       requestBody:
         required: true
         content:
@@ -1542,7 +1561,84 @@ components:
       - error
       - traceId
       additionalProperties: false
+    CompletionResult:
+      type: object
+      properties:
+        registrationId:
+          type: string
+          format: uuid
+        status:
+          enum:
+          - PendingCredential
+          - Ready
+        ownershipCommittedAt: &id012
+          type: string
+          format: date-time
+        readyAt: *id012
+        credentialOutcome:
+          type: string
+          enum:
+          - CandidateSelected
+          - ExistingWinner
+          - Undetermined
+      required:
+      - registrationId
+      - status
+      - ownershipCommittedAt
+      - credentialOutcome
+      additionalProperties: false
+      allOf:
+      - if:
+          properties:
+            status:
+              const: Ready
+        then:
+          required:
+          - readyAt
+        else:
+          not:
+            required:
+            - readyAt
+      - if:
+          properties:
+            status:
+              const: Ready
+        then:
+          properties:
+            credentialOutcome:
+              type: string
+              enum:
+              - CandidateSelected
+              - ExistingWinner
+    ChangePasswordUnavailable:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - PROVISIONING_FINALIZATION_PENDING
+              - DEPENDENCY_UNAVAILABLE
+            message: &id013
+              type: string
+            nextAction:
+              enum:
+              - RequestSetup
+              - SignIn
+          required:
+          - code
+          - message
+          additionalProperties: false
+        traceId: *id013
+      required:
+      - error
+      - traceId
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+x-internal-administration: Not exposed here; see services.schema.json and 07_Contracts
+  §7.

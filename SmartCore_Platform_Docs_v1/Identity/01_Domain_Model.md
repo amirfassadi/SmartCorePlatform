@@ -1,13 +1,16 @@
 <!--
 Document ID: ID-01
 Title: SmartCore Identity Platform Blueprint - Domain Model
-Version: 1.3.0
+Version: 1.4.0
 Status: DRAFT
 Purpose: Define the proposed Identity domain model contract.
-Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.2.1; prior text remains in Git history.
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 > Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
@@ -79,3 +82,11 @@ OrganizationCreated and MembershipCreated are enqueued with ownership commit. Pe
 # 10. Future Extensions
 
 Contact changes/addition, lost-contact recovery, social login, MFA, Organization administration and general account recovery require separate governance. They are not implied by PendingCredential completion.
+
+# 11. ADR-0004 supporting state and boundaries
+
+RegistrationWorkflow additionally persists immutable ReadyFactId and winner CredentialId/ProvisioningVersion when Ready commits; an acknowledgment Outbox references that fact. These are supporting workflow fields, not Person attributes or new Aggregate lifecycle statuses.
+
+Credential's application store owns InitialProvisioningRecord: registrationId/PersonId, immutable winning operationId/CredentialId, non-secret candidate fingerprint, immutable provisioningVersion, phase (`ProvisionedAwaitingReady` or `ReadyAcknowledged`), and acknowledged readyFactId when present. C01 limits active cardinality, C02 fixes the winner at Credential commit, C03 blocks supported replacement/revocation until acknowledgment; one-active uniqueness alone does not implement all three.
+
+RecoveryJob stores action/target, request fingerprint, authenticated initiating principal, admission/execution deadlines, attempts, outcome and audit correlation. Admission permits are server-bound, expiring authorization; raw tokens/proofs are not domain fields. Recovery and audit records are application structures, not new business Aggregates. Secret/proof retention remains independent of durable non-secret winner metadata.

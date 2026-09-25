@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-03
 Title: SmartCore Identity Platform Blueprint - Aggregates
-Version: 1.3.0
+Version: 1.4.0
 Status: DRAFT
 Purpose: Define aggregate design rationale and boundaries for the Identity Platform Blueprint
-Dependencies: 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Aligned optional verified contact and linked the concrete proposed Credential confirmation contract in 07 §3 and persistence in 09 §6.
   - Version 1.2.0 (2026-09-24): Proposed registration-workflow
     ownership and Person event-stream ordering contract under
@@ -32,6 +33,8 @@ Change Log:
   - Version 1.1.0 (2026-07-12): Added exception note in §9 clarifying that RegistrationApplicationService (not a Domain Service) coordinates initial cross-aggregate registration, aligned with 01_Domain_Model.md v1.2.0 and ADR-0002 Decision 7
   - Version 1.0.0 (2026-07-08): Initial aggregate design rationale for Session and Credential
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 # 1. Aggregate Overview
 
@@ -241,6 +244,12 @@ streams is implied. §9.1 is proposed pending ADR acceptance and
 runtime verification of the aligned 06_Domain_Events.md and 09_Persistence.md contracts.
 
 ---
+
+## 9.2 Accepted Credential provisioning authority
+
+ADR-0004 assigns InitialProvisioningRecord to Credential's application persistence boundary. Every supported Credential mutation participates in its durable guard check; first Credential and winner binding commit atomically. ProvisionedAwaitingReady prevents replacement/revocation until the stored Identity Ready fact is acknowledged. An immutable provisioningVersion identifies that winner generation, not a row-version counter. Supporting record ownership does not create an Aggregate.
+
+Ready transaction adds a stable ReadyFactId and acknowledgment Outbox without mutating Person or Credential Aggregates. The per-Person stream in §9.1 is still the separate open T16 proposal; ADR-0004 acceptance does not approve it.
 
 # 10. Future Persistence Considerations
 

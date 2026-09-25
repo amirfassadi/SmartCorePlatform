@@ -1,8 +1,60 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:smartcore:identity:services:proposed:1",
-  "title": "Internal service messages (DRAFT)",
+  "$id": "urn:smartcore:identity:services:draft:1.1.0",
+  "title": "Internal service messages \u2014 ADR-0004 accepted architecture / DRAFT encoding",
+  "x-architecture-source": "ADR-0004 v1.1.0 accepted via record 16b720c",
+  "x-runtime-verified": false,
   "$defs": {
+    "GetPersonByIdRequest": {
+      "type": "object",
+      "properties": {
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "personId"
+      ],
+      "additionalProperties": false
+    },
+    "GetPersonByIdResult": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "Found"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "displayName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "personId",
+            "displayName"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "NotFound"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
     "EnsureInitialCredentialRequest": {
       "type": "object",
       "properties": {
@@ -56,93 +108,144 @@
       ],
       "additionalProperties": false
     },
-    "GetPersonByIdRequest": {
+    "GuardedActiveResult": {
       "type": "object",
       "properties": {
+        "registrationId": {
+          "type": "string",
+          "format": "uuid"
+        },
         "personId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "credentialId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationIdOfWinner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provisioningVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "Active"
+        },
+        "phase": {
+          "const": "ProvisionedAwaitingReady"
+        }
+      },
+      "required": [
+        "registrationId",
+        "personId",
+        "credentialId",
+        "operationIdOfWinner",
+        "provisioningVersion",
+        "status",
+        "phase"
+      ],
+      "additionalProperties": false
+    },
+    "AlreadyProvisionedResult": {
+      "type": "object",
+      "properties": {
+        "registrationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "credentialId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationIdOfWinner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provisioningVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "AlreadyProvisioned"
+        },
+        "phase": {
+          "const": "ProvisionedAwaitingReady"
+        }
+      },
+      "required": [
+        "registrationId",
+        "personId",
+        "credentialId",
+        "operationIdOfWinner",
+        "provisioningVersion",
+        "status",
+        "phase"
+      ],
+      "additionalProperties": false
+    },
+    "AlreadyCompletedResult": {
+      "type": "object",
+      "properties": {
+        "registrationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "credentialId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationIdOfWinner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provisioningVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "AlreadyCompleted"
+        },
+        "phase": {
+          "const": "ReadyAcknowledged"
+        },
+        "readyFactId": {
           "type": "string",
           "format": "uuid"
         }
       },
       "required": [
-        "personId"
+        "registrationId",
+        "personId",
+        "credentialId",
+        "operationIdOfWinner",
+        "provisioningVersion",
+        "status",
+        "phase",
+        "readyFactId"
       ],
       "additionalProperties": false
-    },
-    "GetPersonByIdResult": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "status": {
-              "const": "Found"
-            },
-            "personId": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "displayName": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "status",
-            "personId",
-            "displayName"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "status": {
-              "const": "NotFound"
-            }
-          },
-          "required": [
-            "status"
-          ],
-          "additionalProperties": false
-        }
-      ]
     },
     "EnsureInitialCredentialResult": {
       "oneOf": [
         {
-          "type": "object",
-          "properties": {
-            "registrationId": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "personId": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "status": {
-              "const": "Active"
-            },
-            "credentialId": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "operationIdOfWinner": {
-              "type": "string"
-            },
-            "confirmationVersion": {
-              "type": "integer",
-              "minimum": 1
-            }
-          },
-          "required": [
-            "registrationId",
-            "personId",
-            "status",
-            "credentialId",
-            "operationIdOfWinner",
-            "confirmationVersion"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/GuardedActiveResult"
+        },
+        {
+          "$ref": "#/$defs/AlreadyProvisionedResult"
+        },
+        {
+          "$ref": "#/$defs/AlreadyCompletedResult"
         },
         {
           "type": "object",
@@ -156,10 +259,12 @@
               "format": "uuid"
             },
             "status": {
+              "type": "string",
               "enum": [
                 "RetryableUnavailable",
                 "InvalidMaterial",
-                "BindingConflict"
+                "BindingConflict",
+                "IntegrityConflict"
               ]
             }
           },
@@ -175,6 +280,12 @@
     "GetInitialCredentialResultResponse": {
       "oneOf": [
         {
+          "$ref": "#/$defs/GuardedActiveResult"
+        },
+        {
+          "$ref": "#/$defs/AlreadyCompletedResult"
+        },
+        {
           "type": "object",
           "properties": {
             "registrationId": {
@@ -186,27 +297,100 @@
               "format": "uuid"
             },
             "status": {
-              "const": "Active"
-            },
-            "credentialId": {
               "type": "string",
-              "format": "uuid"
-            },
-            "operationIdOfWinner": {
-              "type": "string"
-            },
-            "confirmationVersion": {
-              "type": "integer",
-              "minimum": 1
+              "enum": [
+                "NotProvisioned",
+                "Unavailable",
+                "IntegrityConflict"
+              ]
             }
           },
           "required": [
             "registrationId",
             "personId",
-            "status",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "AcknowledgeRegistrationReadyRequest": {
+      "type": "object",
+      "properties": {
+        "registrationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "personId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "credentialId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "provisioningVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "readyFactId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "registrationId",
+        "personId",
+        "credentialId",
+        "provisioningVersion",
+        "readyFactId"
+      ],
+      "additionalProperties": false
+    },
+    "AcknowledgeRegistrationReadyResult": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "registrationId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "personId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "credentialId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "provisioningVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "readyFactId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "Acknowledged",
+                "AlreadyAcknowledged"
+              ]
+            },
+            "phase": {
+              "const": "ReadyAcknowledged"
+            }
+          },
+          "required": [
+            "registrationId",
+            "personId",
             "credentialId",
-            "operationIdOfWinner",
-            "confirmationVersion"
+            "provisioningVersion",
+            "readyFactId",
+            "status",
+            "phase"
           ],
           "additionalProperties": false
         },
@@ -222,9 +406,11 @@
               "format": "uuid"
             },
             "status": {
+              "type": "string",
               "enum": [
-                "NotProvisioned",
-                "Unavailable"
+                "Unavailable",
+                "BindingConflict",
+                "IntegrityConflict"
               ]
             }
           },
@@ -236,6 +422,797 @@
           "additionalProperties": false
         }
       ]
+    },
+    "PrepareRegistrationRecoveryRequest": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "InvalidatePreCommitAttempt",
+            "ReconcileCommittedRegistration"
+          ]
+        },
+        "targetKind": {
+          "type": "string",
+          "enum": [
+            "VerificationSession",
+            "Registration"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "reasonCode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketReference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "action",
+        "targetKind",
+        "targetId",
+        "reasonCode",
+        "ticketReference",
+        "correlationId"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetKind": {
+                "const": "VerificationSession"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetKind": {
+                "const": "Registration"
+              },
+              "targetId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PreparedRegistrationRecovery": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "InvalidatePreCommitAttempt",
+            "ReconcileCommittedRegistration"
+          ]
+        },
+        "targetKind": {
+          "type": "string",
+          "enum": [
+            "VerificationSession",
+            "Registration"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "reasonCode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketReference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedState": {
+          "type": "string",
+          "enum": [
+            "AwaitingVerification",
+            "Expired",
+            "Invalidated",
+            "PendingCredential",
+            "Ready"
+          ]
+        },
+        "expectedVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "Prepared"
+        },
+        "recoveryRequestId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "admissionPermit": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Sensitive server-authenticated permit. Never log."
+        },
+        "admissionExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "action",
+        "targetKind",
+        "targetId",
+        "reasonCode",
+        "ticketReference",
+        "correlationId",
+        "expectedState",
+        "expectedVersion",
+        "status",
+        "recoveryRequestId",
+        "admissionPermit",
+        "admissionExpiresAt"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetKind": {
+                "const": "VerificationSession"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetKind": {
+                "const": "Registration"
+              },
+              "targetId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "expectedState": {
+                "type": "string",
+                "enum": [
+                  "AwaitingVerification",
+                  "Expired",
+                  "Invalidated"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "expectedState": {
+                "type": "string",
+                "enum": [
+                  "PendingCredential",
+                  "Ready"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RecoveryServiceError": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "Rejected"
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "Unauthorized",
+            "Forbidden",
+            "InvalidRequest",
+            "NotEligible",
+            "StaleTarget",
+            "AdmissionExpired",
+            "BindingConflict",
+            "RateLimited",
+            "Unavailable",
+            "AuditUnavailable",
+            "NotFound"
+          ]
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "code",
+        "correlationId"
+      ],
+      "additionalProperties": false
+    },
+    "PrepareRegistrationRecoveryResult": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PreparedRegistrationRecovery"
+        },
+        {
+          "$ref": "#/$defs/RecoveryServiceError"
+        }
+      ]
+    },
+    "AdminRecoverStalledRegistrationRequest": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "InvalidatePreCommitAttempt",
+            "ReconcileCommittedRegistration"
+          ]
+        },
+        "targetKind": {
+          "type": "string",
+          "enum": [
+            "VerificationSession",
+            "Registration"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "reasonCode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketReference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedState": {
+          "type": "string",
+          "enum": [
+            "AwaitingVerification",
+            "Expired",
+            "Invalidated",
+            "PendingCredential",
+            "Ready"
+          ]
+        },
+        "expectedVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recoveryRequestId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "admissionPermit": {
+          "type": "string",
+          "minLength": 1,
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "action",
+        "targetKind",
+        "targetId",
+        "reasonCode",
+        "ticketReference",
+        "correlationId",
+        "expectedState",
+        "expectedVersion",
+        "recoveryRequestId",
+        "admissionPermit"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetKind": {
+                "const": "VerificationSession"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetKind": {
+                "const": "Registration"
+              },
+              "targetId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "expectedState": {
+                "type": "string",
+                "enum": [
+                  "AwaitingVerification",
+                  "Expired",
+                  "Invalidated"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "expectedState": {
+                "type": "string",
+                "enum": [
+                  "PendingCredential",
+                  "Ready"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RecoveryInProgress": {
+      "type": "object",
+      "properties": {
+        "recoveryRequestId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "InvalidatePreCommitAttempt",
+            "ReconcileCommittedRegistration"
+          ]
+        },
+        "targetKind": {
+          "type": "string",
+          "enum": [
+            "VerificationSession",
+            "Registration"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executionExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Accepted",
+            "Running"
+          ]
+        },
+        "lastAttemptOutcome": {
+          "type": "string",
+          "enum": [
+            "RetryableUnavailable"
+          ]
+        }
+      },
+      "required": [
+        "recoveryRequestId",
+        "action",
+        "targetKind",
+        "targetId",
+        "correlationId",
+        "executionExpiresAt",
+        "status"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetKind": {
+                "const": "VerificationSession"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetKind": {
+                "const": "Registration"
+              },
+              "targetId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RecoveryCompleted": {
+      "type": "object",
+      "properties": {
+        "recoveryRequestId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "InvalidatePreCommitAttempt",
+            "ReconcileCommittedRegistration"
+          ]
+        },
+        "targetKind": {
+          "type": "string",
+          "enum": [
+            "VerificationSession",
+            "Registration"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executionExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "const": "Completed"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "Invalidated",
+            "AlreadyInvalidated",
+            "Reconciled",
+            "AlreadyReconciled",
+            "AlreadyCommitted",
+            "RequiresNormalProvisioning",
+            "RequiresUserSetup",
+            "IntegrityConflict"
+          ]
+        },
+        "cleanupState": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "CleanupCompleted"
+          ]
+        },
+        "readyFactId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "recoveryRequestId",
+        "action",
+        "targetKind",
+        "targetId",
+        "correlationId",
+        "executionExpiresAt",
+        "status",
+        "outcome"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetKind": {
+                "const": "VerificationSession"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetKind": {
+                "const": "Registration"
+              },
+              "targetId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "Invalidated",
+                  "AlreadyInvalidated",
+                  "AlreadyCommitted"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "Reconciled",
+                  "AlreadyReconciled",
+                  "RequiresNormalProvisioning",
+                  "RequiresUserSetup",
+                  "IntegrityConflict"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "Invalidated",
+                  "AlreadyInvalidated"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "cleanupState"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "cleanupState"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "Reconciled",
+                  "AlreadyReconciled"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "readyFactId"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "readyFactId"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "RecoveryStopped": {
+      "type": "object",
+      "properties": {
+        "recoveryRequestId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "InvalidatePreCommitAttempt",
+            "ReconcileCommittedRegistration"
+          ]
+        },
+        "targetKind": {
+          "type": "string",
+          "enum": [
+            "VerificationSession",
+            "Registration"
+          ]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executionExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "const": "Stopped"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "AuthorizationExpired",
+            "BudgetExhausted",
+            "AuditUnavailable"
+          ]
+        }
+      },
+      "required": [
+        "recoveryRequestId",
+        "action",
+        "targetKind",
+        "targetId",
+        "correlationId",
+        "executionExpiresAt",
+        "status",
+        "outcome"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "InvalidatePreCommitAttempt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetKind": {
+                "const": "VerificationSession"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetKind": {
+                "const": "Registration"
+              },
+              "targetId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RegistrationRecoveryResult": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RecoveryInProgress"
+        },
+        {
+          "$ref": "#/$defs/RecoveryCompleted"
+        },
+        {
+          "$ref": "#/$defs/RecoveryStopped"
+        },
+        {
+          "$ref": "#/$defs/RecoveryServiceError"
+        }
+      ]
+    },
+    "GetRegistrationRecoveryResultRequest": {
+      "type": "object",
+      "properties": {
+        "recoveryRequestId": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "recoveryRequestId"
+      ],
+      "additionalProperties": false
     }
   }
 }

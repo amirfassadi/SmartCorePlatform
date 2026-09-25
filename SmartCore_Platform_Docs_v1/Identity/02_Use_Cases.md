@@ -1,13 +1,16 @@
 <!--
 Document ID: ID-02
 Title: SmartCore Identity Platform Blueprint - Use Cases
-Version: 1.3.0
+Version: 1.4.0
 Status: DRAFT
 Purpose: Define the proposed Identity use cases contract.
-Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.2.0; prior text remains in Git history.
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 > Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
@@ -36,3 +39,11 @@ Lost pre-commit responses are retried with the same initiation idempotency key a
 # 4. Out of scope and acceptance
 
 No contact editing, lost-contact recovery, invitations, general password reset, administrative lifecycle commands or new public events. The failure, race and leakage cases in [13](13_Testing.md) remain implementation acceptance gates, not executed tests.
+
+# 5. Accepted protocol refinements
+
+UC-002 commits the winning Credential and its guarded initial outcome atomically. UC-001 confirms only active guarded evidence, then commits Ready, ReadyFactId, PersonRegistered and acknowledgment work together. It never treats a historical AlreadyCompleted result as a fresh active confirmation.
+
+UC-006 additionally checks the durable Credential guard in its mutation transaction. If acknowledgment is pending, return retryable finalization-pending without a password change or PasswordChanged event. UC-003 may authenticate once Identity is Ready and the current Credential validates even while acknowledgment delivery is pending.
+
+Internal operations staff may prepare and invoke AdminRecoverStalledRegistration (07 §7). This is not UC-005 or a new public user Command: invalidation races with pre-commit consumption; committed recovery uses canonical Ready/acknowledgment transactions. Recovery cannot supply a password, create Ready evidence or revoke/replace the winner.

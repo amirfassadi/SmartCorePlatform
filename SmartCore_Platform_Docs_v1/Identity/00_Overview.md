@@ -1,13 +1,16 @@
 <!--
 Document ID: ID-00
 Title: SmartCore Identity Platform Blueprint - Overview
-Version: 1.2.0
+Version: 1.3.0
 Status: DRAFT
 Purpose: Define the proposed Identity overview contract.
-Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 > Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
@@ -41,6 +44,12 @@ Use Core infrastructure for persistence, delivery, key management and authentica
 
 # 5. Integrated merge and readiness
 
-This package incorporates the proposals of PRs #1–#4 as a coherent alternative to merging their overlapping branches separately. Review and merge one consistent snapshot; do not cherry-pick readiness headers alone. If the earlier PRs merge first, rebase and reconcile this package before merging. Partial merges do not authorize generation.
+PR #5 is the selected sole review path; #1–#4 are closed unmerged as superseded. The package incorporates their content, not their Git ancestry. Review one coherent snapshot and revalidate against subsequent main changes; closing earlier PRs does not approve architecture or generation.
 
 All 00–16 documents remain DRAFT. Acceptance requires ADR governance, consumer compatibility review, full 065 validation and the runtime/security tests in [13](13_Testing.md). Existing implementation or deployed consumer compatibility is not asserted.
+
+# 6. Credential finalization and operations
+
+The accepted ADR-0004 fixes the initial winner at Credential commit. Credential's durable guard remains until an authenticated acknowledgment of Identity's committed Ready fact. Ready and its acknowledgment Outbox commit together; login can work before delivery, but ChangePassword may return retryable finalization-pending until acknowledgment. Guard expiry by timer is forbidden.
+
+Internal administrative recovery provides pre-commit invalidation or post-commit reconciliation under the same guards with append-only audit. It adds no Person-facing route, public event or sixth Aggregate. See 07 §7 and the [operations runbook](Registration_Recovery_Runbook.md).

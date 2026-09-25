@@ -1,7 +1,7 @@
 <!--
 Document ID: ID-06
 Title: SmartCore Identity Platform Blueprint - Domain Events
-Version: 1.2.0
+Version: 1.3.0
 Status: DRAFT
 
 Purpose:
@@ -13,7 +13,7 @@ document 01_Domain_Model.md's "Event Audit Requirements" section
 explicitly defers to ("Detailed event contracts are defined in
 06_Domain_Events.md").
 
-Dependencies:
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol,
 - 00_Overview.md
 - 01_Domain_Model.md
 - 03_Aggregates.md
@@ -30,6 +30,7 @@ Contract boundaries:
 This file owns PascalCase event envelopes/payloads. 07_Contracts.md references them for interoperability; 08_API.md independently owns camelCase REST schemas. See 09, 11 and 12 for persistence, security and acceptance gates.
 
 Change Log:
+  - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Aligned optional Email snapshots, selected-contact LoginFailed audit and machine omission rules; retained the ten-event catalog and limited registration/profile stream.
   - Version 1.1.0 (2026-09-24): Proposed alignment with ADR-0002
     Decisions 8–9: PersonRegistered is enqueued on Ready, its
@@ -85,6 +86,8 @@ Change Log:
     introduced. No Event Bus, Outbox, or Integration Event mechanics
     defined — explicitly out of scope (§1.2).
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 # 1. Overview
 
@@ -808,3 +811,9 @@ Initial Domain Events Blueprint.
 ## Integrated validation note (v1.2.0)
 
 LoginFailed is a Security Event per ADR-0002 Decision 5; its resolved PersonId identifies the target, not authenticated actor proof. ContactValue/ExecutionContext subscriptions and retention are restricted under 11_Security. The service/stream definitions are now documented in 07 §3 and 09 §6.4; implementation tests remain unexecuted. Historical baseline checklist claims do not establish current readiness. Full acceptance is tracked in 12_Validation.
+
+## Accepted ADR-0004 propagation (v1.3.0)
+
+Ready's local transaction also persists ReadyFactId/winner evidence and internal acknowledgment Outbox; these do not add fields to public event payloads or an eleventh event. Administrative recovery executes through the service worker with ActorIdentity=System; restricted append-only audit separately retains the initiating operator and correlation to ReadyFactId/EventId. It must not impersonate the Person or copy the original registration IP/device. Re-drive preserves the original event identity and timestamps.
+
+Ready acknowledgment and administrative audit are internal service/journal records, not public Identity events. T16 (the two-event Person stream) is still Proposed and cannot inherit acceptance from ADR-0004. Public event schemas remain v1.2.0 because this propagation changes neither payload shape nor catalog.

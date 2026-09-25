@@ -74,7 +74,8 @@ check(len(ops)==14,'14 REST protocol operations')
 check({o['x-business-operation'] for o in ops.values()}==commands|(queries-{'GetPersonById'}),'REST business coverage')
 for c in m['commands']:
     check(set(c['operations'])=={k for k,v in ops.items() if v['x-business-operation']==c['name']},c['name']+' operation mapping')
-for doc,label in [(a,'OpenAPI'),(e,'events')]:
+service=json.loads((P/'services.schema.json').read_text())
+for doc,label in [(a,'OpenAPI'),(e,'events'),(service,'services')]:
     def walk(x):
         if isinstance(x,dict):
             if '$ref' in x:
@@ -116,6 +117,37 @@ check(not fixture_matches(bad,e['$defs']['PersonRegistered'],e),'registration ev
 check(m['governance']['generationAllowed'] is False,'machine generation disabled')
 adr=(P.parent/'ADR-0002_Identity_Foundation_Clarifications.md').read_text()
 check('**Status**: Proposed' in adr and '**Version**: 1.7' in adr,'ADR remains Proposed v1.7')
+# ADR-0004 propagation fixtures: wire constraints only, not runtime guarantees.
+d=service['$defs']
+def service_fixture(name,value,expected,label):
+    check(fixture_matches(value,d[name],service)==expected,'ADR4 fixture '+label)
+uid='7aad209e-11f0-4ad0-9415-f4854a8e6904'
+winner=dict(registrationId=uid,personId=uid,credentialId=uid,operationIdOfWinner=uid,provisioningVersion='winner-generation-1',status='Active',phase='ProvisionedAwaitingReady')
+service_fixture('GetInitialCredentialResultResponse',winner,True,'guarded active evidence')
+service_fixture('GetInitialCredentialResultResponse',dict(winner,phase='ReadyAcknowledged'),False,'active evidence cannot be historical')
+historical=dict(winner,status='AlreadyCompleted',phase='ReadyAcknowledged',readyFactId=uid)
+service_fixture('GetInitialCredentialResultResponse',historical,True,'historical result separately typed')
+ack=dict(registrationId=uid,personId=uid,credentialId=uid,provisioningVersion='winner-generation-1',readyFactId=uid)
+service_fixture('AcknowledgeRegistrationReadyRequest',ack,True,'bound acknowledgment')
+for key in ('readyFactId','provisioningVersion'):
+    service_fixture('AcknowledgeRegistrationReadyRequest',{k:v for k,v in ack.items() if k!=key},False,'ack requires '+key)
+request=dict(action='ReconcileCommittedRegistration',targetKind='Registration',targetId=uid,reasonCode='STALLED',ticketReference='INC-1234',correlationId=uid,expectedState='PendingCredential',expectedVersion='1',recoveryRequestId='r'*43,admissionPermit='p'*64)
+service_fixture('AdminRecoverStalledRegistrationRequest',request,True,'prepared internal recovery')
+service_fixture('AdminRecoverStalledRegistrationRequest',dict(request,targetKind='VerificationSession'),False,'reject mismatched action target')
+service_fixture('AdminRecoverStalledRegistrationRequest',dict(request,expectedState='AwaitingVerification'),False,'reject mismatched snapshot state')
+for key,value in [('force',True),('password','secret'),('readyFactId',uid),('operatorId','admin')]:
+    service_fixture('AdminRecoverStalledRegistrationRequest',dict(request,**{key:value}),False,'reject supplied '+key)
+ready=dict(pending,status='Ready',readyAt='2026-09-25T00:00:00Z',credentialOutcome='ExistingWinner')
+check(fixture_matches(ready,schemas['CompletionResult'],a),'ADR4 completion discloses existing winner')
+check(not fixture_matches(dict(ready,credentialOutcome='Undetermined'),schemas['CompletionResult'],a),'ADR4 Ready cannot report undetermined candidate')
+check(m['governance']['adr0004']=='Accepted' and m['governance']['adr0002']=='Proposed','scoped architecture acceptance')
+check('T16' in m['governance']['openArchitectureItems'],'T16 remains open')
+check(m['governance']['adr0004ApprovalCommit']=='16b720c9cb9afdd60769dcad7b2c4d8c1e2e983c','pinned owner approval')
+check((P/m['governance']['adr0004ApprovalRecord']).exists(),'owner approval record exists')
+for key,setting in m['requiredConfiguration'].items():
+    check(setting['default'] is None and key in (P/'10_Configuration.md').read_text(),'unapproved deployment value remains unset '+key)
+check((P/'Registration_Recovery_Runbook.md').exists(),'recovery runbook exists')
+
 failed=sum(not ok for ok,_ in checks)
 print(f'{len(checks)-failed}/{len(checks)} limited package checks passed.')
 print('NOT CHECKED: full JSON Schema/OpenAPI conformance (including all format semantics), complete 065 semantics/governance, deployed consumers, runtime/security behavior, visual rendering.')

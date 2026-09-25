@@ -1,13 +1,16 @@
 <!--
 Document ID: ID-04
 Title: SmartCore Identity Platform Blueprint - Commands
-Version: 1.2.0
+Version: 1.3.0
 Status: DRAFT
 Purpose: Define the proposed Identity commands contract.
-Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 > Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
@@ -35,7 +38,7 @@ After proof, atomically create Person/Personal Organization/Owner Membership, Pe
 
 On verified uniqueness conflict: Ready Person produces generic verified-contact conflict; PendingCredential offers a distinct setup challenge through the stored verified channel. Destroy the second attempt's unused material under the cleanup bound; never attach it to the existing registration. Invalid/expired proof returns a uniform verification error. Storage race loser follows the same verified-conflict path.
 
-Provision asynchronously using registrationId. Bounded exhaustion retains PendingCredential with recoveryNeeded. Setup uses its own proof and idempotency key and cannot replace an already-created initial Credential. Confirm active Credential, then CAS workflow to Ready and enqueue PersonRegistered exactly once. Failure never deletes committed ownership.
+Provision asynchronously using registrationId. Bounded exhaustion retains PendingCredential with recoveryNeeded. Setup uses its own proof and idempotency key and cannot replace an already-created initial Credential. Confirm active Credential in ProvisionedAwaitingReady with matching immutable generation, then CAS workflow to Ready, persist ReadyFactId and winner evidence, and atomically enqueue PersonRegistered plus Ready acknowledgment exactly once. Failure never deletes committed ownership.
 
 ## 4.2 AuthenticatePerson
 
@@ -55,7 +58,7 @@ Input: refresh token. Validate token, Session state/expiry, current Person/regis
 
 ## 4.6 ChangePassword
 
-Input: currentPassword, newPassword, authenticated self Session. Validate current active Credential and new password policy. Replace Credential atomically, enforce single active Credential, enqueue PasswordChanged. Invalid current password is unauthorized; policy failure is invalid input. Existing Sessions are unchanged in MVP; general password reset is not introduced.
+Input: currentPassword, newPassword, authenticated self Session. Validate current active Credential and new password policy. In the same authoritative Credential transaction, check the initial provisioning guard. ProvisionedAwaitingReady yields retryable ProvisioningFinalizationPending without mutation/event. Only ReadyAcknowledged permits normal replacement; replace Credential atomically, enforce single active Credential and enqueue PasswordChanged. Invalid current password is unauthorized; policy failure is invalid input. Existing Sessions are unchanged in MVP; general password reset is not introduced.
 
 # 5. Events and ownership
 
@@ -66,3 +69,7 @@ Ownership commit emits OrganizationCreated and MembershipCreated. Ready emits Pe
 # 6. Acceptance
 
 All Commands are proposed and depend on [12](12_Validation.md) and [13](13_Testing.md). Error transport and retry semantics are in [08](08_API.md).
+
+# 7. Internal operations boundary
+
+AdminRecoverStalledRegistration is a separate internal operator contract (07 §7), not a seventh public business Command. It accepts no password, replacement contact, Credential winner, readyFactId or force flag. ReconcileCommittedRegistration executes the existing workflow/acknowledgment path; InvalidatePreCommitAttempt uses the existing verification-consumption/owner-transfer guard. Neither grants another multi-Aggregate ownership exception. Formal audit and current operator authorization are mandatory.

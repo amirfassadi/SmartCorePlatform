@@ -1,13 +1,16 @@
 <!--
 Document ID: ID-08
 Title: SmartCore Identity Platform Blueprint - REST API
-Version: 1.1.0
+Version: 1.2.0
 Status: DRAFT
 Purpose: Define the proposed Identity rest api contract.
-Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.2.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.1.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.0.3; prior text remains in Git history.
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 > Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
@@ -23,6 +26,7 @@ Proposed JSON REST contract; camelCase names, UTC ISO-8601 timestamps, UUID iden
 - Membership: `membershipId`, `personId`, `organizationId`, `role`, `status`, `createdAt`.
 - SessionTokens: `sessionId`, `accessToken`, `refreshToken`, `expiresAt`. Bearer material is never a persistence identifier exposed accidentally.
 - RegistrationResult: `registrationId`, `status: PendingCredential|Ready`, `ownershipCommittedAt`; `readyAt` only for Ready. No Person DTO, password, Credential or Session tokens.
+- CompletionResult: RegistrationResult plus required `credentialOutcome: CandidateSelected|ExistingWinner|Undetermined`. Ready excludes Undetermined. This reports whether this setup candidate won, without exposing Credential identifiers.
 - SessionSummary: `sessionId`, optional `deviceInfo`/`ipAddress`, `expiresAt`, `status`, `createdAt`; no tokens.
 
 # 3. RegisterPerson protocol operations
@@ -35,7 +39,7 @@ These routes all belong to RegisterPerson, not separate public business Commands
 | POST /auth/register/verify | verificationSessionId, code, bindingSecret | First committed ownership: 201 RegistrationResult; authorized repeat: 200 current RegistrationResult |
 | POST /auth/register/resend | verificationSessionId, bindingSecret | 202 `{status:"Accepted"}` with uniform treatment of unknown/expired/existing-contact cases |
 | POST /auth/register/setup | verificationSessionId, code, bindingSecret from a newly verified conflicting attempt | 202 `{setupChallengeId, expiresAt, status:"Accepted"}`; deliver separate setup code only when authorized PendingCredential exists |
-| POST /auth/register/complete | setupChallengeId, code, bindingSecret, newPassword; Idempotency-Key required | 200 RegistrationResult if Ready; 202 RegistrationResult while active confirmation/reconciliation is pending |
+| POST /auth/register/complete | setupChallengeId, code, bindingSecret, newPassword; Idempotency-Key required | 200 CompletionResult if Ready; 202 CompletionResult while active confirmation/reconciliation is pending |
 
 Verify may be replayed to obtain current status only within the original proof window, with the same proof and binding. No unauthenticated GET-by-registrationId exists. Consuming proof prevents a second commit; it does not remove the bounded, keyed replay verifier. Resend after successful verification never issues a new verification proof or extends replay validity.
 
@@ -70,3 +74,11 @@ An uncertain commit is not reported as definitive rollback. Retry the same key/p
 # 6. Compatibility
 
 The companion openapi.yaml defines these operations and capability.machine.yaml indexes their business mapping. Neither is an implemented API. Full OpenAPI/schema conformance validation, consumer migration review and runtime enforcement remain explicit gates in 12; this document does not mark them complete.
+
+# 7. ADR-0004 API effects
+
+POST /auth/register/complete returns CompletionResult: CandidateSelected means this setup candidate is the immutable initial winner; ExistingWinner means an earlier candidate won and this request did not change its password; Undetermined is permitted only while PendingCredential and the winner is not yet confirmed. Clients must not interpret Ready alone as proof that the last submitted password took effect. Neither response grants a Session.
+
+POST /me/password returns 503 with error.code=`PROVISIONING_FINALIZATION_PENDING` after valid caller/current-password checks when Credential remains ProvisionedAwaitingReady. No mutation/event occurs. The response may include Retry-After according to approved retry policy, never an assurance that a timer releases the guard. The client retries later; service/admin recovery reconciles the existing acknowledgment. Other dependency/capacity failures remain distinct unavailable errors.
+
+There is no public administrative endpoint. Preparation, execution and result lookup are restricted internal service contracts in 07 §7/services.schema.json. Public Person bearer authentication must not authorize them. These wire refinements remain DRAFT and require schema/consumer review.

@@ -1,13 +1,16 @@
 <!--
 Document ID: ID-10
 Title: SmartCore Identity Platform Blueprint - Configuration
-Version: 1.0.0
+Version: 1.1.0
 Status: DRAFT
 Purpose: Define the proposed Identity configuration contract.
-Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.1.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.0.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Initial proposed specification.
 -->
+
+> Architectural source: [ADR-0004](../ADR-0004_Identity_Credential_Provisioning_Protocol.md) is Accepted within the owner's signed scope. This contract is DRAFT; ADR-0002 remains Proposed, T16 remains open and no runtime/generation readiness is certified.
 
 > Proposed package. ADR-0002 is not accepted. Documentary alignment does not authorize generation or establish implementation/test compliance. See [validation gates](12_Validation.md).
 
@@ -48,3 +51,25 @@ Require secret-store/KMS references, current and retiring HMAC key IDs, delivery
 # 3. Operational policy gates
 
 A global abuse budget and per-provider delivery caps must be sized before deployment and tested without existence-dependent behavior. Audit/event retention and legal deletion policy are deployment governance inputs, not guessed by these defaults. Secret disposal deadlines are independent and mandatory. Feature flags must not expose password login for PendingCredential or enable unreviewed contact changes.
+
+# 4. ADR-0004 required operational settings (no implicit defaults)
+
+The owner approved architecture, not numerical operational policy. The following keys are REQUIRED positive integers in machine.requiredConfiguration; their values remain unset until approved for the deployment. Startup/admission must fail closed for an unconfigured recovery feature; no missing value means unlimited. The acknowledgment worker also requires its own finite budget. A disabled/unconfigured recovery feature blocks rollout of this protocol; it is not a way to waive the accepted administrative design.
+
+| Setting | Purpose |
+|---|---|
+| readyAcknowledgmentMaxAttempts | Finite automatic delivery budget before alert/re-drive |
+| readyAcknowledgmentInitialBackoffSeconds | Initial retry delay |
+| readyAcknowledgmentMaxBackoffSeconds | Cap, at least initial delay |
+| recoveryAdmissionPermitLifetimeSeconds | Absolute admission validity |
+| recoveryExecutionLifetimeSeconds | Fixed at admission; not extended by retries |
+| recoveryMaxAttempts | Finite effectful dispatch budget per job |
+| recoveryMaxAdmissionsPerOperatorPerHour | Rate limit on accepted jobs |
+| recoveryMaxAdmissionsPerTargetPerHour | Shared target limit across operators |
+| recoveryResultRetentionSeconds | Retention after both permit expiry and execution termination |
+| administrativeAuditMaxBacklogCount | Maximum undelivered audit backlog before pausing new admin effects |
+| administrativeAuditMaxBacklogAgeSeconds | Maximum undelivered audit age before pausing new admin effects |
+| administrativeAuditRetentionDays | Retention-protected audit policy; separate from job/secret retention |
+| stalledRegistrationAlertAfterSeconds | Detection/escalation threshold, never guard-release authority |
+
+Require configured operator identity provider, MFA/step-up verification, action/environment/target grant policy, admission signing key reference, executor service identity, immutable audit destination, incident routing and accountable on-call assignment. Runtime grant provisioning and chosen values require operational sign-off; repository owner approval is not evidence those accounts or systems exist. Key retirement must not admit expired/revoked permits or destroy audit integrity.

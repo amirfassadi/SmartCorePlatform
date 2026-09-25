@@ -5,7 +5,7 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.7
+* **Version**: 1.7.1
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
@@ -13,7 +13,11 @@
 * **Decision Type**: Architectural Decision
 * **Decision Level**: Level 4 — Architectural Change (applies to Decision 5 event classification and Decisions 7–9; Decisions 1–4 and 6 are Level 2 Documentation clarifications)
 
-## Review Revision — 2026-09-24 (v1.7)
+## Review Revision — 2026-09-25 (v1.7.1)
+
+This documentary revision references the separately accepted [ADR-0004](ADR-0004_Identity_Credential_Provisioning_Protocol.md). Its C02 winner is fixed at the first Credential commit, earlier than Ready; C03 preserves that winner until acknowledgment of a committed Ready fact. ADR-0004 selects authenticated polling, minimal registration-lifetime deduplication and restricted administrative recovery. These selections originate in ADR-0004, not retroactively in Decisions 8–9 here. The owner’s scoped acceptance does not accept ADR-0002 or T16. References pinned to v1.7 continue to describe the prior integrated proposal; this patch adds provenance only.
+
+### Previous integrated revision — v1.7
 
 This revision records integrated narrative/API/machine propagation and remaining review gates, while retaining the pre-commit verification, PersonRegistered timestamp and Decision 8/9 boundary decisions. Status remains Proposed;
 Approval Date and Effective Date remain TBD. Decision requirements describe the
@@ -785,6 +789,7 @@ After approval:
 | 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
 | 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
 | 1.5 | Proposed | 2026-09-24: Added minimal registration with verified mobile OR email, password and DisplayName; one-time challenge precedes the atomic ownership commit. Made email optional for mobile-only Persons, retained the PendingCredential post-commit recovery flow, and deferred other profile data. Full Blueprint/schema validation and approval remain pending. |
+| 1.7.1 | Proposed | 2026-09-25: Referenced separately accepted ADR-0004 and its earlier C02 winner point without retroactively attributing protocol choices or accepting ADR-0002/T16. |
 | 1.7 | Proposed | 2026-09-24: Recorded integrated Blueprint/API/machine propagation, coordinated merge requirement and remaining review/validation gates; corrected the blanket non-breaking claim. Decisions remain Proposed. |
 | 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security, atomic material-reference binding, keyed replay verification within the original challenge window, secure completion after expired replay, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; classified Decisions 8–9 as Level 4 and expanded dependent acceptance checks. |
 
