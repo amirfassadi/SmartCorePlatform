@@ -687,7 +687,7 @@ Synchronized the proposed integrated Identity contract references and merge/read
 
 Under ADR-0002 v1.4 Decision 8 (Proposed), PersonRegistered is published
 after an active Credential is confirmed and the registration becomes Ready.
-Initial Session creation is independent and may occur afterward; its failure
+A separate explicit login may create a Session afterward; its failure
 does not reverse registration readiness or ownership. This revises the prior
 requirement to wait for an initial Session before PersonRegistered and requires
 review of existing event consumers and contracts before acceptance.
