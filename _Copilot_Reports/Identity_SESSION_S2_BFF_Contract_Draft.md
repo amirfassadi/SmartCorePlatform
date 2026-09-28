@@ -1,7 +1,7 @@
 # SESSION S2 — proposed BFF refresh contract
 
-Version: 0.3.0 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
-Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md).
+Version: 0.3.1 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
+Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md). Propagation: [S2 map](Identity_SESSION_S2_Propagation_Map.md).
 Scope: Kimia's owner-selected BFF direction and S2 rotating refresh with a fixed absolute Session deadline. No endpoint, implementation or security test is asserted to exist. This proposal does not alter the current Draft Identity/04, OpenAPI or machine specification.
 
 ## 1. Security and client boundary
@@ -12,7 +12,7 @@ Other future clients require separate policy; do not use the Kimia BFF decision 
 
 ## 2. Session and token-family invariants
 
-- A Session has immutable `SessionId`, PersonId, CreatedAt and absolute `ExpiresAt` after login. The owner selected 86400 seconds (24 hours) as the Kimia MVP design value for this cap on 2026-09-29; no refresh extends it. Rotation never extends ExpiresAt. Access tokens issued at login/refresh expire no later than both the owner-selected 900-second (15-minute) design TTL and Session ExpiresAt.
+- A Session has immutable `SessionId`, PersonId, CreatedAt and absolute `ExpiresAt` after login. The owner selected 86400 seconds (24 hours) as the Kimia MVP design value for this cap on 2026-09-29; rotation never extends ExpiresAt. Access tokens issued at login/refresh expire no later than both the owner-selected 900-second (15-minute) design TTL and Session ExpiresAt.
 - Exactly one current refresh generation is valid for an active Session family at a time. Each successful refresh atomically consumes generation N and records one successor N+1 under the same Session. The predecessor remains represented by a non-secret verifier/tombstone sufficient to recognize reuse until the approved family/audit retention bound. No raw refresh secret is logged or stored as plaintext.
 - A token is unguessable, purpose-bound to refresh and protected in transit/at rest. Store only a keyed verifier or equivalent protected representation, with key version and rotation plan. An exposed SessionId, token generation or request id is never sufficient to refresh.
 - The family cannot outlive the Session. Closed/Expired/revoked Sessions have no usable refresh generation. Normal refresh does not create a new Session, Person or Credential and does not publish a new public Identity event.
