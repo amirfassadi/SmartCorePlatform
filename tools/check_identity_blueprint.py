@@ -116,7 +116,8 @@ bad=copy.deepcopy(event);bad['Payload']['Mobile']='+12025550123'
 check(not fixture_matches(bad,e['$defs']['PersonRegistered'],e),'registration event excludes Mobile payload')
 check(m['governance']['generationAllowed'] is False,'machine generation disabled')
 adr=(P.parent/'ADR-0002_Identity_Foundation_Clarifications.md').read_text()
-check('**Status**: Proposed' in adr and '**Version**: 1.7' in adr,'ADR remains Proposed v1.7')
+check('**Status**: Proposed' in adr and '**Version**: 1.8.0' in adr,'ADR-0002 proposal remains Proposed v1.8.0')
+check('## Architectural approval gate (051 §7)' in adr and '## Post-approval implementation and verification gates' in adr,'ADR-0002 separates approval from implementation verification')
 # ADR-0004 propagation fixtures: wire constraints only, not runtime guarantees.
 d=service['$defs']
 def service_fixture(name,value,expected,label):
