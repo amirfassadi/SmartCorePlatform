@@ -1,6 +1,6 @@
 # SESSION S2 — proposed BFF refresh contract
 
-Version: 0.1.0 — 2026-09-29 — DRAFT, unapproved wire and persistence design
+Version: 0.2.0 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
 Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md).
 Scope: Kimia's owner-selected BFF direction and S2 rotating refresh with a fixed absolute Session deadline. No endpoint, implementation or security test is asserted to exist. This proposal does not alter the current Draft Identity/04, OpenAPI or machine specification.
 
@@ -31,7 +31,7 @@ The authoritative transaction boundary for consumption, successor creation, fami
 | Unknown, malformed, wrong-client, expired or revoked token | Uniform outward unauthorized response without confirming account/Session existence; audit internally with minimal necessary detail and rate limit attempts. Wrong-client attempts must not permit a third party to revoke an unrelated family merely by guessing identifiers. |
 | Logout/absolute expiry | Atomically close/expire Session and disable current generation. A concurrent refresh and close serialize on the same authoritative Session state; close wins or the resulting successor is immediately unusable under the final Session state. |
 
-The consumed-predecessor revocation rule is intentionally strict. Review denial-of-service trade-offs, retention and client concurrency before adoption. Any grace/idempotent response replay must explain how a second presenter cannot obtain the successor and how bearer material is protected; this proposal selects no grace window.
+On 2026-09-29 the owner selected the strict consumed-token response (family/Session revocation and explicit login) as the desired failure direction, including lost-response retries. Review denial-of-service trade-offs, retention and client concurrency before final architecture acceptance. Any grace/idempotent response replay must explain how a second presenter cannot obtain the successor and how bearer material is protected; this proposal selects no grace window.
 
 ## 4. Public and internal contract consequences
 
@@ -51,7 +51,7 @@ On family revocation, outstanding self-contained access tokens may remain usable
 
 ## 6. Open approval questions
 
-1. Is strict consumed-token family revocation, including forced login on lost response, acceptable for Kimia BFF, or is a separately secured recovery protocol required?
+1. Confirm the selected strict consumed-token family revocation in architecture/security review, including forced login on lost response; specify alert thresholds and BFF concurrency controls. No bounded replay/grace protocol is selected.
 2. What is the chosen absolute Session cap and access-token TTL? Is an idle timeout desired *without* extending the absolute cap?
 3. Does password change close this Session or all Sessions? How quickly must existing access tokens stop working after logout/revocation?
 4. Who operates the BFF and Identity token store, owns incident response, and approves retention/key rotation?
