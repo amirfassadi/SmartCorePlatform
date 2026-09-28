@@ -1,6 +1,6 @@
 # T16 — Identity event ordering options
 
-- Version: 0.3.1
+- Version: 0.4.0
 - Status: Draft comparison; no option selected or accepted
 - Date: 2026-09-25
 - Repository: amirfassadi/SmartCorePlatform
@@ -38,6 +38,14 @@ Candidate explanatory title for 06 §6.5: “Why PersonRegistered Commits Before
 
 **Accompanying correction:** this change set includes 03_Aggregates.md v1.4.1 and its matching machine-manifest version, correcting the pre-Ready profile-update statement. The finding above remains historical evidence about pinned baseline b82ab19. The correction does not select an ordering option or close T16; verify the published change-set commit separately when reviewing it.
 
+## 2.1 Platform dependency premise and consumer boundary
+
+The owner describes Identity as a foundational service/module on which the whole SmartCorePlatform depends. Treat this as a design premise for durable, reusable Identity contracts. It does **not** assert that every module subscribes to PersonRegistered/PersonUpdated/ LoginFailed, or that any deployed subscriber has been inventoried. Kimia's registration UI is an API client and is not automatically an event subscriber. List actual and planned event subscribers separately, with owner, purpose, projection/side-effect semantics, language/runtime and replay requirements. Unknown is not zero.
+
+The platform-wide dependency makes per-module invention of ordering/replay rules undesirable. Any selected T16 contract should supply shared conformance rules and reusable consumer components where feasible, with a mandatory versioned test suite for every implementation. A library does not remove each consumer's durable inbox/projection transaction, EventId deduplication, concurrency control, and incident responsibility. IdentityLookup GetPersonById currently returns only PersonId and DisplayName to allowlisted services; it does not expose readiness, contact or event history. It may reconcile an authorized latest-state projection of those fields, not reconstruct every transition or serve as general event replay.
+
+LoginFailed is a restricted Security Event outside the registration/profile stream and needs a separate audit-access, delivery and retention decision. Platform-wide dependence on Identity does not place it in T16's ordered stream.
+
 ## 3. Option A — ordered publication per Person
 
 Define a common order for the two event types, preserve it from committed Outbox facts through publication, and specify consumer application under redelivery. The proposed shared allocator is one possible implementation; any alternative must demonstrate equivalent guarantees rather than assume broker key ordering repairs reversed publisher submission.
@@ -58,6 +66,17 @@ This option fits latest-state projections only if their merge contract is comple
 
 Complexity moves to N consumers. Proposed enforceable onboarding gates: inventory with accountable owner and processing semantics; versioned contract acceptance; mandatory conformance fixtures before subscription/upgrade; review enforcement for new subscriptions; monitoring and incident ownership for stale/equal-version conflicts. Fixtures must cover reversed delivery, duplicate EventId, old replay, equal-version divergent payload, missing registration baseline and independent retention of the registration fact. A shared library may help but is not proof that every language/client complies. These gates are requirements of this option, not existing deployed controls.
 
+## 4.1 Shared-consumption design to evaluate across A and B
+
+A shared platform consumer contract can reduce repeated implementation work, but it is not a third ordering guarantee by itself:
+
+- For latest-state views, a reusable handler may deduplicate EventId, fetch the currently authorized PersonId/DisplayName projection when needed, coalesce requests and persist the result transactionally. It must define what happens when lookup is unavailable, NotFound or newer state races the local commit. It cannot infer Ready or emit ordered side effects from that lookup.
+- For every-transition side effects, durable per-Person positions and gap handling are required if order is promised. A bounded buffer/timeout is a waiting policy, never authority to skip an absent earlier event. A shared handler must isolate a stalled Person from healthy Persons and retain durable evidence for replay/operator resolution.
+- Under B, the shared handler still needs an atomically captured profile revision, snapshot merge rules and independent registration-fact processing. EventId deduplication alone cannot reject a different stale event.
+- Under A, ordered Outbox publication alone is not exactly-once consumer application. Durable consumer checkpoints and duplicate handling remain necessary.
+
+Choose and version one normative event contract with explicit capabilities. Do not silently serve two incompatible guarantees to different consumers under one event schema. If separate latest-state lookup and ordered event subscription profiles are supported, define their distinct semantics and onboarding tests.
+
 ## 5. Comparison
 
 | Criterion | A: ordered publication | B: version-aware unordered consumption |
@@ -75,11 +94,11 @@ No observed rate or consumer inventory has been supplied. Collect total PersonUp
 
 Evaluate normal interactive edits, a hot-Person burst and a stalled Person alongside healthy Persons. Populate numerical rates from measured usage or an explicitly approved workload forecast; do not label arbitrary numbers “expected traffic”. For B measure consumer convergence lag, rejected stale updates, conformance coverage and operational cost across supported implementations.
 
-Inventory fields: consumer/name, owner, internal/external, subscription enforcement authority, latest-state versus every-transition requirement, replay needs, upgrade control, delivery/application lag target and contract version. Unknown entries remain unknown, not “no consumers”.
+Inventory fields: consumer/name, owner, internal/external, subscription enforcement authority, latest-state versus every-transition requirement, replay needs, upgrade control, delivery/application lag target and contract version. Unknown entries remain unknown, not “no consumers”. A platform-wide dependency is not an event-subscriber count and cannot substitute for this inventory.
 
 ## 7. Selection and closure gates
 
-Prefer B provisionally when consumers are controlled, require latest state and can be required to pass the merge contract. Prefer A provisionally when ordered transition processing is required or merge conformance is impractical, subject to delivery/application responsibilities and acceptable contention/isolation. Neither condition has yet been established for this project.
+Prefer B provisionally only when consumers are controlled, require latest state and can be required to pass the merge contract; absence of identified subscribers alone is not evidence for B. Evaluate the shared-consumption design in §4.1 against both alternatives. Prefer A provisionally when ordered transition processing is required or merge conformance is impractical, subject to delivery/application responsibilities and acceptable contention/isolation. Neither condition has yet been established for this project.
 
 Q1: causal commit order is supported by current commands; need for delivery ordering depends on consumer semantics.
 
@@ -87,7 +106,9 @@ Q2: allocator ownership is relevant only if A uses that mechanism; B still needs
 
 Q3: how is a message that cannot be applied handled? Under A, a permanently failing event SHALL block later events for that Person (§3); required ordering SHALL NOT be broken by skipping it, so recovery is an explicit operator action, not an automatic skip. Under B, "cannot be applied" splits into two different cases that need separate answers: a stale-but-valid profile snapshot may be ignored once a newer profile revision is applied; any independent registration fact carried by the event must still be processed (§4), but an unresolved version conflict (e.g. equal-version divergent payloads, missing baseline) is not — it needs its own explicit resolution policy, not a generic skip. This remains necessary under either option, with different retry/replay/failure rules.
 
+- [ ] Platform dependency premise recorded separately from a verified inventory of actual/planned event subscribers and their semantics.
 - [ ] Inventory and consumer semantics reviewed by accountable owner.
+- [ ] Shared conformance contract, supported runtimes, durable inbox/checkpoint rules and ownership of reusable components reviewed.
 - [ ] Workload assumptions and acceptance thresholds recorded.
 - [ ] Selected option and rejected alternative justified; contract owners named.
 - [ ] Publication/application/replay/stalled-message behavior fully specified.
@@ -97,6 +118,8 @@ Q3: how is a message that cannot be applied handled? Under A, a permanently fail
 Architectural selection can precede runtime tests, but runtime validation and propagation remain separate open obligations. This draft does not close T16 or grant generation/merge readiness.
 
 ## Change log
+
+- Version 0.4.0 (2026-09-29): Recorded platform-wide Identity dependency as a design premise without inventing event subscribers; evaluated shared consumer rules and bounded IdentityLookup reconciliation across A/B; retained T16 as Draft with no option accepted.
 
 - Version 0.3.1 (2026-09-25): Fixed comparison headers and unchecked gates; limited stale-data discard to the profile snapshot while preserving the registration fact; distinguished merged baseline from acceptance; recorded accompanying 03 v1.4.1 correction.
 
