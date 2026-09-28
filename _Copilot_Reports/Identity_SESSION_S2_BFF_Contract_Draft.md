@@ -1,6 +1,6 @@
 # SESSION S2 — proposed BFF refresh contract
 
-Version: 0.2.0 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
+Version: 0.3.0 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
 Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md).
 Scope: Kimia's owner-selected BFF direction and S2 rotating refresh with a fixed absolute Session deadline. No endpoint, implementation or security test is asserted to exist. This proposal does not alter the current Draft Identity/04, OpenAPI or machine specification.
 
@@ -12,7 +12,7 @@ Other future clients require separate policy; do not use the Kimia BFF decision 
 
 ## 2. Session and token-family invariants
 
-- A Session has immutable `SessionId`, PersonId, CreatedAt and absolute `ExpiresAt` after login. Rotation never extends ExpiresAt. Access tokens issued at login/refresh expire no later than both their configured access TTL and Session ExpiresAt.
+- A Session has immutable `SessionId`, PersonId, CreatedAt and absolute `ExpiresAt` after login. The owner selected 86400 seconds (24 hours) as the Kimia MVP design value for this cap on 2026-09-29; no refresh extends it. Rotation never extends ExpiresAt. Access tokens issued at login/refresh expire no later than both the owner-selected 900-second (15-minute) design TTL and Session ExpiresAt.
 - Exactly one current refresh generation is valid for an active Session family at a time. Each successful refresh atomically consumes generation N and records one successor N+1 under the same Session. The predecessor remains represented by a non-secret verifier/tombstone sufficient to recognize reuse until the approved family/audit retention bound. No raw refresh secret is logged or stored as plaintext.
 - A token is unguessable, purpose-bound to refresh and protected in transit/at rest. Store only a keyed verifier or equivalent protected representation, with key version and rotation plan. An exposed SessionId, token generation or request id is never sufficient to refresh.
 - The family cannot outlive the Session. Closed/Expired/revoked Sessions have no usable refresh generation. Normal refresh does not create a new Session, Person or Credential and does not publish a new public Identity event.
@@ -46,15 +46,15 @@ On family revocation, outstanding self-contained access tokens may remain usable
 - Review whether the durable refresh-family state is a Session-owned record or a separately governed Aggregate. Do not silently promote the archived `RefreshToken` storage concept into a sixth Identity Aggregate; preserve the five-Aggregate MVP unless a new architectural decision authorizes otherwise.
 - Propagate to Identity 01/03/04/07/08/09/10/11/13, `openapi.yaml`, `capability.machine.yaml`, BFF contract and examples as one candidate. Remove the existing nonrotation text only after architecture/security approval; update version references and compatibility/migration plan.
 - Test concurrent BFF instances and Identity workers, same-token racing requests, lost response after commit, reuse revocation, unknown/wrong-client abuse, logout/expiry race, PendingCredential, inactive Person, Credential change, key rotation and time-boundary behavior with durable persistence. Verify tokens are absent from logs/events and the browser.
-- Record access TTL, absolute Session lifetime, retention window, rate limits, key policy, client authentication and cookie/CSRF policy after product/security review. Current platform 900-second access and 86400-second Session values are proposed defaults, not accepted by this document.
+- Record access TTL, absolute Session lifetime, retention window, rate limits, key policy, client authentication and cookie/CSRF policy after product/security review. The owner selected the platform's proposed 900-second access and 86400-second absolute Session values as Kimia design directions on 2026-09-29. They remain subject to contract/security review and are not approved active Blueprint configuration by this document.
 - Attach exact revision/environment, reproducible test results, consumer/BFF compatibility and applicable 065 validation before implementation or deployment readiness claims.
 
 ## 6. Open approval questions
 
 1. Confirm the selected strict consumed-token family revocation in architecture/security review, including forced login on lost response; specify alert thresholds and BFF concurrency controls. No bounded replay/grace protocol is selected.
-2. What is the chosen absolute Session cap and access-token TTL? Is an idle timeout desired *without* extending the absolute cap?
+2. Confirm owner-selected 86400-second absolute Session cap and 900-second access TTL in product/security review. Decide whether an idle timeout is desired *without* extending the absolute cap; none is selected here.
 3. Does password change close this Session or all Sessions? How quickly must existing access tokens stop working after logout/revocation?
 4. Who operates the BFF and Identity token store, owns incident response, and approves retention/key rotation?
 5. Does the final client protocol use OAuth or a custom Identity session model? Verify confidential-client properties rather than assuming them.
 
-Status: OPEN. Owner selection of S2 is a design direction; this contract and numerical/security decisions require explicit review and acceptance.
+Status: OPEN. BFF, S2, strict consumed-token revocation and 900/86400-second values are owner-selected design directions; this contract, idle policy and security/operational review require explicit acceptance.
