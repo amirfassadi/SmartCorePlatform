@@ -1,6 +1,6 @@
 # SESSION — Identity refresh and lifetime policy review
 
-Version: 0.3.0 — 2026-09-29 — DRAFT, owner-selected direction; policy not yet accepted
+Version: 0.3.1 — 2026-09-29 — DRAFT, owner-selected direction; policy not yet accepted
 Decision authority: SmartCore architecture/security owner under 051; no approval or runtime evidence is recorded here.
 Candidate source: SmartCorePlatform PR #5 at `91375b192dd0ec778529c4c7d8a785c94231269a`; SmartCoreIdentity PR #1 archived uploaded Blueprint. Re-pin both before decision.
 
@@ -16,7 +16,7 @@ This narrows the *public-browser refresh-token* concern, but it does not select 
 
 On 2026-09-29 the owner selected **S2: rotating refresh family with a fixed absolute Session cap** for Kimia's proposed BFF topology. Every successful refresh should atomically replace the refresh secret and invalidate its predecessor; descendants must not extend the original Session deadline. This choice rejects S1 static refresh as the intended Kimia MVP direction and does not adopt sliding extension. It does not yet approve a numerical 24-hour cap, a 900-second access lifetime, the exact reuse/race contract, compatibility changes or deployment. Other future client types require separate review.
 
-Before an ADR or active Blueprint declares SESSION accepted, specify and review simultaneous-tab/BFF-worker refresh serialization, lost server response, confirmed predecessor reuse and family revocation, protected storage, cookie/CSRF behavior, logout/expiry and migration from any existing static-token contract. Record concrete absolute/access TTLs with product and security rationale, then update 01/03/04/07/08/09/10/11/13 and machine/OpenAPI together. No runtime test is claimed here.
+A concrete [S2 BFF contract draft](Identity_SESSION_S2_BFF_Contract_Draft.md) specifies these outcomes for review. The owner selected strict family revocation and explicit reauthentication for a consumed-token retry, including a lost response, on 2026-09-29. Before an ADR or active Blueprint declares SESSION accepted, review simultaneous-tab/BFF-worker serialization, denial-of-service trade-offs, protected storage, cookie/CSRF behavior, logout/expiry and migration from any existing static-token contract. Record concrete absolute/access TTLs with product and security rationale, then update 01/03/04/07/08/09/10/11/13 and machine/OpenAPI together. No runtime test is claimed here.
 
 ## Decision boundary
 
