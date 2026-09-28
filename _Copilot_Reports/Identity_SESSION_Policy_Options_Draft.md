@@ -1,8 +1,16 @@
 # SESSION — Identity refresh and lifetime policy review
 
-Version: 0.1.0 — 2026-09-29 — DRAFT, no option selected
+Version: 0.2.0 — 2026-09-29 — DRAFT, no option selected
 Decision authority: SmartCore architecture/security owner under 051; no approval or runtime evidence is recorded here.
 Candidate source: SmartCorePlatform PR #5 at `91375b192dd0ec778529c4c7d8a785c94231269a`; SmartCoreIdentity PR #1 archived uploaded Blueprint. Re-pin both before decision.
+
+## Client topology direction recorded for Kimia MVP
+
+On 2026-09-29 the owner selected a BFF/server intermediary as the desired Kimia MVP topology: the browser holds a protected session cookie; the intermediary holds and presents refresh material to Identity. This is a product architecture direction, not evidence that KimiaBeauty already implements a BFF or that Identity's existing API/contracts are compatible. Verify the intended deployment, server authentication and trust boundary before classifying the BFF as a confidential OAuth client.
+
+Required BFF design review: HttpOnly/Secure/SameSite cookie attributes appropriate to the deployment, CSRF protection for state-changing requests, XSS impact, server-side refresh storage and encryption, session-to-token binding, logout/revocation, multi-instance concurrency, lost refresh response, browser session expiry and cross-origin routing. Do not return the refresh token to browser JavaScript. The exact cookie/domain/topology policy and compatibility with Identity/08 and OpenAPI remain open.
+
+This narrows the *public-browser refresh-token* concern, but it does not select S1 static tokens. A stolen server-side bearer refresh token can still be replayed; choose rotation or other replay controls after threat and operations review. The 15-minute access / 24-hour Session numbers remain unapproved proposed defaults.
 
 ## Decision boundary
 
@@ -43,10 +51,10 @@ A protected server-side session/BFF may change whether a browser directly posses
 
 ## Evidence and decision record fields
 
-1. Identify Kimia and other planned clients: browser SPA, BFF/server-rendered confidential client, native mobile, service client, and actual OAuth versus custom session protocol. Record which principal holds the refresh secret.
+1. Verify the selected Kimia BFF topology against implementation/deployment plans, Identity API response paths and actual OAuth versus custom session protocol. Inventory other planned clients (native mobile, service and any direct browser client) separately. Record which principal holds each refresh secret and its authentication/binding mechanism.
 2. Threat model: XSS/CSRF, token exfiltration, device loss, replay, simultaneous tabs, provider/storage compromise, offline/revocation limits and acceptable forced-login frequency.
 3. Choose replay control (S1–S4), access TTL, Session absolute cap and optional idle timeout independently. Record rationale and rejected alternatives, owner and compatibility/migration effect.
 4. Run security/architecture review on the exact proposal. Only then amend the normative Blueprint and close the SESSION decision; runtime tests and deployment values remain later verification gates.
 5. If SESSION selection is made an ADR-0002 pre-approval requirement, amend that ADR's architecture gate explicitly. This draft does not create such a prerequisite itself.
 
-Status remains OPEN. No candidate option, number or client type is approved by this comparison.
+Status remains OPEN. Kimia BFF is a selected client-topology direction, subject to design/deployment verification; no S1–S4 option, TTL or complete SESSION policy is approved.
