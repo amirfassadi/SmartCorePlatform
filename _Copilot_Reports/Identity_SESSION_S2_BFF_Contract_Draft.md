@@ -1,6 +1,6 @@
 # SESSION S2 — proposed BFF refresh contract
 
-Version: 0.3.2 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
+Version: 0.4.0 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
 Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md). Propagation: [S2 map](Identity_SESSION_S2_Propagation_Map.md). Security review: [S2 checklist](Identity_SESSION_S2_Security_Review_Checklist.md).
 Scope: Kimia's owner-selected BFF direction and S2 rotating refresh with a fixed absolute Session deadline. No endpoint, implementation or security test is asserted to exist. This proposal does not alter the current Draft Identity/04, OpenAPI or machine specification.
 
@@ -41,6 +41,16 @@ A fixed absolute deadline is returned as Session `expiresAt`; distinguish access
 
 On family revocation, outstanding self-contained access tokens may remain usable until their short expiry unless resource servers check revocation/current Session. Choose and document that enforcement boundary; do not promise instant invalidation without it. Logout and password/credential-change effects on other Sessions require explicit existing-command reconciliation.
 
+## 4.1 Owner-selected Session consequences — pending security/contract review
+
+On 2026-09-29 the owner selected **no separate idle timeout** for Kimia MVP. The Session expires at its immutable 86400-second cap even if actively refreshed, and may remain eligible after inactivity until that cap. The BFF's cookie duration must not silently extend or contradict the Identity Session deadline.
+
+The BFF clears the browser cookie immediately on logout, family revocation or successful password change. The owner selected **bounded access-token validity until expiry**, at most 900 seconds, without requiring every resource server to introspect Session state. Therefore an already issued self-contained access token stolen outside the BFF may continue to work until its expiry after logout/revocation/password change. Do not claim instant universal access revocation. Sensitive endpoints may need a separately reviewed online check; define that exception explicitly rather than silently contradicting this contract.
+
+On successful ChangePassword, **all Sessions for that Person, including the current one, and all their refresh families are closed/revoked**; the client must log in again. The password-change transaction and cross-store Session invalidation need a durable protocol that prevents later refresh resurrection under races. If not one atomic store, use a guarded version/revocation epoch with reliable work and deny refresh while revocation is unresolved. Do not return a success claim that promises all Sessions are closed before the required state is durable. Existing access tokens remain subject to the bounded expiry rule above. Review existing LogoutCompleted/SessionExpired/PasswordChanged event semantics before adding or reusing an event; no new public event is selected here.
+
+These are owner-selected design directions, not proof of implementation, reviewed security acceptance or a change to the active Blueprint. [The security checklist](Identity_SESSION_S2_Security_Review_Checklist.md) retains the corresponding review items.
+
 ## 5. Required persistence, propagation and tests
 
 - Review whether the durable refresh-family state is a Session-owned record or a separately governed Aggregate. Do not silently promote the archived `RefreshToken` storage concept into a sixth Identity Aggregate; preserve the five-Aggregate MVP unless a new architectural decision authorizes otherwise.
@@ -52,8 +62,8 @@ On family revocation, outstanding self-contained access tokens may remain usable
 ## 6. Open approval questions
 
 1. Confirm the selected strict consumed-token family revocation in architecture/security review, including forced login on lost response; specify alert thresholds and BFF concurrency controls. No bounded replay/grace protocol is selected.
-2. Confirm owner-selected 86400-second absolute Session cap and 900-second access TTL in product/security review. Decide whether an idle timeout is desired *without* extending the absolute cap; none is selected here.
-3. Does password change close this Session or all Sessions? How quickly must existing access tokens stop working after logout/revocation?
+2. Confirm owner-selected 86400-second absolute Session cap, 900-second access TTL and no separate idle timeout in product/security review; verify cookie expiry and the accepted inactivity risk.
+3. Review the selected all-Session closure on password change and bounded residual access validity after logout/revocation; specify cross-store race/acknowledgment semantics and any sensitive-endpoint exception.
 4. Who operates the BFF and Identity token store, owns incident response, and approves retention/key rotation?
 5. Does the final client protocol use OAuth or a custom Identity session model? Verify confidential-client properties rather than assuming them.
 
