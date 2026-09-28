@@ -1,7 +1,7 @@
 # SESSION S2 — proposed BFF refresh contract
 
-Version: 0.3.1 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
-Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md). Propagation: [S2 map](Identity_SESSION_S2_Propagation_Map.md).
+Version: 0.3.2 — 2026-09-29 — DRAFT, owner-selected failure direction; unapproved wire and persistence design
+Parent comparison: [Identity_SESSION_Policy_Options_Draft.md](Identity_SESSION_Policy_Options_Draft.md). Propagation: [S2 map](Identity_SESSION_S2_Propagation_Map.md). Security review: [S2 checklist](Identity_SESSION_S2_Security_Review_Checklist.md).
 Scope: Kimia's owner-selected BFF direction and S2 rotating refresh with a fixed absolute Session deadline. No endpoint, implementation or security test is asserted to exist. This proposal does not alter the current Draft Identity/04, OpenAPI or machine specification.
 
 ## 1. Security and client boundary
