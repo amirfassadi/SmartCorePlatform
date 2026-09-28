@@ -16,7 +16,7 @@ Purpose: Identify specific 026/027/057/059 and Identity Blueprint consistency wo
 | 059 §7 and Identity/00 §3 | Login creates Session and issues tokens. | **A2:** 059 §7 says “No domain data is modified during login,” but its own flow creates a Session Aggregate and the event catalog includes LoginSucceeded/SessionCreated. Clarify what state is meant; do not assert no state modification. |
 | 059 final Event Timing Note and ADR-0004 Decisions 1–4 | Ready and PersonRegistered timing agree. | **A3:** The final note says “Post-commit recovery and operational handling are implementation-specific.” ADR-0004 now accepts specific polling, durable guard/acknowledgment and restricted administrative recovery architecture. Qualify this note to mean only delegated deployment parameters remain implementation-specific. |
 
-A1–A3 are documentation alignment findings in the integrated branch, not proof of runtime defects. Resolve them in the platform proposal and recheck downstream examples/contracts. Avoid treating a versioned review report as approval of the underlying proposal.
+A1–A3 are documentation alignment findings in the integrated branch, not proof of runtime defects. [Draft PR #7](https://github.com/amirfassadi/SmartCorePlatform/pull/7) proposes the 059 v1.5.1 corrections on a separate branch. They remain open in the integrated base until reviewed and merged; PR #7 itself is not architecture approval. Resolve them in the platform proposal and recheck downstream examples/contracts. Avoid treating a versioned review report as approval of the underlying proposal.
 
 ## Evidence still missing for ADR-0002 architecture gate
 
