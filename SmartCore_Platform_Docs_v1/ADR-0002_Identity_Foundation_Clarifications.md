@@ -5,7 +5,7 @@
 * **ADR Number**: ADR-0002
 * **Title**: Identity Foundation Clarifications
 * **Status**: Proposed
-* **Version**: 1.7.1
+* **Version**: 1.8.0
 * **Date Created**: 2026-07-08
 * **Author**: SmartCore Architecture Team
 * **Approval Date**: TBD
@@ -13,7 +13,11 @@
 * **Decision Type**: Architectural Decision
 * **Decision Level**: Level 4 — Architectural Change (applies to Decision 5 event classification and Decisions 7–9; Decisions 1–4 and 6 are Level 2 Documentation clarifications)
 
-## Review Revision — 2026-09-25 (v1.7.1)
+## Review Revision — 2026-09-28 (v1.8.0)
+
+This Proposed revision separates architectural approval evidence from post-approval runtime verification under 051 §7. It changes acceptance sequencing, not Decisions 1–9, ADR-0004's accepted scope, T16, implementation status or generation readiness. Owner review and approval remain pending. The prior v1.7.1 provenance note follows.
+
+### Previous review revision — 2026-09-25 (v1.7.1)
 
 This documentary revision references the separately accepted [ADR-0004](ADR-0004_Identity_Credential_Provisioning_Protocol.md). Its C02 winner is fixed at the first Credential commit, earlier than Ready; C03 preserves that winner until acknowledgment of a committed Ready fact. ADR-0004 selects authenticated polling, minimal registration-lifetime deduplication and restricted administrative recovery. These selections originate in ADR-0004, not retroactively in Decisions 8–9 here. The owner’s scoped acceptance does not accept ADR-0002 or T16. References pinned to v1.7 continue to describe the prior integrated proposal; this patch adds provenance only.
 
@@ -721,38 +725,41 @@ Review and merge the integrated snapshot coherently. PRs #1–#4 overlap this pr
 
 # Acceptance Criteria
 
-This ADR SHALL remain Proposed until:
+## Architectural approval gate (051 §7)
 
-* [ ] Related document updates are completed
-* [ ] Mobile-only and email-only registrations, verification-before-commit,
-      unique-contact concurrency, and progressive-profile boundaries are
-      reflected in narrative, machine specification, contracts, and tests
-* [ ] Decision 8 recovery states, idempotency, Outbox and failure scenarios are
-      synchronized across narrative, machine specification, contracts, and security tests
-* [ ] PersonRegistered timing/consumers and pending registration API outcomes are
-      reviewed, with no premature authentication or duplicate ownership
-* [ ] Decision 9 pre-commit material has absolute expiry, bounded attempts,
-      immediate invalidation, and a documented bounded deletion interval
-* [ ] Contact request and resend behavior, delivery, throttling, and the
-      post-verification uniqueness conflict are reviewed for enumeration
-* [ ] Challenge consumption, durable replay mapping, bounded retention, and
-      atomic link to registrationId are specified and tested
-* [ ] Keyed code verifier, online attempt limits, replay-window expiry, and
-      expired-replay routing to secure PendingCredential completion are tested
-* [ ] PersonRegistered timestamps, delayed manual recovery, and the separate
-      commit-signal rule are reflected in 026 and consumer contracts
-* [ ] Identity/06_Domain_Events.md §4.2 and its envelope are reconciled with
-      optional Email, initial SessionReference, and Ready-time event semantics
-* [ ] Architecture Validation Review is completed
-* [ ] Blueprint passes Structural Validation
-* [ ] LoginFailed classification is synchronized across Platform, Identity narrative, machine specification, and affected contract/consumer references; no identity or payload contract is silently changed
-* [ ] All affected Blueprint documents reference ADR-0002 (latest accepted version)
+This ADR SHALL remain Proposed until the following architectural review evidence exists and the authorized owner records an explicit scoped approval:
 
-After approval:
+* [ ] Related Platform and Identity narrative, machine, API, service and event contract updates are reviewed as one versioned candidate; unresolved differences and affected consumers have an explicit compatibility/migration disposition.
+* [ ] Mobile-only and email-only registration, verification-before-commit, contact uniqueness, progressive profile, workflow states, recovery, idempotency, Outbox and failure outcomes are specified consistently in narrative, machine, contracts, security and test specifications.
+* [ ] PersonRegistered Ready-time OccurredAt and OwnershipCommittedAt, optional Email, removal of initial SessionReference, actor attribution and any separate ownership-commit signal are reviewed in 026, Identity/06 and consumer contracts. Pending registration responses cannot imply authenticated success.
+* [ ] Decision 9 specifies absolute pre-commit material expiry, bounded attempts, immediate invalidation and bounded deletion; initiation/resend/delivery/throttling and post-proof uniqueness conflict are reviewed for account enumeration.
+* [ ] Challenge consumption, durable replay mapping, bounded retention, atomic registrationId binding, keyed code verifier, online attempt limits, replay-window expiry and secure PendingCredential completion after expired replay are specified, including tests that will verify them.
+* [ ] LoginFailed Security Event classification and conditional identity references are synchronized across 026/027/059, Identity narrative, machine, contracts and affected consumers without a silent payload change.
+* [ ] Architecture Validation Review is completed and documented for the exact candidate revision.
+* [ ] The applicable Blueprint Structural Validation under 065 passes for that revision, with evidence and limitations recorded.
+* [ ] Affected Blueprint documents identify this Proposed revision during review; after approval, their references are updated to the exact accepted revision rather than implying acceptance in advance.
+* [ ] The approval record names accepted decision numbers and scope, authority, candidate commit, reviewed evidence, unresolved conditions, approval/effective dates and the subsequent verification owner. Acceptance of ADR-0004 alone does not satisfy this item.
 
-* Status SHALL change to Accepted
-* Approval Date SHALL be recorded
-* Effective Date SHALL be recorded
+The approval record SHALL NOT mark an unchecked criterion as passed or claim generation/deployment readiness. If only some decisions are approved, the ADR status and record must unambiguously distinguish approved scope from remaining Proposed content; do not label the entire ADR Accepted while leaving other decisions unreviewed.
+
+## Post-approval implementation and verification gates
+
+These are mandatory obligations after architectural approval, not prerequisites to the architecture Approval step in 051 §7. Their test plans and expected invariants must satisfy the architectural gate above; actual execution requires implementation and belongs to the subsequent Implementation and Verification steps. Do not describe an unexecuted test as passed.
+
+* [ ] Run mobile-only/email-only, verification-before-commit, unique-contact concurrency and progressive-profile tests.
+* [ ] Run atomic ownership/workflow/material-reference/Outbox rollback, lost-response replay, idempotent provisioning, recovery and failure-injection tests against real persistence and service boundaries.
+* [ ] Run challenge consumption/replay/expiry, keyed verifier, online guessing/resend budgets, secret invalidation/disposal and enumeration-resistance tests.
+* [ ] Run pending-login denial, active-winner/Ready reconciliation, PersonRegistered timestamp/actor/event identity and affected consumer compatibility tests.
+* [ ] Run applicable runtime security, race and crash tests required by ADR-0004 and Identity/13, including its guard and acknowledgment protocol; record revision, environment, commands and outcomes.
+* [ ] Complete full applicable 065 validation, machine/API/schema contract verification, deployment policy/configuration review and any independent release gates. A structural pass alone does not satisfy this item.
+
+Architectural approval authorizes implementation of its explicitly accepted scope under 051 §7. It does not itself mark the Blueprint READY_FOR_GENERATION or authorize release. Generation readiness and release require their own stated gates and evidence. A failed verification requires correction under governance and may require revision or withdrawal of the architectural decision; it is never silently waived.
+
+After explicit architectural approval:
+
+* Status and accepted scope SHALL be recorded without obscuring any remaining Proposed decisions.
+* Approval Date and Effective Date SHALL be recorded.
+* Dependent documents SHALL reference the accepted revision and continue to expose open verification obligations.
 
 ---
 
@@ -789,6 +796,7 @@ After approval:
 | 1.3 | Proposed | 2026-09-24: Recorded the agreed LoginFailed Security Event classification under Identity ownership; preserved other event classifications, ownership registration semantics, and existing payload contracts. Added classification propagation and verification criteria. Full ADR acceptance remains pending. |
 | 1.4 | Proposed | 2026-09-24: Added post-commit PendingCredential/Ready workflow, atomic Outbox work, idempotent Credential provisioning, bounded retry and secure completion after exhaustion. Clarified that ownership remains atomic, Person/Organization/Membership lifecycles do not change, and PersonRegistered follows Credential readiness rather than initial Session creation. Acceptance and Blueprint propagation remain pending. |
 | 1.5 | Proposed | 2026-09-24: Added minimal registration with verified mobile OR email, password and DisplayName; one-time challenge precedes the atomic ownership commit. Made email optional for mobile-only Persons, retained the PendingCredential post-commit recovery flow, and deferred other profile data. Full Blueprint/schema validation and approval remain pending. |
+| 1.8.0 | Proposed | 2026-09-28: Proposed separation of architectural approval criteria from mandatory post-approval runtime/security/race verification under 051 §7; no decision accepted or test claimed passed. |
 | 1.7.1 | Proposed | 2026-09-25: Referenced separately accepted ADR-0004 and its earlier C02 winner point without retroactively attributing protocol choices or accepting ADR-0002/T16. |
 | 1.7 | Proposed | 2026-09-24: Recorded integrated Blueprint/API/machine propagation, coordinated merge requirement and remaining review/validation gates; corrected the blanket non-breaking claim. Decisions remain Proposed. |
 | 1.6 | Proposed | 2026-09-24: Clarified pre-commit verification security, atomic material-reference binding, keyed replay verification within the original challenge window, secure completion after expired replay, non-enumerating responses, PersonRegistered timestamps and the future commit-signal rule; classified Decisions 8–9 as Level 4 and expanded dependent acceptance checks. |
