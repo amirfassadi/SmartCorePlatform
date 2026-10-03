@@ -1,6 +1,6 @@
 # 059_SmartCore_Identity_Platform.md
 
-Version: 1.5
+Version: 1.5.1
 
 Status: **Normative**
 
@@ -229,7 +229,7 @@ This core transaction creates the foundational ownership relationships.
 
 ## Post-Commit Identity Operations
 
-After successful commit, Credential provisioning and registration readiness SHALL follow the proposed Decision 8; initial Session creation MAY follow readiness:
+After successful commit, Credential provisioning and registration readiness SHALL follow proposed ADR-0002 Decision 8 and the separately accepted ADR-0004 protocol. Registration does not create an authenticated Session; the client invokes AuthenticatePerson explicitly after Ready:
 
 ```text
 [Ownership + PendingCredential workflow + Outbox committed]
@@ -244,15 +244,15 @@ Create/confirm exactly one active Credential (idempotent by registrationId)
 
 ↓
 
-Mark registration Ready and reliably publish PersonRegistered
+Mark registration Ready and enqueue PersonRegistered with acknowledgment work
 
 ↓
 
-Create Initial Session if requested/available
+Return registration status without authentication tokens
 
 ↓
 
-Return authenticated result only when a valid Session exists
+A separate AuthenticatePerson request may create a Session after Ready
 ```
 
 **Non-Invalidating Policy**: Post-commit operations SHALL NOT invalidate ownership consistency. If post-commit operations fail, the ownership relationships remain valid.
@@ -340,7 +340,7 @@ Issue Refresh Token
 Return Authentication Response
 ```
 
-No domain data is modified during login.
+Login does not change the Person, Organization or Membership ownership triple. Successful authentication creates a Session and records its associated completed facts; failure does not create an authenticated Session. Business authorization remains with consuming capabilities.
 
 ---
 
@@ -631,6 +631,10 @@ For PersonRegistered, OccurredAt is the atomic Ready transition and OwnershipCom
 
 # Change Log
 
+## Version 1.5.1 (2026-09-28)
+
+Clarified explicit login after Ready with no registration-issued Session; corrected login state-change wording; qualified historical implementation-specific recovery note against accepted ADR-0004. ADR-0002/0003 remain Proposed, and this correction does not approve Blueprint or deployment readiness.
+
 ## Version 1.5 (2026-09-24)
 
 Synchronized the proposed integrated Identity contract references and merge/readiness qualification; no new public event or general Command exception.
@@ -683,7 +687,7 @@ Synchronized the proposed integrated Identity contract references and merge/read
 
 Under ADR-0002 v1.4 Decision 8 (Proposed), PersonRegistered is published
 after an active Credential is confirmed and the registration becomes Ready.
-Initial Session creation is independent and may occur afterward; its failure
+A separate explicit login may create a Session afterward; its failure
 does not reverse registration readiness or ownership. This revises the prior
 requirement to wait for an initial Session before PersonRegistered and requires
 review of existing event consumers and contracts before acceptance.
@@ -695,7 +699,7 @@ Failure of post-commit operations SHALL NOT invalidate:
 - Organization
 - Membership
 
-Post-commit recovery and operational handling are implementation-specific.
+The post-commit Credential confirmation, guard/acknowledgment and restricted administrative recovery architecture is governed by accepted ADR-0004; the underlying ADR-0002 Decisions 8–9 remain Proposed. Deployment values and implementation mechanisms delegated by those decisions remain subject to reviewed configuration and runtime verification. This historical timing note grants no generation or rollout readiness.
 
 **END OF DOCUMENT**
 

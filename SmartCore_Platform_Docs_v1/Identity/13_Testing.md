@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-13
 Title: SmartCore Identity Platform Blueprint - Testing
-Version: 1.1.0
+Version: 1.1.1
 Status: DRAFT
 Purpose: Define the proposed Identity testing contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.1.1 (2026-10-04): Linked pinned Identity R01–R20 planning catalogue; no execution or approval claimed.
   - Version 1.1.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.0.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Initial proposed specification.
 -->
@@ -63,3 +64,7 @@ Assert no proof/password/token appears in logs, traces, metrics labels or event 
 | Support | NotProvisioned, IntegrityConflict, permanent outage | Typed non-success result, ticketed escalation; no database-unlock instruction |
 
 Schema fixtures may check message shape only. They do not execute any of these integration/security/concurrency scenarios.
+
+# 4. Cross-repository registration test traceability
+
+The complementary [R01–R20 registration catalogue](https://github.com/amirfassadi/SmartCoreIdentity/blob/ee9ffb767ed84165557793d8583b0750d887027b/docs/registration/validation-and-tests.md) is pinned review evidence. Both this Blueprint and that catalogue remain DRAFT requirements; neither file proves execution. R01–R04 cover initiation/proof, R05–R07 ownership/replay/material transfer, R08–R14 readiness/winner/recovery, R15–R17 administrative safety, R18 event semantics, R19 login/self/logout, and R20 secret disposal. SESSION/T16 decisions may require versioned changes to expected outcomes; reconcile those before implementing dependent tests.

@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-09
 Title: SmartCore Identity Platform Blueprint - Persistence
-Version: 1.3.0
+Version: 1.3.1
 Status: DRAFT
 Purpose: Define the proposed Identity persistence contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.3.1 (2026-10-04): Restored explicit post-commit isolation and Event Sourcing non-goal; clarified recovery contact resolution through the existing PersonId association. Proposed scope/status unchanged.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
 -->
@@ -16,7 +17,7 @@ Change Log:
 
 # 1. Scope
 
-Logical persistence and transaction requirements, independent of SQL dialect or broker. DDL, deployable migrations and runtime verification remain implementation deliverables. Narrative model 01 is authoritative.
+Logical persistence and transaction requirements, independent of SQL dialect or broker. DDL, deployable migrations and runtime verification remain implementation deliverables. Narrative model 01 is authoritative. Event Sourcing and a generic historical Event Store are outside this MVP; required durable Outboxes are not an Event Store. Broker implementation and long-term event retention are delegated to Messaging/Integration contracts; the delivery obligations in §6.4 remain part of this proposed contract.
 
 # 2. Repository boundary
 
@@ -70,6 +71,8 @@ No exception is self-authorizing. ADR-0002 remains Proposed. Any new cross-Aggre
 
 # 6. Credential and Ready transactions
 
+After the ownership Unit of Work commits, provisioning, Ready reconciliation, acknowledgment and later login use separate local transactions. Their failures SHALL NOT reopen, roll back or re-run the committed ownership transaction. Authorized replay resolves its existing result; it does not recreate ownership. Recovery preserves the committed triple.
+
 ## 6.1 Separate service reconciliation
 
 Accepted ADR-0004 is encoded in 07 §3: idempotent EnsureInitialCredential, authenticated polling of guarded active evidence, then AcknowledgeRegistrationReady. Initial Credential, immutable winner and ProvisionedAwaitingReady phase commit atomically at Credential. Every supported mutation checks that guard in its local transaction. Confirm outside Identity's transaction; immutable provisioningVersion identifies the protected winner generation. The authoritative guard, not polling alone, protects the confirmation-to-Ready interval. Later authentication still checks the current Credential.
@@ -98,10 +101,12 @@ PersonUpdated uses the same allocator in its Person update transaction. Publish 
 | Initiation deduplication | client key + keyed input digest; same session expiry | no raw password or fast unkeyed digest; no authorization from key alone |
 | Consumed replay/conflict mapping | verificationSessionId→registrationId or authorized setup target; only until original expiry | same successful proof/binding, online bounded verification; no extend-on-read |
 | SetupChallenge | setupChallengeId→pending registration; distinct absolute expiry | keyed verifier/binding and single consumed candidate; request digest for replay |
-| RegistrationWorkflow | registrationId unique; PersonId unique; registration lifetime | CAS version, ownership/Ready timestamps, winner reference, retry/recovery state |
+| RegistrationWorkflow | registrationId unique; PersonId unique; registration lifetime | CAS version, ownership/Ready timestamps, winner reference, retry/recovery state; PersonId resolves the verified-contact recovery reference |
 | Material record | session-owned then registration-owned, or authorized setup candidate | encryption, purpose/owner-bound access; invalidate first; bounded delete; no plaintext backups |
 | Provisioning outcome | registrationId + operationId; lifetime tombstone | winner identity/input binding, no retained secret; prevent delayed retry creating another Credential |
 | Event Outbox / stream | stable EventId and per-stream position | atomic enqueue, durable retries, restricted payload access |
+
+The workflow’s unique PersonId association provides the durable reference to the selected verified contact in Person persistence for controlled setup delivery. Recovery resolves that authoritative contact; it must not trust a caller-supplied destination or treat the reference/contact alone as password-setting authorization. This clarification uses the existing association rather than introducing a duplicate contact field; unverified contact mutation remains outside MVP.
 
 Expiry immediately denies access logically, even before the physical sweep runs. Deletion must complete within the configured bound, including replicas/caches; encrypted backup copies use cryptographic key disposal or documented backup expiry with no restorable usable secret beyond the bound. Alert on breach; do not silently label delayed cleanup compliant. Audit retains identifiers/outcomes under policy, not proof verifiers after expiry. Operational counters must not require serializing LoginFailed on the Person stream.
 
