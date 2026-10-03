@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-03
 Title: SmartCore Identity Platform Blueprint - Aggregates
-Version: 1.4.1
+Version: 1.4.2
 Status: DRAFT
 Purpose: Define aggregate design rationale and boundaries for the Identity Platform Blueprint
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.4.2 (2026-10-04): Aligned Session alternative terminal states and clarified no-cascade storage semantics against 01/04/06; no SESSION option selected.
   - Version 1.4.1 (2026-09-25): Corrected pre-Ready profile-update claim against 04 §§4.2–4.3; causal commit order does not establish publication/delivery ordering or accept T16.
   - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Aligned optional verified contact and linked the concrete proposed Credential confirmation contract in 07 §3 and persistence in 09 §6.
@@ -134,7 +135,7 @@ this document listed `Role` here, which was not supported by
 **Child Value Objects**: AccessTokenId, RefreshToken
 
 **Independent Lifecycle**:
-- Created → Authenticated → Active → Suspended (optional) → Expired → Closed
+- Created → Authenticated → Active → Suspended (future) → Expired or Closed
 - Sessions are temporary; they have no effect on Person identity or Membership status
 
 ---
@@ -163,14 +164,14 @@ this document listed `Role` here, which was not supported by
 
 Session is modeled as an independent Aggregate because:
 
-- It owns an independent lifecycle (Created → Authenticated → Active → Suspended (optional) → Expired → Closed)
+- It owns an independent lifecycle (Created → Authenticated → Active → Suspended (future) → Expired or Closed)
 - It may be revoked independently without affecting Person identity
 - Multiple sessions may exist for a single Person simultaneously
 - Session consistency is independent from Person consistency
 - Session expiration SHALL NOT affect Person identity or Membership status
 - Sessions represent temporary execution context, distinct from identity ownership
 
-**Design Consequence**: Session changes do not cascade to Person. Person changes do not invalidate Sessions. Each maintains independent state.
+**Design Consequence**: Session changes do not cascade to Person persistence. Person changes do not automatically mutate Session rows; authentication and refresh still enforce the current Person/readiness/Credential gates in 04. This does not authorize an inactive Person to refresh, or decide the separately proposed SESSION revocation policy. Each Aggregate maintains its own state.
 
 ---
 

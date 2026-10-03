@@ -1,4 +1,4 @@
-# Identity registration: limited architecture acceptance record (DRAFT v4)
+# Identity registration: limited architecture acceptance record (DRAFT v5)
 
 **Status:** Unsigned review candidate; no architectural approval or implementation permission.  
 **Governance record number:** PENDING assignment under 051.  
@@ -6,7 +6,7 @@
 **Decision owner:** Amir (@amirfassadi), project and architecture owner.  
 **Prepared:** 2026-09-29 (Asia/Tehran). Approval and effective dates: PENDING.
 
-This is a decision form, not a claim that its prerequisites are complete. Slice 0 evidence preparation may begin now. Implementation of Slice 1 or Slice 2 requires an attributable owner decision after the pre-signature evidence below is complete.
+This is a decision form, not a claim that its prerequisites are complete. Slice 0 evidence preparation may begin now. Implementation of Slice 1 or Slice 2 additionally requires all four applicable 064 validation gates and the 065 quality-gate evidence for an explicitly defined coherent package. Owner approval alone is insufficient; no bounded package or exception is adopted by this form.
 
 ## 1. Exact source references
 
@@ -90,7 +90,7 @@ The later-slice rows are obligations of accepting D8, not a claim that Slice 2 a
 
 ## 7. Scoped permission, post-approval obligations and exceptions
 
-Slice 0 (pin sources, resolve discrepancies, map decisions, conduct review and produce structural evidence) starts before approval. After the owner signs exact scope on two pinned SHAs and all applicable pre-signature evidence is complete, only the explicitly accepted Slice 1/2 architectural scope may be implemented. If Slice 2 evidence lags, sign only Slice 1 when its own prerequisites are met; a later Slice 2 addendum identifies its baseline and additional evidence. If D8 as a whole is a prerequisite and cannot be approved, Slice 1 cannot claim D8 acceptance by implementation partition alone.
+Slice 0 (pin sources, resolve discrepancies, map decisions, conduct review and produce structural evidence) starts before approval. After the owner signs exact scope on two pinned SHAs and all applicable pre-signature evidence is complete, only the explicitly accepted Slice 1/2 architectural scope may be implemented after all applicable 064/065 implementation gates are evidenced. If Slice 2 evidence lags, a scoped Slice 1 approval still needs an explicitly governed scope and all applicable gate evidence; a later Slice 2 addendum identifies its baseline and additional evidence. If D8 as a whole is a prerequisite and cannot be approved, Slice 1 cannot claim D8 acceptance by implementation partition alone.
 
 | Later obligation | Responsible person | Gate | Evidence |
 | --- | --- | --- | --- |
@@ -122,3 +122,7 @@ A cryptographically signed commit is desirable but is not a new requirement of 0
 ## 9. Slice 0 publication review — 2026-10-04
 
 See [publication review](Identity_Slice0_Publication_Review.md) and the uploaded Slice 0 evidence reports. This remains unsigned. In particular, 064 §§9/12/15 require all four validation gates before implementation. This form’s limited Slice 1/2 permission must not be used to bypass that rule: either provide the applicable gate evidence for an explicitly bounded package or obtain an explicit governed disposition/amendment before implementation. ADR-0002 sequencing alone does not amend 064. The partial structural checker omits required section/heading validation, so it cannot close 065 §5. No gate is marked complete by this addendum.
+
+## 10. Gate follow-up — 2026-10-04
+
+[Gate and foundation review](Identity_Slice0_Gate_Review.md) maps 064/065/066 and records structural coverage, foundation findings and remaining evidence. This revision corrects the implementation-permission wording; it does not approve a narrowed Blueprint or amend any foundational standard. Runtime implementation verification remains separate from pre-implementation documentary gate evidence.

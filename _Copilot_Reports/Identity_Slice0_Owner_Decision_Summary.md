@@ -26,3 +26,7 @@ Publish a review branch, verify closed PR state, inspect references, map tests a
 4. **Dependent slices:** T16 and SESSION remain open. Approved secret-handling/security policy is needed before implementing dependent verification behavior; it is not all postponed to deployment. Selecting a technology stack can proceed alongside evidence work.
 
 No report grants implementation permission, generation readiness, deployment clearance or runtime PASS. The broad 09 legacy-content comparison and field-level schema/narrative review remain open; the five reports are useful partial evidence, not closure of Slice 0.
+
+## Gate follow-up — 2026-10-04
+
+See [gate and foundation review](Identity_Slice0_Gate_Review.md). The expanded checker and content inventory do not establish overall Structural PASS. All four applicable 064 gates plus 065 governance/quality evidence remain necessary before implementation; owner signature alone is insufficient. SESSION has an owner-selected review direction, not an adopted active contract.

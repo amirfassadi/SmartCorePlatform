@@ -1,7 +1,7 @@
 <!--
 Document ID: ID-06
 Title: SmartCore Identity Platform Blueprint - Domain Events
-Version: 1.3.0
+Version: 1.3.1
 Status: DRAFT
 
 Purpose:
@@ -30,6 +30,7 @@ Contract boundaries:
 This file owns PascalCase event envelopes/payloads. 07_Contracts.md references them for interoperability; 08_API.md independently owns camelCase REST schemas. See 09, 11 and 12 for persistence, security and acceptance gates.
 
 Change Log:
+  - Version 1.3.1 (2026-10-04): Clarified nine Domain Events plus LoginFailed, Ready-workflow facts and existing delivery obligations; no T16 decision or new event introduced.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Aligned optional Email snapshots, selected-contact LoginFailed audit and machine omission rules; retained the ten-event catalog and limited registration/profile stream.
   - Version 1.1.0 (2026-09-24): Proposed alignment with ADR-0002
@@ -99,9 +100,7 @@ A Domain Event answers:
 
 > "What business fact has already, irreversibly, happened?"
 
-Domain Events are immutable records of completed state transitions.
-They are published only after the underlying Aggregate state change
-has been durably committed (§5).
+The catalogue contains nine Domain Events and the Security Event LoginFailed. Events are immutable records of completed facts. Aggregate state-transition facts are published only after their state commits; PersonRegistered follows the durable Ready workflow fact, not a new Person lifecycle transition. LoginFailed follows the finalized rejected authentication decision (§5.3). See §5 for the corresponding publication conditions.
 
 ## 1.1 What This Document Defines
 
@@ -118,9 +117,10 @@ has been durably committed (§5).
 
 - **Event Bus / Message Broker technology** (Kafka, RabbitMQ, SNS/SQS,
   etc.) — an infrastructure choice, out of scope
-- **Outbox pattern or delivery guarantee mechanics** (at-least-once,
-  exactly-once, retry/dedup strategy) — an infrastructure/reliability
-  concern, out of scope
+- **Physical Outbox/broker implementation** — an infrastructure choice,
+  out of scope. The proposed at-least-once, stable EventId, ordering
+  and consumer-application obligations in 07 §5 and 09 §6.4 remain
+  applicable; implementation freedom cannot waive them
 - **Integration Event contracts** — whether, how, or in what shape
   these Domain Events cross the Identity Platform's boundary to be
   consumed by other Capability Platforms is a separate concern
@@ -605,12 +605,7 @@ an initial Session failure neither withdraws nor changes the event.
 
 ## 5.5 Delivery Mechanics Are Out of Scope
 
-Whether publishing is at-least-once or exactly-once, whether retries
-occur, and how a consumer deduplicates are Event Bus / Messaging
-Engine concerns (00_Overview §4 lists messaging infrastructure as a
-dependency of the Identity Platform, not a component the Identity
-Platform itself implements) and are explicitly out of scope for this
-document (§1.2).
+Physical dispatcher/broker choices belong to infrastructure (00 §4). The proposed contract in 07 §5 and 09 §6.4 still requires stable EventId deduplication and ordered application for its defined streams under redelivery. Those obligations are not optional because their physical implementation is delegated. The registration/profile T16 proposal remains unaccepted; this clarification does not select an option.
 
 ---
 
