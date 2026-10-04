@@ -1,6 +1,6 @@
 # Identity SESSION policy — architectural decision candidate
 
-Status: Proposed / unsigned — 2026-09-29 (review revision 0.2)
+Status: Proposed / unsigned — 2026-09-29 (review revision 0.3)
 ADR number: unassigned; allocate through SmartCorePlatform governance, preserving immutable identifiers under 051.
 Decision authority: SmartCore architecture/security owner. This document records owner-selected design directions from the project conversation, not a signed Approval step or an active Blueprint amendment.
 Sources: [options](Identity_SESSION_Policy_Options_Draft.md), [S2 BFF contract](Identity_SESSION_S2_BFF_Contract_Draft.md), [security checklist](Identity_SESSION_S2_Security_Review_Checklist.md), [propagation map](Identity_SESSION_S2_Propagation_Map.md). Re-pin the integrated candidate commit before architectural approval.
@@ -43,7 +43,7 @@ Strict predecessor reuse handling intentionally trades occasional forced login u
 - [ ] Operational accountability named and required finite policy values/retention decisions recorded or explicitly gated before deployment.
 - [ ] An attributable owner approval records the candidate SHA, scope, date, unresolved verification duties and rejected alternatives.
 
-Architectural approval would permit implementation of this scope under 051 §7. It would not by itself mark Identity READY_FOR_GENERATION, pass full 065 validation, prove runtime behavior, or authorize deployment. T16 and ADR-0002/0003 remain separately governed. Until approval, the Platform's active Draft nonrotation contract is not superseded.
+Architectural approval is required under 051 §7; implementation additionally requires all applicable 064/065 code-entry gates. It would not by itself mark Identity READY_FOR_GENERATION, pass full 065 validation, prove runtime behavior, or authorize deployment. T16 and ADR-0002/0003 remain separately governed. Until approval, the Platform's active Draft nonrotation contract is not superseded.
 
 ## Post-approval verification and propagation
 
@@ -52,3 +52,7 @@ Propagate to the files in the [map](Identity_SESSION_S2_Propagation_Map.md) as o
 Approval/effective date: PENDING
 Accepted source commit: PENDING
 Signature/attributable record: PENDING
+
+## Contract completion follow-up — 2026-10-04
+
+[Completion candidate](Identity_SESSION_Contract_Completion_Candidate.md) specifies proposed separate access/Session deadlines and a durable password-change fence covering login as well as refresh. These are new unapproved details, not propagation into active contracts. [Decision packet](Identity_Next_Decision_Packet.md) pins the integrated review input; final accepted source remains PENDING. The 86400-second figure is an absolute Session cap, not a periodic rotation interval.

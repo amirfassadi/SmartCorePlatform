@@ -1,4 +1,4 @@
-# Identity registration: limited architecture acceptance record (DRAFT v5)
+# Identity registration: limited architecture acceptance record (DRAFT v6)
 
 **Status:** Unsigned review candidate; no architectural approval or implementation permission.  
 **Governance record number:** PENDING assignment under 051.  
@@ -12,16 +12,16 @@ This is a decision form, not a claim that its prerequisites are complete. Slice 
 
 | Repository | Current review input, not accepted | Accepted candidate SHA |
 | --- | --- | --- |
-| SmartCorePlatform | PR #5 integrated branch `91375b192dd0ec778529c4c7d8a785c94231269a`; PRs #6/#7 remain separate drafts | PENDING: one coherent tree containing the approved #6 sequencing text and reviewed #7 correction |
+| SmartCorePlatform | PR #10 integrated review input `630a22da53195a87d780aaf3c867bdd359eab83a`; proposed #5–#9 content is in this review chain | PENDING: pin the final reviewed coherent output; incorporated #6/#7 text is not approval |
 | SmartCoreIdentity | PR #1 `ee9ffb767ed84165557793d8583b0750d887027b` | PENDING: pin independently at decision time |
 
 PR #8 (`6c50cb92cd9c15b48f5bf4d13e128fccfd620bb2`) compares T16 options. PR #9 (`db88bb07a5dfeb8498607bb3e20df546bd6a38e2`) proposes SESSION/S2 options. These are background review inputs only; neither closes its decision or becomes normative through this record. Recheck all heads before signing. Identity PR #1 is not part of the Platform commit.
 
-**Cross-repository discrepancy table:** PENDING. For every difference record the two exact source locations, chosen authority, required correction, affected consumer and disposition. A later commit does not automatically annul a signed scoped decision. Changes affecting accepted clauses, schemas, dependent documents, invariants or internal contracts require documented impact review and, when needed, an addendum. The addendum must state whether its baseline SHAs changed. Impact-review owner and register: PENDING.
+**Cross-repository discrepancy table:** partial evidence exists in the publication and field reviews; selected authoritative source and final reconciliation remain PENDING. For every difference record the two exact source locations, chosen authority, required correction, affected consumer and disposition. A later commit does not automatically annul a signed scoped decision. Changes affecting accepted clauses, schemas, dependent documents, invariants or internal contracts require documented impact review and, when needed, an addendum. The addendum must state whether its baseline SHAs changed. Impact-review owner and register: PENDING.
 
 ## 2. Sequencing decision: ADR-0002 v1.8.0
 
-**Separate owner disposition: PENDING.** PR #6 remains Draft. Before limited acceptance, its versioned ADR-0002 v1.8.0 text must be in the single Platform candidate and the owner must review the criterion-by-criterion mapping from v1.7.1. The owner records acceptance, revision or rejection of the architecture-versus-runtime sequencing separately here: PENDING attributable record.
+**Separate owner disposition: PENDING.** ADR-0002 v1.8.0 sequencing is incorporated in the PR #10 review input, not accepted. Before limited acceptance, confirm its versioned text in the exact final Platform candidate and the owner must review the criterion-by-criterion mapping from v1.7.1. The owner records acceptance, revision or rejection of the architecture-versus-runtime sequencing separately here: PENDING attributable record.
 
 Pre-approval evidence includes transaction boundaries, invariants, concrete failure-point test plans, cross-document/consumer review, Architecture Validation Review and applicable structural validation. Executed race/security/crash tests belong to implementation and verification after architectural approval. An unexecuted test is never marked passed. ADR-0003 criteria are evaluated independently; PR #6 does not amend ADR-0003.
 
@@ -126,3 +126,7 @@ See [publication review](Identity_Slice0_Publication_Review.md) and the uploaded
 ## 10. Gate follow-up — 2026-10-04
 
 [Gate and foundation review](Identity_Slice0_Gate_Review.md) maps 064/065/066 and records structural coverage, foundation findings and remaining evidence. This revision corrects the implementation-permission wording; it does not approve a narrowed Blueprint or amend any foundational standard. Runtime implementation verification remains separate from pre-implementation documentary gate evidence.
+
+## 11. Next decision packet — 2026-10-04
+
+[Prepared choices and gate work](Identity_Next_Decision_Packet.md) replace stale preparation assumptions with exact integrated inputs. The recommended full-MVP single-Blueprint scope is not adopted; this limited form remains an alternative unsigned scope proposal. Field review and expanded structural evidence exist, but neither constitutes complete gate evidence. Accepted SHAs, attributable decision and implementation permission remain PENDING.

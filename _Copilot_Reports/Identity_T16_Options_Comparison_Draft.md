@@ -126,3 +126,7 @@ Architectural selection can precede runtime tests, but runtime validation and pr
 - Version 0.3.0 (2026-09-25): Re-pin note now ties to the exact decision-candidate commit (re-sync before merge, record final SHA after merge), not merge status alone. Q3 rewritten to remove ambiguous "bounded skip with recovery": A's blocked event requires explicit operator recovery, not skip; B's discardable stale snapshot is distinguished from an unresolved version conflict, which needs its own policy. Added a status note in §2 distinguishing the pinned-baseline finding on 03's contradictory wording from a reported local, unpushed 1.4.1 fix.
 - Version 0.2.0 (2026-09-25): Added the re-pin-before-acceptance note in the header (PR #5 is open, not merged). Filled in Q3 with the actual open question (stalled/unresolvable-message handling under either option), rather than only its rationale.
 - Version 0.1.0 (2026-09-25): Initial draft comparison.
+
+## Integrated follow-up — 2026-10-04
+
+The b82ab19 pin above is retained as historical comparison evidence. Current input is PR #10 at `630a22da53195a87d780aaf3c867bdd359eab83a`. [Ordered contract candidate](Identity_T16_Ordered_Contract_Candidate.md) recommends A with explicit encoding, dispatcher/consumer failure rules and replay admission. It does not claim verified subscribers, throughput, formal option acceptance or gate closure. This comparison and its historical unselected status do not override a future attributable T16 decision.
