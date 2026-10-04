@@ -59,3 +59,7 @@ Record for each P01–P06: accepted/revised/rejected/deferred; exact clauses and
 ## Check results on this publication
 
 The change set updates review documentation only; active Blueprint, schemas, machine and standards are unchanged. Existing checks rerun: 557/557 focused contract checks; 430/430 limited package checks; 296 PASS / 6 WARN / 97 INFO structural subset; four isolated negative controls fail as intended. Relative links in changed review documents and git diff --check are checked. No complete Semantic/Architecture/AI gate PASS or runtime result is asserted.
+
+## Readiness preparation follow-up — 2026-10-04
+
+[Readiness status](Identity_Implementation_Readiness_Status.md) records completed legacy/content work and remaining gates. [Architecture review](Identity_Preimplementation_Architecture_Review.md) and [Foundation alignment candidate](Identity_Foundation_Alignment_Candidate.md) add precise pagination, tenant/scope, IoT milestone and dependency-name dispositions; none is silently accepted. Previous 557/430/296 counts above are historical results for that publication, not the updated subset totals.

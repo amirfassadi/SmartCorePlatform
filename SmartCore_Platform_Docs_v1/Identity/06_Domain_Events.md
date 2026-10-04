@@ -1,7 +1,7 @@
 <!--
 Document ID: ID-06
 Title: SmartCore Identity Platform Blueprint - Domain Events
-Version: 1.3.2
+Version: 1.3.3
 Status: DRAFT
 
 Purpose:
@@ -30,6 +30,7 @@ Contract boundaries:
 This file owns PascalCase event envelopes/payloads. 07_Contracts.md references them for interoperability; 08_API.md independently owns camelCase REST schemas. See 09, 11 and 12 for persistence, security and acceptance gates.
 
 Change Log:
+  - Version 1.3.3 (2026-10-04): Made required-content and preserved constraints explicit from existing sources; decisions, generation status and runtime evidence unchanged.
   - Version 1.3.2 (2026-10-04): Aligned DisplayName nonblank encoding with 10; event schema Draft v1.2.1 narrows validation without new fields/events.
   - Version 1.3.1 (2026-10-04): Clarified nine Domain Events plus LoginFailed, Ready-workflow facts and existing delivery obligations; no T16 decision or new event introduced.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
@@ -813,3 +814,11 @@ LoginFailed is a Security Event per ADR-0002 Decision 5; its resolved PersonId i
 Ready's local transaction also persists ReadyFactId/winner evidence and internal acknowledgment Outbox; these do not add fields to public event payloads or an eleventh event. Administrative recovery executes through the service worker with ActorIdentity=System; restricted append-only audit separately retains the initiating operator and correlation to ReadyFactId/EventId. It must not impersonate the Person or copy the original registration IP/device. Re-drive preserves the original event identity and timestamps.
 
 Ready acknowledgment and administrative audit are internal service/journal records, not public Identity events. T16 (the two-event Person stream) is still Proposed and cannot inherit acceptance from ADR-0004. ADR-0004 propagation changes neither payload shape nor catalog. Draft event schema v1.2.1 additionally enforces the already documented nonblank DisplayName policy; compatibility review remains required.
+
+# 10. Event consumer declaration and admission status
+
+[Per-event consumer registry](../../_Copilot_Reports/Identity_Event_Consumer_Registry.md) explicitly records all ten Events. Actual/planned subscribers and their accountable owners are currently unverified; status is UNKNOWN, not zero consumers. No subscription, privacy access or full 064 §8.7 Consumers compliance is granted by that declaration.
+
+The API registration client/BFF is not an Event subscriber merely because it uses Identity. Examples of Business/Resource/Finance/IoT consumption in 060/063 are architectural illustrations, not verified deployment inventory. Any future subscriber must declare version, required transition/latest-state semantics, replay, durable deduplication, access classification and incident ownership before admission. LoginFailed additionally requires restricted security-audit authorization under 11; platform-wide Identity dependence is not access to its ContactValue/ExecutionContext.
+
+Ordering and idempotency remain those in §6 and 07/09. T16/S2 candidate details do not become active Event fields or delivery acceptance through this registry.

@@ -1,0 +1,1797 @@
+{
+  "platformInput": "5ea92766f480fc8d16bc337272b4595078fe3112",
+  "output": "containing commit; hashes identify reviewed changed sources",
+  "identityInput": "ee9ffb767ed84165557793d8583b0750d887027b",
+  "method": "Reviewed evidence mapping of all 35 instances / 251 required fields in 064 \u00a7\u00a78.3\u20138.7. DOCUMENTED denotes explicit documentary presence only; OPEN/REVIEW are unresolved. No automatic semantic satisfaction or complete Structural PASS.",
+  "summary": {
+    "instances": 35,
+    "cells": 251,
+    "statuses": {
+      "DOCUMENTED": 233,
+      "OPEN": 11,
+      "REVIEW": 7
+    }
+  },
+  "sourceHashes": {
+    "SmartCore_Platform_Docs_v1/Identity/00_Overview.md": "2dbbdfe89e10e8dcd8dce1466f477ea31d418caa580c429c534a61ada9ac46c0",
+    "SmartCore_Platform_Docs_v1/Identity/01_Domain_Model.md": "4435d25ead11e3da5cf0b910e1275fcfb959cf8344c2559c74831573bc9865f1",
+    "SmartCore_Platform_Docs_v1/Identity/02_Use_Cases.md": "c12c8db0826cb4d87a74af4d9b15d3ee9a41a03b220ec893926117da98b95c8e",
+    "SmartCore_Platform_Docs_v1/Identity/03_Aggregates.md": "a64b92a67c57890a9c09492473f73398cef422c47413b5d41b9421c73b047c08",
+    "SmartCore_Platform_Docs_v1/Identity/04_Commands.md": "06114a5227bde02b38350138e2c986c07d85561efb068540285beb10ef3dbbc5",
+    "SmartCore_Platform_Docs_v1/Identity/05_Queries.md": "4e19333d9ddbf510a633a5aa8cdd53a64964b6528d865d46ab7f3a10f0e325af",
+    "SmartCore_Platform_Docs_v1/Identity/06_Domain_Events.md": "3bf5d32a6b406540c9cf4153aaf8b2a03199a62a5612f797d2b0cabfc00f760e",
+    "SmartCore_Platform_Docs_v1/Identity/07_Contracts.md": "554672d4cabcbfbfad31a4422deb9f09eab997443b744f45ca44fd359794c07b",
+    "SmartCore_Platform_Docs_v1/Identity/08_API.md": "61b26fcf7995bf5f5baba0d0a61993a198dd87be942f925b528b0f6f4c404397",
+    "SmartCore_Platform_Docs_v1/Identity/09_Persistence.md": "5e0c8a37b3e571309067bf18f3df5138e9aa627714f30546918cdafd89384d87",
+    "SmartCore_Platform_Docs_v1/Identity/09_Persistence_CHANGELOG.md": "bf9d7f287585c1deab8cc0bd790a0304f5fc5e89d7f5617e77335b37109b4835",
+    "SmartCore_Platform_Docs_v1/Identity/10_Configuration.md": "b598afbf1c62e61c254091cef628fc2b83209eb1458a5ad0ea88e6b68922c4cc",
+    "SmartCore_Platform_Docs_v1/Identity/11_Security.md": "2dc991f8ca54bdfb5faf338960b90f1b91c37c7d69dbbd3dcd5b0cc14cf8ae31",
+    "SmartCore_Platform_Docs_v1/Identity/12_Validation.md": "477b825cfa86af3f78571487b77210a6b76ed7c71d5e1e0d48f8d1e6536a28b6",
+    "SmartCore_Platform_Docs_v1/Identity/13_Testing.md": "122d24fa5d4d322a2b0bf93b08c002772b56162805a4b0b800bb5af4bf2841a7",
+    "SmartCore_Platform_Docs_v1/Identity/14_MVP.md": "5f04f5f34244085890c601e1e33e9c3562615fe76d5495a268005ffc4db7e1f5",
+    "SmartCore_Platform_Docs_v1/Identity/15_Extensibility.md": "8eef4030d03a17347483f9c948e419fb903780bb13a66c0d68fc01f1864d367a",
+    "SmartCore_Platform_Docs_v1/Identity/16_Examples.md": "d2671578e4d04c22e716dfe0bc6091d5ba3ab2c1fe19e45dcd338997c349aa3e",
+    "SmartCore_Platform_Docs_v1/064_SmartCore_Blueprint_Standard.md": "97be78ab23f768f9d7d8e9b748d2979c2464025ab5af29e5669b458dee91700a",
+    "SmartCore_Platform_Docs_v1/065_SmartCore_Blueprint_Validator_Specification.md": "7dea274ce7523f2e2d2fa9fc3e989bdf2b583d0c1d34e284c53d6ec937b08614",
+    "SmartCore_Platform_Docs_v1/028_SmartCore_Query_Model.md": "7c83104b63b60cedf532f77acfd29f6f47d7254e80d97c17e88c4384552ffa76"
+  },
+  "groups": [
+    {
+      "section": "## 064 \u00a78.3 \u2014 nine use cases, seven required fields each",
+      "instanceColumn": "Use case",
+      "fields": [
+        "Goal",
+        "Actors",
+        "Preconditions",
+        "Main flow",
+        "Alternative flows",
+        "Failure conditions",
+        "Postconditions"
+      ],
+      "instances": [
+        {
+          "instance": "UC-001 Register Person",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-001 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-001 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-001 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-001 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-001 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-001 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-001 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-002 Create Credential",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-002 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-002 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-002 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-002 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-002 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-002 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-002 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-003 Authenticate Person",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-003 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-003 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-003 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-003 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-003 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-003 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-003 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-004 Create Session",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-004 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-004 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-004 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-004 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-004 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-004 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-004 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-005 Manage Profile",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-005 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-005 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-005 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-005 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-005 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-005 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-005 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-006 Change Credential",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-006 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-006 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-006 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-006 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-006 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-006 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-006 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-007 End Session",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-007 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-007 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-007 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-007 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-007 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-007 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-007 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-008 Create Membership",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-008 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-008 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-008 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-008 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-008 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-008 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-008 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UC-009 Refresh Session",
+          "fields": [
+            {
+              "requirement": "Goal",
+              "evidence": "02 \u00a76 UC-009 row, Goal column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Actors",
+              "evidence": "02 \u00a76 UC-009 row, Actors column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Preconditions",
+              "evidence": "02 \u00a76 UC-009 row, Preconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Main flow",
+              "evidence": "02 \u00a76 UC-009 row, Main flow column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Alternative flows",
+              "evidence": "02 \u00a76 UC-009 row, Alternative flows column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "02 \u00a76 UC-009 row, Failure conditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Postconditions",
+              "evidence": "02 \u00a76 UC-009 row, Postconditions column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "## 064 \u00a78.4 \u2014 five aggregates, seven required fields each",
+      "instanceColumn": "Aggregate",
+      "fields": [
+        "Root",
+        "Purpose",
+        "Owned entities",
+        "Value objects",
+        "Invariants",
+        "Consistency boundary",
+        "Relationships"
+      ],
+      "instances": [
+        {
+          "instance": "Person",
+          "fields": [
+            {
+              "requirement": "Root",
+              "evidence": "03 \u00a72",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "03 \u00a72 responsibilities",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Owned entities",
+              "evidence": "03 \u00a72 None",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Value objects",
+              "evidence": "03 \u00a72 Email/Mobile",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Invariants",
+              "evidence": "03 \u00a712 Person row, Invariants column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consistency boundary",
+              "evidence": "03 \u00a712 Person row, Consistency boundary column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Relationships",
+              "evidence": "03 \u00a712 Person row, Relationships column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "Organization",
+          "fields": [
+            {
+              "requirement": "Root",
+              "evidence": "03 \u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "03 \u00a73 responsibilities",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Owned entities",
+              "evidence": "03 \u00a73 None",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Value objects",
+              "evidence": "03 \u00a73 None",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Invariants",
+              "evidence": "03 \u00a712 Organization row, Invariants column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consistency boundary",
+              "evidence": "03 \u00a712 Organization row, Consistency boundary column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Relationships",
+              "evidence": "03 \u00a712 Organization row, Relationships column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "Membership",
+          "fields": [
+            {
+              "requirement": "Root",
+              "evidence": "03 \u00a74",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "03 \u00a74 participation",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Owned entities",
+              "evidence": "03 \u00a74 None",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Value objects",
+              "evidence": "03 \u00a74 None/Role plain field",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Invariants",
+              "evidence": "03 \u00a712 Membership row, Invariants column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consistency boundary",
+              "evidence": "03 \u00a712 Membership row, Consistency boundary column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Relationships",
+              "evidence": "03 \u00a712 Membership row, Relationships column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "Session",
+          "fields": [
+            {
+              "requirement": "Root",
+              "evidence": "03 \u00a75",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "03 \u00a75/7",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Owned entities",
+              "evidence": "03 \u00a75 None",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Value objects",
+              "evidence": "03 \u00a75 AccessTokenId/RefreshToken",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Invariants",
+              "evidence": "03 \u00a712 Session row, Invariants column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consistency boundary",
+              "evidence": "03 \u00a712 Session row, Consistency boundary column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Relationships",
+              "evidence": "03 \u00a712 Session row, Relationships column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "Credential",
+          "fields": [
+            {
+              "requirement": "Root",
+              "evidence": "03 \u00a76",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "03 \u00a7\u00a76/8",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Owned entities",
+              "evidence": "03 \u00a76 None",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Value objects",
+              "evidence": "03 \u00a76 PasswordHash",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Invariants",
+              "evidence": "03 \u00a712 Credential row, Invariants column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consistency boundary",
+              "evidence": "03 \u00a712 Credential row, Consistency boundary column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Relationships",
+              "evidence": "03 \u00a712 Credential row, Relationships column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "## 064 \u00a78.5 \u2014 six commands, eight required fields each",
+      "instanceColumn": "Command",
+      "fields": [
+        "Name",
+        "Purpose",
+        "Input",
+        "Validation",
+        "Authorization",
+        "Aggregate interaction",
+        "Resulting events",
+        "Failure conditions"
+      ],
+      "instances": [
+        {
+          "instance": "RegisterPerson",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "04 \u00a74.1",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "04 \u00a79 RegisterPerson row",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "04 \u00a74.1",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Validation",
+              "evidence": "04 \u00a74.1; 12 \u00a71",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Authorization",
+              "evidence": "04 \u00a74.1 proof/binding; 11 \u00a71",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Aggregate interaction",
+              "evidence": "04 \u00a73; 09 \u00a75.1",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Resulting events",
+              "evidence": "04 \u00a75.1 ownership + later Ready",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "04 \u00a74.1; 08 \u00a7\u00a73/5",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "AuthenticatePerson",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "04 \u00a74.2",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "04 \u00a79 AuthenticatePerson row",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "04 \u00a74.2",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Validation",
+              "evidence": "04 \u00a74.2; 12 \u00a71",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Authorization",
+              "evidence": "04 \u00a74.2 current identity/readiness/Credential",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Aggregate interaction",
+              "evidence": "04 \u00a74.2; 09 \u00a75.2",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Resulting events",
+              "evidence": "LoginSucceeded/SessionCreated; restricted LoginFailed",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "04 \u00a74.2; 08 \u00a75",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "UpdatePersonProfile",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "04 \u00a74.3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "04 \u00a79 UpdatePersonProfile row",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "04 \u00a74.3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Validation",
+              "evidence": "04 \u00a74.3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Authorization",
+              "evidence": "04 \u00a74.3 self Session",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Aggregate interaction",
+              "evidence": "04 \u00a74.3 Person/version",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Resulting events",
+              "evidence": "PersonUpdated; unchanged no event",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "04 \u00a74.3; 08 \u00a75",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "LogoutSession",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "04 \u00a74.4",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "04 \u00a79 LogoutSession row",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "04 \u00a74.4",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Validation",
+              "evidence": "04 \u00a74.4 ownership/state",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Authorization",
+              "evidence": "04 \u00a74.4 caller",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Aggregate interaction",
+              "evidence": "04 \u00a74.4 Session CAS",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Resulting events",
+              "evidence": "LogoutCompleted only winner",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "04 \u00a74.4; 08 \u00a75",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "RefreshSession",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "04 \u00a74.5",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "04 \u00a79 RefreshSession row",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "04 \u00a74.5",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Validation",
+              "evidence": "04 \u00a74.5 current gates/expiry",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Authorization",
+              "evidence": "04 \u00a74.5 token; 11 \u00a71",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Aggregate interaction",
+              "evidence": "04 \u00a74.5 Session; SESSION open",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Resulting events",
+              "evidence": "04 \u00a7\u00a74.5/8; V-002; rule disposition draft",
+              "status": "OPEN",
+              "note": "No public/internal resulting Event declared; no approved exception."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "04 \u00a74.5; 08 \u00a75",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "ChangePassword",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "04 \u00a74.6",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Purpose",
+              "evidence": "04 \u00a79 ChangePassword row",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "04 \u00a74.6",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Validation",
+              "evidence": "04 \u00a74.6 policy/current password/guard",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Authorization",
+              "evidence": "04 \u00a74.6 authenticated self",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Aggregate interaction",
+              "evidence": "04 \u00a74.6 Credential replacement",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Resulting events",
+              "evidence": "PasswordChanged only on success",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Failure conditions",
+              "evidence": "04 \u00a74.6; 08 \u00a77",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "## 064 \u00a78.6 \u2014 five queries, seven required fields each",
+      "instanceColumn": "Query",
+      "fields": [
+        "Purpose",
+        "Input",
+        "Output",
+        "Filtering",
+        "Sorting",
+        "Pagination",
+        "Security"
+      ],
+      "instances": [
+        {
+          "instance": "GetCurrentPerson",
+          "fields": [
+            {
+              "requirement": "Purpose",
+              "evidence": "05 \u00a76 GetCurrentPerson row, Purpose column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "05 row Session",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Output",
+              "evidence": "05 row self DTO",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Filtering",
+              "evidence": "05 \u00a7\u00a71/2 self",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Sorting",
+              "evidence": "05 \u00a76 GetCurrentPerson row, Sorting column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Pagination",
+              "evidence": "05 \u00a76 GetCurrentPerson row, Pagination column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Security",
+              "evidence": "05 \u00a7\u00a71/3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "GetOrganizationsForPerson",
+          "fields": [
+            {
+              "requirement": "Purpose",
+              "evidence": "05 \u00a76 GetOrganizationsForPerson row, Purpose column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "05 row Session",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Output",
+              "evidence": "05 row Organization list",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Filtering",
+              "evidence": "05 row own Membership/no arbitrary filters",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Sorting",
+              "evidence": "05 \u00a76 GetOrganizationsForPerson row, Sorting column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Pagination",
+              "evidence": "05 \u00a76 GetOrganizationsForPerson row, Pagination column",
+              "status": "REVIEW",
+              "note": "Explicit no-pagination Draft conflicts with literal 028 \u00a713 pending applicability decision."
+            },
+            {
+              "requirement": "Security",
+              "evidence": "05 \u00a7\u00a71/3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "GetMembershipsForPerson",
+          "fields": [
+            {
+              "requirement": "Purpose",
+              "evidence": "05 \u00a76 GetMembershipsForPerson row, Purpose column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "05 row Session",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Output",
+              "evidence": "05 row Membership list",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Filtering",
+              "evidence": "05 row own Owner Membership/no arbitrary filters",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Sorting",
+              "evidence": "05 \u00a76 GetMembershipsForPerson row, Sorting column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Pagination",
+              "evidence": "05 \u00a76 GetMembershipsForPerson row, Pagination column",
+              "status": "REVIEW",
+              "note": "Explicit no-pagination Draft conflicts with literal 028 \u00a713 pending applicability decision."
+            },
+            {
+              "requirement": "Security",
+              "evidence": "05 \u00a7\u00a71/3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "GetSessionsForPerson",
+          "fields": [
+            {
+              "requirement": "Purpose",
+              "evidence": "05 \u00a76 GetSessionsForPerson row, Purpose column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "05 row Session",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Output",
+              "evidence": "05 row token-free summaries",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Filtering",
+              "evidence": "05 row active/unexpired/self",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Sorting",
+              "evidence": "05 \u00a76 GetSessionsForPerson row, Sorting column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Pagination",
+              "evidence": "05 \u00a76 GetSessionsForPerson row, Pagination column",
+              "status": "REVIEW",
+              "note": "Explicit no-pagination Draft conflicts with literal 028 \u00a713 pending applicability decision."
+            },
+            {
+              "requirement": "Security",
+              "evidence": "05 \u00a7\u00a71/3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "GetPersonById",
+          "fields": [
+            {
+              "requirement": "Purpose",
+              "evidence": "05 \u00a76 GetPersonById row, Purpose column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Input",
+              "evidence": "05 row PersonId/service",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Output",
+              "evidence": "05 row PersonId/DisplayName",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Filtering",
+              "evidence": "05 row one target",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Sorting",
+              "evidence": "05 \u00a76 GetPersonById row, Sorting column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Pagination",
+              "evidence": "05 \u00a76 GetPersonById row, Pagination column",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Security",
+              "evidence": "05 row allowlisted service; 07 \u00a72",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "## 064 \u00a78.7 \u2014 ten events, seven required fields each",
+      "instanceColumn": "Event",
+      "fields": [
+        "Name",
+        "Trigger",
+        "Payload",
+        "Producer",
+        "Consumers",
+        "Ordering",
+        "Idempotency"
+      ],
+      "instances": [
+        {
+          "instance": "PersonRegistered",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.2",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "06 \u00a74.2 Ready, not ownership commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.2",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.2/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md PersonRegistered row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a76.1; T16 Proposed",
+              "status": "REVIEW",
+              "note": "T16 Proposed; concrete candidate exists but is unsigned."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "09 \u00a76.4 stable EventId/unique Ready enqueue",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "OrganizationCreated",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "06 \u00a74.3 ownership commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.3",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.3/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md OrganizationCreated row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a7\u00a76.1\u20136.3 cross-stream limits",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "09 \u00a75.1 Outbox; 07 \u00a75 EventId; exact consumer coverage OPEN",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "MembershipCreated",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.4",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "06 \u00a74.4 ownership commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.4",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.4/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md MembershipCreated row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a7\u00a76.1\u20136.3 cross-stream limits",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "09 \u00a75.1 Outbox; 07 \u00a75 EventId; exact consumer coverage OPEN",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "LoginSucceeded",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.5",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "04 \u00a74.2 successful authentication commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.5",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.5/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md LoginSucceeded row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a76.2 no publish order vs SessionCreated",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "07 \u00a75 EventId; not in T16 stream",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "LoginFailed",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.6",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "06 \u00a75.3 finalized rejection",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.6 restricted contact/reason",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.6/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md LoginFailed row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a76.1 excluded T16; audit contract separate",
+              "status": "REVIEW",
+              "note": "Restricted audit delivery/retry/retention contract still requires disposition."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "07 \u00a75 EventId; audit retry/retention review OPEN",
+              "status": "REVIEW",
+              "note": "Restricted audit delivery/retry/retention contract still requires disposition."
+            }
+          ]
+        },
+        {
+          "instance": "SessionCreated",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.7",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "04 \u00a74.2 local Session commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.7",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.7/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md SessionCreated row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a76.1 before terminal Session event",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "07 \u00a75 EventId; 09 \u00a75.2 atomic enqueue",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "SessionExpired",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.8",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "02 UC-007 / 06 \u00a76.4 terminal CAS",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.8",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.8/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md SessionExpired row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a7\u00a76.1/6.4 alternate terminal outcome",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "02 UC-007 CAS; 07 \u00a75 EventId",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "LogoutCompleted",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.9",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "04 \u00a74.4 winning Closed CAS",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.9",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.9/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md LogoutCompleted row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a7\u00a76.1/6.4 alternate terminal outcome",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "04 \u00a74.4 no duplicate event; 07 \u00a75 EventId",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "PersonUpdated",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.10",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "04 \u00a74.3 changed DisplayName commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.10",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.10/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md PersonUpdated row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a76.1 / 09 \u00a76.4 T16 Proposed",
+              "status": "REVIEW",
+              "note": "T16 Proposed; concrete candidate exists but is unsigned."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "09 \u00a76.4 EventId/position; 04 \u00a74.3 no-op",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        },
+        {
+          "instance": "PasswordChanged",
+          "fields": [
+            {
+              "requirement": "Name",
+              "evidence": "06 \u00a74.11",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Trigger",
+              "evidence": "04 \u00a74.6 guarded replacement commit",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Payload",
+              "evidence": "06 \u00a74.11",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Producer",
+              "evidence": "06 \u00a74.11/\u00a73",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Consumers",
+              "evidence": "06 \u00a710; Identity_Event_Consumer_Registry.md PasswordChanged row",
+              "status": "OPEN",
+              "note": "All actual/planned subscriptions unverified; UNKNOWN does not satisfy consumer admission/compatibility review."
+            },
+            {
+              "requirement": "Ordering",
+              "evidence": "06 \u00a76.1 own Aggregate; no T16",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            },
+            {
+              "requirement": "Idempotency",
+              "evidence": "07 \u00a75 EventId; 09 \u00a75.2 atomic enqueue",
+              "status": "DOCUMENTED",
+              "note": "Explicit documentary declaration; no behavior/acceptance PASS."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

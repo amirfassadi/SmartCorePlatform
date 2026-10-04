@@ -143,12 +143,12 @@
   [
    "S3",
    "PASS",
-   "01_Domain_Model header Version 1.4.0 vs first change-log entry 1.4.0"
+   "01_Domain_Model header Version 1.4.1 vs first change-log entry 1.4.1"
   ],
   [
    "S3m",
    "PASS",
-   "01_Domain_Model machine documents[] version/status 1.4.0/DRAFT vs header 1.4.0/DRAFT"
+   "01_Domain_Model machine documents[] version/status 1.4.1/DRAFT vs header 1.4.1/DRAFT"
   ],
   [
    "S2",
@@ -158,12 +158,12 @@
   [
    "S3",
    "PASS",
-   "02_Use_Cases header Version 1.4.0 vs first change-log entry 1.4.0"
+   "02_Use_Cases header Version 1.4.1 vs first change-log entry 1.4.1"
   ],
   [
    "S3m",
    "PASS",
-   "02_Use_Cases machine documents[] version/status 1.4.0/DRAFT vs header 1.4.0/DRAFT"
+   "02_Use_Cases machine documents[] version/status 1.4.1/DRAFT vs header 1.4.1/DRAFT"
   ],
   [
    "S2",
@@ -173,12 +173,12 @@
   [
    "S3",
    "PASS",
-   "03_Aggregates header Version 1.4.2 vs first change-log entry 1.4.2"
+   "03_Aggregates header Version 1.4.3 vs first change-log entry 1.4.3"
   ],
   [
    "S3m",
    "PASS",
-   "03_Aggregates machine documents[] version/status 1.4.2/DRAFT vs header 1.4.2/DRAFT"
+   "03_Aggregates machine documents[] version/status 1.4.3/DRAFT vs header 1.4.3/DRAFT"
   ],
   [
    "S2",
@@ -188,12 +188,12 @@
   [
    "S3",
    "PASS",
-   "04_Commands header Version 1.3.0 vs first change-log entry 1.3.0"
+   "04_Commands header Version 1.3.2 vs first change-log entry 1.3.2"
   ],
   [
    "S3m",
    "PASS",
-   "04_Commands machine documents[] version/status 1.3.0/DRAFT vs header 1.3.0/DRAFT"
+   "04_Commands machine documents[] version/status 1.3.2/DRAFT vs header 1.3.2/DRAFT"
   ],
   [
    "S2",
@@ -203,12 +203,12 @@
   [
    "S3",
    "PASS",
-   "05_Queries header Version 1.1.0 vs first change-log entry 1.1.0"
+   "05_Queries header Version 1.1.2 vs first change-log entry 1.1.2"
   ],
   [
    "S3m",
    "PASS",
-   "05_Queries machine documents[] version/status 1.1.0/DRAFT vs header 1.1.0/DRAFT"
+   "05_Queries machine documents[] version/status 1.1.2/DRAFT vs header 1.1.2/DRAFT"
   ],
   [
    "S2",
@@ -218,12 +218,12 @@
   [
    "S3",
    "PASS",
-   "06_Domain_Events header Version 1.3.1 vs first change-log entry 1.3.1"
+   "06_Domain_Events header Version 1.3.3 vs first change-log entry 1.3.3"
   ],
   [
    "S3m",
    "PASS",
-   "06_Domain_Events machine documents[] version/status 1.3.1/DRAFT vs header 1.3.1/DRAFT"
+   "06_Domain_Events machine documents[] version/status 1.3.3/DRAFT vs header 1.3.3/DRAFT"
   ],
   [
    "S2",
@@ -233,12 +233,12 @@
   [
    "S3",
    "PASS",
-   "07_Contracts header Version 1.2.0 vs first change-log entry 1.2.0"
+   "07_Contracts header Version 1.2.1 vs first change-log entry 1.2.1"
   ],
   [
    "S3m",
    "PASS",
-   "07_Contracts machine documents[] version/status 1.2.0/DRAFT vs header 1.2.0/DRAFT"
+   "07_Contracts machine documents[] version/status 1.2.1/DRAFT vs header 1.2.1/DRAFT"
   ],
   [
    "S2",
@@ -248,12 +248,12 @@
   [
    "S3",
    "PASS",
-   "08_API header Version 1.2.0 vs first change-log entry 1.2.0"
+   "08_API header Version 1.2.1 vs first change-log entry 1.2.1"
   ],
   [
    "S3m",
    "PASS",
-   "08_API machine documents[] version/status 1.2.0/DRAFT vs header 1.2.0/DRAFT"
+   "08_API machine documents[] version/status 1.2.1/DRAFT vs header 1.2.1/DRAFT"
   ],
   [
    "S2",
@@ -263,12 +263,12 @@
   [
    "S3",
    "PASS",
-   "09_Persistence header Version 1.3.1 vs first change-log entry 1.3.1"
+   "09_Persistence header Version 1.3.2 vs first change-log entry 1.3.2"
   ],
   [
    "S3m",
    "PASS",
-   "09_Persistence machine documents[] version/status 1.3.1/DRAFT vs header 1.3.1/DRAFT"
+   "09_Persistence machine documents[] version/status 1.3.2/DRAFT vs header 1.3.2/DRAFT"
   ],
   [
    "S2",
@@ -1059,6 +1059,11 @@
    "S4-dependencies",
    "PASS",
    "01_Domain_Model has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "01_Domain_Model: dependency 004_SmartCore_Composition_Rules resolves exactly once"
   ],
   [
    "S4-dependency-target",

@@ -1,5 +1,5 @@
 # SmartCore Domain Modeling Rules
-Version: 1.0
+Version: 1.0.1
 
 Status: Core Architectural Standard
 
@@ -279,8 +279,8 @@ Execution layer handles actions
 
 Every domain MUST pass:
 
-- Validation Matrix (031 dependency)
-- Core Vocabulary Mapping (030)
+- Validation Matrix (030 dependency)
+- Core Vocabulary Mapping (031)
 - Grammar Compliance (029)
 
 If any concept fails:
@@ -297,3 +297,7 @@ If any concept fails:
 ---
 
 ## END OF DOCUMENT
+
+## Editorial correction — 2026-10-04
+
+Version 1.0.1 corrects the Validation Matrix and Core Vocabulary document numbers in §11 against the catalog. The intended Grammar Compliance authority remains unresolved because 029 is a Glossary; no new grammar source is chosen by this correction.

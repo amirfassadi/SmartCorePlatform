@@ -1,5 +1,5 @@
 {
-  "platformInput": "add04692a155fc05dfbbb3008326b923bab9b25c",
+  "platformInput": "5ea92766f480fc8d16bc337272b4595078fe3112",
   "identityInput": "ee9ffb767ed84165557793d8583b0750d887027b",
   "snapshot": "working tree; identify revision by containing commit and artifact hashes",
   "method": "Every explicit JSON Schema properties occurrence, including nested conditional branches. Local required flags do not resolve inherited/composed requiredness. Machine semantic entries are separately captured; not an equivalence PASS.",
@@ -4780,6 +4780,6 @@
     "openapi.yaml": "b1dc2d456f8161582e9ae49b2fe75c8b2f456af7bfd85b4ae6e546ff1eec6871",
     "services.schema.json": "63918f834f777757837765efef99b8d0f7924eb117fa8977a57f3d15c3c559ca",
     "events.schema.json": "b3e3fe8c8fb56de1c9ad0d6e4138975e1d5b69c1c2d9a41cab02e491c83aa356",
-    "capability.machine.yaml": "fec9a9b2e6c944460cde8be23056e3a5a4ca413510f9ed6f4216d512a3823018"
+    "capability.machine.yaml": "7e0098e9e9b8e7f072e9c3884b0926ae20216eda6304a2c76a3bb65d4925f971"
   }
 }

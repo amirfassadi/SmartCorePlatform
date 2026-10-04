@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-04
 Title: SmartCore Identity Platform Blueprint - Commands
-Version: 1.3.1
+Version: 1.3.2
 Status: DRAFT
 Purpose: Define the proposed Identity commands contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.3.2 (2026-10-04): Made required-content and preserved constraints explicit from existing sources; decisions, generation status and runtime evidence unchanged.
   - Version 1.3.1 (2026-10-04): Indexed existing public event outcomes in machine; V-002 remains unresolved for refresh, failures and no-op branches.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
@@ -78,3 +79,16 @@ AdminRecoverStalledRegistration is a separate internal operator contract (07 §7
 # 8. Machine event indexing
 
 Machine `commands[].publicEvents` indexes the existing public outcomes in §§4–5, including restricted LoginFailed on definitive rejected authentication. It is not an assertion that every invocation emits every listed event: ownership/Ready phases, no-op, rejected and unavailable branches keep their existing conditions. RefreshSession has an empty public-event list; no internal resulting Event is declared by this package. This index does not close the literal V-002 rule in 065, select SESSION/S2, or introduce an audit event to satisfy the validator.
+
+# 9. Explicit Command purposes
+
+| Command | Purpose |
+|---|---|
+| RegisterPerson | Establish verified-contact atomic ownership and coordinate PendingCredential to Ready registration |
+| AuthenticatePerson | Validate current eligible identity/Credential and create an authenticated Session |
+| UpdatePersonProfile | Change the authenticated Person's DisplayName without contact mutation |
+| LogoutSession | Close the caller-owned Active Session once |
+| RefreshSession | Reissue access for the same eligible Session without extending its absolute expiry under the current Draft |
+| ChangePassword | Replace the authenticated Person's active Credential under the initial-provisioning mutation guard |
+
+Input, validation, authorization, Aggregate interaction, resulting facts and failures remain specified per Command in §4, with transport separately in 08. Empty publicEvents for RefreshSession remains a V-002 disposition issue, not an approved no-Event exception. The proposed Session revocation/rotation contract is not effective here.

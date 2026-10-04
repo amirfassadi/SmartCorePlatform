@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-09
 Title: SmartCore Identity Platform Blueprint - Persistence
-Version: 1.3.1
+Version: 1.3.2
 Status: DRAFT
 Purpose: Define the proposed Identity persistence contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.3.2 (2026-10-04): Made required-content and preserved constraints explicit from existing sources; decisions, generation status and runtime evidence unchanged.
   - Version 1.3.1 (2026-10-04): Restored explicit post-commit isolation and Event Sourcing non-goal; clarified recovery contact resolution through the existing PersonId association. Proposed scope/status unchanged.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
@@ -137,3 +138,16 @@ Identity ReadyFactId/winner evidence/acknowledgment Outbox share the Ready/event
 Recovery jobs and request fingerprints are durable supporting records. Admission atomically validates eligible snapshot and persists authorization/audit intent plus dispatch; invalidation locks the same verification consumption/material owner record as ownership commit. If transfer won, record AlreadyCommitted and do not invalidate transferred material. Post-commit recovery uses canonical Ready/acknowledgment operations and re-reads current phase on each step. Admin is not an extra writer outside C01–C03.
 
 Every effectful local transaction contains audit journal or audit Outbox evidence; the remote Credential transaction does likewise. No cross-service audit transaction is assumed. Recovery result is reconstructed from durable facts after crashes. Retain deduplication through permit expiry AND termination of admitted execution, then the configured result window; unknown expired permits cannot reopen deleted jobs. Append-only audit has separate retention and cannot be purged by the operator. Winner tombstones retain only non-secret identity/fingerprint/phase data for registration lifetime; proof/material deadlines remain unchanged.
+
+# 12. Explicit preservation of legacy persistence constraints
+
+The section-by-section [legacy review](../../_Copilot_Reports/Identity_Persistence_Legacy_Content_Review.md) distinguishes retained, superseded and incompletely explicit clauses; the size reduction alone establishes none of these. The following restores explicit declarations from legacy §8.3/§8.4.1 and §5.2 without selecting T16 or SESSION.
+
+| Constraint | Existing meaning to preserve |
+|---|---|
+| Membership identity | Enforce unique (PersonId, OrganizationId) for the MVP initial Membership, in addition to valid foreign keys and immutable MembershipId |
+| Session token resolution | AccessTokenId and RefreshTokenId resolve unambiguously within their respective token namespaces; enforce unique lookup identity/protected verifier bindings across Sessions; do not expose or persist bearer plaintext |
+| Optimistic concurrency | Every entity updated optimistically has a comparable version marker and each write checks it; it is concurrency metadata, not a new public business field |
+| Credential replacement | Previous instance retains its immutable CredentialId and becomes Replaced; a replacement instance has a new CredentialId. Both changes and PasswordChanged are committed within the authoritative Credential transaction and one-active guard |
+
+Repository Update persists already-valid state; it does not authorize generic writes that bypass Aggregate rules. Supporting registration records remain application-owned under the newer accepted/proposed protocols; legacy 'all support data belongs to a Repository' prose is not authority to make the workflow a Person child. Repository read interfaces grow from actual Command/Query demand; removed legacy method names are not blindly restored. Refresh never creates a new Session or extends its fixed deadline under this Draft. Whether an access-token identifier is retained only as an issued-token record or directly on Session needs explicit implementation design consistent with 01 and token validation; uniqueness is not proof of correct expiry or revocation.

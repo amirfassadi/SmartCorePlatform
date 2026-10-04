@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Write literal field inventories; these are review evidence, never full validation PASS."""
 from pathlib import Path
-import yaml,json,re,hashlib
+import yaml,json,re,hashlib,subprocess
 r=Path(__file__).resolve().parents[1];p=r/'SmartCore_Platform_Docs_v1/Identity';o=yaml.safe_load((p/'openapi.yaml').read_text());s=json.loads((p/'services.schema.json').read_text());e=json.loads((p/'events.schema.json').read_text());m=yaml.safe_load((p/'capability.machine.yaml').read_text());rows=[]
 keys=('type','format','enum','const','pattern','minLength','maxLength','minimum','maximum','writeOnly','readOnly','additionalProperties')
 def walk(v,source,path=''):
@@ -13,7 +13,7 @@ def walk(v,source,path=''):
  elif isinstance(v,list):
   for i,a in enumerate(v):walk(a,source,path+'/'+str(i))
 for f,v in [('openapi.yaml',o),('services.schema.json',s),('events.schema.json',e),('capability.machine.yaml',m)]:walk(v,f)
-x={'platformInput':'add04692a155fc05dfbbb3008326b923bab9b25c','identityInput':'ee9ffb767ed84165557793d8583b0750d887027b','snapshot':'working tree; identify revision by containing commit and artifact hashes','method':'Every explicit JSON Schema properties occurrence, including nested conditional branches. Local required flags do not resolve inherited/composed requiredness. Machine semantic entries are separately captured; not an equivalence PASS.','fields':rows,'machine':{'aggregates':m['aggregates'],'commands':m['commands'],'queries':m['queries'],'events':m['events'],'contracts':m['contracts']},'artifactHashes':{f:hashlib.sha256((p/f).read_bytes()).hexdigest() for f in ('openapi.yaml','services.schema.json','events.schema.json','capability.machine.yaml')}}
+x={'platformInput':subprocess.check_output(['git','rev-parse','HEAD'],cwd=r,text=True).strip(),'identityInput':'ee9ffb767ed84165557793d8583b0750d887027b','snapshot':'working tree; identify revision by containing commit and artifact hashes','method':'Every explicit JSON Schema properties occurrence, including nested conditional branches. Local required flags do not resolve inherited/composed requiredness. Machine semantic entries are separately captured; not an equivalence PASS.','fields':rows,'machine':{'aggregates':m['aggregates'],'commands':m['commands'],'queries':m['queries'],'events':m['events'],'contracts':m['contracts']},'artifactHashes':{f:hashlib.sha256((p/f).read_bytes()).hexdigest() for f in ('openapi.yaml','services.schema.json','events.schema.json','capability.machine.yaml')}}
 (r/'_Copilot_Reports/Identity_Field_Inventory.json').write_text(json.dumps(x,indent=2)+'\n')
 # Exact envelope/payload names and requiredness against the tables in 06.
 t=(p/'06_Domain_Events.md').read_text();out=[]

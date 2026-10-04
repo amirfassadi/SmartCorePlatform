@@ -34,3 +34,7 @@ See [gate and foundation review](Identity_Slice0_Gate_Review.md). The expanded c
 ## Current decision preparation — 2026-10-04
 
 The 88-check count and open field-review statement above describe earlier publication evidence. The later [field review](Identity_Field_Contract_Review.md) records 557/557 focused checks, 430/430 limited package checks and 296 PASS / 6 WARN / 97 INFO in the structural subset; no full gate is closed. [Next decision packet](Identity_Next_Decision_Packet.md) contains concrete V-002/V-003, T16 and SESSION candidates and the remaining GOV/gate work. Full legacy-09 review and complete architectural/semantic validation still remain open. Accepted source pins and generation readiness remain unchanged.
+
+## Preimplementation follow-up — 2026-10-04
+
+[Readiness status](Identity_Implementation_Readiness_Status.md) supersedes the historical statement that legacy 09 operative comparison has not been done: §§1–10 were read and mapped in the new legacy report. Per-instance matrix now has 233 DOCUMENTED / 11 OPEN / 7 REVIEW cells, not semantic PASS. Complete architectural/semantic validation, source/policy dispositions and actual consumer evidence remain open; all four implementation gates still apply.

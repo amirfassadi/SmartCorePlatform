@@ -1,6 +1,6 @@
 # 060_SmartCore_Codebase_Architecture.md
 
-Version: 1.0
+Version: 1.0.1
 
 Status: Draft
 
@@ -311,15 +311,15 @@ Additional platforms SHALL be added incrementally.
 
 This document builds upon:
 
-- 046 — SmartCore Reference Architecture
-- 047 — Architecture & Taxonomy Layer Model
-- 048 — Platform Taxonomy
-- 049 — Module Standards
-- 050 — Governance
-- 055 — Platform Development Guideline
-- 056 — Tenancy and Ownership Model
-- 057 — SmartCore Foundation MVP
-- 058 — Identity Platform
+- 047 — SmartCore Reference Architecture
+- 048 — Architecture & Taxonomy Layer Model
+- 049 — Platform Taxonomy
+- 050 — Module Standards
+- 051 — Governance
+- 056 — Platform Development Guideline
+- 057 — Tenancy and Ownership Model
+- 058 — SmartCore Foundation MVP
+- 059 — Identity Platform
 
 ---
 
@@ -334,3 +334,7 @@ The codebase SHALL evolve without compromising the architectural integrity of th
 ---
 
 END OF DOCUMENT
+
+## Editorial correction — 2026-10-04
+
+Version 1.0.1 corrects the document-number/title pairs in §15 against the repository catalog. §14 initial-platform scope is unchanged; its relationship to Identity-first delivery remains an architectural disposition in the review report.
