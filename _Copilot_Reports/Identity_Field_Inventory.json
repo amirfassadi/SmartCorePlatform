@@ -1,0 +1,4785 @@
+{
+  "platformInput": "add04692a155fc05dfbbb3008326b923bab9b25c",
+  "identityInput": "ee9ffb767ed84165557793d8583b0750d887027b",
+  "snapshot": "working tree; identify revision by containing commit and artifact hashes",
+  "method": "Every explicit JSON Schema properties occurrence, including nested conditional branches. Local required flags do not resolve inherited/composed requiredness. Machine semantic entries are separately captured; not an equivalence PASS.",
+  "fields": [
+    {
+      "source": "openapi.yaml",
+      "pointer": "/paths//auth/register/complete/post/responses/200/content/application/json/schema/allOf/1/properties/status",
+      "field": "status",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Ready"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/paths//auth/register/complete/post/responses/202/content/application/json/schema/allOf/1/properties/status",
+      "field": "status",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "PendingCredential"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/StartRegistration/properties/email",
+      "field": "email",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 254
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/StartRegistration/properties/mobile",
+      "field": "mobile",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "pattern": "^\\+[1-9][0-9]{1,14}$"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/StartRegistration/properties/password",
+      "field": "password",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 15,
+        "maxLength": 128,
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/StartRegistration/properties/displayName",
+      "field": "displayName",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/StartRegistration/properties/bindingSecret",
+      "field": "bindingSecret",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{43}$",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/VerifyRegistration/properties/verificationSessionId",
+      "field": "verificationSessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/VerifyRegistration/properties/code",
+      "field": "code",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "^[0-9]{6}$",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/VerifyRegistration/properties/bindingSecret",
+      "field": "bindingSecret",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{43}$",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ResendVerification/properties/verificationSessionId",
+      "field": "verificationSessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ResendVerification/properties/bindingSecret",
+      "field": "bindingSecret",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{43}$",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompleteRegistration/properties/setupChallengeId",
+      "field": "setupChallengeId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompleteRegistration/properties/code",
+      "field": "code",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "^[0-9]{6}$",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompleteRegistration/properties/bindingSecret",
+      "field": "bindingSecret",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{43}$",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompleteRegistration/properties/newPassword",
+      "field": "newPassword",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 15,
+        "maxLength": 128,
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/VerificationPending/properties/verificationSessionId",
+      "field": "verificationSessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/VerificationPending/properties/expiresAt",
+      "field": "expiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/VerificationPending/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "AwaitingVerification"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SetupPending/properties/setupChallengeId",
+      "field": "setupChallengeId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SetupPending/properties/expiresAt",
+      "field": "expiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SetupPending/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Accepted"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Accepted/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Accepted"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/RegistrationResult/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/RegistrationResult/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "enum": [
+          "PendingCredential",
+          "Ready"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/RegistrationResult/properties/ownershipCommittedAt",
+      "field": "ownershipCommittedAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/RegistrationResult/properties/readyAt",
+      "field": "readyAt",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/RegistrationResult/allOf/0/if/properties/status",
+      "field": "status",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Ready"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/email",
+      "field": "email",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 254
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/mobile",
+      "field": "mobile",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "pattern": "^\\+[1-9][0-9]{1,14}$"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/displayName",
+      "field": "displayName",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "enum": [
+          "Active",
+          "Suspended",
+          "Archived"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/createdAt",
+      "field": "createdAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Person/properties/updatedAt",
+      "field": "updatedAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Organization/properties/organizationId",
+      "field": "organizationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Organization/properties/name",
+      "field": "name",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Organization/properties/category",
+      "field": "category",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Personal"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Organization/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Active"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Organization/properties/createdAt",
+      "field": "createdAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Membership/properties/membershipId",
+      "field": "membershipId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Membership/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Membership/properties/organizationId",
+      "field": "organizationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Membership/properties/role",
+      "field": "role",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Owner"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Membership/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Active"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Membership/properties/createdAt",
+      "field": "createdAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionTokens/properties/sessionId",
+      "field": "sessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionTokens/properties/accessToken",
+      "field": "accessToken",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionTokens/properties/refreshToken",
+      "field": "refreshToken",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionTokens/properties/expiresAt",
+      "field": "expiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionSummary/properties/sessionId",
+      "field": "sessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionSummary/properties/deviceInfo",
+      "field": "deviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionSummary/properties/ipAddress",
+      "field": "ipAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionSummary/properties/expiresAt",
+      "field": "expiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionSummary/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Active"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/SessionSummary/properties/createdAt",
+      "field": "createdAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Login/properties/email",
+      "field": "email",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 254
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Login/properties/mobile",
+      "field": "mobile",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "pattern": "^\\+[1-9][0-9]{1,14}$"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Login/properties/password",
+      "field": "password",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Login/properties/deviceInfo",
+      "field": "deviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/LoginResult/properties/person",
+      "field": "person",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/LoginResult/properties/session",
+      "field": "session",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Logout/properties/sessionId",
+      "field": "sessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Refresh/properties/refreshToken",
+      "field": "refreshToken",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/UpdateProfile/properties/displayName",
+      "field": "displayName",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePassword/properties/currentPassword",
+      "field": "currentPassword",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePassword/properties/newPassword",
+      "field": "newPassword",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 15,
+        "maxLength": 128,
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Error/properties/error",
+      "field": "error",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Error/properties/traceId",
+      "field": "traceId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Error/properties/error/properties/code",
+      "field": "code",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Error/properties/error/properties/message",
+      "field": "message",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/Error/properties/error/properties/nextAction",
+      "field": "nextAction",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "enum": [
+          "RequestSetup",
+          "SignIn"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "enum": [
+          "PendingCredential",
+          "Ready"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/properties/ownershipCommittedAt",
+      "field": "ownershipCommittedAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/properties/readyAt",
+      "field": "readyAt",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/properties/credentialOutcome",
+      "field": "credentialOutcome",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "CandidateSelected",
+          "ExistingWinner",
+          "Undetermined"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/allOf/0/if/properties/status",
+      "field": "status",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Ready"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/allOf/1/if/properties/status",
+      "field": "status",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Ready"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/CompletionResult/allOf/1/then/properties/credentialOutcome",
+      "field": "credentialOutcome",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "CandidateSelected",
+          "ExistingWinner"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePasswordUnavailable/properties/error",
+      "field": "error",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePasswordUnavailable/properties/traceId",
+      "field": "traceId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePasswordUnavailable/properties/error/properties/code",
+      "field": "code",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "PROVISIONING_FINALIZATION_PENDING",
+          "DEPENDENCY_UNAVAILABLE"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePasswordUnavailable/properties/error/properties/message",
+      "field": "message",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "openapi.yaml",
+      "pointer": "/components/schemas/ChangePasswordUnavailable/properties/error/properties/nextAction",
+      "field": "nextAction",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "enum": [
+          "RequestSetup",
+          "SignIn"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetPersonByIdRequest/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetPersonByIdResult/oneOf/0/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Found"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetPersonByIdResult/oneOf/0/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetPersonByIdResult/oneOf/0/properties/displayName",
+      "field": "displayName",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetPersonByIdResult/oneOf/1/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "NotFound"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialRequest/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialRequest/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialRequest/properties/operationId",
+      "field": "operationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialRequest/properties/protectedMaterialRef",
+      "field": "protectedMaterialRef",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialRequest/properties/materialOwner",
+      "field": "materialOwner",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialRequest/properties/purpose",
+      "field": "purpose",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "initial-registration"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetInitialCredentialResultRequest/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetInitialCredentialResultRequest/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/credentialId",
+      "field": "credentialId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/operationIdOfWinner",
+      "field": "operationIdOfWinner",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/provisioningVersion",
+      "field": "provisioningVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Active"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GuardedActiveResult/properties/phase",
+      "field": "phase",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "ProvisionedAwaitingReady"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/credentialId",
+      "field": "credentialId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/operationIdOfWinner",
+      "field": "operationIdOfWinner",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/provisioningVersion",
+      "field": "provisioningVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "AlreadyProvisioned"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyProvisionedResult/properties/phase",
+      "field": "phase",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "ProvisionedAwaitingReady"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/credentialId",
+      "field": "credentialId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/operationIdOfWinner",
+      "field": "operationIdOfWinner",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/provisioningVersion",
+      "field": "provisioningVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "AlreadyCompleted"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/phase",
+      "field": "phase",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "ReadyAcknowledged"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AlreadyCompletedResult/properties/readyFactId",
+      "field": "readyFactId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialResult/oneOf/3/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialResult/oneOf/3/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/EnsureInitialCredentialResult/oneOf/3/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "RetryableUnavailable",
+          "InvalidMaterial",
+          "BindingConflict",
+          "IntegrityConflict"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetInitialCredentialResultResponse/oneOf/2/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetInitialCredentialResultResponse/oneOf/2/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetInitialCredentialResultResponse/oneOf/2/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "NotProvisioned",
+          "Unavailable",
+          "IntegrityConflict"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyRequest/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyRequest/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyRequest/properties/credentialId",
+      "field": "credentialId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyRequest/properties/provisioningVersion",
+      "field": "provisioningVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyRequest/properties/readyFactId",
+      "field": "readyFactId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/credentialId",
+      "field": "credentialId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/provisioningVersion",
+      "field": "provisioningVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/readyFactId",
+      "field": "readyFactId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Acknowledged",
+          "AlreadyAcknowledged"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/0/properties/phase",
+      "field": "phase",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "ReadyAcknowledged"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/1/properties/registrationId",
+      "field": "registrationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/1/properties/personId",
+      "field": "personId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AcknowledgeRegistrationReadyResult/oneOf/1/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Unavailable",
+          "BindingConflict",
+          "IntegrityConflict"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/properties/action",
+      "field": "action",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "InvalidatePreCommitAttempt",
+          "ReconcileCommittedRegistration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "VerificationSession",
+          "Registration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/properties/reasonCode",
+      "field": "reasonCode",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/properties/ticketReference",
+      "field": "ticketReference",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/allOf/0/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/allOf/0/then/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "VerificationSession"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/allOf/0/else/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Registration"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PrepareRegistrationRecoveryRequest/allOf/0/else/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/action",
+      "field": "action",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "InvalidatePreCommitAttempt",
+          "ReconcileCommittedRegistration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "VerificationSession",
+          "Registration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/reasonCode",
+      "field": "reasonCode",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/ticketReference",
+      "field": "ticketReference",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/expectedState",
+      "field": "expectedState",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "AwaitingVerification",
+          "Expired",
+          "Invalidated",
+          "PendingCredential",
+          "Ready"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/expectedVersion",
+      "field": "expectedVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Prepared"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/recoveryRequestId",
+      "field": "recoveryRequestId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/admissionPermit",
+      "field": "admissionPermit",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/properties/admissionExpiresAt",
+      "field": "admissionExpiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/0/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/0/then/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "VerificationSession"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/0/else/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Registration"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/0/else/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/1/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/1/then/properties/expectedState",
+      "field": "expectedState",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "AwaitingVerification",
+          "Expired",
+          "Invalidated"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/PreparedRegistrationRecovery/allOf/1/else/properties/expectedState",
+      "field": "expectedState",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "PendingCredential",
+          "Ready"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryServiceError/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Rejected"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryServiceError/properties/code",
+      "field": "code",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Unauthorized",
+          "Forbidden",
+          "InvalidRequest",
+          "NotEligible",
+          "StaleTarget",
+          "AdmissionExpired",
+          "BindingConflict",
+          "RateLimited",
+          "Unavailable",
+          "AuditUnavailable",
+          "NotFound"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryServiceError/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/action",
+      "field": "action",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "InvalidatePreCommitAttempt",
+          "ReconcileCommittedRegistration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "VerificationSession",
+          "Registration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/reasonCode",
+      "field": "reasonCode",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/ticketReference",
+      "field": "ticketReference",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/expectedState",
+      "field": "expectedState",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "AwaitingVerification",
+          "Expired",
+          "Invalidated",
+          "PendingCredential",
+          "Ready"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/expectedVersion",
+      "field": "expectedVersion",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/recoveryRequestId",
+      "field": "recoveryRequestId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/properties/admissionPermit",
+      "field": "admissionPermit",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1,
+        "writeOnly": true
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/0/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/0/then/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "VerificationSession"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/0/else/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Registration"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/0/else/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/1/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/1/then/properties/expectedState",
+      "field": "expectedState",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "AwaitingVerification",
+          "Expired",
+          "Invalidated"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/AdminRecoverStalledRegistrationRequest/allOf/1/else/properties/expectedState",
+      "field": "expectedState",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "PendingCredential",
+          "Ready"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/recoveryRequestId",
+      "field": "recoveryRequestId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/action",
+      "field": "action",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "InvalidatePreCommitAttempt",
+          "ReconcileCommittedRegistration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "VerificationSession",
+          "Registration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/executionExpiresAt",
+      "field": "executionExpiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Accepted",
+          "Running"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/properties/lastAttemptOutcome",
+      "field": "lastAttemptOutcome",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "RetryableUnavailable"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/allOf/0/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/allOf/0/then/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "VerificationSession"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/allOf/0/else/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Registration"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryInProgress/allOf/0/else/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/recoveryRequestId",
+      "field": "recoveryRequestId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/action",
+      "field": "action",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "InvalidatePreCommitAttempt",
+          "ReconcileCommittedRegistration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "VerificationSession",
+          "Registration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/executionExpiresAt",
+      "field": "executionExpiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Completed"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/outcome",
+      "field": "outcome",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Invalidated",
+          "AlreadyInvalidated",
+          "Reconciled",
+          "AlreadyReconciled",
+          "AlreadyCommitted",
+          "RequiresNormalProvisioning",
+          "RequiresUserSetup",
+          "IntegrityConflict"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/cleanupState",
+      "field": "cleanupState",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Pending",
+          "CleanupCompleted"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/properties/readyFactId",
+      "field": "readyFactId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/0/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/0/then/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "VerificationSession"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/0/else/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Registration"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/0/else/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/1/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/1/then/properties/outcome",
+      "field": "outcome",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Invalidated",
+          "AlreadyInvalidated",
+          "AlreadyCommitted"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/1/else/properties/outcome",
+      "field": "outcome",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Reconciled",
+          "AlreadyReconciled",
+          "RequiresNormalProvisioning",
+          "RequiresUserSetup",
+          "IntegrityConflict"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/2/if/properties/outcome",
+      "field": "outcome",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Invalidated",
+          "AlreadyInvalidated"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryCompleted/allOf/3/if/properties/outcome",
+      "field": "outcome",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "Reconciled",
+          "AlreadyReconciled"
+        ]
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/recoveryRequestId",
+      "field": "recoveryRequestId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/action",
+      "field": "action",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "InvalidatePreCommitAttempt",
+          "ReconcileCommittedRegistration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "VerificationSession",
+          "Registration"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/correlationId",
+      "field": "correlationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/executionExpiresAt",
+      "field": "executionExpiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/status",
+      "field": "status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Stopped"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/properties/outcome",
+      "field": "outcome",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "enum": [
+          "AuthorizationExpired",
+          "BudgetExhausted",
+          "AuditUnavailable"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/allOf/0/if/properties/action",
+      "field": "action",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "InvalidatePreCommitAttempt"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/allOf/0/then/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "VerificationSession"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/allOf/0/else/properties/targetKind",
+      "field": "targetKind",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "Registration"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/RecoveryStopped/allOf/0/else/properties/targetId",
+      "field": "targetId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "services.schema.json",
+      "pointer": "/$defs/GetRegistrationRecoveryResultRequest/properties/recoveryRequestId",
+      "field": "recoveryRequestId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 128
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "PersonRegistered"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Person"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload/properties/Email",
+      "field": "Email",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 254
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload/properties/DisplayName",
+      "field": "DisplayName",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload/properties/OrganizationId",
+      "field": "OrganizationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload/properties/MembershipId",
+      "field": "MembershipId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/properties/Payload/properties/OwnershipCommittedAt",
+      "field": "OwnershipCommittedAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonRegistered/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "OrganizationCreated"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Organization"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/Payload/properties/OrganizationId",
+      "field": "OrganizationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/Payload/properties/Name",
+      "field": "Name",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/Payload/properties/Category",
+      "field": "Category",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Personal"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/properties/Payload/properties/Status",
+      "field": "Status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Active"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/OrganizationCreated/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "MembershipCreated"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Membership"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/Payload/properties/MembershipId",
+      "field": "MembershipId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/Payload/properties/OrganizationId",
+      "field": "OrganizationId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/Payload/properties/Role",
+      "field": "Role",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Owner"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/properties/Payload/properties/Status",
+      "field": "Status",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Active"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/MembershipCreated/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "LoginSucceeded"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Person"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/SessionReference",
+      "field": "SessionReference",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/properties/Payload/properties/SessionId",
+      "field": "SessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginSucceeded/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "LoginFailed"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Person"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/Payload/properties/ContactType",
+      "field": "ContactType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "enum": [
+          "Email",
+          "Mobile"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/Payload/properties/ContactValue",
+      "field": "ContactValue",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/properties/Payload/properties/Reason",
+      "field": "Reason",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "enum": [
+          "PersonNotFound",
+          "CredentialMissing",
+          "RegistrationNotReady",
+          "PersonInactive",
+          "InvalidPassword"
+        ]
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/allOf/1/if/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LoginFailed/allOf/1/if/properties/Payload/properties/Reason",
+      "field": "Reason",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "const": "PersonNotFound"
+      },
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "SessionCreated"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Session"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/Payload/properties/SessionId",
+      "field": "SessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/properties/Payload/properties/ExpiresAt",
+      "field": "ExpiresAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionCreated/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "SessionExpired"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Session"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "System"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/Payload/properties/SessionId",
+      "field": "SessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/SessionExpired/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "LogoutCompleted"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Session"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/Payload/properties/SessionId",
+      "field": "SessionId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/LogoutCompleted/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "PersonUpdated"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Person"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/SessionReference",
+      "field": "SessionReference",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/Payload/properties/Email",
+      "field": "Email",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string",
+        "format": "email",
+        "maxLength": 254
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/properties/Payload/properties/DisplayName",
+      "field": "DisplayName",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PersonUpdated/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/EventId",
+      "field": "EventId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/EventType",
+      "field": "EventType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "PasswordChanged"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/AggregateType",
+      "field": "AggregateType",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "const": "Credential"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/AggregateId",
+      "field": "AggregateId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/OccurredAt",
+      "field": "OccurredAt",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/SessionReference",
+      "field": "SessionReference",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/Payload",
+      "field": "Payload",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/ExecutionContext/properties/CorrelationId",
+      "field": "CorrelationId",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/ExecutionContext/properties/IpAddress",
+      "field": "IpAddress",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/ExecutionContext/properties/DeviceInfo",
+      "field": "DeviceInfo",
+      "requiredInLocalObject": false,
+      "constraints": {
+        "type": "string"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/Payload/properties/PersonId",
+      "field": "PersonId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/properties/Payload/properties/CredentialId",
+      "field": "CredentialId",
+      "requiredInLocalObject": true,
+      "constraints": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "conditionalContext": false
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/allOf/0/if/properties/ActorIdentity",
+      "field": "ActorIdentity",
+      "requiredInLocalObject": false,
+      "constraints": {},
+      "conditionalContext": true
+    },
+    {
+      "source": "events.schema.json",
+      "pointer": "/$defs/PasswordChanged/allOf/0/then/properties/ExecutionContext",
+      "field": "ExecutionContext",
+      "requiredInLocalObject": true,
+      "constraints": {},
+      "conditionalContext": true
+    }
+  ],
+  "machine": {
+    "aggregates": [
+      {
+        "name": "Person",
+        "repository": "PersonRepository",
+        "narrative": "01_Domain_Model.md",
+        "requiredAttributes": [
+          "PersonId",
+          "DisplayName",
+          "Status",
+          "CreatedAt",
+          "UpdatedAt"
+        ],
+        "optionalAttributes": [
+          "Email",
+          "Mobile"
+        ],
+        "contactInvariant": "exactly one verified Email or Mobile; contact mutation outside MVP"
+      },
+      {
+        "name": "Organization",
+        "repository": "OrganizationRepository",
+        "narrative": "01_Domain_Model.md",
+        "requiredAttributes": [
+          "OrganizationId",
+          "Name",
+          "Category",
+          "Status",
+          "CreatedAt"
+        ],
+        "optionalAttributes": []
+      },
+      {
+        "name": "Membership",
+        "repository": "MembershipRepository",
+        "narrative": "01_Domain_Model.md",
+        "requiredAttributes": [
+          "MembershipId",
+          "PersonId",
+          "OrganizationId",
+          "Role",
+          "Status",
+          "CreatedAt"
+        ],
+        "optionalAttributes": []
+      },
+      {
+        "name": "Credential",
+        "repository": "CredentialRepository",
+        "narrative": "01_Domain_Model.md",
+        "requiredAttributes": [
+          "CredentialId",
+          "PersonId",
+          "PasswordHash",
+          "PasswordVersion",
+          "Status",
+          "CreatedAt"
+        ],
+        "optionalAttributes": [],
+        "invariant": "at most one active per Person; zero permitted before Ready"
+      },
+      {
+        "name": "Session",
+        "repository": "SessionRepository",
+        "narrative": "01_Domain_Model.md",
+        "requiredAttributes": [
+          "SessionId",
+          "PersonId",
+          "AccessTokenId",
+          "RefreshTokenId",
+          "ExpiresAt",
+          "Status",
+          "CreatedAt"
+        ],
+        "optionalAttributes": [
+          "DeviceInfo",
+          "IpAddress"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "name": "RegisterPerson",
+        "service": "RegistrationApplicationService",
+        "operations": [
+          "StartRegistration",
+          "VerifyRegistration",
+          "ResendVerification",
+          "RequestSetup",
+          "CompleteRegistration"
+        ],
+        "narrative": "04_Commands.md",
+        "publicEvents": [
+          "OrganizationCreated",
+          "MembershipCreated",
+          "PersonRegistered"
+        ]
+      },
+      {
+        "name": "AuthenticatePerson",
+        "service": "AuthenticationDomainService",
+        "operations": [
+          "AuthenticatePerson"
+        ],
+        "narrative": "04_Commands.md",
+        "publicEvents": [
+          "LoginSucceeded",
+          "SessionCreated",
+          "LoginFailed"
+        ]
+      },
+      {
+        "name": "UpdatePersonProfile",
+        "service": "PersonManagementDomainService",
+        "operations": [
+          "UpdatePersonProfile"
+        ],
+        "narrative": "04_Commands.md",
+        "publicEvents": [
+          "PersonUpdated"
+        ]
+      },
+      {
+        "name": "LogoutSession",
+        "service": "SessionManagementDomainService",
+        "operations": [
+          "LogoutSession"
+        ],
+        "narrative": "04_Commands.md",
+        "publicEvents": [
+          "LogoutCompleted"
+        ]
+      },
+      {
+        "name": "RefreshSession",
+        "service": "SessionManagementDomainService",
+        "operations": [
+          "RefreshSession"
+        ],
+        "narrative": "04_Commands.md",
+        "publicEvents": [],
+        "eventRuleDisposition": "V-002 OPEN; no internal resulting Event declared; do not infer waiver"
+      },
+      {
+        "name": "ChangePassword",
+        "service": "CredentialManagementDomainService",
+        "operations": [
+          "ChangePassword"
+        ],
+        "narrative": "04_Commands.md",
+        "publicEvents": [
+          "PasswordChanged"
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "name": "GetCurrentPerson",
+        "publicRest": true,
+        "narrative": "05_Queries.md",
+        "resultAggregate": "Person",
+        "aggregateRuleDisposition": "Result subject only; V-003 exactly-one reference interpretation remains OPEN"
+      },
+      {
+        "name": "GetOrganizationsForPerson",
+        "publicRest": true,
+        "narrative": "05_Queries.md",
+        "resultAggregate": "Organization",
+        "aggregateRuleDisposition": "Result subject only; V-003 exactly-one reference interpretation remains OPEN"
+      },
+      {
+        "name": "GetMembershipsForPerson",
+        "publicRest": true,
+        "narrative": "05_Queries.md",
+        "resultAggregate": "Membership",
+        "aggregateRuleDisposition": "Result subject only; V-003 exactly-one reference interpretation remains OPEN"
+      },
+      {
+        "name": "GetSessionsForPerson",
+        "publicRest": true,
+        "narrative": "05_Queries.md",
+        "resultAggregate": "Session",
+        "aggregateRuleDisposition": "Result subject only; V-003 exactly-one reference interpretation remains OPEN"
+      },
+      {
+        "name": "GetPersonById",
+        "publicRest": false,
+        "narrative": "05_Queries.md",
+        "resultAggregate": "Person",
+        "aggregateRuleDisposition": "Result subject only; V-003 exactly-one reference interpretation remains OPEN"
+      }
+    ],
+    "events": [
+      {
+        "name": "PersonRegistered",
+        "classification": "DomainEvent",
+        "producer": "RegistrationApplicationService",
+        "schema": "events.schema.json#/$defs/PersonRegistered",
+        "occurredAt": "Ready",
+        "stream": "PersonRegistrationProfile",
+        "owner": "Identity"
+      },
+      {
+        "name": "OrganizationCreated",
+        "classification": "DomainEvent",
+        "producer": "RegistrationApplicationService",
+        "schema": "events.schema.json#/$defs/OrganizationCreated",
+        "occurredAt": "OwnershipCommit",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "MembershipCreated",
+        "classification": "DomainEvent",
+        "producer": "RegistrationApplicationService",
+        "schema": "events.schema.json#/$defs/MembershipCreated",
+        "occurredAt": "OwnershipCommit",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "LoginSucceeded",
+        "classification": "DomainEvent",
+        "producer": "AuthenticationDomainService",
+        "schema": "events.schema.json#/$defs/LoginSucceeded",
+        "occurredAt": "CommittedFact",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "LoginFailed",
+        "classification": "SecurityEvent",
+        "producer": "AuthenticationDomainService",
+        "schema": "events.schema.json#/$defs/LoginFailed",
+        "occurredAt": "CommittedFact",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "SessionCreated",
+        "classification": "DomainEvent",
+        "producer": "AuthenticationDomainService",
+        "schema": "events.schema.json#/$defs/SessionCreated",
+        "occurredAt": "CommittedFact",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "SessionExpired",
+        "classification": "DomainEvent",
+        "producer": "SessionManagementDomainService",
+        "schema": "events.schema.json#/$defs/SessionExpired",
+        "occurredAt": "CommittedFact",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "LogoutCompleted",
+        "classification": "DomainEvent",
+        "producer": "SessionManagementDomainService",
+        "schema": "events.schema.json#/$defs/LogoutCompleted",
+        "occurredAt": "CommittedFact",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      },
+      {
+        "name": "PersonUpdated",
+        "classification": "DomainEvent",
+        "producer": "PersonManagementDomainService",
+        "schema": "events.schema.json#/$defs/PersonUpdated",
+        "occurredAt": "CommittedFact",
+        "stream": "PersonRegistrationProfile",
+        "owner": "Identity"
+      },
+      {
+        "name": "PasswordChanged",
+        "classification": "DomainEvent",
+        "producer": "CredentialManagementDomainService",
+        "schema": "events.schema.json#/$defs/PasswordChanged",
+        "occurredAt": "CommittedFact",
+        "stream": "OwnLifecycleOrAudit",
+        "owner": "Identity"
+      }
+    ],
+    "contracts": {
+      "rest": {
+        "version": "1.2.1",
+        "schema": "openapi.yaml",
+        "narrative": "08_API.md"
+      },
+      "events": {
+        "version": "1.2.1",
+        "schema": "events.schema.json",
+        "narrative": "06_Domain_Events.md"
+      },
+      "services": [
+        {
+          "name": "IdentityLookup",
+          "version": "1",
+          "operations": [
+            "GetPersonById"
+          ],
+          "narrative": "07_Contracts.md",
+          "schemas": [
+            "services.schema.json#/$defs/GetPersonByIdRequest",
+            "services.schema.json#/$defs/GetPersonByIdResult"
+          ]
+        },
+        {
+          "name": "CredentialProvisioning",
+          "version": "1.1",
+          "operations": [
+            "EnsureInitialCredential",
+            "GetInitialCredentialResult",
+            "AcknowledgeRegistrationReady"
+          ],
+          "narrative": "07_Contracts.md",
+          "schemas": [
+            "services.schema.json#/$defs/EnsureInitialCredentialRequest",
+            "services.schema.json#/$defs/GetInitialCredentialResultRequest",
+            "services.schema.json#/$defs/EnsureInitialCredentialResult",
+            "services.schema.json#/$defs/GetInitialCredentialResultResponse",
+            "services.schema.json#/$defs/AcknowledgeRegistrationReadyRequest",
+            "services.schema.json#/$defs/AcknowledgeRegistrationReadyResult"
+          ],
+          "architecture": "ADR-0004 Accepted; message encoding Draft"
+        },
+        {
+          "name": "RegistrationRecovery",
+          "version": "1.0",
+          "visibility": "internal-operator-only",
+          "operations": [
+            "PrepareRegistrationRecovery",
+            "AdminRecoverStalledRegistration",
+            "GetRegistrationRecoveryResult"
+          ],
+          "narrative": "07_Contracts.md",
+          "schemas": [
+            "services.schema.json#/$defs/PrepareRegistrationRecoveryRequest",
+            "services.schema.json#/$defs/PrepareRegistrationRecoveryResult",
+            "services.schema.json#/$defs/AdminRecoverStalledRegistrationRequest",
+            "services.schema.json#/$defs/RegistrationRecoveryResult",
+            "services.schema.json#/$defs/GetRegistrationRecoveryResultRequest"
+          ]
+        }
+      ]
+    }
+  },
+  "artifactHashes": {
+    "openapi.yaml": "b1dc2d456f8161582e9ae49b2fe75c8b2f456af7bfd85b4ae6e546ff1eec6871",
+    "services.schema.json": "63918f834f777757837765efef99b8d0f7924eb117fa8977a57f3d15c3c559ca",
+    "events.schema.json": "b3e3fe8c8fb56de1c9ad0d6e4138975e1d5b69c1c2d9a41cab02e491c83aa356",
+    "capability.machine.yaml": "fec9a9b2e6c944460cde8be23056e3a5a4ca413510f9ed6f4216d512a3823018"
+  }
+}

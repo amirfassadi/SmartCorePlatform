@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-04
 Title: SmartCore Identity Platform Blueprint - Commands
-Version: 1.3.0
+Version: 1.3.1
 Status: DRAFT
 Purpose: Define the proposed Identity commands contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.3.1 (2026-10-04): Indexed existing public event outcomes in machine; V-002 remains unresolved for refresh, failures and no-op branches.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.1.0; prior text remains in Git history.
 -->
@@ -73,3 +74,7 @@ All Commands are proposed and depend on [12](12_Validation.md) and [13](13_Testi
 # 7. Internal operations boundary
 
 AdminRecoverStalledRegistration is a separate internal operator contract (07 §7), not a seventh public business Command. It accepts no password, replacement contact, Credential winner, readyFactId or force flag. ReconcileCommittedRegistration executes the existing workflow/acknowledgment path; InvalidatePreCommitAttempt uses the existing verification-consumption/owner-transfer guard. Neither grants another multi-Aggregate ownership exception. Formal audit and current operator authorization are mandatory.
+
+# 8. Machine event indexing
+
+Machine `commands[].publicEvents` indexes the existing public outcomes in §§4–5, including restricted LoginFailed on definitive rejected authentication. It is not an assertion that every invocation emits every listed event: ownership/Ready phases, no-op, rejected and unavailable branches keep their existing conditions. RefreshSession has an empty public-event list; no internal resulting Event is declared by this package. This index does not close the literal V-002 rule in 065, select SESSION/S2, or introduce an audit event to satisfy the validator.

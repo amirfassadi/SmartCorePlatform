@@ -1,6 +1,6 @@
 metadata:
   name: Identity
-  version: 1.1.0
+  version: 1.1.1
   status: DRAFT
   date: '2026-09-25'
   standard: 064 v1.1.4
@@ -31,19 +31,19 @@ documents:
   version: 1.4.2
   status: DRAFT
 - path: 04_Commands.md
-  version: 1.3.0
-  status: DRAFT
-- path: 05_Queries.md
-  version: 1.1.0
-  status: DRAFT
-- path: 06_Domain_Events.md
   version: 1.3.1
   status: DRAFT
+- path: 05_Queries.md
+  version: 1.1.1
+  status: DRAFT
+- path: 06_Domain_Events.md
+  version: 1.3.2
+  status: DRAFT
 - path: 07_Contracts.md
-  version: 1.2.0
+  version: 1.2.1
   status: DRAFT
 - path: 08_API.md
-  version: 1.2.0
+  version: 1.2.1
   status: DRAFT
 - path: 09_Persistence.md
   version: 1.3.1
@@ -141,47 +141,79 @@ commands:
   - RequestSetup
   - CompleteRegistration
   narrative: 04_Commands.md
+  publicEvents:
+  - OrganizationCreated
+  - MembershipCreated
+  - PersonRegistered
 - name: AuthenticatePerson
   service: AuthenticationDomainService
   operations:
   - AuthenticatePerson
   narrative: 04_Commands.md
+  publicEvents:
+  - LoginSucceeded
+  - SessionCreated
+  - LoginFailed
 - name: UpdatePersonProfile
   service: PersonManagementDomainService
   operations:
   - UpdatePersonProfile
   narrative: 04_Commands.md
+  publicEvents:
+  - PersonUpdated
 - name: LogoutSession
   service: SessionManagementDomainService
   operations:
   - LogoutSession
   narrative: 04_Commands.md
+  publicEvents:
+  - LogoutCompleted
 - name: RefreshSession
   service: SessionManagementDomainService
   operations:
   - RefreshSession
   narrative: 04_Commands.md
+  publicEvents: []
+  eventRuleDisposition: V-002 OPEN; no internal resulting Event declared; do not infer
+    waiver
 - name: ChangePassword
   service: CredentialManagementDomainService
   operations:
   - ChangePassword
   narrative: 04_Commands.md
+  publicEvents:
+  - PasswordChanged
 queries:
 - name: GetCurrentPerson
   publicRest: true
   narrative: 05_Queries.md
+  resultAggregate: Person
+  aggregateRuleDisposition: Result subject only; V-003 exactly-one reference interpretation
+    remains OPEN
 - name: GetOrganizationsForPerson
   publicRest: true
   narrative: 05_Queries.md
+  resultAggregate: Organization
+  aggregateRuleDisposition: Result subject only; V-003 exactly-one reference interpretation
+    remains OPEN
 - name: GetMembershipsForPerson
   publicRest: true
   narrative: 05_Queries.md
+  resultAggregate: Membership
+  aggregateRuleDisposition: Result subject only; V-003 exactly-one reference interpretation
+    remains OPEN
 - name: GetSessionsForPerson
   publicRest: true
   narrative: 05_Queries.md
+  resultAggregate: Session
+  aggregateRuleDisposition: Result subject only; V-003 exactly-one reference interpretation
+    remains OPEN
 - name: GetPersonById
   publicRest: false
   narrative: 05_Queries.md
+  resultAggregate: Person
+  aggregateRuleDisposition: Result subject only; V-003 exactly-one reference interpretation
+    remains OPEN
 events:
 - name: PersonRegistered
   classification: DomainEvent
@@ -189,67 +221,77 @@ events:
   schema: events.schema.json#/$defs/PersonRegistered
   occurredAt: Ready
   stream: PersonRegistrationProfile
+  owner: Identity
 - name: OrganizationCreated
   classification: DomainEvent
   producer: RegistrationApplicationService
   schema: events.schema.json#/$defs/OrganizationCreated
   occurredAt: OwnershipCommit
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: MembershipCreated
   classification: DomainEvent
   producer: RegistrationApplicationService
   schema: events.schema.json#/$defs/MembershipCreated
   occurredAt: OwnershipCommit
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: LoginSucceeded
   classification: DomainEvent
   producer: AuthenticationDomainService
   schema: events.schema.json#/$defs/LoginSucceeded
   occurredAt: CommittedFact
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: LoginFailed
   classification: SecurityEvent
   producer: AuthenticationDomainService
   schema: events.schema.json#/$defs/LoginFailed
   occurredAt: CommittedFact
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: SessionCreated
   classification: DomainEvent
   producer: AuthenticationDomainService
   schema: events.schema.json#/$defs/SessionCreated
   occurredAt: CommittedFact
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: SessionExpired
   classification: DomainEvent
   producer: SessionManagementDomainService
   schema: events.schema.json#/$defs/SessionExpired
   occurredAt: CommittedFact
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: LogoutCompleted
   classification: DomainEvent
   producer: SessionManagementDomainService
   schema: events.schema.json#/$defs/LogoutCompleted
   occurredAt: CommittedFact
   stream: OwnLifecycleOrAudit
+  owner: Identity
 - name: PersonUpdated
   classification: DomainEvent
   producer: PersonManagementDomainService
   schema: events.schema.json#/$defs/PersonUpdated
   occurredAt: CommittedFact
   stream: PersonRegistrationProfile
+  owner: Identity
 - name: PasswordChanged
   classification: DomainEvent
   producer: CredentialManagementDomainService
   schema: events.schema.json#/$defs/PasswordChanged
   occurredAt: CommittedFact
   stream: OwnLifecycleOrAudit
+  owner: Identity
 contracts:
   rest:
-    version: 1.2.0
+    version: 1.2.1
     schema: openapi.yaml
     narrative: 08_API.md
   events:
-    version: 1.2.0
+    version: 1.2.1
     schema: events.schema.json
     narrative: 06_Domain_Events.md
   services:

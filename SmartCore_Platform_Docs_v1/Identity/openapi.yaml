@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: SmartCore Identity proposed API
-  version: 1.2.0
+  version: 1.2.1
   description: DRAFT wire contract. ADR-0004 architectural approval is scoped; ADR-0002
     remains Proposed, T16 open. No implementation/generation clearance.
 paths:
@@ -29,6 +29,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -36,6 +40,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -43,6 +51,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -50,6 +62,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -57,6 +73,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -64,6 +84,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -71,6 +95,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -78,6 +106,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -85,6 +117,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -133,6 +169,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -140,6 +180,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -147,6 +191,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -154,6 +202,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -161,6 +213,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -168,6 +224,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -175,6 +235,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -182,6 +246,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -189,6 +257,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -219,6 +291,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -226,6 +302,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -233,6 +313,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -240,6 +324,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -247,6 +335,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -254,6 +346,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -261,6 +357,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -268,6 +368,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -275,6 +379,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -305,6 +413,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -312,6 +424,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -319,6 +435,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -326,6 +446,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -333,6 +457,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -340,6 +468,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -347,6 +479,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -354,6 +490,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -361,6 +501,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -409,6 +553,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -416,6 +564,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -423,6 +575,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -430,6 +586,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -437,6 +597,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -444,6 +608,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -451,6 +619,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -458,6 +630,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -465,6 +641,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -502,6 +682,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -509,6 +693,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -516,6 +704,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -523,6 +715,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -530,6 +726,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -537,6 +737,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -544,6 +748,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -551,6 +759,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -558,6 +770,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -585,6 +801,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -592,6 +812,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -599,6 +823,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -606,6 +834,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -613,6 +845,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -620,6 +856,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -627,6 +867,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -634,6 +878,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -641,6 +889,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -671,6 +923,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -678,6 +934,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -685,6 +945,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -692,6 +956,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -699,6 +967,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -706,6 +978,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -713,6 +989,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -720,6 +1000,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -727,6 +1011,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -761,6 +1049,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -768,6 +1060,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -775,6 +1071,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -782,6 +1082,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -789,6 +1093,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -796,6 +1104,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -803,6 +1115,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -810,6 +1126,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -817,6 +1137,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
     patch:
       operationId: UpdatePersonProfile
       x-business-operation: UpdatePersonProfile
@@ -843,6 +1167,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -850,6 +1178,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -857,6 +1189,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -864,6 +1200,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -871,6 +1211,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -878,6 +1222,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -885,6 +1233,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -892,6 +1244,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -899,6 +1255,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -931,6 +1291,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -938,6 +1302,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -945,6 +1313,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -952,6 +1324,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -959,6 +1335,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -966,6 +1346,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -973,6 +1357,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -980,6 +1368,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Valid caller/current password but Ready acknowledgment pending,
             or unavailable dependency. No password mutation/event. Retry does not
@@ -995,6 +1387,9 @@ paths:
                 type: integer
                 minimum: 1
               description: Optional policy hint, not guard-release deadline.
+            Cache-Control:
+              schema:
+                const: no-store
       requestBody:
         required: true
         content:
@@ -1028,6 +1423,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1035,6 +1434,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1042,6 +1445,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1049,6 +1456,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1056,6 +1467,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1063,6 +1478,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1070,6 +1489,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1077,6 +1500,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1084,6 +1511,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
   /me/memberships:
     get:
       operationId: GetMembershipsForPerson
@@ -1111,6 +1542,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1118,6 +1553,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1125,6 +1564,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1132,6 +1575,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1139,6 +1586,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1146,6 +1597,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1153,6 +1608,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1160,6 +1619,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1167,6 +1630,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
   /sessions:
     get:
       operationId: GetSessionsForPerson
@@ -1194,6 +1661,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '401':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1201,6 +1672,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '403':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1208,6 +1683,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '404':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1215,6 +1694,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '409':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1222,6 +1705,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '412':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1229,6 +1716,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '428':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1236,6 +1727,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '429':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1243,6 +1738,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
         '503':
           description: Applicable failure as defined in 08_API.md §5; no existence
             detail before proof.
@@ -1250,6 +1749,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
 components:
   schemas:
     StartRegistration:
@@ -1271,6 +1774,7 @@ components:
           type: string
           minLength: 1
           maxLength: 100
+          pattern: \S
         bindingSecret: &id003
           type: string
           pattern: ^[A-Za-z0-9_-]{43}$

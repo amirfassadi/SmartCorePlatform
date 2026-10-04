@@ -1,0 +1,256 @@
+[
+  {
+    "event": "PersonRegistered",
+    "narrativePayloadFields": [
+      "DisplayName",
+      "Email",
+      "MembershipId",
+      "OrganizationId",
+      "OwnershipCommittedAt",
+      "PersonId"
+    ],
+    "schemaPayloadFields": [
+      "DisplayName",
+      "Email",
+      "MembershipId",
+      "OrganizationId",
+      "OwnershipCommittedAt",
+      "PersonId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "DisplayName",
+      "MembershipId",
+      "OrganizationId",
+      "OwnershipCommittedAt",
+      "PersonId"
+    ],
+    "schemaRequired": [
+      "DisplayName",
+      "MembershipId",
+      "OrganizationId",
+      "OwnershipCommittedAt",
+      "PersonId"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "OrganizationCreated",
+    "narrativePayloadFields": [
+      "Category",
+      "Name",
+      "OrganizationId",
+      "Status"
+    ],
+    "schemaPayloadFields": [
+      "Category",
+      "Name",
+      "OrganizationId",
+      "Status"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "Category",
+      "Name",
+      "OrganizationId",
+      "Status"
+    ],
+    "schemaRequired": [
+      "Category",
+      "Name",
+      "OrganizationId",
+      "Status"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "MembershipCreated",
+    "narrativePayloadFields": [
+      "MembershipId",
+      "OrganizationId",
+      "PersonId",
+      "Role",
+      "Status"
+    ],
+    "schemaPayloadFields": [
+      "MembershipId",
+      "OrganizationId",
+      "PersonId",
+      "Role",
+      "Status"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "MembershipId",
+      "OrganizationId",
+      "PersonId",
+      "Role",
+      "Status"
+    ],
+    "schemaRequired": [
+      "MembershipId",
+      "OrganizationId",
+      "PersonId",
+      "Role",
+      "Status"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "LoginSucceeded",
+    "narrativePayloadFields": [
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaPayloadFields": [
+      "PersonId",
+      "SessionId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaRequired": [
+      "PersonId",
+      "SessionId"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "LoginFailed",
+    "narrativePayloadFields": [
+      "ContactType",
+      "ContactValue",
+      "Reason"
+    ],
+    "schemaPayloadFields": [
+      "ContactType",
+      "ContactValue",
+      "Reason"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "ContactType",
+      "ContactValue",
+      "Reason"
+    ],
+    "schemaRequired": [
+      "ContactType",
+      "ContactValue",
+      "Reason"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "SessionCreated",
+    "narrativePayloadFields": [
+      "ExpiresAt",
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaPayloadFields": [
+      "ExpiresAt",
+      "PersonId",
+      "SessionId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "ExpiresAt",
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaRequired": [
+      "ExpiresAt",
+      "PersonId",
+      "SessionId"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "SessionExpired",
+    "narrativePayloadFields": [
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaPayloadFields": [
+      "PersonId",
+      "SessionId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaRequired": [
+      "PersonId",
+      "SessionId"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "LogoutCompleted",
+    "narrativePayloadFields": [
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaPayloadFields": [
+      "PersonId",
+      "SessionId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "PersonId",
+      "SessionId"
+    ],
+    "schemaRequired": [
+      "PersonId",
+      "SessionId"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "PersonUpdated",
+    "narrativePayloadFields": [
+      "DisplayName",
+      "Email",
+      "PersonId"
+    ],
+    "schemaPayloadFields": [
+      "DisplayName",
+      "Email",
+      "PersonId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "DisplayName",
+      "PersonId"
+    ],
+    "schemaRequired": [
+      "DisplayName",
+      "PersonId"
+    ],
+    "requiredEqual": true
+  },
+  {
+    "event": "PasswordChanged",
+    "narrativePayloadFields": [
+      "CredentialId",
+      "PersonId"
+    ],
+    "schemaPayloadFields": [
+      "CredentialId",
+      "PersonId"
+    ],
+    "fieldNamesEqual": true,
+    "narrativeRequired": [
+      "CredentialId",
+      "PersonId"
+    ],
+    "schemaRequired": [
+      "CredentialId",
+      "PersonId"
+    ],
+    "requiredEqual": true
+  }
+]

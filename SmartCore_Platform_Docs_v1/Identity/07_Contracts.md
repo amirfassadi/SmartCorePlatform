@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-07
 Title: SmartCore Identity Platform Blueprint - Interoperability Contracts
-Version: 1.2.0
+Version: 1.2.1
 Status: DRAFT
 Purpose: Define the proposed Identity interoperability contracts contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.2.1 (2026-10-04): Clarified schema entry points and state/authorization constraints that shape validation does not prove.
   - Version 1.2.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.1.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.0.2; prior text remains in Git history.
 -->
@@ -113,3 +114,9 @@ Completion requires recorded effects, not merely dispatch. An immutable audit tr
 ## 7.4 Audit and support
 
 Each local effect commits audit journal/Outbox evidence atomically. Credential acknowledgment similarly records caller/correlation and phase mutation. No durable audit evidence means no mutation. External collector outages are buffered only within configured bounds; exceeded bounds pause new administrative effects. Audit is append-only and non-deletable by operator/support roles, with retention-protected external storage and separate control. No raw permit, proof, password or bearer value is logged. Typed schemas cannot prove authorization, cross-field equality, transaction atomicity or retention; those remain runtime tests in 13.
+
+# 8. Schema entry points and semantic checks
+
+`services.schema.json` is a definitions container: validate each operation's request/result through the corresponding `$defs` entry indexed in machine.contracts.services, not against the unconstrained container root. GuardedActiveResult, AlreadyProvisionedResult and AlreadyCompletedResult are distinct guarded/current versus historical outcomes; preserve the response union in §§3.1–3.2.
+
+Schema types do not prove registration/person/winner equality, materialOwner=registrationId, current grant, absolute expiry, immutable generation, Ready origin, atomic audit or retained replay identity. Those checks are authoritative service/transaction rules in §§3–4/7 and 09, not omitted merely because a JSON Schema permits structurally valid inconsistent values. The union of recovery error codes is shared encoding; each operation only emits its applicable outcomes. A changed schema, even as a correction to existing narrative, still requires consumer compatibility review before acceptance.

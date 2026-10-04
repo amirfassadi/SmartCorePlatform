@@ -1,0 +1,2242 @@
+{
+  "summary": {
+    "checks": 557,
+    "passed": 557,
+    "failed": 0
+  },
+  "results": [
+    {
+      "check": "StartRegistration synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration rejects null password",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration rejects null displayName",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration rejects null bindingSecret",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration rejects null mobile",
+      "pass": true
+    },
+    {
+      "check": "VerifyRegistration synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "VerifyRegistration rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "VerifyRegistration rejects null verificationSessionId",
+      "pass": true
+    },
+    {
+      "check": "VerifyRegistration rejects null code",
+      "pass": true
+    },
+    {
+      "check": "VerifyRegistration rejects null bindingSecret",
+      "pass": true
+    },
+    {
+      "check": "ResendVerification synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "ResendVerification rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "ResendVerification rejects null verificationSessionId",
+      "pass": true
+    },
+    {
+      "check": "ResendVerification rejects null bindingSecret",
+      "pass": true
+    },
+    {
+      "check": "CompleteRegistration synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "CompleteRegistration rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "CompleteRegistration rejects null setupChallengeId",
+      "pass": true
+    },
+    {
+      "check": "CompleteRegistration rejects null code",
+      "pass": true
+    },
+    {
+      "check": "CompleteRegistration rejects null bindingSecret",
+      "pass": true
+    },
+    {
+      "check": "CompleteRegistration rejects null newPassword",
+      "pass": true
+    },
+    {
+      "check": "VerificationPending synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "VerificationPending rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "VerificationPending rejects null verificationSessionId",
+      "pass": true
+    },
+    {
+      "check": "VerificationPending rejects null expiresAt",
+      "pass": true
+    },
+    {
+      "check": "VerificationPending rejects null status",
+      "pass": true
+    },
+    {
+      "check": "SetupPending synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "SetupPending rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "SetupPending rejects null setupChallengeId",
+      "pass": true
+    },
+    {
+      "check": "SetupPending rejects null expiresAt",
+      "pass": true
+    },
+    {
+      "check": "SetupPending rejects null status",
+      "pass": true
+    },
+    {
+      "check": "Accepted synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Accepted rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Accepted rejects null status",
+      "pass": true
+    },
+    {
+      "check": "RegistrationResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "RegistrationResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "RegistrationResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "RegistrationResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "RegistrationResult rejects null ownershipCommittedAt",
+      "pass": true
+    },
+    {
+      "check": "Person synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Person rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Person rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "Person rejects null displayName",
+      "pass": true
+    },
+    {
+      "check": "Person rejects null status",
+      "pass": true
+    },
+    {
+      "check": "Person rejects null createdAt",
+      "pass": true
+    },
+    {
+      "check": "Person rejects null updatedAt",
+      "pass": true
+    },
+    {
+      "check": "Person rejects null mobile",
+      "pass": true
+    },
+    {
+      "check": "Organization synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Organization rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Organization rejects null organizationId",
+      "pass": true
+    },
+    {
+      "check": "Organization rejects null name",
+      "pass": true
+    },
+    {
+      "check": "Organization rejects null category",
+      "pass": true
+    },
+    {
+      "check": "Organization rejects null status",
+      "pass": true
+    },
+    {
+      "check": "Organization rejects null createdAt",
+      "pass": true
+    },
+    {
+      "check": "Membership synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects null membershipId",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects null organizationId",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects null role",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects null status",
+      "pass": true
+    },
+    {
+      "check": "Membership rejects null createdAt",
+      "pass": true
+    },
+    {
+      "check": "SessionTokens synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "SessionTokens rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "SessionTokens rejects null sessionId",
+      "pass": true
+    },
+    {
+      "check": "SessionTokens rejects null accessToken",
+      "pass": true
+    },
+    {
+      "check": "SessionTokens rejects null refreshToken",
+      "pass": true
+    },
+    {
+      "check": "SessionTokens rejects null expiresAt",
+      "pass": true
+    },
+    {
+      "check": "SessionSummary synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "SessionSummary rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "SessionSummary rejects null sessionId",
+      "pass": true
+    },
+    {
+      "check": "SessionSummary rejects null expiresAt",
+      "pass": true
+    },
+    {
+      "check": "SessionSummary rejects null status",
+      "pass": true
+    },
+    {
+      "check": "SessionSummary rejects null createdAt",
+      "pass": true
+    },
+    {
+      "check": "Login synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Login rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Login rejects null password",
+      "pass": true
+    },
+    {
+      "check": "Login rejects null mobile",
+      "pass": true
+    },
+    {
+      "check": "LoginResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "LoginResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "LoginResult rejects null person",
+      "pass": true
+    },
+    {
+      "check": "LoginResult rejects null session",
+      "pass": true
+    },
+    {
+      "check": "Logout synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Logout rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Logout rejects null sessionId",
+      "pass": true
+    },
+    {
+      "check": "Refresh synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Refresh rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Refresh rejects null refreshToken",
+      "pass": true
+    },
+    {
+      "check": "UpdateProfile synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "UpdateProfile rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "UpdateProfile rejects null displayName",
+      "pass": true
+    },
+    {
+      "check": "ChangePassword synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "ChangePassword rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "ChangePassword rejects null currentPassword",
+      "pass": true
+    },
+    {
+      "check": "ChangePassword rejects null newPassword",
+      "pass": true
+    },
+    {
+      "check": "Error synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "Error rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "Error rejects null error",
+      "pass": true
+    },
+    {
+      "check": "Error rejects null traceId",
+      "pass": true
+    },
+    {
+      "check": "CompletionResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "CompletionResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "CompletionResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "CompletionResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "CompletionResult rejects null ownershipCommittedAt",
+      "pass": true
+    },
+    {
+      "check": "CompletionResult rejects null credentialOutcome",
+      "pass": true
+    },
+    {
+      "check": "ChangePasswordUnavailable synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "ChangePasswordUnavailable rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "ChangePasswordUnavailable rejects null error",
+      "pass": true
+    },
+    {
+      "check": "ChangePasswordUnavailable rejects null traceId",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdRequest rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdResult rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "GetPersonByIdResult rejects null displayName",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects null operationId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects null protectedMaterialRef",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects null materialOwner",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialRequest rejects null purpose",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultRequest rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultRequest rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null operationIdOfWinner",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "GuardedActiveResult rejects null phase",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null operationIdOfWinner",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "AlreadyProvisionedResult rejects null phase",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null operationIdOfWinner",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null phase",
+      "pass": true
+    },
+    {
+      "check": "AlreadyCompletedResult rejects null readyFactId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null operationIdOfWinner",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "EnsureInitialCredentialResult rejects null phase",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null operationIdOfWinner",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null status",
+      "pass": true
+    },
+    {
+      "check": "GetInitialCredentialResultResponse rejects null phase",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyRequest rejects null readyFactId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null registrationId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null personId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null credentialId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null provisioningVersion",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null readyFactId",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "AcknowledgeRegistrationReadyResult rejects null phase",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects null action",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects null reasonCode",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects null ticketReference",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryRequest rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null action",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null reasonCode",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null ticketReference",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null expectedState",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null expectedVersion",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null status",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null admissionPermit",
+      "pass": true
+    },
+    {
+      "check": "PreparedRegistrationRecovery rejects null admissionExpiresAt",
+      "pass": true
+    },
+    {
+      "check": "RecoveryServiceError synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "RecoveryServiceError rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "RecoveryServiceError rejects null status",
+      "pass": true
+    },
+    {
+      "check": "RecoveryServiceError rejects null code",
+      "pass": true
+    },
+    {
+      "check": "RecoveryServiceError rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null action",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null reasonCode",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null ticketReference",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null expectedState",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null expectedVersion",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null admissionPermit",
+      "pass": true
+    },
+    {
+      "check": "PrepareRegistrationRecoveryResult rejects null admissionExpiresAt",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null action",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null reasonCode",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null ticketReference",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null expectedState",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null expectedVersion",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "AdminRecoverStalledRegistrationRequest rejects null admissionPermit",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null action",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null executionExpiresAt",
+      "pass": true
+    },
+    {
+      "check": "RecoveryInProgress rejects null status",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null action",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null executionExpiresAt",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null status",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null outcome",
+      "pass": true
+    },
+    {
+      "check": "RecoveryCompleted rejects null cleanupState",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null action",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null executionExpiresAt",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null status",
+      "pass": true
+    },
+    {
+      "check": "RecoveryStopped rejects null outcome",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null action",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null targetKind",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null targetId",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null correlationId",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null executionExpiresAt",
+      "pass": true
+    },
+    {
+      "check": "RegistrationRecoveryResult rejects null status",
+      "pass": true
+    },
+    {
+      "check": "GetRegistrationRecoveryResultRequest synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "GetRegistrationRecoveryResultRequest rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "GetRegistrationRecoveryResultRequest rejects null recoveryRequestId",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null SessionReference",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null SessionReference",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged synthetic positive shape",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects unknown root field",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null EventId",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null EventType",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null AggregateType",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null AggregateId",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null OccurredAt",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null ActorIdentity",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null Payload",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null SessionReference",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged rejects null ExecutionContext",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration email only",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration no contact",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration blank name",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration nonblank padded name",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration true email-only",
+      "pass": true
+    },
+    {
+      "check": "StartRegistration declares nonblank DisplayName",
+      "pass": true
+    },
+    {
+      "check": "Person declares nonblank DisplayName",
+      "pass": true
+    },
+    {
+      "check": "UpdateProfile declares nonblank DisplayName",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 202 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 201 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/verify 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 202 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/resend 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 202 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/setup 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 202 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/register/complete 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/login 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 204 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/logout 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /auth/refresh 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "patch /me 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 204 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "post /me/password 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /organizations 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /me/memberships 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 200 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 400 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 401 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 403 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 404 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 409 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 412 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 428 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 429 no-store",
+      "pass": true
+    },
+    {
+      "check": "get /sessions 503 no-store",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "PersonRegistered payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "OrganizationCreated payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "MembershipCreated payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "LoginSucceeded payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "LoginFailed payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "SessionCreated payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "SessionExpired payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "LogoutCompleted payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "PersonUpdated payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged payload field names match 06 table",
+      "pass": true
+    },
+    {
+      "check": "PasswordChanged payload requiredness matches 06 table",
+      "pass": true
+    },
+    {
+      "check": "documented limit: unequal materialOwner accepted by schema",
+      "pass": true
+    }
+  ],
+  "not_checked": [
+    "Runtime, authentication/authorization, normalization, crypto, expiry, transaction/crash/concurrency, deployed consumers, full 065 validation",
+    "Cross-field identity/time equality, T16 transport positions, SESSION policy, V-002/V-003 governance dispositions",
+    "Synthetic positive per definition is not exhaustive conditional/union coverage"
+  ]
+}

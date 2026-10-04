@@ -1,7 +1,7 @@
 <!--
 Document ID: ID-06
 Title: SmartCore Identity Platform Blueprint - Domain Events
-Version: 1.3.1
+Version: 1.3.2
 Status: DRAFT
 
 Purpose:
@@ -30,6 +30,7 @@ Contract boundaries:
 This file owns PascalCase event envelopes/payloads. 07_Contracts.md references them for interoperability; 08_API.md independently owns camelCase REST schemas. See 09, 11 and 12 for persistence, security and acceptance gates.
 
 Change Log:
+  - Version 1.3.2 (2026-10-04): Aligned DisplayName nonblank encoding with 10; event schema Draft v1.2.1 narrows validation without new fields/events.
   - Version 1.3.1 (2026-10-04): Clarified nine Domain Events plus LoginFailed, Ready-workflow facts and existing delivery obligations; no T16 decision or new event introduced.
   - Version 1.3.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.2.0 (2026-09-24): Aligned optional Email snapshots, selected-contact LoginFailed audit and machine omission rules; retained the ten-event catalog and limited registration/profile stream.
@@ -811,4 +812,4 @@ LoginFailed is a Security Event per ADR-0002 Decision 5; its resolved PersonId i
 
 Ready's local transaction also persists ReadyFactId/winner evidence and internal acknowledgment Outbox; these do not add fields to public event payloads or an eleventh event. Administrative recovery executes through the service worker with ActorIdentity=System; restricted append-only audit separately retains the initiating operator and correlation to ReadyFactId/EventId. It must not impersonate the Person or copy the original registration IP/device. Re-drive preserves the original event identity and timestamps.
 
-Ready acknowledgment and administrative audit are internal service/journal records, not public Identity events. T16 (the two-event Person stream) is still Proposed and cannot inherit acceptance from ADR-0004. Public event schemas remain v1.2.0 because this propagation changes neither payload shape nor catalog.
+Ready acknowledgment and administrative audit are internal service/journal records, not public Identity events. T16 (the two-event Person stream) is still Proposed and cannot inherit acceptance from ADR-0004. ADR-0004 propagation changes neither payload shape nor catalog. Draft event schema v1.2.1 additionally enforces the already documented nonblank DisplayName policy; compatibility review remains required.

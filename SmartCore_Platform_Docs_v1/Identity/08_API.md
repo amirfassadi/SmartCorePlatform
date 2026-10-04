@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-08
 Title: SmartCore Identity Platform Blueprint - REST API
-Version: 1.2.0
+Version: 1.2.1
 Status: DRAFT
 Purpose: Define the proposed Identity rest api contract.
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.2.1 (2026-10-04): Aligned nonblank DisplayName and no-store error-response headers in Draft OpenAPI v1.2.1; compatibility review remains open.
   - Version 1.2.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.1.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.0.3; prior text remains in Git history.
 -->
