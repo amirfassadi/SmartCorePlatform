@@ -1,11 +1,11 @@
 # Identity MVP and Architecture Owner Decision Form
 
-**Version:** 0.3.0 Draft  
+**Version:** 0.3.1 Draft  
 **Status:** Unsigned; not effective  
 **Purpose:** Prepare owner decisions P01, P04, P05, and P06 and record the MVP scope that those decisions govern.  
 **Decision authority:** Amir (@amirfassadi), project and architecture owner, under SmartCorePlatform 051 §7.  
 **Encoding:** UTF-8.  
-**Review baseline:** Platform `review/slice0-evidence` at `f3a227c`; Identity SHA must be recorded separately below.  
+**Review input base (pre-form):** Platform `review/slice0-evidence` at `f3a227c`. This is not the decision pin. The owner record must pin the exact Platform commit containing the accepted form text, plus the separately reviewed Identity commit, in the table below.  
 
 This form does not itself accept an ADR, close a validation gate, permit implementation, set `READY_FOR_GENERATION`, or authorize deployment. Each selected disposition takes effect only when the attributable owner record is completed and the governing repository documents are updated and validated.
 
@@ -54,6 +54,11 @@ Contact entry disposition:
 Password recovery disposition:
 - [ ] Include minimal verified-contact reset in the Identity MVP product scope, delivered after core registration/login and before public self-service onboarding; successful reset revokes all Sessions/families.
 - [ ] Defer beyond MVP release; record release limitation and target milestone: ______________________________.
+
+Password event disposition (no new public event is implied):
+- [ ] The existing `PasswordChanged` event covers successful ChangePassword and password reset; update its contract/example and add only a reviewed non-sensitive cause discriminator if needed.
+- [ ] `PasswordChanged` covers ChangePassword only; successful reset emits no public event in this MVP unless a separate event decision is approved.
+- [ ] Defer the event disposition; no reset contract may be published until resolved.
 
 ### Options considered
 
@@ -111,6 +116,7 @@ Consumers therefore need separate durable tracking for (a) receipt/deduplication
 ### Compatibility, evidence, and responsibilities
 
 - The wrapper schema/version and routing are new draft contract surface. Finalize before any subscriber is admitted; no deployed API or consumer migration is presumed.
+- On P04 acceptance, propagate the receipt-versus-projection rule to the Person event contract (including wrapper/schema documentation), consumer guidance, machine metadata where applicable, and Identity conformance/testing documents in both repositories. Add conformance cases for `PersonUpdated(position=2)` arriving before `PersonRegistered(position=1)`, then receiving/processing both facts without projection rollback, loss of Ready/`OwnershipCommittedAt`, or duplicate side effects. Do not describe this candidate as an active contract before acceptance.
 - Evidence reviewed: current `06_Domain_Events.md` full-snapshot statement/history; T16 candidate and options comparison; per-event consumer registry; 03/04/07/09 persistence/readiness material.
 - Responsible roles: Identity producer/persistence owner; transport adapter owner; each consuming capability owner for inbox/checkpoint/projection. Assign accountable names before implementation of the wrapper/consumer contract.
 
@@ -143,9 +149,9 @@ Baseline disposition:
 
 Changes / rationale: ________________________________________________________
 
-The owner previously selected no separate idle timeout as a direction. **Recommendation for reconsideration:** for the MVP server-side web/BFF session, use a platform-wide 30-minute inactivity policy, evaluated when Refresh is attempted. Persist the time of the last successful, foreground-driven Refresh; do not write durable session state on every application request solely to update activity. Do not run background Refreshes without a qualifying foreground request. Because Access tokens last at most 900 seconds, this is an approximation of user inactivity with a bounded observation lag of up to one Access-token lifetime. A tenant cannot override or lengthen the MVP platform default; a future governed extension may introduce tenant/client policies.
+The owner previously selected no separate idle timeout as a direction. **Recommendation for reconsideration:** for the MVP server-side web/BFF session, use a platform-wide 30-minute inactivity proxy, evaluated when Refresh is attempted. Persist the time of the last successful, foreground-driven Refresh; do not write durable session state on every application request solely to update activity. Do not run background Refreshes without a qualifying foreground request. The rule is 30 minutes since the last successful foreground Refresh, not a precise measurement of the last user action. Since a live Access token may permit activity for up to 900 seconds after issuance, the observed idle cutoff relative to last authenticated use is approximate by up to 15 minutes (roughly 15–30 minutes, depending on when use occurred within the Access-token lifetime). A tenant cannot override or lengthen the MVP platform default; a future governed extension may introduce tenant/client policies.
 
-When the inactivity threshold is exceeded at Refresh, deny renewal and require login again. An already issued self-contained Access token may remain usable until its own expiry, for up to 900 seconds after the idle threshold is crossed, just as it may remain usable for that period after logout/revocation. This is a proposed change to the previously recorded no-idle direction and requires explicit acceptance. The contract must bind Refresh to the server-side BFF Session and use a durable, shared enforcement point; browser-only timers do not enforce expiry. Security review must confirm whether recording `lastRefreshAt` and checking it at Refresh produces the intended maximum idle exposure for the selected BFF flow.
+When more than 30 minutes have elapsed since the recorded foreground Refresh, deny renewal and require login again. An already issued self-contained Access token may remain usable until its own expiry, for up to 900 seconds after the idle cutoff is detected, just as it may remain usable for that period after logout/revocation. This is a proposed change to the previously recorded no-idle direction and requires explicit acceptance of both the approximate 15–30-minute idle cutoff and residual Access validity. The contract must bind Refresh to the server-side BFF Session and use a durable, shared enforcement point; browser-only timers do not enforce expiry. Security review must confirm whether recording `lastRefreshAt` and checking it at Refresh produces the intended maximum idle exposure for the selected BFF flow.
 
 ### API expiry fields
 
@@ -186,7 +192,7 @@ Until that review is accepted, ADR-0004 remains authoritative, including its pro
 ### P05 owner disposition
 
 Idle policy:
-- [ ] Accept proposed 30-minute platform-wide server-side web/BFF inactivity timeout; future tenant/client policy requires a later governed decision.
+- [ ] Accept proposed 30 minutes since foreground Refresh as the platform-wide web/BFF inactivity proxy, including up to 15-minute cutoff uncertainty and up to 900-second residual Access validity; future tenant/client policy requires a later governed decision.
 - [ ] Retain no idle timeout, with explicit risk rationale.
 - [ ] Accept another value/policy: ______________________________.
 
