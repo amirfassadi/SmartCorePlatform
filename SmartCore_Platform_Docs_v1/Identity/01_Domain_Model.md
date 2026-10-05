@@ -1,11 +1,12 @@
 <!--
 Document ID: ID-01
 Title: SmartCore Identity Platform Blueprint - Domain Model
-Version: 1.4.0
+Version: 1.4.1
 Status: DRAFT
 Purpose: Define the proposed Identity domain model contract.
-Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
+Dependencies: 004_SmartCore_Composition_Rules, ADR-0004_Identity_Credential_Provisioning_Protocol, ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.4.1 (2026-10-04): Clarified domain/application/persistence responsibilities against 004 and 062 without changing behavior or accepting open policy.
   - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.2.1; prior text remains in Git history.
 -->
@@ -90,3 +91,9 @@ RegistrationWorkflow additionally persists immutable ReadyFactId and winner Cred
 Credential's application store owns InitialProvisioningRecord: registrationId/PersonId, immutable winning operationId/CredentialId, non-secret candidate fingerprint, immutable provisioningVersion, phase (`ProvisionedAwaitingReady` or `ReadyAcknowledged`), and acknowledged readyFactId when present. C01 limits active cardinality, C02 fixes the winner at Credential commit, C03 blocks supported replacement/revocation until acknowledgment; one-active uniqueness alone does not implement all three.
 
 RecoveryJob stores action/target, request fingerprint, authenticated initiating principal, admission/execution deadlines, attempts, outcome and audit correlation. Admission permits are server-bound, expiring authorization; raw tokens/proofs are not domain fields. Recovery and audit records are application structures, not new business Aggregates. Secret/proof retention remains independent of durable non-secret winner metadata.
+
+# 12. Explicit execution responsibility boundary
+
+Domain Services in §7 describe domain behavior on supplied objects and facts. Under 004 §8.4 and 062 §5, they do not load repositories, invoke Credential APIs/Core Engines, deliver codes, control Outbox workers or commit transactions. Application coordinators obtain authenticated/readiness/Credential evidence, load domain objects, invoke domain rules and own persistence/Outbox orchestration under 04/07/09. Aggregates enforce their own intrinsic invariants; cross-Aggregate intrinsic rules remain with the applicable Domain Service. Policy values do not replace those invariants.
+
+The phrase 'create Session' describes the valid domain-state result; repository creation/commit belongs to application execution. No generic Core Engine gains Identity semantics, no business permission is inferred from authentication, and no new Command, Aggregate, deployment topology or pending policy decision is introduced by this clarification.

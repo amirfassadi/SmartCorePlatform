@@ -1,0 +1,46 @@
+[
+  {
+    "case": "missing-heading",
+    "exit": 1,
+    "fails": [
+      [
+        "S4h",
+        "FAIL",
+        "05_Queries has section headings"
+      ]
+    ]
+  },
+  {
+    "case": "broken-dependency",
+    "exit": 1,
+    "fails": [
+      [
+        "S4-dependency-target",
+        "FAIL",
+        "05_Queries: dependency 064_MISSING_STANDARD resolves exactly once"
+      ]
+    ]
+  },
+  {
+    "case": "broken-schema-pointer",
+    "exit": 1,
+    "fails": [
+      [
+        "S4-machine-ref",
+        "FAIL",
+        "machine schema: events.schema.json#/$defs/MISSING_EVENT"
+      ]
+    ]
+  },
+  {
+    "case": "duplicate-command",
+    "exit": 1,
+    "fails": [
+      [
+        "S9-identifiers",
+        "FAIL",
+        "machine commands: nonempty unique name"
+      ]
+    ]
+  }
+]

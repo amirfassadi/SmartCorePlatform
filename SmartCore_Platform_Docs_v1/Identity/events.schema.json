@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:smartcore:identity:events:proposed:1.2.0",
+  "$id": "urn:smartcore:identity:events:proposed:1.2.1",
   "title": "Identity events (DRAFT)",
   "$defs": {
     "PersonRegistered": {
@@ -66,7 +66,8 @@
             "DisplayName": {
               "type": "string",
               "minLength": 1,
-              "maxLength": 100
+              "maxLength": 100,
+              "pattern": "\\S"
             },
             "OrganizationId": {
               "type": "string",
@@ -932,7 +933,8 @@
             "DisplayName": {
               "type": "string",
               "minLength": 1,
-              "maxLength": 100
+              "maxLength": 100,
+              "pattern": "\\S"
             }
           },
           "required": [

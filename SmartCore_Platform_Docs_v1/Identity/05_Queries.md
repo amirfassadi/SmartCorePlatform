@@ -1,11 +1,13 @@
 <!--
 Document ID: ID-05
 Title: SmartCore Identity Platform Blueprint - Queries
-Version: 1.1.0
+Version: 1.1.2
 Status: DRAFT
 Purpose: Define the proposed Identity queries contract.
 Dependencies: ADR-0002_Identity_Foundation_Clarifications, 064_SmartCore_Blueprint_Standard, 065_SmartCore_Blueprint_Validator_Specification
 Change Log:
+  - Version 1.1.2 (2026-10-04): Made required-content and preserved constraints explicit from existing sources; decisions, generation status and runtime evidence unchanged.
+  - Version 1.1.1 (2026-10-04): Recorded result Aggregate subjects without deciding the V-003 interpretation for joins or authorization references.
   - Version 1.1.0 (2026-09-24): Integrated verified-contact registration, PendingCredential/Ready, security and contract alignment. Replaces v1.0.2; prior text remains in Git history.
 -->
 
@@ -34,3 +36,19 @@ Invalid self Session is unauthorized. Missing Person behind a valid Session is a
 # 4. Acceptance
 
 Read scope, contact omission and token exclusion are tested under [13](13_Testing.md). Query narrowing for GetPersonById is intentional.
+
+# 5. Result Aggregate indexing
+
+Machine `queries[].resultAggregate` identifies the subject of the existing result DTO: Person for GetCurrentPerson/GetPersonById, Organization for GetOrganizationsForPerson, Membership for GetMembershipsForPerson, and Session for GetSessionsForPerson. This is documentary indexing, not a new read/write boundary. Organization lookup still uses Membership to scope access; authenticated self Queries still use Session authorization. A result subject does not prove that exactly one Aggregate is referenced under literal 065 V-003. That interpretation remains open; no join is removed or reclassified by this annotation.
+
+# 6. Explicit purpose, sorting and pagination applicability
+
+| Query | Purpose | Sorting | Pagination |
+|---|---|---|---|
+| GetCurrentPerson | Read authenticated caller's permitted Person projection | Not applicable: one object | Not applicable: one object |
+| GetPersonById | Resolve the minimum PersonId/DisplayName projection for an allowlisted service | Not applicable: one object | Not applicable: one object |
+| GetOrganizationsForPerson | Read caller's Personal Organization through own Membership | No selectable sorting; at most one MVP result | None in current Draft; cardinality limited to one Personal Organization |
+| GetMembershipsForPerson | Read caller's initial Owner Membership | No selectable sorting; at most one MVP result | None in current Draft; cardinality limited to one initial Owner Membership |
+| GetSessionsForPerson | Read caller's Active, unexpired token-free Session summaries | CreatedAt descending, then SessionId ascending | None in current Draft; bounded by configured active-Session cap |
+
+Input, output, caller filtering and security remain in §§1–3. This makes existing applicability explicit rather than adding arbitrary search/sort/paging behavior. 028 §13 says all collection Queries must support pagination, while these Draft collection contracts omit it. Their bounded cardinality does not itself waive that rule. The [architecture review](../../_Copilot_Reports/Identity_Preimplementation_Architecture_Review.md) records the source-scope disposition still needed. V-003 remains separately OPEN.

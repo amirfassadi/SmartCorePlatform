@@ -1,0 +1,2014 @@
+{
+ "results": [
+  [
+   "S1",
+   "PASS",
+   "required file 00_Overview.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 01_Domain_Model.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 02_Use_Cases.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 03_Aggregates.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 04_Commands.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 05_Queries.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 06_Domain_Events.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 07_Contracts.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 08_API.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 09_Persistence.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 10_Configuration.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 11_Security.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 12_Validation.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 13_Testing.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 14_MVP.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 15_Extensibility.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file 16_Examples.md"
+  ],
+  [
+   "S1",
+   "PASS",
+   "required file capability.machine.yaml"
+  ],
+  [
+   "S1x",
+   "WARN",
+   "non-standard file in package directory (064 section 7 allows working docs only during drafting): 09_Persistence_CHANGELOG.md"
+  ],
+  [
+   "S1x",
+   "WARN",
+   "non-standard file in package directory (064 section 7 allows working docs only during drafting): Registration_Recovery_Runbook.md"
+  ],
+  [
+   "S1x",
+   "WARN",
+   "non-standard file in package directory (064 section 7 allows working docs only during drafting): TASK_Identity_Foundation_Hardening.md"
+  ],
+  [
+   "S1x",
+   "WARN",
+   "non-standard file in package directory (064 section 7 allows working docs only during drafting): events.schema.json"
+  ],
+  [
+   "S1x",
+   "WARN",
+   "non-standard file in package directory (064 section 7 allows working docs only during drafting): openapi.yaml"
+  ],
+  [
+   "S1x",
+   "WARN",
+   "non-standard file in package directory (064 section 7 allows working docs only during drafting): services.schema.json"
+  ],
+  [
+   "S2",
+   "PASS",
+   "00_Overview header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "00_Overview header Version 1.3.0 vs first change-log entry 1.3.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "00_Overview machine documents[] version/status 1.3.0/DRAFT vs header 1.3.0/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "01_Domain_Model header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "01_Domain_Model header Version 1.4.1 vs first change-log entry 1.4.1"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "01_Domain_Model machine documents[] version/status 1.4.1/DRAFT vs header 1.4.1/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "02_Use_Cases header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "02_Use_Cases header Version 1.4.1 vs first change-log entry 1.4.1"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "02_Use_Cases machine documents[] version/status 1.4.1/DRAFT vs header 1.4.1/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "03_Aggregates header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "03_Aggregates header Version 1.4.3 vs first change-log entry 1.4.3"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "03_Aggregates machine documents[] version/status 1.4.3/DRAFT vs header 1.4.3/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "04_Commands header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "04_Commands header Version 1.3.2 vs first change-log entry 1.3.2"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "04_Commands machine documents[] version/status 1.3.2/DRAFT vs header 1.3.2/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "05_Queries header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "05_Queries header Version 1.1.2 vs first change-log entry 1.1.2"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "05_Queries machine documents[] version/status 1.1.2/DRAFT vs header 1.1.2/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "06_Domain_Events header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "06_Domain_Events header Version 1.3.3 vs first change-log entry 1.3.3"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "06_Domain_Events machine documents[] version/status 1.3.3/DRAFT vs header 1.3.3/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "07_Contracts header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "07_Contracts header Version 1.2.1 vs first change-log entry 1.2.1"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "07_Contracts machine documents[] version/status 1.2.1/DRAFT vs header 1.2.1/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "08_API header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "08_API header Version 1.2.1 vs first change-log entry 1.2.1"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "08_API machine documents[] version/status 1.2.1/DRAFT vs header 1.2.1/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "09_Persistence header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "09_Persistence header Version 1.3.2 vs first change-log entry 1.3.2"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "09_Persistence machine documents[] version/status 1.3.2/DRAFT vs header 1.3.2/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "10_Configuration header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "10_Configuration header Version 1.1.0 vs first change-log entry 1.1.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "10_Configuration machine documents[] version/status 1.1.0/DRAFT vs header 1.1.0/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "11_Security header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "11_Security header Version 1.1.0 vs first change-log entry 1.1.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "11_Security machine documents[] version/status 1.1.0/DRAFT vs header 1.1.0/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "12_Validation header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "12_Validation header Version 1.1.0 vs first change-log entry 1.1.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "12_Validation machine documents[] version/status 1.1.0/DRAFT vs header 1.1.0/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "13_Testing header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "13_Testing header Version 1.1.1 vs first change-log entry 1.1.1"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "13_Testing machine documents[] version/status 1.1.1/DRAFT vs header 1.1.1/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "14_MVP header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "14_MVP header Version 1.4.0 vs first change-log entry 1.4.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "14_MVP machine documents[] version/status 1.4.0/DRAFT vs header 1.4.0/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "15_Extensibility header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "15_Extensibility header Version 1.1.0 vs first change-log entry 1.1.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "15_Extensibility machine documents[] version/status 1.1.0/DRAFT vs header 1.1.0/DRAFT"
+  ],
+  [
+   "S2",
+   "PASS",
+   "16_Examples header fields"
+  ],
+  [
+   "S3",
+   "PASS",
+   "16_Examples header Version 1.1.0 vs first change-log entry 1.1.0"
+  ],
+  [
+   "S3m",
+   "PASS",
+   "16_Examples machine documents[] version/status 1.1.0/DRAFT vs header 1.1.0/DRAFT"
+  ],
+  [
+   "S4",
+   "INFO",
+   "relative-link scan finished (only failures listed above)"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "00_Overview has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "00_Overview numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "01_Domain_Model has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "01_Domain_Model numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "02_Use_Cases has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "02_Use_Cases numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "03_Aggregates has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "03_Aggregates numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "04_Commands has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "04_Commands numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "05_Queries has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "05_Queries numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "06_Domain_Events has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "06_Domain_Events numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "07_Contracts has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "07_Contracts numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "08_API has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "08_API numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "09_Persistence has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "09_Persistence numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "10_Configuration has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "10_Configuration numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "11_Security has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "11_Security numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "12_Validation has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "12_Validation numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "13_Testing has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "13_Testing numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "14_MVP has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "14_MVP numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "15_Extensibility has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "15_Extensibility numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4h",
+   "PASS",
+   "16_Examples has section headings"
+  ],
+  [
+   "S4-order",
+   "PASS",
+   "16_Examples numbered top-level headings unique and ascending; semantic order not inferred"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "00_Overview.md 064 8.1 purpose: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "00_Overview.md 064 8.1 boundaries: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "00_Overview.md 064 8.1 architectural intent: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "00_Overview.md 064 8.1 terminology: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "00_Overview.md 064 8.1 external dependencies: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 entities: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 value objects: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 relationships: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 aggregate definitions: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 aggregate boundaries: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 aggregate lifecycle: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "01_Domain_Model.md 064 8.2 conditional domain services: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 goal: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 actors: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 preconditions: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 main flow: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 alternative flows: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 failure conditions: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "02_Use_Cases.md 064 8.3 postconditions: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 aggregate root: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 purpose: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 owned entities: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 value objects: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 invariants: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 consistency boundary: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "03_Aggregates.md 064 8.4 relationships to aggregates: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 name: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 purpose: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 input: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 validation: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 authorization requirements: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 aggregate interaction: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 domain events produced: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "04_Commands.md 064 8.5 failure conditions: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 purpose: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 input: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 output: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 filtering: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 sorting: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 pagination: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "05_Queries.md 064 8.6 security requirements: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 event name: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 trigger: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 payload: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 producer: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 consumers: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 ordering requirements: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "06_Domain_Events.md 064 8.7 idempotency considerations: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "07_Contracts.md 064 8.8 public transport-independent service contracts: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "07_Contracts.md 064 8.8 interoperability: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "07_Contracts.md 064 8.8 separation from client APIs: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "08_API.md 064 8.9 client-facing transport endpoints: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "08_API.md 064 8.9 contracts implemented where applicable: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "08_API.md 064 8.9 separation from interoperability: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 aggregate persistence: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 repository boundaries: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 transactions: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 concurrency: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 indexes: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 soft delete: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 auditing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "09_Persistence.md 064 8.10 encryption: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "10_Configuration.md 064 8.11 feature flags: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "10_Configuration.md 064 8.11 default values: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "10_Configuration.md 064 8.11 environment settings: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "10_Configuration.md 064 8.11 policy references: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "10_Configuration.md 064 8.11 timeout values: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "10_Configuration.md 064 8.11 conditional retry policies: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 authentication: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 authorization: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 secrets: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 encryption: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 key management: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 privacy requirements: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 sensitive data handling: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 threat considerations: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "11_Security.md 064 8.12 conditional platform security references: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 input validation: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 business validation: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 cross-field validation: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 cross-aggregate validation: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 error messages: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 validation order: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "12_Validation.md 064 8.13 domain/policy/infrastructure distinction: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 unit testing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 aggregate testing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 domain service testing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 integration testing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 event testing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 security testing: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "13_Testing.md 064 8.14 acceptance criteria: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "14_MVP.md 064 8.15 MVP feature classification: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "14_MVP.md 064 8.15 future feature classification: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "15_Extensibility.md 064 8.16 supported evolution paths: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "16_Examples.md 064 8.17 informative scenarios: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-content-locator",
+   "INFO",
+   "16_Examples.md 064 8.17 no additional requirements: document-level evidence located; satisfaction/per-instance coverage requires review"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "00_Overview has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "00_Overview: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "00_Overview: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "00_Overview: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "00_Overview: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "01_Domain_Model has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "01_Domain_Model: dependency 004_SmartCore_Composition_Rules resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "01_Domain_Model: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "01_Domain_Model: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "01_Domain_Model: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "01_Domain_Model: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "02_Use_Cases has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "02_Use_Cases: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "02_Use_Cases: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "02_Use_Cases: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "02_Use_Cases: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "03_Aggregates has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "03_Aggregates: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "03_Aggregates: dependency 01_Domain_Model.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "03_Aggregates: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "03_Aggregates: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "04_Commands has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "04_Commands: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "04_Commands: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "04_Commands: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "04_Commands: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "05_Queries has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "05_Queries: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "05_Queries: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "05_Queries: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "06_Domain_Events has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency 00_Overview.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency 01_Domain_Model.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency 03_Aggregates.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency 04_Commands.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency 14_MVP.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency 059_SmartCore_Identity_Platform.md resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "06_Domain_Events: dependency ADR-0002_Identity_Foundation_Clarifications.md resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "07_Contracts has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "07_Contracts: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "07_Contracts: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "07_Contracts: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "07_Contracts: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "08_API has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "08_API: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "08_API: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "08_API: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "08_API: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "09_Persistence has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "09_Persistence: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "09_Persistence: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "09_Persistence: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "09_Persistence: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "10_Configuration has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "10_Configuration: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "10_Configuration: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "10_Configuration: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "10_Configuration: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "11_Security has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "11_Security: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "11_Security: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "11_Security: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "11_Security: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "12_Validation has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "12_Validation: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "12_Validation: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "12_Validation: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "12_Validation: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "13_Testing has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "13_Testing: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "13_Testing: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "13_Testing: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "13_Testing: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "14_MVP has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "14_MVP: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "14_MVP: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "14_MVP: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "14_MVP: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "15_Extensibility has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "15_Extensibility: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "15_Extensibility: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "15_Extensibility: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "15_Extensibility: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-dependencies",
+   "PASS",
+   "16_Examples has resolvable dependency identifiers to check"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "16_Examples: dependency ADR-0004_Identity_Credential_Provisioning_Protocol resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "16_Examples: dependency ADR-0002_Identity_Foundation_Clarifications resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "16_Examples: dependency 064_SmartCore_Blueprint_Standard resolves exactly once"
+  ],
+  [
+   "S4-dependency-target",
+   "PASS",
+   "16_Examples: dependency 065_SmartCore_Blueprint_Validator_Specification resolves exactly once"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine acceptanceGates: 12_Validation.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine adr0004ApprovalRecord: ../../_Copilot_Reports/Identity_ADR-0004_Acceptance_Decision_Record.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 00_Overview.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 01_Domain_Model.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 02_Use_Cases.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 03_Aggregates.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 05_Queries.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 06_Domain_Events.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 07_Contracts.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 08_API.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 09_Persistence.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 10_Configuration.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 11_Security.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 12_Validation.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 13_Testing.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 14_MVP.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 15_Extensibility.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: 16_Examples.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 01_Domain_Model.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 01_Domain_Model.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 01_Domain_Model.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 01_Domain_Model.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 01_Domain_Model.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 04_Commands.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 05_Queries.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 05_Queries.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 05_Queries.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 05_Queries.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 05_Queries.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/PersonRegistered"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/OrganizationCreated"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/MembershipCreated"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/LoginSucceeded"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/LoginFailed"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/SessionCreated"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/SessionExpired"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/LogoutCompleted"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/PersonUpdated"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json#/$defs/PasswordChanged"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: openapi.yaml"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 08_API.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine schema: events.schema.json"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 06_Domain_Events.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 07_Contracts.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 07_Contracts.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 07_Contracts.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine narrative: 11_Security.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine runbook: Registration_Recovery_Runbook.md"
+  ],
+  [
+   "S4-machine-ref",
+   "PASS",
+   "machine path: Registration_Recovery_Runbook.md"
+  ],
+  [
+   "S9-identifiers",
+   "PASS",
+   "machine documents: nonempty unique path"
+  ],
+  [
+   "S9-identifiers",
+   "PASS",
+   "machine aggregates: nonempty unique name"
+  ],
+  [
+   "S9-identifiers",
+   "PASS",
+   "machine commands: nonempty unique name"
+  ],
+  [
+   "S9-identifiers",
+   "PASS",
+   "machine queries: nonempty unique name"
+  ],
+  [
+   "S9-identifiers",
+   "PASS",
+   "machine events: nonempty unique name"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "03_Aggregates.md: Person specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "03_Aggregates.md: Organization specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "03_Aggregates.md: Membership specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "03_Aggregates.md: Credential specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "03_Aggregates.md: Session specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "04_Commands.md: RegisterPerson specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "04_Commands.md: AuthenticatePerson specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "04_Commands.md: UpdatePersonProfile specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "04_Commands.md: LogoutSession specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "04_Commands.md: RefreshSession specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "04_Commands.md: ChangePassword specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "05_Queries.md: GetCurrentPerson specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "05_Queries.md: GetOrganizationsForPerson specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "05_Queries.md: GetMembershipsForPerson specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "05_Queries.md: GetSessionsForPerson specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "05_Queries.md: GetPersonById specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: PersonRegistered specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: OrganizationCreated specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: MembershipCreated specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: LoginSucceeded specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: LoginFailed specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: SessionCreated specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: SessionExpired specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: LogoutCompleted specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: PersonUpdated specification anchor"
+  ],
+  [
+   "S4-item-anchor",
+   "PASS",
+   "06_Domain_Events.md: PasswordChanged specification anchor"
+  ],
+  [
+   "S5",
+   "PASS",
+   "events.schema.json parses and is a valid draft-2020-12 schema"
+  ],
+  [
+   "S5",
+   "PASS",
+   "services.schema.json parses and is a valid draft-2020-12 schema"
+  ],
+  [
+   "S5",
+   "PASS",
+   "openapi.yaml valid OpenAPI document"
+  ],
+  [
+   "V-001-presence-only",
+   "PASS",
+   "aggregate Person declares repository"
+  ],
+  [
+   "V-001-presence-only",
+   "PASS",
+   "aggregate Organization declares repository"
+  ],
+  [
+   "V-001-presence-only",
+   "PASS",
+   "aggregate Membership declares repository"
+  ],
+  [
+   "V-001-presence-only",
+   "PASS",
+   "aggregate Credential declares repository"
+  ],
+  [
+   "V-001-presence-only",
+   "PASS",
+   "aggregate Session declares repository"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event PersonRegistered declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event OrganizationCreated declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event MembershipCreated declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event LoginSucceeded declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event LoginFailed declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event SessionCreated declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event SessionExpired declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event LogoutCompleted declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event PersonUpdated declares producer"
+  ],
+  [
+   "S9-producer-presence-only",
+   "PASS",
+   "event PasswordChanged declares producer"
+  ],
+  [
+   "S6",
+   "PASS",
+   "machine counts aggregates/commands/queries/events (5, 6, 5, 10) vs pinned review expectation (5,6,5,10); narrative equality not checked"
+  ]
+ ],
+ "not_checked": [
+  "V-001 exactly-one repository and V-005 owning Capability Platform (repository/producer presence is not these complete rules)",
+  "064 section 8 semantic sufficiency, per-instance 8.3-8.7 coverage and conditional applicability; locator inventory is not PASS",
+  "064 semantic section ordering/naming, required plain-text normative references, Markdown anchor validity; only top-level numerical order and dependency targets checked",
+  "V-002/V-003/V-004/V-007/V-009 (need narrative-to-machine mapping; not automated here)",
+  "V-006 machine-vs-narrative semantic equality; 065 sections 6-8, 10 semantic/contract/dependency/MVP validation",
+  "OpenAPI/JSON-Schema conformance of DTO examples against schemas; consumer compatibility",
+  "V-011 external references; V-012 full naming conventions; runtime/security behaviour; rendering",
+  "Overall Structural/Semantic/Architectural/AI Readiness gates: NOT ESTABLISHED; exit 0 only means no executed FAIL"
+ ]
+}

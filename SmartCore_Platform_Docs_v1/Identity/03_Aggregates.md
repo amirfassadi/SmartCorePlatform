@@ -1,11 +1,13 @@
 <!--
 Document ID: ID-03
 Title: SmartCore Identity Platform Blueprint - Aggregates
-Version: 1.4.1
+Version: 1.4.3
 Status: DRAFT
 Purpose: Define aggregate design rationale and boundaries for the Identity Platform Blueprint
 Dependencies: ADR-0004_Identity_Credential_Provisioning_Protocol, 01_Domain_Model.md, 064_SmartCore_Blueprint_Standard, ADR-0002_Identity_Foundation_Clarifications
 Change Log:
+  - Version 1.4.3 (2026-10-04): Made required-content and preserved constraints explicit from existing sources; decisions, generation status and runtime evidence unchanged.
+  - Version 1.4.2 (2026-10-04): Aligned Session alternative terminal states and clarified no-cascade storage semantics against 01/04/06; no SESSION option selected.
   - Version 1.4.1 (2026-09-25): Corrected pre-Ready profile-update claim against 04 §§4.2–4.3; causal commit order does not establish publication/delivery ordering or accept T16.
   - Version 1.4.0 (2026-09-25): Propagated architecturally accepted ADR-0004; contracts remain DRAFT, T16/upstream approval and runtime verification remain open.
   - Version 1.3.0 (2026-09-24): Aligned optional verified contact and linked the concrete proposed Credential confirmation contract in 07 §3 and persistence in 09 §6.
@@ -134,7 +136,7 @@ this document listed `Role` here, which was not supported by
 **Child Value Objects**: AccessTokenId, RefreshToken
 
 **Independent Lifecycle**:
-- Created → Authenticated → Active → Suspended (optional) → Expired → Closed
+- Created → Authenticated → Active → Suspended (future) → Expired or Closed
 - Sessions are temporary; they have no effect on Person identity or Membership status
 
 ---
@@ -163,14 +165,14 @@ this document listed `Role` here, which was not supported by
 
 Session is modeled as an independent Aggregate because:
 
-- It owns an independent lifecycle (Created → Authenticated → Active → Suspended (optional) → Expired → Closed)
+- It owns an independent lifecycle (Created → Authenticated → Active → Suspended (future) → Expired or Closed)
 - It may be revoked independently without affecting Person identity
 - Multiple sessions may exist for a single Person simultaneously
 - Session consistency is independent from Person consistency
 - Session expiration SHALL NOT affect Person identity or Membership status
 - Sessions represent temporary execution context, distinct from identity ownership
 
-**Design Consequence**: Session changes do not cascade to Person. Person changes do not invalidate Sessions. Each maintains independent state.
+**Design Consequence**: Session changes do not cascade to Person persistence. Person changes do not automatically mutate Session rows; authentication and refresh still enforce the current Person/readiness/Credential gates in 04. This does not authorize an inactive Person to refresh, or decide the separately proposed SESSION revocation policy. Each Aggregate maintains its own state.
 
 ---
 
@@ -324,3 +326,17 @@ silent about a decision it has been named as the owner of:
 ## Integrated contract alignment
 
 The proposed persistence and confirmation contracts are now defined in 09 §6 and 07 §3. Their documentation does not establish runtime compliance. All generation gates in 12 remain open. Profile mutation changes DisplayName only; contact mutation requires separate governance.
+
+# 12. Explicit invariant and relationship mapping
+
+This table indexes existing model and persistence rules to satisfy the per-Aggregate declarations in 064 §8.4; it does not adopt future lifecycle Commands, SESSION policy or a new cross-Aggregate exception. Root, purpose, owned entities and Value Objects are defined individually in §§2–6.
+
+| Root | Existing invariants | Consistency boundary | Relationships |
+|---|---|---|---|
+| Person | Immutable PersonId; exactly one verified Email/Mobile; unique canonical contact; DisplayName policy, 01 §§2/6 and 09 §4 | Person mutation/event local transaction; initial registration only through proposed 09 §5.1 exception | Personal Organization through Owner Membership; Session/Credential reference PersonId; workflow is application-owned, §9.1 |
+| Organization | Immutable root identity; Personal category and direct Active initialization in MVP; resources remain Organization-owned, 01/057/ADR-0003 | Own Repository; initial creation joins proposed registration ownership UoW only | Person participation through Membership; no Person-owned Resource shortcut |
+| Membership | Immutable identity; valid Person/Organization references; one initial Owner/Active Membership, 01/057 and 09 §4 | Own Repository; initial creation joins proposed registration UoW only | Connects Person to Organization; Role is plain attribute, not Value Object or Aggregate |
+| Session | Immutable SessionId/Person binding; Active eligibility and absolute expiry; one winning terminal transition; refresh retains Session identity, 01/04/06 | Local Session/token state and event transaction; no Person/ownership cascade | References Person; eligibility reads current workflow/Credential; no business Membership permission inferred from login |
+| Credential | Immutable instance identity; at most one active Credential; immutable initial winner and guarded mutation, 01 §11 / 09 §§4/11 | Credential-local mutation and event transaction; confirmation/Ready/ack use separate stores/transactions | References Person; initial outcome bound to registration; does not own Person or Session identity |
+
+Supporting records remain supporting only while their lifecycle/invariants/transactional requirements can be owned by the stated boundary. A future independently governed child/Aggregate decision belongs here and in 01 before persistence adopts it; more fields alone do not authorize promotion. Proposed S2 family ownership and password-change coordination still require that review.

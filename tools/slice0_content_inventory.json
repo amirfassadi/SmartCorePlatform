@@ -1,0 +1,492 @@
+{
+  "standard": "064 v1.1.4 section 8 / 065 v1.1 section 5",
+  "method": "Reviewed document-level locator inventory. A locator confirms only the cited text exists; not semantic satisfaction or per-instance completeness. Exact headings are local evidence, not prescribed standard titles.",
+  "documents": [
+    {
+      "document": "00_Overview.md",
+      "source": "064 8.1",
+      "requirements": [
+        {
+          "requirement": "purpose",
+          "locator": "Purpose and boundary"
+        },
+        {
+          "requirement": "boundaries",
+          "locator": "Identity owns"
+        },
+        {
+          "requirement": "architectural intent",
+          "locator": "Authentication and authorization are separate"
+        },
+        {
+          "requirement": "terminology",
+          "locator": "PendingCredential"
+        },
+        {
+          "requirement": "external dependencies",
+          "locator": "Dependencies"
+        }
+      ]
+    },
+    {
+      "document": "01_Domain_Model.md",
+      "source": "064 8.2",
+      "requirements": [
+        {
+          "requirement": "entities",
+          "locator": "# 2. Entities"
+        },
+        {
+          "requirement": "value objects",
+          "locator": "# 3. Value Objects"
+        },
+        {
+          "requirement": "relationships",
+          "locator": "## Relationships"
+        },
+        {
+          "requirement": "aggregate definitions",
+          "locator": "# 4. Aggregate Definitions"
+        },
+        {
+          "requirement": "aggregate boundaries",
+          "locator": "independent lifecycle boundaries"
+        },
+        {
+          "requirement": "aggregate lifecycle",
+          "locator": "# 5. Aggregate Lifecycles"
+        },
+        {
+          "requirement": "conditional domain services",
+          "locator": "# 7. Domain Services"
+        }
+      ]
+    },
+    {
+      "document": "02_Use_Cases.md",
+      "source": "064 8.3",
+      "requirements": [
+        {
+          "requirement": "goal",
+          "locator": "Case and actor"
+        },
+        {
+          "requirement": "actors",
+          "locator": "Case and actor"
+        },
+        {
+          "requirement": "preconditions",
+          "locator": "Preconditions / main flow"
+        },
+        {
+          "requirement": "main flow",
+          "locator": "Preconditions / main flow"
+        },
+        {
+          "requirement": "alternative flows",
+          "locator": "# 3. Interrupted registration"
+        },
+        {
+          "requirement": "failure conditions",
+          "locator": "Result and failures"
+        },
+        {
+          "requirement": "postconditions",
+          "locator": "Result and failures"
+        }
+      ]
+    },
+    {
+      "document": "03_Aggregates.md",
+      "source": "064 8.4",
+      "requirements": [
+        {
+          "requirement": "aggregate root",
+          "locator": "Aggregate Root"
+        },
+        {
+          "requirement": "purpose",
+          "locator": "Root Entity Responsibilities"
+        },
+        {
+          "requirement": "owned entities",
+          "locator": "Child Entities"
+        },
+        {
+          "requirement": "value objects",
+          "locator": "Child Value Objects"
+        },
+        {
+          "requirement": "invariants",
+          "locator": "single-active-Credential constraint"
+        },
+        {
+          "requirement": "consistency boundary",
+          "locator": "Consistency Boundary"
+        },
+        {
+          "requirement": "relationships to aggregates",
+          "locator": "Person identity persists"
+        }
+      ]
+    },
+    {
+      "document": "04_Commands.md",
+      "source": "064 8.5",
+      "requirements": [
+        {
+          "requirement": "name",
+          "locator": "## 4.1 RegisterPerson"
+        },
+        {
+          "requirement": "purpose",
+          "locator": "# 1. Overview"
+        },
+        {
+          "requirement": "input",
+          "locator": "Input:"
+        },
+        {
+          "requirement": "validation",
+          "locator": "Validation:"
+        },
+        {
+          "requirement": "authorization requirements",
+          "locator": "Self only"
+        },
+        {
+          "requirement": "aggregate interaction",
+          "locator": "# 3. Coordination"
+        },
+        {
+          "requirement": "domain events produced",
+          "locator": "# 5. Events and ownership"
+        },
+        {
+          "requirement": "failure conditions",
+          "locator": "Invalid/expired proof"
+        }
+      ]
+    },
+    {
+      "document": "05_Queries.md",
+      "source": "064 8.6",
+      "requirements": [
+        {
+          "requirement": "purpose",
+          "locator": "read-only Queries"
+        },
+        {
+          "requirement": "input",
+          "locator": "Input and authorization"
+        },
+        {
+          "requirement": "output",
+          "locator": "Output"
+        },
+        {
+          "requirement": "filtering",
+          "locator": "Filtering / ordering / pagination"
+        },
+        {
+          "requirement": "sorting",
+          "locator": "CreatedAt descending then SessionId ascending"
+        },
+        {
+          "requirement": "pagination",
+          "locator": "no pagination"
+        },
+        {
+          "requirement": "security requirements",
+          "locator": "authenticated Session"
+        }
+      ]
+    },
+    {
+      "document": "06_Domain_Events.md",
+      "source": "064 8.7",
+      "requirements": [
+        {
+          "requirement": "event name",
+          "locator": "## 4.2 PersonRegistered"
+        },
+        {
+          "requirement": "trigger",
+          "locator": "transition to Ready"
+        },
+        {
+          "requirement": "payload",
+          "locator": "### Payload"
+        },
+        {
+          "requirement": "producer",
+          "locator": "**Producer**"
+        },
+        {
+          "requirement": "consumers",
+          "locator": "Consumers SHALL"
+        },
+        {
+          "requirement": "ordering requirements",
+          "locator": "# 6. Event Ordering"
+        },
+        {
+          "requirement": "idempotency considerations",
+          "locator": "deduplicating EventId"
+        }
+      ]
+    },
+    {
+      "document": "07_Contracts.md",
+      "source": "064 8.8",
+      "requirements": [
+        {
+          "requirement": "public transport-independent service contracts",
+          "locator": "transport-independent service and message contracts"
+        },
+        {
+          "requirement": "interoperability",
+          "locator": "# 5. Event integration contract"
+        },
+        {
+          "requirement": "separation from client APIs",
+          "locator": "not part of public OpenAPI"
+        }
+      ]
+    },
+    {
+      "document": "08_API.md",
+      "source": "064 8.9",
+      "requirements": [
+        {
+          "requirement": "client-facing transport endpoints",
+          "locator": "POST /auth/register"
+        },
+        {
+          "requirement": "contracts implemented where applicable",
+          "locator": "service"
+        },
+        {
+          "requirement": "separation from interoperability",
+          "locator": "restricted internal service contracts in 07"
+        }
+      ]
+    },
+    {
+      "document": "09_Persistence.md",
+      "source": "064 8.10",
+      "requirements": [
+        {
+          "requirement": "aggregate persistence",
+          "locator": "Persist all attributes in 01"
+        },
+        {
+          "requirement": "repository boundaries",
+          "locator": "# 2. Repository boundary"
+        },
+        {
+          "requirement": "transactions",
+          "locator": "# 5. Core ownership transaction"
+        },
+        {
+          "requirement": "concurrency",
+          "locator": "optimistic concurrency"
+        },
+        {
+          "requirement": "indexes",
+          "locator": "Unique normalized email"
+        },
+        {
+          "requirement": "soft delete",
+          "locator": "Soft deletion/cancellation"
+        },
+        {
+          "requirement": "auditing",
+          "locator": "audit journal"
+        },
+        {
+          "requirement": "encryption",
+          "locator": "encrypted at rest"
+        }
+      ]
+    },
+    {
+      "document": "10_Configuration.md",
+      "source": "064 8.11",
+      "requirements": [
+        {
+          "requirement": "feature flags",
+          "locator": "Feature flags"
+        },
+        {
+          "requirement": "default values",
+          "locator": "# 1. Proposed defaults"
+        },
+        {
+          "requirement": "environment settings",
+          "locator": "# 2. Deployment configuration"
+        },
+        {
+          "requirement": "policy references",
+          "locator": "Operational policy gates"
+        },
+        {
+          "requirement": "timeout values",
+          "locator": "dependencyTimeoutSeconds"
+        },
+        {
+          "requirement": "conditional retry policies",
+          "locator": "provisioningMaxAttempts"
+        }
+      ]
+    },
+    {
+      "document": "11_Security.md",
+      "source": "064 8.12",
+      "requirements": [
+        {
+          "requirement": "authentication",
+          "locator": "# 1. Authentication and authorization"
+        },
+        {
+          "requirement": "authorization",
+          "locator": "minimum purpose scopes"
+        },
+        {
+          "requirement": "secrets",
+          "locator": "# 2. Secret lifecycle"
+        },
+        {
+          "requirement": "encryption",
+          "locator": "authenticated encryption"
+        },
+        {
+          "requirement": "key management",
+          "locator": "Key rotation"
+        },
+        {
+          "requirement": "privacy requirements",
+          "locator": "# 4. Data minimization and audit"
+        },
+        {
+          "requirement": "sensitive data handling",
+          "locator": "ContactValue and execution metadata are personal data"
+        },
+        {
+          "requirement": "threat considerations",
+          "locator": "Threats:"
+        },
+        {
+          "requirement": "conditional platform security references",
+          "locator": "platform security approval"
+        }
+      ]
+    },
+    {
+      "document": "12_Validation.md",
+      "source": "064 8.13",
+      "requirements": [
+        {
+          "requirement": "input validation",
+          "locator": "Transport shape/size"
+        },
+        {
+          "requirement": "business validation",
+          "locator": "Domain rules:"
+        },
+        {
+          "requirement": "cross-field validation",
+          "locator": "reject null/unknown fields"
+        },
+        {
+          "requirement": "cross-aggregate validation",
+          "locator": "ownership invariants"
+        },
+        {
+          "requirement": "error messages",
+          "locator": "without leaking account state externally"
+        },
+        {
+          "requirement": "validation order",
+          "locator": "# 1. Validation order"
+        },
+        {
+          "requirement": "domain/policy/infrastructure distinction",
+          "locator": "Policy (length, retry/time bounds), domain (ownership/readiness) and infrastructure"
+        }
+      ]
+    },
+    {
+      "document": "13_Testing.md",
+      "source": "064 8.14",
+      "requirements": [
+        {
+          "requirement": "unit testing",
+          "locator": "Domain/unit"
+        },
+        {
+          "requirement": "aggregate testing",
+          "locator": "| Aggregate |"
+        },
+        {
+          "requirement": "domain service testing",
+          "locator": "| Service |"
+        },
+        {
+          "requirement": "integration testing",
+          "locator": "| Integration |"
+        },
+        {
+          "requirement": "event testing",
+          "locator": "| Event |"
+        },
+        {
+          "requirement": "security testing",
+          "locator": "| Security |"
+        },
+        {
+          "requirement": "acceptance criteria",
+          "locator": "Required observation"
+        }
+      ]
+    },
+    {
+      "document": "14_MVP.md",
+      "source": "064 8.15",
+      "requirements": [
+        {
+          "requirement": "MVP feature classification",
+          "locator": "# 1. MVP features"
+        },
+        {
+          "requirement": "future feature classification",
+          "locator": "# 3. Future scope"
+        }
+      ]
+    },
+    {
+      "document": "15_Extensibility.md",
+      "source": "064 8.16",
+      "requirements": [
+        {
+          "requirement": "supported evolution paths",
+          "locator": "# 1. Governed extension points"
+        }
+      ]
+    },
+    {
+      "document": "16_Examples.md",
+      "source": "064 8.17",
+      "requirements": [
+        {
+          "requirement": "informative scenarios",
+          "locator": "Informative mobile-only registration"
+        },
+        {
+          "requirement": "no additional requirements",
+          "locator": "informative"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "platformInput": "5ea92766f480fc8d16bc337272b4595078fe3112",
+  "identityInput": "ee9ffb767ed84165557793d8583b0750d887027b",
+  "output": "containing commit; relevant artifact/source hashes are in companion inventories",
+  "focusedContractChecks": {
+    "checks": 557,
+    "passed": 557,
+    "failed": 0
+  },
+  "focusedContractEvidence": "Identity_Field_Check_Result.json",
+  "focusedEvidenceHashUnchanged": true,
+  "packageHelper": {
+    "checks": 433,
+    "passed": 433,
+    "command": "python tools/check_identity_blueprint.py"
+  },
+  "structuralSubset": {
+    "PASS": 297,
+    "WARN": 6,
+    "INFO": 97
+  },
+  "structuralEvidence": "Identity_Slice0_Structural_Result.json",
+  "negativeControls": [
+    {
+      "case": "missing-heading",
+      "exit": 1,
+      "fails": [
+        [
+          "S4h",
+          "FAIL",
+          "05_Queries has section headings"
+        ]
+      ]
+    },
+    {
+      "case": "broken-dependency",
+      "exit": 1,
+      "fails": [
+        [
+          "S4-dependency-target",
+          "FAIL",
+          "05_Queries: dependency 064_MISSING_STANDARD resolves exactly once"
+        ]
+      ]
+    },
+    {
+      "case": "broken-schema-pointer",
+      "exit": 1,
+      "fails": [
+        [
+          "S4-machine-ref",
+          "FAIL",
+          "machine schema: events.schema.json#/$defs/MISSING_EVENT"
+        ]
+      ]
+    },
+    {
+      "case": "duplicate-command",
+      "exit": 1,
+      "fails": [
+        [
+          "S9-identifiers",
+          "FAIL",
+          "machine commands: nonempty unique name"
+        ]
+      ]
+    }
+  ],
+  "changedMarkdownRelativeLinks": {
+    "checked": 57,
+    "missing": []
+  },
+  "not_checked": [
+    "Complete 064/065 gate satisfaction, architectural/security owner acceptance and consumer compatibility",
+    "Runtime/database/crash/race/cryptography/production behavior",
+    "Remote links and Markdown anchor target semantics"
+  ]
+}
