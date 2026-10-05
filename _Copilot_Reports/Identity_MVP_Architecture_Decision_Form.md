@@ -1,6 +1,6 @@
 # Identity MVP and Architecture Owner Decision Form
 
-**Version:** 0.3.1 Draft  
+**Version:** 0.3.2 Draft  
 **Status:** Unsigned; not effective  
 **Purpose:** Prepare owner decisions P01, P04, P05, and P06 and record the MVP scope that those decisions govern.  
 **Decision authority:** Amir (@amirfassadi), project and architecture owner, under SmartCorePlatform 051 §7.  
@@ -25,7 +25,7 @@ Maintain one Identity capability Blueprint for the scoped Identity MVP and deliv
 4. Permit login and Session issuance only after registration reaches Ready.
 5. Support refresh and logout under the SESSION policy once accepted and propagated.
 6. Allow a Person to view their profile and own Sessions, edit DisplayName, and change password after verifying the current password; a successful password change closes all Sessions and refresh families.
-7. Provide a minimal password-recovery/reset flow before public self-service onboarding. Implement it after core registration and login if delivery phasing requires, but do not treat it as an indefinite post-MVP omission. Require the same verified-contact proof protections, non-enumerating responses, expiry/rate limits, and binding controls; on successful reset, revoke all Sessions and refresh families. This expands the current Blueprint/ADR scope and requires explicit security, event, and contract review before acceptance. Do not invent a new public event; explicitly decide whether the existing `PasswordChanged` fact covers reset and what non-sensitive reason, if any, may be recorded.
+7. Provide a minimal password-recovery/reset flow before public self-service onboarding. Implement it after core registration and login if delivery phasing requires, but do not treat it as an indefinite post-MVP omission. Require the same verified-contact proof protections, non-enumerating responses, expiry/rate limits, and binding controls; on successful reset, revoke all Sessions and refresh families. Security review must explicitly assess recycled mobile numbers: control of a reassigned number does not prove that its current holder is the former account owner. Define how reset is protected when SMS is the only verified channel; evaluate a bounded cooling/expiry policy, notification to other independently verified channels, and a controlled recovery path where no alternate channel exists. This expands the current Blueprint/ADR scope and requires explicit security, event, and contract review before acceptance. Do not invent a new public event; explicitly decide whether the existing `PasswordChanged` fact covers reset and what non-sensitive reason, if any, may be recorded.
 
 ### Out of scope for this Identity MVP
 
@@ -54,6 +54,8 @@ Contact entry disposition:
 Password recovery disposition:
 - [ ] Include minimal verified-contact reset in the Identity MVP product scope, delivered after core registration/login and before public self-service onboarding; successful reset revokes all Sessions/families.
 - [ ] Defer beyond MVP release; record release limitation and target milestone: ______________________________.
+
+Security review evidence for reset must address recycled mobile numbers, including accounts with no alternate verified channel: ______________________________.
 
 Password event disposition (no new public event is implied):
 - [ ] The existing `PasswordChanged` event covers successful ChangePassword and password reset; update its contract/example and add only a reviewed non-sensitive cause discriminator if needed.
