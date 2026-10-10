@@ -1,7 +1,7 @@
 <!--
 Document ID: ID-06
 Title: SmartCore Identity Platform Blueprint - Domain Events
-Version: 1.3.3
+Version: 1.3.4
 Status: DRAFT
 
 Purpose:
@@ -822,3 +822,9 @@ Ready acknowledgment and administrative audit are internal service/journal recor
 The API registration client/BFF is not an Event subscriber merely because it uses Identity. Examples of Business/Resource/Finance/IoT consumption in 060/063 are architectural illustrations, not verified deployment inventory. Any future subscriber must declare version, required transition/latest-state semantics, replay, durable deduplication, access classification and incident ownership before admission. LoginFailed additionally requires restricted security-audit authorization under 11; platform-wide Identity dependence is not access to its ContactValue/ExecutionContext.
 
 Ordering and idempotency remain those in §6 and 07/09. T16/S2 candidate details do not become active Event fields or delivery acceptance through this registry.
+
+## Owner-selected reset authentication context — 2026-10-10
+
+Amir (@amirfassadi), architecture owner, selects retaining PasswordChanged for confirmed password reset. Schema version 1.2.2 preserves the existing Credential/Person payload and requires exactly one context: SessionReference for authenticated password change, or ExecutionContext.RecoveryProofReference for dual-proof reset. RecoveryProofReference is the accepted ResetPassword operation/intent UUID, not the OTP challenge, raw proof, recovery code or a Session. ActorIdentity is the verified Person and CorrelationId remains required. No password, token, code, verifier or hash is admitted. Both/neither authentication contexts are invalid. The original per-event SessionReference wording applies to authenticated change; this paragraph defines its reset alternative.
+
+This owner-selected contract extension does not authorize a main merge or production release. Identity must pin the byte-preserved schema from the commit that first records this extension, with its source SHA and schema version. Runtime validators and fixtures must exercise both branches and reject ambiguous/missing context.
