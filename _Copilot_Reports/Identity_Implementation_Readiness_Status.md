@@ -1,5 +1,8 @@
 # Identity implementation readiness — current work and remaining entry conditions
 
+> **2026-10-09 execution update:** The owner explicitly directed backend/database implementation. [Execution directive](Identity_Backend_Execution_Directive_2026-10-09.md) records the scope and first internal registration delivery. The previous no-code snapshot below remains historical; full MVP/generation/production readiness has not been asserted.
+
+
 Version: 0.1.0 — 2026-10-04 (Asia/Tehran)
 Status: NOT READY FOR IMPLEMENTATION / generationAllowed remains false.
 Platform input: `5ea92766f480fc8d16bc337272b4595078fe3112`; Identity input: `ee9ffb767ed84165557793d8583b0750d887027b`. Reviewed output is the containing Platform commit; subsequent Identity publication references it explicitly. Main branches are not merged.
