@@ -18,7 +18,7 @@ it rather than being replaced by a hand-maintained imitation.
 
 - Business repository:
   `codex/business-domain-validation` at
-  `b0dc2391ee801a3ce20080b1933d300fab6d259a`
+  `193353807d44fdbaaf15a24a0a6b5fdc0d7b05d6`
 - Capability repository:
   `codex/business-capability-validation` at
   `b9904e53f85be43b269b6ea56f4661982cec0f76`
@@ -29,7 +29,7 @@ it rather than being replaced by a hand-maintained imitation.
 $root = Join-Path $env:TEMP "smartcore-reviewed-restore"
 Remove-Item $root -Recurse -Force -ErrorAction SilentlyContinue
 git clone https://github.com/amirfassadi/SmartCoreBusiness.git "$root/SmartCoreBusiness"
-git -C "$root/SmartCoreBusiness" checkout --detach b0dc2391ee801a3ce20080b1933d300fab6d259a
+git -C "$root/SmartCoreBusiness" checkout --detach 193353807d44fdbaaf15a24a0a6b5fdc0d7b05d6
 git clone https://github.com/amirfassadi/SmartCoreBusinessCapability.git "$root/SmartCoreBusinessCapability"
 git -C "$root/SmartCoreBusinessCapability" checkout --detach b9904e53f85be43b269b6ea56f4661982cec0f76
 node --version

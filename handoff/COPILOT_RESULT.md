@@ -3,7 +3,7 @@
 ## Review branches and commits
 
 - SmartCoreBusiness: `codex/business-domain-validation`, commit
-  `b0dc2391ee801a3ce20080b1933d300fab6d259a`.
+  `193353807d44fdbaaf15a24a0a6b5fdc0d7b05d6`.
 - SmartCoreBusinessCapability:
   `codex/business-capability-validation`, commit
   `b9904e53f85be43b269b6ea56f4661982cec0f76`.
@@ -56,7 +56,7 @@ Verified remote main:
 
 ## Commands and results
 
-- Business domain suite: `npm test` from `SmartCoreBusiness`, 12/12 passed.
+- Business domain suite: `npm test` from `SmartCoreBusiness`, 17/17 passed.
 - BusinessCapability domain suite: `npm test` from
   `SmartCoreBusinessCapability`, 10/10 passed, including the actual implementation
   cross-repository integration test.
@@ -121,7 +121,10 @@ assignment.
 
 ## Next runnable milestone
 
-Implement one accepted persistence contract for Business creation and localized
-profile only: choose a repository port, migration technology and real category
-lookup adapter, without adding lifecycle transitions or Identity authorization
-before those decisions are approved.
+Prepare a storage-mapping decision proposal for the stable versioned Business
+record: evaluate table/document ownership for locale-independent profile,
+canonical profile translations, supported/default locales and capability activation
+values, together with duplicate-ID, missing-record, identity and mutation semantics
+for a future durable adapter. Keep SQL technology, migration mechanism, lifecycle,
+Money/currency, slug uniqueness, category persistence and authorization policies
+as explicitly unresolved implementation choices.

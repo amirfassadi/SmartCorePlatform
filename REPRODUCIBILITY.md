@@ -4,7 +4,7 @@
 
 | Repository | Review branch | Implementation SHA | Role |
 | --- | --- | --- | --- |
-| https://github.com/amirfassadi/SmartCoreBusiness | `codex/business-domain-validation` | `b0dc2391ee801a3ce20080b1933d300fab6d259a` | Canonical Business foundation, repository/application flow and locale/profile projection |
+| https://github.com/amirfassadi/SmartCoreBusiness | `codex/business-domain-validation` | `193353807d44fdbaaf15a24a0a6b5fdc0d7b05d6` | Canonical Business foundation, atomic repository/application flow and locale/profile projection |
 | https://github.com/amirfassadi/SmartCoreBusinessCapability | `codex/business-capability-validation` | `b9904e53f85be43b269b6ea56f4661982cec0f76` | Canonical Service semantics, category adapter and sibling integration |
 | https://github.com/amirfassadi/SmartCorePlatform | `codex/unified-console` | PR #12 final review head | Console, ownership, workspace, restoration and implementation handoff |
 | https://github.com/amirfassadi/SmartCoreIdentity | development review branch/commit | `619c7583f94597a5f662704c981ec5d7ebf69816` | Development Identity UI and implementation review evidence |
