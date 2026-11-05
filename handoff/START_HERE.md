@@ -1,93 +1,68 @@
-# SmartCore: one workspace, two AI roles
+# SmartCore corrected foundation handoff
 
-## Open this workspace
+## Primary workspace
 
-`E:/miranco.project/SmartCore-unified/SmartCorePlatform/SmartCore-unified.code-workspace`
+Open the full workspace:
 
-It contains the three isolated continuation checkouts. Keep using these paths;
-the older `E:/miranco.project/SmartCorePlatform` trees are preserved evidence, not
-the starting point for the new UI work. KimiaBeauty is postponed.
+`E:/miranco.project/SmartCorePlatform/SmartCorePlatform_VSCode_Workspace/SmartCorePlatform.corrected.code-workspace`
 
-| Source | Current branch | GitHub review |
-| --- | --- | --- |
-| Platform and console | `codex/unified-console` | https://github.com/amirfassadi/SmartCorePlatform/pull/12 |
-| Identity implementation | `codex/unified-identity-ui` | https://github.com/amirfassadi/SmartCoreIdentity/pull/8 |
-| SmartCoreServiceBusiness legacy/reference UI | `codex/unified-business-ui` | https://github.com/amirfassadi/SmartCoreServiceBusiness/pull/1; visual/reference only |
+It contains the canonical repositories and their labeled legacy, reconstructed and
+postponed views. The optional UI review workspace remains a separate three-repo view.
 
-Identity #8 is based on `review/identity-bff`, not main. All three requests are
-Draft; existing Identity and Platform contract/release dependencies still apply.
-Do not flatten histories or merge draft stacks to make the workspace look clean.
+## Canonical owners
 
-## What already works
+- SmartCoreBusiness: foundation, Business/profile/locale and activation data.
+- SmartCoreBusinessCapability: capability semantics, Service, ServiceCategory and
+  capability-owned read/write contracts.
+- SmartCoreIdentity: canonical Identity implementation.
+- SmartCoreServiceBusiness: selective reuse and optional visual reference only. Its
+  backend and schema are not the new Business foundation.
+- KimiaBeauty: postponed.
 
-- Shared original design, self-hosted Vazirmatn, Persian/English and RTL/LTR.
-- A console with distinct foundation/capability entries, search, categories, browser favorites,
-  light/dark preferences and responsive navigation.
-- Matching Identity account and Service Business interfaces with return links.
-- Actual local cross-app navigation, tested at desktop and 320/390px widths.
-- Production builds/type checks for all three; Business lint and 46 tests pass.
-- Identity's account UI fixture regression passes; it does not prove live backend
-  acceptance. Account preview is intentionally disabled in the final UI-only build.
-- Runtime dependency audits reported no vulnerabilities in the three apps.
-- Platform console and Business GitHub Actions passed. All six Identity source
-  workflows also passed at the exact UI commit. See `CI_SNAPSHOT.md`; reuse that
-  evidence while source is unchanged instead of repeating the whole stack.
+## Default runnable workflow
 
-## See the result
-
-Current preview: `http://127.0.0.1:4100/fa`, Identity `:4101`, Business `:4102`.
-If the processes have stopped, from the Platform checkout run:
+Run Console plus the existing Identity UI:
 
 ```powershell
+node tools/build-unified.mjs
 node tools/start-unified.mjs
 ```
 
-For a fresh checkout, install dependencies in `apps/console`,
-`../SmartCoreIdentity/web/identity` and `../SmartCoreServiceBusiness/frontend`:
+Default navigation:
+
+- Console: `http://127.0.0.1:4100/fa`
+- Identity UI: `http://127.0.0.1:4101`
+
+Legacy ServiceBusiness preview is opt-in:
 
 ```powershell
-npm ci --ignore-scripts
+node tools/build-unified.mjs --legacy-business-preview
+node tools/start-unified.mjs --legacy-business-preview
 ```
 
-Then use `node tools/build-unified.mjs` and `node tools/start-unified.mjs` from
-Platform. The scripts launch UIs only. No database or authentication is fabricated.
+Legacy preview is reference-only and is not a canonical Business operational link.
 
-## Copilot owns implementation
+## Exact implementation bases
 
-Paste `COPILOT_PROMPT.md` into Copilot Agent in the unified VS Code workspace.
-It should reuse the verified private Identity journey and define/implement the
-smallest console-to-account integration before adding new modules. Use Linux CI
-rather than losing the first
-session installing a Windows SDK/container stack. The source private runner
-requires Linux, .NET 10, Docker Compose, Python and OpenSSL; the Windows host had
-no `dotnet` or `docker` command during this audit. WSL's presence alone does not
-prove that a configured Linux distribution or Docker engine exists.
+- Business review branch `codex/business-domain-validation`, HEAD after domain/projection
+  work will be recorded in `COPILOT_RESULT.md`.
+- BusinessCapability review branch `codex/business-capability-validation`.
+- Console review branch `codex/unified-console`.
+- Identity unchanged review SHA `619c7583f94597a5f662704c981ec5d7ebf69816`.
+- Legacy UI review worktree SHA `2d087c5c6f7936ec2662a93a25a458efde8c91d4`.
+- Original legacy ServiceBusiness checkout remains separate from the UI review head.
 
-## Google AI Studio owns design proposals
+## Verified evidence scope
 
-Give it `GOOGLE_AI_STUDIO_PROMPT.md` together with `AI_STUDIO_CONTEXT.md`.
-The context is a curated public-source snapshot, not the entire workspace.
-Optional current screenshots are in the local visualizations output for this chat.
-AI Studio returns a design specification and proposed patches. Copilot reviews,
-applies and verifies those patches; both tools must not edit the same files at once.
+The current local evidence is limited to the in-memory Business and Capability
+suites, workspace roots, Console scripts and browser/build checks where source
+changed. Identity private-stack acceptance was not rerun. Reuse the unchanged
+Identity SHA above only as prior evidence. Do not present it as live-stack evidence
+from this task.
 
-Regenerate the context after source changes with:
+## Next bounded milestone
 
-```powershell
-python tools/build-ai-context.py
-```
-
-Never add `.env.local`, tokens, development inbox codes, customer data, session keys,
-database dumps or private deployment configuration to the context bundle.
-
-## Immediate priorities
-
-1. Verify the three PR heads against `CI_SNAPSHOT.md`. Reuse same-source successes;
-   fix any newly failing check rather than blindly rerunning the whole stack.
-2. Use the already verified private registration → sign-in → profile → logout
-   journey as the baseline. Rerun affected acceptance only after source changes.
-3. Define the smallest reviewed console-to-Identity authentication/context contract;
-   the current launcher is public and does not provide SSO or select an organization.
-4. Connect Service Business to its real API and verify business-scoped permission
-   behavior. Then add Reservation/Scheduling, followed by the remaining modules.
-5. Connect KimiaBeauty only after the platform paths are stable.
+Define and document the concrete persistence ports for this accepted creation
+slice only: Business/locale projection read/write, capability/locale projection
+read/write and category lookup. Storage technology, SQL migrations, HTTP and
+Identity authorization remain separate decisions.

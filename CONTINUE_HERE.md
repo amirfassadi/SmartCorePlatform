@@ -29,10 +29,13 @@ SmartCoreServiceBusiness بک‌اند اصلی نیست.
 ```powershell
 node tools/build-unified.mjs
 node tools/start-unified.mjs
+```
 
-For an explicit legacy-only visual preview, add:
-`node tools/build-unified.mjs --legacy-business-preview`
-`node tools/start-unified.mjs --legacy-business-preview`
+برای پیش‌نمایش فقط بصری ServiceBusiness، حالت اختیاری را صریح اضافه کنید:
+
+```powershell
+node tools/build-unified.mjs --legacy-business-preview
+node tools/start-unified.mjs --legacy-business-preview
 ```
 
 کنسول روی `http://127.0.0.1:4100/fa` و هویت روی پورت ۴۱۰۱ باز می‌شوند.

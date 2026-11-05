@@ -1,13 +1,13 @@
-# Copilot corrected-foundation handoff result
+# Copilot corrected-foundation contract handoff result
 
 ## Review branches and commits
 
 - SmartCoreBusiness: `codex/business-domain-validation`, commit
-  `ff26a32ae1da18ce68e033d95e771e3c99b26fac`.
+  `f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687`.
 - SmartCoreBusinessCapability:
   `codex/business-capability-validation`, commit
-  `5764d5c7b235c5b8d8551a48dea84acac698aa30`.
-- Unified console: `codex/unified-console`, base/head before this result commit
+  `9ea30194293a25828bb82d46d7bf8d499a2dab84`.
+- Unified console: `codex/unified-console`, base/head before this contract result commit
   `21951b04b7d0f3a1d6ef6d636162627834baf717`.
 - Unified console ownership correction commit:
   `03c5ba5` (to be followed by the result-record commit listed in Git status).
@@ -39,11 +39,28 @@ Verified remote main:
   by canonical module navigation and remains a visual/reference checkout.
 - Updated AI Studio and continuation prompts to distinguish SmartCoreBusiness
   from SmartCoreBusinessCapability and label ServiceBusiness as reference only.
+- Replaced loose positional locale parsing with Node `Intl.getCanonicalLocales`
+  in both domains; `iw`/`he`, malformed tags, scripts, regions and extensions are
+  covered consistently.
+- Added strict `activateCapability` Business-context preconditions and a
+  versioned JSON-safe capability/locale projection with validating restore.
+- Added Service read-context same-Business enforcement and same-Business category,
+  inactive snapshot, missing default translation and foreign category coverage.
+- Added an executable cross-repository integration test using the actual
+  SmartCoreBusiness and SmartCoreBusinessCapability implementations.
+- Added a parameterized workspace generator/template preserving all 16 roots.
 
 ## Commands and results
 
-- Business domain suite: `npm test`, 7/7 passed.
-- BusinessCapability domain suite: `npm test`, 6/6 passed.
+- Business domain suite: `npm test` from `SmartCoreBusiness`, 10/10 passed.
+- BusinessCapability domain suite: `npm test` from
+  `SmartCoreBusinessCapability`, 9/9 passed, including the actual implementation
+  cross-repository integration test.
+- Standards matrix covered canonical scripts/regions/extensions, `iw`/`he`,
+  malformed tags and JSON-safe projection restoration.
+- Workspace generator syntax:
+  `node tools/generate-corrected-workspace.mjs ...`; generated 16 roots with
+  labels/path semantics matching the local corrected workspace.
 - Console and workflow scripts passed `node --check`.
 - Corrected workspace: 16 folders, JSON valid, all resolved roots exist.
 - `node tools/build-unified.mjs`: Console and Identity production builds passed.
@@ -54,6 +71,8 @@ Verified remote main:
   Business states. Legacy preview was not run.
 - Identity private stack was not rerun. SHA `619c7583...` evidence remains prior
   CI evidence only and is reused at exact source SHA.
+- Handoff ZIP regenerated with a five-file explicit allowlist. The archive was
+  byte-verified against its current source files.
 
 ## Limitations
 

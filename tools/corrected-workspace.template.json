@@ -1,0 +1,30 @@
+{
+  "folders": [
+    { "name": "SmartCorePlatform — canonical checkout", "path": "{{platformRoot}}" },
+    { "name": "SmartCoreIdentity — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreIdentity" },
+    { "name": "SmartCoreIdentity — original legacy/reference checkout", "path": "{{originalIdentityRoot}}" },
+    { "name": "SmartCoreBusiness — canonical foundation", "path": "{{workspaceRoot}}/repos/SmartCoreBusiness" },
+    { "name": "SmartCoreBusinessCapability — canonical capabilities", "path": "{{workspaceRoot}}/repos/SmartCoreBusinessCapability" },
+    { "name": "SmartCoreInventory — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreInventory" },
+    { "name": "SmartCoreScheduling — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreScheduling" },
+    { "name": "SmartCoreReservation — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreReservation" },
+    { "name": "SmartCoreCommunication — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreCommunication" },
+    { "name": "SmartCoreTalk — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreTalk" },
+    { "name": "SmartCoreIOT — canonical repo", "path": "{{workspaceRoot}}/repos/SmartCoreIOT" },
+    { "name": "SmartCoreIOT — reconstructed local copy (not Git authority)", "path": "{{originalIotRoot}}" },
+    { "name": "Identity — development review view", "path": "{{unifiedIdentityRoot}}" },
+    { "name": "Unified Console — development view", "path": "{{unifiedConsoleRoot}}" },
+    { "name": "ServiceBusiness — legacy/reference reuse only", "path": "{{legacyServiceBusinessRoot}}" },
+    { "name": "KimiaBeauty — postponed consumer (not architecture)", "path": "{{workspaceRoot}}/repos/KimiaBeauty" }
+  ],
+  "settings": {
+    "files.encoding": "utf8",
+    "search.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/bin": true,
+      "**/obj": true
+    },
+    "git.autoRepositoryDetection": "subFolders"
+  }
+}

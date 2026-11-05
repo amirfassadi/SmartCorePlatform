@@ -12,6 +12,10 @@ SmartCoreServiceBusiness content is legacy visual/reference material only; it is
 
 SmartCoreBusiness is the foundation owner; SmartCoreBusinessCapability owns Service and other capability semantics.
 
+The domain slice is in-memory only. No SQL migration, HTTP API, production authorization or Money implementation is approved.
+
+SmartCoreServiceBusiness and legacy Business UI code may inform visual reuse only.
+
 
 ## Platform: packages/design/smartcore.css
 
@@ -2666,6 +2670,331 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+```
+
+
+## Business canonical foundation: src/domain/business.js
+
+```ts
+export class DomainValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "DomainValidationError";
+  }
+}
+
+export function normalizeLocale(locale) {
+  if (typeof locale !== "string") throw new DomainValidationError("locale must be a string");
+  const value = locale.trim();
+  if (!value) throw new DomainValidationError("locale must not be empty");
+  try {
+    const canonical = Intl.getCanonicalLocales(value.replace(/_/g, "-"));
+    if (canonical.length !== 1) throw new DomainValidationError(`malformed locale key: ${locale}`);
+    return canonical[0];
+  } catch (error) {
+    if (error instanceof DomainValidationError) throw error;
+    throw new DomainValidationError(`malformed locale key: ${locale}`);
+  }
+}
+
+export function createBusiness(input) {
+  if (!input || typeof input !== "object") throw new DomainValidationError("business input is required");
+  const defaultLocale = normalizeLocale(input.defaultLocale);
+  if (!Array.isArray(input.supportedLocales)) throw new DomainValidationError("supportedLocales must be an array");
+
+  const supportedLocales = [];
+  const supportedSet = new Set();
+  for (const locale of input.supportedLocales) {
+    const canonical = normalizeLocale(locale);
+    if (supportedSet.has(canonical)) throw new DomainValidationError(`duplicate supported locale: ${canonical}`);
+    supportedSet.add(canonical);
+    supportedLocales.push(canonical);
+  }
+  if (!input.id || !input.organizationId) throw new DomainValidationError("id and organizationId are required");
+  if (!supportedSet.has(defaultLocale)) throw new DomainValidationError("default locale must be supported");
+
+  const translations = {};
+  if (!Array.isArray(input.translations)) throw new DomainValidationError("translations must be an array for this creation slice");
+  for (const translation of input.translations) {
+    if (!translation || typeof translation !== "object") throw new DomainValidationError("invalid profile translation");
+    const locale = normalizeLocale(translation.locale);
+    if (!supportedSet.has(locale)) throw new DomainValidationError(`unsupported locale: ${locale}`);
+    if (Object.prototype.hasOwnProperty.call(translations, locale)) {
+      throw new DomainValidationError(`duplicate profile translation locale: ${locale}`);
+    }
+    if (!translation.displayName || typeof translation.displayName !== "string") {
+      throw new DomainValidationError(`displayName is required for locale: ${locale}`);
+    }
+    translations[locale] = Object.freeze({ ...translation, locale });
+  }
+  if (!Object.prototype.hasOwnProperty.call(translations, defaultLocale)) {
+    throw new DomainValidationError("restricted creation/public configuration requires the default-locale translation");
+  }
+
+  const capabilityKeys = new Set();
+  if (input.capabilities !== undefined) {
+    if (!Array.isArray(input.capabilities)) throw new DomainValidationError("capabilities must be an array of canonical activation keys");
+    for (const key of input.capabilities) {
+      if (typeof key !== "string" || !/^[A-Z][A-Z0-9_]*$/.test(key)) {
+        throw new DomainValidationError("malformed capability activation key");
+      }
+      capabilityKeys.add(key);
+    }
+  }
+  const activation = Object.freeze({
+    values: Object.freeze([...capabilityKeys]),
+    has: (key) => capabilityKeys.has(key),
+  });
+
+  return Object.freeze({
+    id: input.id,
+    organizationId: input.organizationId,
+    slug: input.slug,
+    classificationId: input.classificationId ?? null,
+    defaultLocale,
+    supportedLocales: Object.freeze(supportedLocales),
+    profile: Object.freeze({ id: input.profile?.id ?? null, contact: input.profile?.contact ?? null }),
+    translations: Object.freeze(translations),
+    capabilities: activation,
+  });
+}
+
+export function activateCapability(business, capabilityKey) {
+  if (!business || typeof business !== "object" || Array.isArray(business)) {
+    throw new DomainValidationError("valid Business context is required");
+  }
+  if (typeof business.id !== "string" || !business.id.trim()) {
+    throw new DomainValidationError("valid Business context requires id");
+  }
+  if (!Array.isArray(business.supportedLocales) || typeof business.defaultLocale !== "string") {
+    throw new DomainValidationError("malformed Business locale context");
+  }
+  normalizeLocale(business.defaultLocale);
+  if (!business.capabilities || typeof business.capabilities !== "object" || Array.isArray(business.capabilities)) {
+    throw new DomainValidationError("malformed Business capability context");
+  }
+  if (!Array.isArray(business.capabilities.values) || typeof business.capabilities.has !== "function") {
+    throw new DomainValidationError("malformed Business capability context");
+  }
+  if (!capabilityKey || typeof capabilityKey !== "string") throw new DomainValidationError("capabilityKey is required");
+  if (!/^[A-Z][A-Z0-9_]*$/.test(capabilityKey)) throw new DomainValidationError("malformed capability activation key");
+  const values = new Set(business.capabilities.values);
+  values.add(capabilityKey);
+  return Object.freeze({
+    ...business,
+    capabilities: Object.freeze({
+      values: Object.freeze([...values]),
+      has: (key) => values.has(key),
+    }),
+  });
+}
+
+export function toBusinessCapabilityProjection(business) {
+  if (!business || typeof business !== "object" || typeof business.id !== "string" || !business.id.trim()) {
+    throw new DomainValidationError("valid Business context is required for capability projection");
+  }
+  if (!Array.isArray(business.supportedLocales) || typeof business.defaultLocale !== "string") {
+    throw new DomainValidationError("malformed Business capability projection");
+  }
+  if (!business.capabilities || !Array.isArray(business.capabilities.values)) {
+    throw new DomainValidationError("malformed Business capability projection");
+  }
+  const supportedLocales = business.supportedLocales.map(normalizeLocale);
+  const values = [...new Set(business.capabilities.values)];
+  return Object.freeze({
+    version: 1,
+    businessId: business.id,
+    defaultLocale: normalizeLocale(business.defaultLocale),
+    supportedLocales: Object.freeze(supportedLocales),
+    capabilities: Object.freeze({
+      values: Object.freeze(values),
+    }),
+  });
+}
+
+export function fromBusinessCapabilityProjection(projection) {
+  if (!projection || typeof projection !== "object" || projection.version !== 1) {
+    throw new DomainValidationError("unsupported or malformed Business capability projection");
+  }
+  if (typeof projection.businessId !== "string" || !projection.businessId.trim()) {
+    throw new DomainValidationError("Business capability projection requires businessId");
+  }
+  if (!Array.isArray(projection.supportedLocales) || typeof projection.defaultLocale !== "string") {
+    throw new DomainValidationError("malformed Business locale projection");
+  }
+  if (!projection.capabilities || !Array.isArray(projection.capabilities.values) || projection.capabilities.has !== undefined) {
+    throw new DomainValidationError("malformed Business capability projection");
+  }
+  const supportedLocales = [];
+  const supportedSet = new Set();
+  for (const locale of projection.supportedLocales) {
+    const canonical = normalizeLocale(locale);
+    if (supportedSet.has(canonical)) throw new DomainValidationError(`duplicate supported locale: ${canonical}`);
+    supportedSet.add(canonical);
+    supportedLocales.push(canonical);
+  }
+  const defaultLocale = normalizeLocale(projection.defaultLocale);
+  if (!supportedSet.has(defaultLocale)) throw new DomainValidationError("default locale must be supported");
+  for (const key of projection.capabilities.values) {
+    if (typeof key !== "string" || !/^[A-Z][A-Z0-9_]*$/.test(key)) {
+      throw new DomainValidationError("malformed Business capability activation key");
+    }
+  }
+  const values = Object.freeze([...projection.capabilities.values]);
+  return Object.freeze({
+    id: projection.businessId,
+    defaultLocale,
+    supportedLocales: Object.freeze(supportedLocales),
+    capabilities: Object.freeze({
+      values,
+      has: (key) => values.includes(key),
+    }),
+  });
+}
+
+export function resolveProfileTranslation(business, requestedLocale) {
+  if (!business || typeof business !== "object") throw new DomainValidationError("Business context is required");
+  const defaultLocale = normalizeLocale(business.defaultLocale);
+  const translations = business.translations;
+  if (!translations || typeof translations !== "object" || Array.isArray(translations)) {
+    throw new DomainValidationError("invalid Business default-translation configuration");
+  }
+  if (!Object.prototype.hasOwnProperty.call(translations, defaultLocale)) {
+    throw new DomainValidationError("invalid Business default-translation configuration: default locale is missing");
+  }
+  const requested = requestedLocale === undefined || requestedLocale === null
+    ? defaultLocale
+    : normalizeLocale(requestedLocale);
+  return translations[requested] ?? translations[defaultLocale];
+}
+
+```
+
+
+## Business capability canonical owner: src/domain/service.js
+
+```ts
+export class CapabilityValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "CapabilityValidationError";
+  }
+}
+
+export function normalizeLocale(locale) {
+  if (typeof locale !== "string") throw new CapabilityValidationError("locale must be a string");
+  const value = locale.trim();
+  if (!value) throw new CapabilityValidationError("locale must not be empty");
+  try {
+    const canonical = Intl.getCanonicalLocales(value.replace(/_/g, "-"));
+    if (canonical.length !== 1) throw new CapabilityValidationError(`malformed locale key: ${locale}`);
+    return canonical[0];
+  } catch (error) {
+    if (error instanceof CapabilityValidationError) throw error;
+    throw new CapabilityValidationError(`malformed locale key: ${locale}`);
+  }
+}
+
+function requireActiveServiceSnapshot(business) {
+  const snapshot = business?.capabilities;
+  if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot)) {
+    throw new CapabilityValidationError("missing or malformed Business capability activation snapshot");
+  }
+  if (!Array.isArray(snapshot.values) || typeof snapshot.has !== "function") {
+    throw new CapabilityValidationError("malformed Business capability activation snapshot");
+  }
+  const allValuesValid = snapshot.values.every((value) => typeof value === "string" && /^[A-Z][A-Z0-9_]*$/.test(value));
+  if (!allValuesValid) throw new CapabilityValidationError("malformed Business capability activation keys");
+  if (!snapshot.values.includes("SERVICE") || snapshot.has("SERVICE") !== true) {
+    throw new CapabilityValidationError("SERVICE capability is inactive");
+  }
+}
+
+function requireCategory(categoryLookup, categoryId, businessId) {
+  if (!categoryLookup || typeof categoryLookup.lookup !== "function") {
+    throw new CapabilityValidationError("category lookup boundary is required");
+  }
+  const category = categoryLookup.lookup(categoryId, businessId);
+  if (!category || typeof category !== "object") throw new CapabilityValidationError("category does not exist");
+  if (category.id !== categoryId) throw new CapabilityValidationError("category identity mismatch");
+  if (category.businessId !== businessId) throw new CapabilityValidationError("category belongs to a foreign Business");
+  return Object.freeze({ ...category });
+}
+
+export function createService(input, business, categoryLookup) {
+  if (!input || typeof input !== "object") throw new CapabilityValidationError("service input is required");
+  if (!input.id) throw new CapabilityValidationError("service id is required");
+  if (!input.businessId) throw new CapabilityValidationError("businessId is required");
+  if (!business || typeof business !== "object" || !business.id) throw new CapabilityValidationError("Business context is required");
+  if (input.businessId !== business.id) throw new CapabilityValidationError("cross-business service is not allowed");
+  requireActiveServiceSnapshot(business);
+
+  if (!Array.isArray(business.supportedLocales)) throw new CapabilityValidationError("malformed Business supportedLocales");
+  if (!business.defaultLocale) throw new CapabilityValidationError("Business defaultLocale is required");
+  const supported = new Set();
+  for (const locale of business.supportedLocales) {
+    const canonical = normalizeLocale(locale);
+    if (supported.has(canonical)) throw new CapabilityValidationError(`duplicate Business supported locale: ${canonical}`);
+    supported.add(canonical);
+  }
+  const defaultLocale = normalizeLocale(business.defaultLocale);
+  if (!supported.has(defaultLocale)) throw new CapabilityValidationError("Business default locale is not supported");
+
+  if (!Number.isInteger(input.durationMinutes) || input.durationMinutes <= 0) {
+    throw new CapabilityValidationError("durationMinutes must be a positive integer");
+  }
+  if (typeof input.categoryId !== "string" || !input.categoryId.trim()) {
+    throw new CapabilityValidationError("categoryId is required");
+  }
+  requireCategory(categoryLookup, input.categoryId, business.id);
+
+  if (!Array.isArray(input.translations)) throw new CapabilityValidationError("translations must be an array");
+  const translations = {};
+  for (const translation of input.translations) {
+    if (!translation || typeof translation !== "object") throw new CapabilityValidationError("invalid service translation");
+    const locale = normalizeLocale(translation.locale);
+    if (!supported.has(locale)) throw new CapabilityValidationError(`unsupported locale: ${locale}`);
+    if (Object.prototype.hasOwnProperty.call(translations, locale)) {
+      throw new CapabilityValidationError(`duplicate service translation locale: ${locale}`);
+    }
+    if (!translation.name || typeof translation.name !== "string") {
+      throw new CapabilityValidationError(`name is required for locale: ${locale}`);
+    }
+    translations[locale] = Object.freeze({ ...translation, locale });
+  }
+  if (!Object.prototype.hasOwnProperty.call(translations, defaultLocale)) {
+    throw new CapabilityValidationError("service requires the Business default-locale translation");
+  }
+  return Object.freeze({
+    id: input.id,
+    businessId: business.id,
+    categoryId: input.categoryId,
+    slug: input.slug,
+    durationMinutes: input.durationMinutes,
+    priceContext: input.priceContext ?? null,
+    translations: Object.freeze(translations),
+  });
+}
+
+export function resolveServiceTranslation(service, business, requestedLocale) {
+  if (!service || !business) throw new CapabilityValidationError("service and Business context are required");
+  if (!service.businessId || !business.id) throw new CapabilityValidationError("service and Business identifiers are required");
+  if (service.businessId !== business.id) {
+    throw new CapabilityValidationError("service belongs to a foreign Business context");
+  }
+  const defaultLocale = normalizeLocale(business.defaultLocale);
+  if (!service.translations || typeof service.translations !== "object" || Array.isArray(service.translations)) {
+    throw new CapabilityValidationError("invalid Service default-translation configuration");
+  }
+  if (!Object.prototype.hasOwnProperty.call(service.translations, defaultLocale)) {
+    throw new CapabilityValidationError("invalid Service default-translation configuration: default locale is missing");
+  }
+  const requested = requestedLocale === undefined || requestedLocale === null
+    ? defaultLocale
+    : normalizeLocale(requestedLocale);
+  return service.translations[requested] ?? service.translations[defaultLocale];
 }
 
 ```
