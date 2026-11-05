@@ -29,8 +29,9 @@ Do not flatten histories or merge draft stacks to make the workspace look clean.
 - Identity's account UI fixture regression passes; it does not prove live backend
   acceptance. Account preview is intentionally disabled in the final UI-only build.
 - Runtime dependency audits reported no vulnerabilities in the three apps.
-- Platform console GitHub Actions completed successfully on the source and PR.
-  Recheck current Identity/Business runs before claiming their remote status.
+- Platform console and Business GitHub Actions passed. All six Identity source
+  workflows also passed at the exact UI commit. See `CI_SNAPSHOT.md`; reuse that
+  evidence while source is unchanged instead of repeating the whole stack.
 
 ## See the result
 
@@ -54,8 +55,9 @@ Platform. The scripts launch UIs only. No database or authentication is fabricat
 ## Copilot owns implementation
 
 Paste `COPILOT_PROMPT.md` into Copilot Agent in the unified VS Code workspace.
-It should inspect the current CI and establish one real private Identity journey
-before adding new modules. Use existing Linux CI rather than losing the first
+It should reuse the verified private Identity journey and define/implement the
+smallest console-to-account integration before adding new modules. Use Linux CI
+rather than losing the first
 session installing a Windows SDK/container stack. The source private runner
 requires Linux, .NET 10, Docker Compose, Python and OpenSSL; the Windows host had
 no `dotnet` or `docker` command during this audit. WSL's presence alone does not
@@ -80,10 +82,10 @@ database dumps or private deployment configuration to the context bundle.
 
 ## Immediate priorities
 
-1. Verify the three PR heads and CI. Fix any newly failing check.
-2. Demonstrate real private registration → explicit sign-in → profile → logout
-   using the existing Identity/BFF/PostgreSQL runner and acceptance tests, with no
-   SMS/email provider. Record the exact commit and test evidence.
+1. Verify the three PR heads against `CI_SNAPSHOT.md`. Reuse same-source successes;
+   fix any newly failing check rather than blindly rerunning the whole stack.
+2. Use the already verified private registration → sign-in → profile → logout
+   journey as the baseline. Rerun affected acceptance only after source changes.
 3. Define the smallest reviewed console-to-Identity authentication/context contract;
    the current launcher is public and does not provide SSO or select an organization.
 4. Connect Service Business to its real API and verify business-scoped permission

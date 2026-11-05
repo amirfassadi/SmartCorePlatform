@@ -6,6 +6,7 @@ next concrete milestone; do not restart the frontend or perform another broad au
 Read these files first:
 
 - `E:/miranco.project/SmartCore-unified/SmartCorePlatform/handoff/START_HERE.md`
+- `E:/miranco.project/SmartCore-unified/SmartCorePlatform/handoff/CI_SNAPSHOT.md`
 - `E:/miranco.project/SmartCore-unified/SmartCorePlatform/CONTINUE_HERE.md`
 - `E:/miranco.project/SmartCore-unified/SmartCorePlatform/docs/continuation/VERIFICATION.md`
 - Applicable AGENTS.md instructions, if any.
@@ -31,13 +32,17 @@ self-hosted Vazirmatn, module discovery, filters/favorites and a light/dark cons
 Do not install a dashboard template, copy template authentication or fabricate
 dashboard metrics, users, businesses or operational module readiness.
 
-NEXT MILESTONE: establish a repeatable, real private Identity journey and define
-the next console integration boundary.
+NEXT MILESTONE: reuse the verified private Identity journey, define the explicit
+console-to-Identity account/organization-context contract, and implement the
+smallest connection already supported by approved contracts.
 
 Execute in this order:
 
-1. Inspect the current checks on all three PRs. Fix any failing UI build, test or
-   security regression first. Do not treat historical CI as evidence for a new SHA.
+1. Inspect the current checks and compare the exact source SHAs to CI_SNAPSHOT.md.
+   Identity's `619c758` already passed all six source workflows, and Business's
+   `2d087c5` passed frontend CI. Reuse valid unchanged-source evidence. Do not rerun
+   the whole stack or rebuild a private environment just to repeat these results.
+   Fix any new failure and do not apply earlier evidence to changed source.
 2. In Identity, read `docs/implementation/PRIVATE_WORKSPACE.md`, `PR_STACK.md`,
    `RELEASE_GATES.md`, `BFF_BROWSER_ACCOUNTS.md`, `BFF_BROWSER_REGISTRATION.md` and
    `BFF_BROWSER_RECOVERY.md`. Reuse their runner and tests; preserve the existing
@@ -49,9 +54,10 @@ Execute in this order:
    a global toolchain. If a configured WSL/Linux environment is already available,
    use it with the documented isolated runner. Do not touch an unrelated database,
    production VPS, certificate trust store or operating-system service.
-4. Verify one real sequence: register a synthetic test account with development
+4. Preserve the verified sequence: register a synthetic test account with development
    contact verification, wait for Ready, explicitly sign in, read the profile,
-   refresh, and log out. Extend coverage to recovery using the existing suites.
+   refresh, and log out. Reuse its passing CI baseline; rerun relevant suites when
+   changes affect that sequence. Recovery is already covered by the existing suites.
    Keep Kavenegar and all external SMS/email/voice delivery off. Never log secrets,
    contact codes, recovery codes, session cookies or passwords.
 5. Trace the console's existing launch link through to that verified Identity
