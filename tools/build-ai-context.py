@@ -11,8 +11,8 @@ sources = [
     ('Platform', root, 'apps/console/src/app/[locale]/page.tsx'),
     ('Platform', root, 'apps/console/src/app/globals.css'),
     ('Identity', root.parent/'SmartCoreIdentity', 'web/identity/src/app/globals.css'),
-    ('Business', root.parent/'SmartCoreServiceBusiness', 'frontend/components/app-shell.tsx'),
-    ('Business', root.parent/'SmartCoreServiceBusiness', 'frontend/app/globals.css'),
+    ('Legacy Business reference', root.parent/'SmartCoreServiceBusiness', 'frontend/components/app-shell.tsx'),
+    ('Legacy Business reference CSS', root.parent/'SmartCoreServiceBusiness', 'frontend/app/globals.css'),
 ]
 text = [
     '# SmartCore design context\n',
@@ -20,6 +20,8 @@ text = [
     'This is an implemented modular-platform UI, not a KimiaBeauty website.\n',
     'Canonical tokens are in Platform/packages/design/smartcore.css; copies in apps are generated.\n',
     'The console is public navigation. Real authentication and organization-scoped permissions are separate.\n',
+    'SmartCoreServiceBusiness content is legacy visual/reference material only; it is not the canonical Business owner or API.\n',
+    'SmartCoreBusiness is the foundation owner; SmartCoreBusinessCapability owns Service and other capability semantics.\n',
 ]
 for label, repository, relative in sources:
     path = repository/relative

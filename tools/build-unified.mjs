@@ -15,12 +15,14 @@ const apps = [
       NEXT_PUBLIC_PRIVATE_TEST_MODE: "false",
     },
   },
-  {
+];
+if (process.argv.includes("--legacy-business-preview")) {
+  apps.push({
     name: "business",
     root: resolve(root, "../SmartCoreServiceBusiness/frontend"),
     env: { NEXT_PUBLIC_SMARTCORE_CONSOLE_ORIGIN: "http://127.0.0.1:4100" },
-  },
-];
+  });
+}
 for (const app of apps) {
   console.log(`Building ${app.name} UI preview`);
   const child = spawn(

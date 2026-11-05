@@ -32,20 +32,35 @@ export const modules: Module[] = [
     ],
   },
   {
-    id: "business",
-    name: label("مدیریت کسب‌وکار", "Business management"),
+    id: "business-foundation",
+    name: label("بنیان کسب‌وکار", "Business foundation"),
     summary: label(
-      "سازمان‌دهی کسب‌وکار، شعب، دسته‌بندی‌ها و خدمات.",
-      "Organize businesses, locations, service categories and services.",
+      "پروفایل محلی‌سازی‌شده، دسته‌بندی و فعال‌سازی صریح قابلیت‌های کسب‌وکار.",
+      "Localized profiles, classification and explicit capability activation for a Business.",
     ),
     category: "business",
     icon: "building",
-    readiness: "interface",
-    originKey: "SMARTCORE_BUSINESS_ORIGIN",
+    readiness: "planned",
     capabilities: [
       label("پروفایل کسب‌وکار", "Business profile"),
-      label("شعب و خدمات", "Locations & services"),
-      label("سیاست‌های کسب‌وکار", "Business policies"),
+      label("زبان‌های پیش‌فرض و ترجمه", "Default locale and translations"),
+      label("فعالسازی قابلیت‌ها", "Capability activation"),
+    ],
+  },
+  {
+    id: "business-capability",
+    name: label("قابلیت‌های کسب‌وکار", "Business capabilities"),
+    summary: label(
+      "ترکیب قابلیت‌های مالکیت‌شده، مانند سرویس و بازرگانی، برای هر کسب‌وکار.",
+      "Compose owned capabilities, such as Service and future Commerce, for each Business.",
+    ),
+    category: "business",
+    icon: "layers",
+    readiness: "planned",
+    capabilities: [
+      label("کاتالوگ سرویس و ترجمه", "Service catalog and translations"),
+      label("مدیریت حالت فعالیت", "Scoped activation state"),
+      label("گسترش آینده بدون پیوند اجباری", "Independent future composition"),
     ],
   },
   {

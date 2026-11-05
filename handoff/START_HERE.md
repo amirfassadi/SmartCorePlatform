@@ -12,7 +12,7 @@ the starting point for the new UI work. KimiaBeauty is postponed.
 | --- | --- | --- |
 | Platform and console | `codex/unified-console` | https://github.com/amirfassadi/SmartCorePlatform/pull/12 |
 | Identity implementation | `codex/unified-identity-ui` | https://github.com/amirfassadi/SmartCoreIdentity/pull/8 |
-| Service Business | `codex/unified-business-ui` | https://github.com/amirfassadi/SmartCoreServiceBusiness/pull/1 |
+| SmartCoreServiceBusiness legacy/reference UI | `codex/unified-business-ui` | https://github.com/amirfassadi/SmartCoreServiceBusiness/pull/1; visual/reference only |
 
 Identity #8 is based on `review/identity-bff`, not main. All three requests are
 Draft; existing Identity and Platform contract/release dependencies still apply.
@@ -21,7 +21,7 @@ Do not flatten histories or merge draft stacks to make the workspace look clean.
 ## What already works
 
 - Shared original design, self-hosted Vazirmatn, Persian/English and RTL/LTR.
-- A console with eight capability entries, search, categories, browser favorites,
+- A console with distinct foundation/capability entries, search, categories, browser favorites,
   light/dark preferences and responsive navigation.
 - Matching Identity account and Service Business interfaces with return links.
 - Actual local cross-app navigation, tested at desktop and 320/390px widths.

@@ -1,12 +1,18 @@
 # SmartCore continuation map — 2026-11-05
 
+## Primary continuation entry
+
+Use the full corrected workspace first:
+`E:/miranco.project/SmartCorePlatform/SmartCorePlatform_VSCode_Workspace/SmartCorePlatform.corrected.code-workspace`.
+The following three-repository workspace is an optional scoped UI review view only.
+
 ## Selected sources
 
 | Repository | Isolated continuation branch | Base |
 | --- | --- | --- |
 | SmartCorePlatform | `codex/unified-console` | fresh `origin/main`, `9fa0266` |
 | SmartCoreIdentity | `codex/unified-identity-ui` | `origin/review/identity-bff`, `7000fba` |
-| SmartCoreServiceBusiness | `codex/unified-business-ui` | fresh `origin/main`, `6486e68` |
+| SmartCoreServiceBusiness legacy/reference UI | `codex/unified-business-ui` | UI review worktree HEAD `2d087c5`; not canonical Business |
 
 These are separate worktrees under `E:/miranco.project/SmartCore-unified`.
 They preserve the original checkouts, divergent local commits, untracked files,
@@ -22,17 +28,24 @@ The active Identity main is documentation-only and diverges by one/three commits
 The legacy Identity checkout is also documentation-only. PR #7's implementation
 branch contains the existing account UI, BFF, backend, migrations and tests, so
 the UI continuation is stacked there rather than discarding that work.
-Service Business already contains a phase-one admin interface and tests.
+Service Business remains a legacy implementation/reference: selected UI and utility
+patterns may be reviewed, but its data model and backend are not the canonical
+Business foundation. SmartCoreBusiness owns the foundation and
+SmartCoreBusinessCapability owns capability semantics.
 
 ## Boundaries
 
 - Platform owns navigation, capability discovery and the shared design foundation.
 - Identity owns account, registration, recovery and the existing secure BFF flows.
-- Service Business retains its own business context, API adapters and feature forms.
+- Service Business is legacy reuse/reference material only; it does not own the
+  canonical new Business or Service models.
+- Original legacy ServiceBusiness HEAD is `6486e68`; the UI review worktree HEAD is
+  separately `2d087c5`. The two SHAs must not be assigned to the same checkout/branch.
 - The shell does not assert user identity, tenant selection, SSO or API readiness.
-- The eight visible capabilities are a product navigation map, not a claim that
-  all eight have implemented or connected production services. Business groups
-  business/service-business capabilities into one entry point.
+- The visible capability entries are navigation proposals, not claims that every
+  entry has an implementation or connected production service. Business is shown
+  distinctly as the foundation and capability-composition surfaces; ServiceBusiness
+  is not their launcher or canonical backend.
 - KimiaBeauty remains an independent future example/customer surface.
 
 ## Canonical integration still required

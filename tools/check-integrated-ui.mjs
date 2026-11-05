@@ -23,25 +23,22 @@ try{
     if(screenshotRoot)await page.screenshot({path:`${screenshotRoot}/identity-preview-${locale}.png`,fullPage:true});
     assert.deepEqual(accountRequests,[],'Disabled account preview dispatches no BFF requests');
     await page.locator('.platform-return').click();await page.waitForURL(`http://127.0.0.1:4100/${locale}`);
-    await page.goto(`http://127.0.0.1:4100/${locale}/modules/business`);
-    await page.locator('.module-detail a.button').click();await page.waitForURL(`http://127.0.0.1:4102/${locale}`);
-    assert.equal(await page.locator('html').getAttribute('lang'),locale);
-    assert.equal(await page.locator('html').getAttribute('dir'),locale==='fa'?'rtl':'ltr');
-    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--sc-primary').trim()),token);
-    await page.locator('nav a[href$="/service-categories"]').click();await page.waitForURL(`http://127.0.0.1:4102/${locale}/service-categories`);
-    assert.equal(await page.locator('nav a[aria-current=page]').getAttribute('href'),`/${locale}/service-categories`);
-    await page.evaluate(()=>document.fonts.ready);
-    if(screenshotRoot)await page.screenshot({path:`${screenshotRoot}/business-${locale}.png`,fullPage:true});
-    await page.getByRole('link',{name:locale==='fa'?'EN':'FA',exact:true}).click();await page.waitForURL(`http://127.0.0.1:4102/${locale==='fa'?'en':'fa'}/service-categories`);
-    for(const width of [390,320]){
-      await page.setViewportSize({width,height:844});
-      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Business overflow ${locale}/${width}`);
+    for(const slug of ['business-foundation','business-capability']){
+      await page.goto(`http://127.0.0.1:4100/${locale}/modules/${slug}`);
+      assert.equal(await page.locator('.module-detail button:disabled').count(),1);
+      assert.equal(await page.locator('.module-detail a.button').count(),0);
+      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Business unavailable overflow ${locale}`);
     }
-    if(screenshotRoot)await page.screenshot({path:`${screenshotRoot}/business-mobile-${locale}.png`,fullPage:true});
+    if(process.argv.includes('--legacy-business-preview')){
+      await page.goto(`http://127.0.0.1:4100/${locale}/modules`);
+      await page.goto(`http://127.0.0.1:4102/${locale}`);
+      await page.evaluate(()=>document.fonts.ready);
+      if(screenshotRoot)await page.screenshot({path:`${screenshotRoot}/legacy-business-reference-${locale}.png`,fullPage:true});
+    }
     await page.goto(`http://127.0.0.1:4101/${locale}`);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Identity preview overflow ${locale}`);
     assert.deepEqual(faults,[],'No cross-app runtime errors');
     await context.close();
   }
-  console.log('PASS: real console → Identity → console → Business navigation, shared design tokens/fonts, disabled preview makes no BFF requests, fa/en document direction, categories route, locale-preserving navigation, 320/390px layouts. Backend services were not started or simulated.');
+  console.log('PASS: real console → Identity → console navigation, shared design tokens/fonts, disabled account preview makes no BFF requests, Business foundation/capability entries remain disabled, fa/en direction, 320/390px layouts. Optional legacy preview is not executed by default. Backend services were not started or simulated.');
 }finally{await browser.close();}

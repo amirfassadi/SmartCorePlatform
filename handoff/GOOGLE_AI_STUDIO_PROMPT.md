@@ -7,6 +7,10 @@ Work from that code; do not propose replacing it with a new template or framewor
 SmartCore is the parent platform. Identity, Business, Reservation, Scheduling,
 Inventory, Communications, Talk and IoT are capabilities within its navigation.
 KimiaBeauty is a postponed future customer/example surface, not the parent brand.
+SmartCoreBusiness owns the generic Business foundation, profile translations and
+capability activation metadata. SmartCoreBusinessCapability owns capability semantics
+such as Service. SmartCoreServiceBusiness is legacy/reference material only; it is
+not the canonical Business admin or backend and must not be presented as such.
 
 The implemented direction is restrained and modern: indigo accents, light neutral
 surfaces, clear spacing, self-hosted Vazirmatn, Persian-first RTL plus complete English

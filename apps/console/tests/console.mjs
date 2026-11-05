@@ -29,7 +29,7 @@ try {
       locale === "fa" ? "rtl" : "ltr",
     );
     await page.locator(".module-card").first().waitFor();
-    assert.equal(await page.locator(".module-card").count(), 8);
+    assert.equal(await page.locator(".module-card").count(), 9);
     await page.evaluate(() => document.fonts.ready);
     assert(
       await page.evaluate(() => document.fonts.check("14px SmartCore")),
@@ -82,6 +82,12 @@ try {
       await page.locator(".module-detail button:disabled").count(),
       1,
     );
+    await page.goto(`/${locale}/modules/business-foundation`);
+    assert.equal(await page.locator(".module-detail button:disabled").count(), 1);
+    assert.equal(await page.locator(".module-detail a.button").count(), 0);
+    await page.goto(`/${locale}/modules/business-capability`);
+    assert.equal(await page.locator(".module-detail button:disabled").count(), 1);
+    assert.equal(await page.locator(".module-detail a.button").count(), 0);
     assert.equal(
       (await page.goto(`/${locale}/modules/not-a-module`)).status(),
       404,
@@ -155,7 +161,7 @@ try {
     await context.close();
   }
   console.log(
-    "PASS: fa/en direction, 8 modules, search, persisted favorites, configured launch URL, unavailable modules, 404 boundaries, dark-theme persistence, language navigation, 320/390px menu and layout, self-hosted fonts, nonce CSP, no runtime errors.",
+    "PASS: fa/en direction, 9 modules, search, persisted favorites, configured launch URL, unavailable modules, 404 boundaries, dark-theme persistence, language navigation, 320/390px menu and layout, self-hosted fonts, nonce CSP, no runtime errors.",
   );
 } finally {
   await browser.close();

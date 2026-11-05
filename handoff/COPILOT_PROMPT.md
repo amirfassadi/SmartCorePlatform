@@ -20,11 +20,17 @@ Work only in these isolated continuation checkouts:
    `review/identity-bff`.
 3. Business: `E:/miranco.project/SmartCore-unified/SmartCoreServiceBusiness`, branch
    `codex/unified-business-ui`, PR amirfassadi/SmartCoreServiceBusiness#1.
+   This checkout is legacy/reference only. The canonical owners are
+   SmartCoreBusiness and SmartCoreBusinessCapability; do not connect this backend
+   as the generic Business API or copy its schema wholesale.
 
 Verify those branch names, actual HEADs and working changes before editing. Preserve
 any new user changes. Older checkouts, unexplained deletions and archives are outside
 this task. KimiaBeauty is explicitly postponed. Do not reset, clean, force-push,
 delete old copies, merge the existing PR stack or mark proposed ADRs accepted.
+The default workflow is Console plus Identity. SmartCoreBusiness foundation and
+SmartCoreBusinessCapability screens remain unavailable until implemented. Only an
+explicit `--legacy-business-preview` flag may launch ServiceBusiness as visual reference.
 
 The shared original shell already exists and has been browser-tested. Keep it:
 Next.js 16.4.5, React 19.3, Persian/English, proper RTL/LTR, shared indigo design tokens,

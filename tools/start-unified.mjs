@@ -1,4 +1,4 @@
-// Launch only these three UIs. No database reset, API bypass, or production setup.
+// Default launch is Console + Identity. Legacy Business preview is opt-in.
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
@@ -11,7 +11,6 @@ const apps = [
     port: 4100,
     env: {
       SMARTCORE_IDENTITY_ORIGIN: "http://127.0.0.1:4101",
-      SMARTCORE_BUSINESS_ORIGIN: "http://127.0.0.1:4102",
     },
   },
   {
@@ -20,13 +19,15 @@ const apps = [
     port: 4101,
     env: { SMARTCORE_CONSOLE_ORIGIN: "http://127.0.0.1:4100" },
   },
-  {
+];
+if (process.argv.includes("--legacy-business-preview")) {
+  apps.push({
     name: "business",
     root: resolve(root, "../SmartCoreServiceBusiness/frontend"),
     port: 4102,
     env: { NEXT_PUBLIC_SMARTCORE_CONSOLE_ORIGIN: "http://127.0.0.1:4100" },
-  },
-];
+  });
+}
 for (const app of apps)
   if (!existsSync(join(app.root, ".next/BUILD_ID")))
     throw Error(`Build ${app.name} first: ${app.root}`);
@@ -65,8 +66,11 @@ for (const app of apps) {
 }
 for (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, stop);
 console.log(
-  "SmartCore: http://127.0.0.1:4100/fa · Identity :4101 · Business :4102",
+  "SmartCore: http://127.0.0.1:4100/fa · Identity :4101",
 );
+if (process.argv.includes("--legacy-business-preview")) {
+  console.log("Legacy/reference Business preview: http://127.0.0.1:4102 (not a canonical Business link)");
+}
 console.log(
   "UI preview only. Real account journeys require the existing private Identity stack.",
 );
