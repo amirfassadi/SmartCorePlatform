@@ -1,0 +1,60 @@
+name: Corrected domain restoration
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/domain-restoration.yml"
+      - "REPRODUCIBILITY.md"
+      - "RESTORE_FROM_GITHUB.md"
+
+permissions:
+  contents: read
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify cross-repository restoration credential
+        env:
+          SMARTCORE_REVIEW_TOKEN: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
+        run: |
+          if [ -z "$SMARTCORE_REVIEW_TOKEN" ]; then
+            echo "::error::Owner configuration required: add repository secret SMARTCORE_REVIEW_TOKEN to SmartCorePlatform with read Contents access to SmartCoreBusiness and SmartCoreBusinessCapability. No secret value belongs in source or logs."
+            exit 1
+          fi
+
+      - name: Restore pinned Business implementation
+        uses: actions/checkout@v4
+        with:
+          repository: amirfassadi/SmartCoreBusiness
+          ref: 193353848bcd427195bb71529f0cd8b0ce1a3493
+          path: SmartCoreBusiness
+          token: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
+          persist-credentials: false
+
+      - name: Restore pinned Capability implementation
+        uses: actions/checkout@v4
+        with:
+          repository: amirfassadi/SmartCoreBusinessCapability
+          ref: b9904e53f85be43b269b6ea56f4661982cec0f76
+          path: SmartCoreBusinessCapability
+          token: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Verify pinned heads
+        run: |
+          test "$(git -C SmartCoreBusiness rev-parse HEAD)" = "193353807d44fdbaaf15a24a0a6b5fdc0d7b05d6"
+          test "$(git -C SmartCoreBusinessCapability rev-parse HEAD)" = "b9904e53f85be43b269b6ea56f4661982cec0f76"
+
+      - name: Run Business suite
+        working-directory: SmartCoreBusiness
+        run: npm test
+
+      - name: Run Capability suite and cross-repository contract
+        working-directory: SmartCoreBusinessCapability
+        run: npm test

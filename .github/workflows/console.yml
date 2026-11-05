@@ -1,0 +1,36 @@
+name: Platform console
+on:
+  push:
+    paths: ['apps/console/**', 'packages/design/**', 'tools/sync-design.mjs', '.github/workflows/console.yml']
+  pull_request:
+    paths: ['apps/console/**', 'packages/design/**', 'tools/sync-design.mjs', '.github/workflows/console.yml']
+permissions:
+  contents: read
+jobs:
+  console:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/console/package-lock.json
+      - run: npm ci --ignore-scripts --prefix apps/console
+      - run: node tools/sync-design.mjs --check
+      - run: npm run typecheck --prefix apps/console
+      - run: npm run build --prefix apps/console
+      - run: npx --prefix apps/console playwright install --with-deps chromium
+      - name: Browser verification
+        env:
+          SMARTCORE_IDENTITY_ORIGIN: http://127.0.0.1:4101
+          SMARTCORE_BUSINESS_ORIGIN: http://127.0.0.1:4102
+        run: |
+          npm run start --prefix apps/console > /tmp/console.log 2>&1 &
+          CONSOLE_PID=$!
+          trap 'kill "$CONSOLE_PID"' EXIT
+          for i in $(seq 1 60); do
+            if curl --silent --fail http://127.0.0.1:4100/fa > /dev/null; then break; fi
+            sleep 1
+          done
+          npm run test:browser --prefix apps/console
