@@ -61,6 +61,12 @@ Verified remote main:
 - Workspace generator syntax:
   `node tools/generate-corrected-workspace.mjs ...`; generated 16 roots with
   labels/path semantics matching the local corrected workspace.
+- Added `REPRODUCIBILITY.md`, `RESTORE_FROM_GITHUB.md`, and a pinned
+  GitHub Actions restoration workflow for the Business/Capability sibling layout.
+- Fresh GitHub-backed clean restore completed with Node `v24.20.0`.
+  Business restored at `f12c160...` and passed 10/10 tests.
+  Capability restored at `9ea3019...` and passed 9/9 tests, including the actual
+  cross-repository integration contract.
 - Console and workflow scripts passed `node --check`.
 - Corrected workspace: 16 folders, JSON valid, all resolved roots exist.
 - `node tools/build-unified.mjs`: Console and Identity production builds passed.

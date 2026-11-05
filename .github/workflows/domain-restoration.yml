@@ -1,0 +1,47 @@
+name: Corrected domain restoration
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/domain-restoration.yml"
+      - "REPRODUCIBILITY.md"
+      - "RESTORE_FROM_GITHUB.md"
+
+permissions:
+  contents: read
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore pinned Business implementation
+        uses: actions/checkout@v4
+        with:
+          repository: amirfassadi/SmartCoreBusiness
+          ref: f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687
+          path: SmartCoreBusiness
+
+      - name: Restore pinned Capability implementation
+        uses: actions/checkout@v4
+        with:
+          repository: amirfassadi/SmartCoreBusinessCapability
+          ref: 9ea30194293a25828bb82d46d7bf8d499a2dab84
+          path: SmartCoreBusinessCapability
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Verify pinned heads
+        run: |
+          test "$(git -C SmartCoreBusiness rev-parse HEAD)" = "f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687"
+          test "$(git -C SmartCoreBusinessCapability rev-parse HEAD)" = "9ea30194293a25828bb82d46d7bf8d499a2dab84"
+
+      - name: Run Business suite
+        working-directory: SmartCoreBusiness
+        run: npm test
+
+      - name: Run Capability suite and cross-repository contract
+        working-directory: SmartCoreBusinessCapability
+        run: npm test
