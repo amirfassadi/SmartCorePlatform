@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: amirfassadi/SmartCoreBusiness
-          ref: f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687
+          ref: b0dc2391ee801a3ce20080b1933d300fab6d259a
           path: SmartCoreBusiness
           token: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
           persist-credentials: false
@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: amirfassadi/SmartCoreBusinessCapability
-          ref: 9ea30194293a25828bb82d46d7bf8d499a2dab84
+          ref: b9904e53f85be43b269b6ea56f4661982cec0f76
           path: SmartCoreBusinessCapability
           token: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
           persist-credentials: false
@@ -48,8 +48,8 @@ jobs:
 
       - name: Verify pinned heads
         run: |
-          test "$(git -C SmartCoreBusiness rev-parse HEAD)" = "f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687"
-          test "$(git -C SmartCoreBusinessCapability rev-parse HEAD)" = "9ea30194293a25828bb82d46d7bf8d499a2dab84"
+          test "$(git -C SmartCoreBusiness rev-parse HEAD)" = "b0dc2391ee801a3ce20080b1933d300fab6d259a"
+          test "$(git -C SmartCoreBusinessCapability rev-parse HEAD)" = "b9904e53f85be43b269b6ea56f4661982cec0f76"
 
       - name: Run Business suite
         working-directory: SmartCoreBusiness

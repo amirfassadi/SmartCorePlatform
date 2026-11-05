@@ -3,10 +3,10 @@
 ## Review branches and commits
 
 - SmartCoreBusiness: `codex/business-domain-validation`, commit
-  `f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687`.
+  `b0dc2391ee801a3ce20080b1933d300fab6d259a`.
 - SmartCoreBusinessCapability:
   `codex/business-capability-validation`, commit
-  `9ea30194293a25828bb82d46d7bf8d499a2dab84`.
+  `b9904e53f85be43b269b6ea56f4661982cec0f76`.
 - Unified console: `codex/unified-console`, base/head before this contract result commit
   `21951b04b7d0f3a1d6ef6d636162627834baf717`.
 - Unified console ownership correction commit:
@@ -48,14 +48,21 @@ Verified remote main:
   inactive snapshot, missing default translation and foreign category coverage.
 - Added an executable cross-repository integration test using the actual
   SmartCoreBusiness and SmartCoreBusinessCapability implementations.
+- Added asynchronous Business repository/application ports, an in-memory
+  JSON-record adapter and mutation-isolated persistence round trips.
+- Added the in-memory ServiceCategory lookup adapter and executable
+  create/store/reload/activate/project/category/Service integration command.
 - Added a parameterized workspace generator/template preserving all 16 roots.
 
 ## Commands and results
 
-- Business domain suite: `npm test` from `SmartCoreBusiness`, 10/10 passed.
+- Business domain suite: `npm test` from `SmartCoreBusiness`, 12/12 passed.
 - BusinessCapability domain suite: `npm test` from
-  `SmartCoreBusinessCapability`, 9/9 passed, including the actual implementation
+  `SmartCoreBusinessCapability`, 10/10 passed, including the actual implementation
   cross-repository integration test.
+- Business-to-Service integration command: `npm run integration` from
+  `SmartCoreBusinessCapability`, passed with persisted/reloaded Business activation,
+  JSON projection, matching category lookup and fallback reads.
 - Standards matrix covered canonical scripts/regions/extensions, `iw`/`he`,
   malformed tags and JSON-safe projection restoration.
 - Workspace generator syntax:
@@ -63,9 +70,9 @@ Verified remote main:
   labels/path semantics matching the local corrected workspace.
 - Added `REPRODUCIBILITY.md`, `RESTORE_FROM_GITHUB.md`, and a pinned
   GitHub Actions restoration workflow for the Business/Capability sibling layout.
-- Fresh GitHub-backed clean restore completed with Node `v24.20.0`.
-  Business restored at `f12c160...` and passed 10/10 tests.
-  Capability restored at `9ea3019...` and passed 9/9 tests, including the actual
+- Prior GitHub-backed clean restore completed with Node `v24.20.0`.
+  Business restored at the prior `f12c160...` base and passed 10/10 tests.
+  Capability restored at the prior `9ea3019...` base and passed 9/9 tests, including the actual
   cross-repository integration contract.
 - Console and workflow scripts passed `node --check`.
 - Corrected workspace: 16 folders, JSON valid, all resolved roots exist.

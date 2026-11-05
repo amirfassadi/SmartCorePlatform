@@ -18,10 +18,10 @@ it rather than being replaced by a hand-maintained imitation.
 
 - Business repository:
   `codex/business-domain-validation` at
-  `f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687`
+  `b0dc2391ee801a3ce20080b1933d300fab6d259a`
 - Capability repository:
   `codex/business-capability-validation` at
-  `9ea30194293a25828bb82d46d7bf8d499a2dab84`
+  `b9904e53f85be43b269b6ea56f4661982cec0f76`
 
 ## Clean PowerShell restoration
 
@@ -29,9 +29,9 @@ it rather than being replaced by a hand-maintained imitation.
 $root = Join-Path $env:TEMP "smartcore-reviewed-restore"
 Remove-Item $root -Recurse -Force -ErrorAction SilentlyContinue
 git clone https://github.com/amirfassadi/SmartCoreBusiness.git "$root/SmartCoreBusiness"
-git -C "$root/SmartCoreBusiness" checkout --detach f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687
+git -C "$root/SmartCoreBusiness" checkout --detach b0dc2391ee801a3ce20080b1933d300fab6d259a
 git clone https://github.com/amirfassadi/SmartCoreBusinessCapability.git "$root/SmartCoreBusinessCapability"
-git -C "$root/SmartCoreBusinessCapability" checkout --detach 9ea30194293a25828bb82d46d7bf8d499a2dab84
+git -C "$root/SmartCoreBusinessCapability" checkout --detach b9904e53f85be43b269b6ea56f4661982cec0f76
 node --version
 npm --prefix "$root/SmartCoreBusiness" test
 npm --prefix "$root/SmartCoreBusinessCapability" test

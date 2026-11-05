@@ -4,8 +4,8 @@
 
 | Repository | Review branch | Implementation SHA | Role |
 | --- | --- | --- | --- |
-| https://github.com/amirfassadi/SmartCoreBusiness | `codex/business-domain-validation` | `f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687` | Canonical Business foundation and locale/profile projection |
-| https://github.com/amirfassadi/SmartCoreBusinessCapability | `codex/business-capability-validation` | `9ea30194293a25828bb82d46d7bf8d499a2dab84` | Canonical Service/Capability semantics |
+| https://github.com/amirfassadi/SmartCoreBusiness | `codex/business-domain-validation` | `b0dc2391ee801a3ce20080b1933d300fab6d259a` | Canonical Business foundation, repository/application flow and locale/profile projection |
+| https://github.com/amirfassadi/SmartCoreBusinessCapability | `codex/business-capability-validation` | `b9904e53f85be43b269b6ea56f4661982cec0f76` | Canonical Service semantics, category adapter and sibling integration |
 | https://github.com/amirfassadi/SmartCorePlatform | `codex/unified-console` | PR #12 final review head | Console, ownership, workspace, restoration and implementation handoff |
 | https://github.com/amirfassadi/SmartCoreIdentity | development review branch/commit | `619c7583f94597a5f662704c981ec5d7ebf69816` | Development Identity UI and implementation review evidence |
 | https://github.com/amirfassadi/SmartCoreServiceBusiness | optional legacy UI view/branch | `2d087c5c6f7936ec2662a93a25a458efde8c91d4` | Legacy visual/reference UI only |
