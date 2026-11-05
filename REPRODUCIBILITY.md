@@ -6,7 +6,7 @@
 | --- | --- | --- | --- |
 | https://github.com/amirfassadi/SmartCoreBusiness | `codex/business-domain-validation` | `f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687` | Canonical Business foundation and locale/profile projection |
 | https://github.com/amirfassadi/SmartCoreBusinessCapability | `codex/business-capability-validation` | `9ea30194293a25828bb82d46d7bf8d499a2dab84` | Canonical Service/Capability semantics |
-| https://github.com/amirfassadi/SmartCorePlatform | `codex/unified-console` | `42da3da4c5dc80abeb076996a8e2aa9ab8a0901b` | Console, ownership, workspace and implementation handoff base |
+| https://github.com/amirfassadi/SmartCorePlatform | `codex/unified-console` | `54843daafff04aa1b8c3de6b10a6749f8d8c6749` | Console, ownership, workspace, restoration and implementation handoff |
 | https://github.com/amirfassadi/SmartCoreIdentity | development review branch/commit | `619c7583f94597a5f662704c981ec5d7ebf69816` | Development Identity UI and implementation review evidence |
 | https://github.com/amirfassadi/SmartCoreServiceBusiness | optional legacy UI view/branch | `2d087c5c6f7936ec2662a93a25a458efde8c91d4` | Legacy visual/reference UI only |
 
