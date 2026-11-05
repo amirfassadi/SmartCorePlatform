@@ -9,6 +9,8 @@
   `5764d5c7b235c5b8d8551a48dea84acac698aa30`.
 - Unified console: `codex/unified-console`, base/head before this result commit
   `21951b04b7d0f3a1d6ef6d636162627834baf717`.
+- Unified console ownership correction commit:
+  `03c5ba5` (to be followed by the result-record commit listed in Git status).
 - Identity implementation review remains `codex/unified-identity-ui`, unchanged
   exact SHA `619c7583f94597a5f662704c981ec5d7ebf69816`.
 - Legacy ServiceBusiness UI review remains `codex/unified-business-ui`, unchanged
