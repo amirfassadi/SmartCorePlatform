@@ -17,3 +17,13 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Frontend build output and local settings
+node_modules/
+.next/
+out/
+playwright-report/
+test-results/
+.env*
+!.env.example
+*.tsbuildinfo

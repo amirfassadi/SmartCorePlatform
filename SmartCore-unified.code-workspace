@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {"name": "SmartCore · Platform & Console", "path": "."},
+    {"name": "SmartCore · Identity implementation", "path": "../SmartCoreIdentity"},
+    {"name": "SmartCore · Service Business", "path": "../SmartCoreServiceBusiness"}
+  ],
+  "settings": {
+    "files.encoding": "utf8",
+    "git.autoRepositoryDetection": "subFolders",
+    "search.exclude": {"**/node_modules": true, "**/.next": true, "**/bin": true, "**/obj": true},
+    "files.exclude": {"**/.next": true}
+  }
+}

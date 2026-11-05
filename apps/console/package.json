@@ -1,0 +1,28 @@
+{
+  "name": "@smartcore/console",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 4100",
+    "build": "next build --webpack",
+    "start": "next start --hostname 127.0.0.1 --port 4100",
+    "typecheck": "tsc --noEmit",
+    "test:browser": "node tests/console.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "@fontsource/vazirmatn": "5.2.8"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.3",
+    "@types/react-dom": "19.2.3",
+    "playwright": "1.56.1"
+  }
+}
