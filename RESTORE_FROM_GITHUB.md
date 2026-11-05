@@ -44,3 +44,23 @@ Use Node 24. If GitHub access is unavailable or private access blocks cloning,
 report the affected repository and clone error; do not expose credentials.
 This evidence restores the reviewed in-memory implementation only. It does not
 claim SQL, HTTP, production authorization or live backend recovery.
+
+## GitHub Actions credential requirement
+
+The previous workflow failed because the Platform workflow's default
+`GITHUB_TOKEN` could not read the sibling Business repositories:
+`repository ... not found`.
+
+To restore from Actions, add a repository secret named
+`SMARTCORE_REVIEW_TOKEN` to the `SmartCorePlatform` repository. The credential
+must be a fine-grained PAT or existing GitHub App installation token with
+read-only Contents access to only:
+
+- `amirfassadi/SmartCoreBusiness`
+- `amirfassadi/SmartCoreBusinessCapability`
+
+Do not add repository administration, write contents, workflows, packages or
+customer secret scopes. Do not place the token value in this guide, workflow,
+logs, commits or handoff archive. If the owner has not configured the secret,
+the workflow intentionally stops with a named configuration-error before any
+sibling checkout or tests.

@@ -79,6 +79,11 @@ Verified remote main:
   CI evidence only and is reused at exact source SHA.
 - Handoff ZIP regenerated with a five-file explicit allowlist. The archive was
   byte-verified against its current source files.
+- Restoration workflow run `42107487499` was diagnosed from job annotations:
+  `SmartCoreBusiness` checkout failed before tests because the sibling
+  repository was inaccessible to the Platform workflow's default token.
+  The corrected workflow now requires repository secret
+  `SMARTCORE_REVIEW_TOKEN` with read-only contents access to both sibling repositories.
 
 ## Limitations
 

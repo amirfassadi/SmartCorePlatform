@@ -15,12 +15,23 @@ jobs:
   restore:
     runs-on: ubuntu-latest
     steps:
+      - name: Verify cross-repository restoration credential
+        env:
+          SMARTCORE_REVIEW_TOKEN: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
+        run: |
+          if [ -z "$SMARTCORE_REVIEW_TOKEN" ]; then
+            echo "::error::Owner configuration required: add repository secret SMARTCORE_REVIEW_TOKEN to SmartCorePlatform with read Contents access to SmartCoreBusiness and SmartCoreBusinessCapability. No secret value belongs in source or logs."
+            exit 1
+          fi
+
       - name: Restore pinned Business implementation
         uses: actions/checkout@v4
         with:
           repository: amirfassadi/SmartCoreBusiness
           ref: f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687
           path: SmartCoreBusiness
+          token: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
+          persist-credentials: false
 
       - name: Restore pinned Capability implementation
         uses: actions/checkout@v4
@@ -28,6 +39,8 @@ jobs:
           repository: amirfassadi/SmartCoreBusinessCapability
           ref: 9ea30194293a25828bb82d46d7bf8d499a2dab84
           path: SmartCoreBusinessCapability
+          token: ${{ secrets.SMARTCORE_REVIEW_TOKEN }}
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:

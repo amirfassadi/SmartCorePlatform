@@ -6,7 +6,7 @@
 | --- | --- | --- | --- |
 | https://github.com/amirfassadi/SmartCoreBusiness | `codex/business-domain-validation` | `f12c16096ba97f3474aefdb4a0ae9e2ac1ca7687` | Canonical Business foundation and locale/profile projection |
 | https://github.com/amirfassadi/SmartCoreBusinessCapability | `codex/business-capability-validation` | `9ea30194293a25828bb82d46d7bf8d499a2dab84` | Canonical Service/Capability semantics |
-| https://github.com/amirfassadi/SmartCorePlatform | `codex/unified-console` | `54843daafff04aa1b8c3de6b10a6749f8d8c6749` | Console, ownership, workspace, restoration and implementation handoff |
+| https://github.com/amirfassadi/SmartCorePlatform | `codex/unified-console` | PR #12 final review head | Console, ownership, workspace, restoration and implementation handoff |
 | https://github.com/amirfassadi/SmartCoreIdentity | development review branch/commit | `619c7583f94597a5f662704c981ec5d7ebf69816` | Development Identity UI and implementation review evidence |
 | https://github.com/amirfassadi/SmartCoreServiceBusiness | optional legacy UI view/branch | `2d087c5c6f7936ec2662a93a25a458efde8c91d4` | Legacy visual/reference UI only |
 
@@ -54,3 +54,11 @@ node tools/generate-corrected-workspace.mjs `
 ```
 
 The template contains labels/placeholders, not machine-specific absolute paths.
+
+## GitHub restoration credential
+
+GitHub Actions cross-repository checkout requires repository-secret
+`SMARTCORE_REVIEW_TOKEN` with read-only Contents permission for the two pinned
+Business repositories. The secret is an owner configuration, not a source code
+deliverable. The workflow stops explicitly until this minimum read credential
+is available. No credential is stored in this repository or archive.
